@@ -1,0 +1,40 @@
+name: M0 validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.18"
+          enable-cache: true
+      - run: npm ci
+      - run: uv sync --project python --frozen
+      - run: uv run --project python python scripts/check-public-secrets.py
+      - run: npm run check
+      - run: npm run test
+      - run: npm run build
+      - run: uv run --project python pytest
+      - run: npm run m0:pi
+      - run: npm run skills:audit
+      - run: npm run m0:preflight
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m0-preflight-${{ matrix.os }}
+          path: artifacts/m0/preflight.json

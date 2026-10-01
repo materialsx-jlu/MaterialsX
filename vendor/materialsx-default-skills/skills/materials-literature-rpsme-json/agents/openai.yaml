@@ -1,0 +1,4 @@
+interface:
+  display_name: "材料论文 RPSME 抽取"
+  short_description: "正文/SI联合抽取，增加证据自检、表格/OCR与评测，生成 RPSME JSON"
+  default_prompt: "使用 $materials-literature-rpsme-json 联合解析提供的论文正文 PDF 与同论文补充材料，生成可导入 Materials Ontology OS 的 RPSME Ontology 1.3 JSON；有可绑定资产时同时生成 Bundle。"

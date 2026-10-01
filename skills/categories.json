@@ -1,0 +1,170 @@
+[
+  {
+    "id": "materials-extraction",
+    "labelZh": "材料文献抽取",
+    "labelEn": "Materials extraction",
+    "skills": [
+      "materials-literature-rpsme-json",
+      "materials-xyz-extraction"
+    ]
+  },
+  {
+    "id": "structure-simulation",
+    "labelZh": "结构与模拟",
+    "labelEn": "Structures & simulation",
+    "skills": [
+      "pymatgen",
+      "molecular-dynamics",
+      "rdkit",
+      "deepchem",
+      "molfeat",
+      "torch-geometric",
+      "networkx",
+      "fluidsim",
+      "matlab",
+      "openpiv",
+      "simpy"
+    ]
+  },
+  {
+    "id": "experiment-statistics",
+    "labelZh": "实验与统计",
+    "labelEn": "Experiments & statistics",
+    "skills": [
+      "uncertainty-and-units",
+      "experimental-design",
+      "exploratory-data-analysis",
+      "statistical-analysis",
+      "statistical-power",
+      "statsmodels",
+      "pymc",
+      "sympy",
+      "hypogenic",
+      "hypothesis-generation"
+    ]
+  },
+  {
+    "id": "machine-learning",
+    "labelZh": "机器学习与数据",
+    "labelEn": "ML & data",
+    "skills": [
+      "pymoo",
+      "scikit-learn",
+      "shap",
+      "polars",
+      "dask",
+      "aeon",
+      "pytorch-lightning",
+      "timesfm-forecasting",
+      "transformers",
+      "umap-learn",
+      "stable-baselines3",
+      "pufferlib"
+    ]
+  },
+  {
+    "id": "literature-writing",
+    "labelZh": "文献与写作",
+    "labelEn": "Literature & writing",
+    "skills": [
+      "literature-review",
+      "citation-management",
+      "scientific-critical-thinking",
+      "scientific-writing",
+      "markitdown",
+      "peer-review",
+      "pyzotero",
+      "liteparse",
+      "markdown-mermaid-writing",
+      "open-notebook",
+      "paper-lookup",
+      "pptx-posters",
+      "research-grants",
+      "research-lookup",
+      "scholar-evaluation",
+      "scientific-brainstorming",
+      "scientific-slides",
+      "venue-templates"
+    ]
+  },
+  {
+    "id": "visualization",
+    "labelZh": "可视化",
+    "labelEn": "Visualization",
+    "skills": [
+      "matplotlib",
+      "seaborn",
+      "scientific-visualization",
+      "scientific-schematics"
+    ]
+  },
+  {
+    "id": "resources",
+    "labelZh": "资源与环境",
+    "labelEn": "Resources & environment",
+    "skills": [
+      "get-available-resources",
+      "optimize-for-gpu",
+      "pi-agent"
+    ]
+  },
+  {
+    "id": "laboratory",
+    "labelZh": "实验室与规范",
+    "labelEn": "Laboratory & standards",
+    "skills": [
+      "analytical-method-validation",
+      "iso-standards-readiness",
+      "lab-hardware-cad",
+      "protocolsio-integration",
+      "labarchive-integration"
+    ]
+  },
+  {
+    "id": "quantum-physics",
+    "labelZh": "量子与物理",
+    "labelEn": "Quantum & physics",
+    "skills": [
+      "cirq",
+      "pennylane",
+      "qiskit",
+      "qutip"
+    ]
+  },
+  {
+    "id": "scientific-data",
+    "labelZh": "科研数据管理",
+    "labelEn": "Research data",
+    "skills": [
+      "database-lookup",
+      "datalad",
+      "ontology-term-resolution",
+      "vaex",
+      "zarr-python",
+      "lamindb",
+      "polars-bio"
+    ]
+  },
+  {
+    "id": "chemistry-molecules",
+    "labelZh": "分子与化学",
+    "labelEn": "Molecules & chemistry",
+    "skills": [
+      "datamol",
+      "diffdock",
+      "matchms",
+      "medchem",
+      "torchdrug",
+      "pytdc"
+    ]
+  },
+  {
+    "id": "geospatial",
+    "labelZh": "地学与空间",
+    "labelEn": "Geospatial science",
+    "skills": [
+      "geopandas",
+      "geomaster"
+    ]
+  }
+]

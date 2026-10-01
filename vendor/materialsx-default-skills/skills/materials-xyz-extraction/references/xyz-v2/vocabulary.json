@@ -1,0 +1,357 @@
+{
+  "ontology_version": "2.0.0",
+  "categories": {
+    "X": {
+      "formulation": "配方与原料身份",
+      "sizing": "上浆与表面处理",
+      "impregnation_route": "预浸及浸渍路线",
+      "thermopress_history": "温度压力与保温历史",
+      "cooling_history": "冷却与卸压历史"
+    },
+    "Y": {
+      "porosity": "孔隙",
+      "impregnation_quality": "浸渍质量",
+      "crystallinity": "结晶状态",
+      "orientation": "实际取向与波纹",
+      "residual_stress": "残余应力",
+      "interface": "界面状态"
+    },
+    "Z": {
+      "stiffness": "刚度",
+      "strength": "强度",
+      "interlaminar_toughness": "层间断裂韧性",
+      "fatigue": "疲劳"
+    }
+  },
+  "field_statuses": [
+    "quantitative",
+    "qualitative",
+    "proxy_only",
+    "reported_setting",
+    "partial",
+    "not_reported",
+    "not_applicable",
+    "not_accessible",
+    "not_yet_extracted"
+  ],
+  "unit_policy": {
+    "stress_and_modulus": "MPa",
+    "temperature": "degC",
+    "duration": "min",
+    "length": "mm",
+    "dimensionless": "1",
+    "fracture_energy": "J/m2",
+    "fatigue_life": "cycle"
+  },
+  "metrics": {
+    "material_identity": {
+      "stage": "X",
+      "category": "formulation",
+      "label": "原料身份",
+      "kind": "categorical",
+      "unit": null
+    },
+    "fiber_volume_fraction": {
+      "stage": "X",
+      "category": "formulation",
+      "label": "增强体体积分数",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "fiber_mass_fraction": {
+      "stage": "X",
+      "category": "formulation",
+      "label": "增强体质量分数",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "ply_sequence": {
+      "stage": "X",
+      "category": "formulation",
+      "label": "设计铺层序列",
+      "kind": "schedule",
+      "unit": null
+    },
+    "sizing_chemistry": {
+      "stage": "X",
+      "category": "sizing",
+      "label": "上浆化学组成",
+      "kind": "text",
+      "unit": null
+    },
+    "sizing_mass_fraction": {
+      "stage": "X",
+      "category": "sizing",
+      "label": "上浆质量分数",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "route": {
+      "stage": "X",
+      "category": "impregnation_route",
+      "label": "预浸或浸渍路线",
+      "kind": "categorical",
+      "unit": null
+    },
+    "film_drying_temperature": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "薄膜干燥温度",
+      "kind": "scalar",
+      "unit": "degC"
+    },
+    "film_drying_time": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "薄膜干燥时间",
+      "kind": "scalar",
+      "unit": "min"
+    },
+    "molding_temperature": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "成型温度",
+      "kind": "scalar",
+      "unit": "degC"
+    },
+    "molding_pressure": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "成型压力",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "holding_time": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "保温时间",
+      "kind": "scalar",
+      "unit": "min"
+    },
+    "heating_rate": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "升温速率",
+      "kind": "scalar",
+      "unit": "degC/min"
+    },
+    "vacuum_absolute_pressure": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "真空绝对压力",
+      "kind": "scalar",
+      "unit": "Pa"
+    },
+    "ordered_program": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "有序工艺步骤",
+      "kind": "schedule",
+      "unit": null
+    },
+    "temperature_time_curve": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "温度时间曲线",
+      "kind": "series",
+      "unit": null
+    },
+    "pressure_time_curve": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "压力时间曲线",
+      "kind": "series",
+      "unit": null
+    },
+    "precompaction": {
+      "stage": "X",
+      "category": "thermopress_history",
+      "label": "预压状态",
+      "kind": "categorical",
+      "unit": null
+    },
+    "cooling_rate": {
+      "stage": "X",
+      "category": "cooling_history",
+      "label": "冷却速率",
+      "kind": "scalar",
+      "unit": "degC/min"
+    },
+    "cooling_endpoint": {
+      "stage": "X",
+      "category": "cooling_history",
+      "label": "冷却终点描述",
+      "kind": "text",
+      "unit": null
+    },
+    "porosity_fraction": {
+      "stage": "Y",
+      "category": "porosity",
+      "label": "孔隙体积分数",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "pore_size_distribution": {
+      "stage": "Y",
+      "category": "porosity",
+      "label": "孔径分布",
+      "kind": "series",
+      "unit": null
+    },
+    "internal_defect_map_proxy": {
+      "stage": "Y",
+      "category": "porosity",
+      "label": "内部缺陷图代理",
+      "kind": "text",
+      "unit": null
+    },
+    "impregnation_fraction": {
+      "stage": "Y",
+      "category": "impregnation_quality",
+      "label": "已浸渍比例",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "resin_coverage_fractography": {
+      "stage": "Y",
+      "category": "impregnation_quality",
+      "label": "断口树脂覆盖代理",
+      "kind": "text",
+      "unit": null
+    },
+    "crystallinity_fraction": {
+      "stage": "Y",
+      "category": "crystallinity",
+      "label": "结晶度",
+      "kind": "scalar",
+      "unit": "1"
+    },
+    "crystal_phase": {
+      "stage": "Y",
+      "category": "crystallinity",
+      "label": "晶型",
+      "kind": "categorical",
+      "unit": null
+    },
+    "orientation_tensor": {
+      "stage": "Y",
+      "category": "orientation",
+      "label": "取向张量",
+      "kind": "tensor",
+      "unit": "1"
+    },
+    "fiber_waviness_amplitude": {
+      "stage": "Y",
+      "category": "orientation",
+      "label": "纤维波纹幅值",
+      "kind": "scalar",
+      "unit": "mm"
+    },
+    "fiber_waviness_wavelength": {
+      "stage": "Y",
+      "category": "orientation",
+      "label": "纤维波纹波长",
+      "kind": "scalar",
+      "unit": "mm"
+    },
+    "residual_stress_tensor": {
+      "stage": "Y",
+      "category": "residual_stress",
+      "label": "残余应力张量",
+      "kind": "tensor",
+      "unit": "MPa"
+    },
+    "interface_fractography": {
+      "stage": "Y",
+      "category": "interface",
+      "label": "断口界面代理",
+      "kind": "text",
+      "unit": null
+    },
+    "interface_shear_strength": {
+      "stage": "Y",
+      "category": "interface",
+      "label": "尺度明确的界面剪切强度",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "flexural_modulus": {
+      "stage": "Z",
+      "category": "stiffness",
+      "label": "弯曲模量",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "tensile_modulus": {
+      "stage": "Z",
+      "category": "stiffness",
+      "label": "拉伸模量",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "shear_modulus": {
+      "stage": "Z",
+      "category": "stiffness",
+      "label": "剪切模量",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "ilss": {
+      "stage": "Z",
+      "category": "strength",
+      "label": "短梁层间剪切强度",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "flexural_strength": {
+      "stage": "Z",
+      "category": "strength",
+      "label": "弯曲强度",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "tensile_strength": {
+      "stage": "Z",
+      "category": "strength",
+      "label": "拉伸强度",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "compressive_strength": {
+      "stage": "Z",
+      "category": "strength",
+      "label": "压缩强度",
+      "kind": "scalar",
+      "unit": "MPa"
+    },
+    "mode_I_interlaminar_fracture_energy": {
+      "stage": "Z",
+      "category": "interlaminar_toughness",
+      "label": "I型层间断裂能",
+      "kind": "scalar",
+      "unit": "J/m2"
+    },
+    "mode_II_interlaminar_fracture_energy": {
+      "stage": "Z",
+      "category": "interlaminar_toughness",
+      "label": "II型层间断裂能",
+      "kind": "scalar",
+      "unit": "J/m2"
+    },
+    "fatigue_life": {
+      "stage": "Z",
+      "category": "fatigue",
+      "label": "疲劳寿命",
+      "kind": "scalar",
+      "unit": "cycle"
+    },
+    "sn_curve": {
+      "stage": "Z",
+      "category": "fatigue",
+      "label": "S-N曲线",
+      "kind": "series",
+      "unit": null
+    }
+  },
+  "extension_policy": "Unregistered metrics must start with ext. and provide a nonempty definition; never guess a standard key."
+}

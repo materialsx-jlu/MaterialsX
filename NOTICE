@@ -1,0 +1,21 @@
+MaterialsX
+© 2026 吉林大学 AI-DAOS 团队
+
+MaterialsX-owned code and documentation are licensed under the GNU Affero
+General Public License, version 3 only (SPDX: AGPL-3.0-only). See LICENSE.
+
+Third-party code, libraries, bundled runtimes, fonts, Skills, example data
+and model metadata retain their respective upstream copyright notices
+and license terms. This notice does not relicense those works.
+See THIRD_PARTY_LICENSES.md and docs/third-party/ for the inventory and
+remaining review items. Scientific publications and research data are
+not licensed by MaterialsX merely because a Skill can process them.
+
+K-Dense Scientific Agent Skills
+Copyright (c) 2025 K-Dense Inc.
+The upstream MIT license is retained at
+vendor/kdense-scientific-agent-skills/LICENSE.md.
+
+Release distributors must provide the corresponding source, build
+instructions and required upstream notices for the exact binary release,
+and review the AGPL obligations of any modified network-facing deployment.

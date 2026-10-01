@@ -1,0 +1,33 @@
+[project]
+name = "materialsx-m0"
+version = "0.0.1"
+description = "M0 scientific-runtime and document-parsing probes for MaterialsX"
+license = "AGPL-3.0-only"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "ase>=3.26,<4",
+  "jsonschema>=4.21,<5",
+  "pdfplumber>=0.11,<0.12",
+  "pillow>=12,<13",
+  "pymupdf>=1.24,<2",
+  "pypdf>=6,<7",
+  "pypdfium2>=5,<6",
+  "reportlab>=4.4,<5",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/materialsx_m0"]

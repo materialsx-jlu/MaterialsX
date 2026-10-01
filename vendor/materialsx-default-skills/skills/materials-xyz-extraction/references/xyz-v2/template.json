@@ -1,0 +1,27 @@
+{
+  "ontology": {
+    "name": "Materials XYZ Ontology",
+    "version": "2.0.0",
+    "profile": "reinforced-thermoplastic-composites"
+  },
+  "document_id": "new-study",
+  "extraction": {
+    "status": "template",
+    "tool": "materials-xyz-extraction",
+    "date": "2026-09-30",
+    "scope": "单项研究及已提供的配套材料；填写实际提取日期。",
+    "source_review": "pending",
+    "limitations": [
+      "空模板无来源、无样本、不可用于训练。"
+    ]
+  },
+  "sources": [],
+  "material_systems": [],
+  "protocols": [],
+  "evidence": [],
+  "records": [],
+  "relations": [],
+  "quality_issues": [],
+  "inventory": [],
+  "supporting_context": []
+}

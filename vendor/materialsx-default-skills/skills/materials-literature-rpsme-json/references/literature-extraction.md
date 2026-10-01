@@ -1,0 +1,39 @@
+# Literature extraction
+
+## Documents and keys
+
+Use one scholarly work as the source and represent all supplied files in top-level document_set. It has exactly one primary_document_id whose role is main and any number of supplementary/appendix/dataset_description documents. Every document records document_id, role, filename, sha256, page_count and optional URL; source.profile.documents may be retained as a compatibility mirror. Evidence/DocumentElement locators include document_id, 1-based pdf_page, optional printed page, section, table/row/column or figure/panel. SI page 3 is distinct from main page 3. Exact quotes belong in evidence_text; label paraphrases separately. A figure reference is not an invented file URI.
+
+For a new DOI source use `DOI-` plus first 20 hex characters of SHA-256 of the lowercased DOI (strip https://doi.org/; preserve meaningful punctuation before hashing). Store the full DOI, its verified URL and key scheme. Existing imported keys take precedence. A thesis uses its stable repository ID when available; otherwise `LIT-` plus a PDF hash prefix with document_identifier_scheme=pdf-sha256-prefix. Hash keys are file-stable, not edition-independent; receiving systems own deduplication. Do not invent patent numbers. Source id is SRC-<SOURCE-KEY>; experiments LIT-<SOURCE-KEY>-<STABLE-SAMPLE-KEY>. Include subrecipe/addition suffixes in usage IDs. Store sample aliases in record.profile.sample_aliases. Full publication_date is null when only a year is reported; preserve profile.publication_year. International journals can use jurisdiction=INT.
+
+## Sample registry
+
+Before final JSON create a ledger with source sample, base preparation, subrecipes, changed factors, specimen forms, result panels and source gaps. Retain it in the summary or experiment.profile.extraction_review. Distinguish optimization series, controls, stock preparations, multiple forms and measurements over time. Do not collapse distinct formulations into the best sample, or create a recipe for every plot point. Match full labels and conditions rather than name fragments.
+
+For aging/treatment, thickness-series and condition-variant experiments resolve preparation ancestry. Only documented common compositions/processes may be inherited. Store profile.preparation_parent_experiment_id and inherited_from IDs on hydrated recipes/usages/steps, with evidence for both original method and applicability. Every retained experiment must declare `profile.recipe_scope.status` as `direct`, `inherited_and_hydrated`, `opaque_commercial_product`, `not_applicable`, or `unresolved_with_reason`. A child that names a preparation parent must contain its own experiment-scoped hydrated Recipe/IngredientUsage entities; a pointer alone is not renderable or searchable. Commercial controls may be modeled as one opaque purchased-product usage, but their internal composition must remain `not_reported`. Unknown base composition remains explicitly unknown. Preparation inheritance alone is not a performance comparison, and `baseline_experiment_id` must never substitute for preparation ancestry.
+
+Accept associated SI supplied by the user. Optional public SI retrieval must verify DOI/title association. Missing SI produces a source gap, not permission to fabricate. Source scopes and conflicts remain distinguishable. Cited literature measurements are not current-paper experiments.
+
+## Recipes and material flow
+
+Preserve canonical identity, grade/supplier, purity, viscosity, concentration, molecular weight, fiber tow/areal weight and adjacent conditions/evidence. Add Chinese display names without changing source quotes. Identity is reusable; usage has its own recipe, amount, role and joining step. Different grades/stock solutions may require different material identities.
+
+Use separate Recipe nodes for independent precursors, coatings or device formulations. ODE 30 mL in Cs stock and ODE 10 mL in an NC batch are distinct events using the same identity. Injection of 1 mL stock is an aliquot of an intermediate: record CONSUMES.profile.amount as Measurement, basis and evidence. Do not infer final film composition/yield from feed doses. A layer thickness is a process/structure parameter, not a procurement mass; a layer ingredient may have unknown amount but known thickness.
+
+Do not collapse normalized formulation into the absolute amount column. Preserve stock concentration, ratio-term coefficient, nominal-formula stoichiometry and additional mol% as separate usage/constraint fields. “Additional X mol%” never replaces the component's total dose. When a reported nominal formula can be expanded to an unambiguous precursor ratio, record the auditable calculated ratio while leaving absolute masses absent if final batch volume is not reported.
+
+Use atomic operations with source_step/source_substep and continuous normalized_order. Pair temperature and time per stage. INTRODUCED_AT/FEEDS and PRODUCES/CONSUMES connect explicit IDs according to the endpoint vocabulary. Do not merge cured/uncured states or bind every specimen to a last step. Genuine missing links need IDs/reasons in experiment.profile.material_flow. Failing to assemble a source-supported link is an extraction defect.
+
+## Observations
+
+PropertyObservation connects by test_id and YIELDS to a Test, and Test by specimen_id and TESTED_BY to its specimen (or an explicit state if the contract permits). Record bias, wavelength, irradiance, thickness, geometry, rate, temperature, atmosphere, conditioning and aging time as appropriate. Peak EQE, average EQE and best-device EQE differ. Store observation_role, statistic_type, sample_size and uncertainty, distinguishing SD/SE/range. Do not fabricate replicates from means.
+
+Particle size, XRD peaks, AFM roughness and FTIR/PL measurements use CharacterizationEvent → YIELDS_MEASUREMENT. Structural descriptions use YIELDS_STRUCTURE. Retain instrument/sample preparation/acquisition only from evidence; catalogue SEM/TEM/AFM/OM resolutions are not measured parameters. Link figures/media using valid GENERATES/DERIVED_FROM endpoints.
+
+Author mechanisms use reported with profile.causal_status=author_interpretation; simulation uses predicted. New AI explanations are inferred with dependencies. Missing optional simulation does not lower experimental completeness. Curve-derived numbers are digitized with documented method/calibration/uncertainty. Conflicting OCR formulas remain pending and traceable.
+
+## Microscopy, figures and simulation assets
+
+Do not reduce a microscopy panel to a sentence. Preserve InstrumentMention → CharacterizationInstrument plus CharacterizationEvent → MediaArtifact/Measurement/StructureObservation. The mention retains source wording and normalization status; the instrument entity is paper-local reported hardware, not proof of a physical global device. StructureObservation describes what authors conclude; CharacterizationMeasurement stores reported or properly digitized numbers. The image itself is never a numerical measurement. Store scale bars only when visually/source verified. Follow characterization-assets.md and instrument-normalization.md for asset and canonical identity rules.
+
+SimulationStudy describes the scientific computation, not one execution or its findings. Split each parameter combination/source execution into SimulationRun; put searchable facts in SimulationParameter and each outcome in SimulationResult with predicted status. A numeric adsorption energy is quantitative; a reduced aggregation pattern is qualitative/structure. Snapshots and model diagrams are MediaArtifact nodes generated by the run or study. Input/output files become AssetReference nodes with INPUT_OF/OUTPUT_OF. Follow simulation-reproducibility.md; if the paper says the protocol follows LAMMPS syntax but does not provide an input file, do not claim an input file exists or score it R3.

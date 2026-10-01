@@ -1,0 +1,48 @@
+node_modules/
+dist/
+# Local configuration; keep reviewed, credential-free examples only.
+.env
+.env.*
+!.env.example
+.DS_Store
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+runtime/
+uploads/
+outputs/
+**/materials-output/
+# Databases and sidecar journals (including files inside research projects).
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.journal
+# Private keys, signing identities and provisioning profiles.
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.provisionprofile
+.credentials/
+.secrets/
+# Local logs, caches and model weights are not source distribution assets.
+*.log
+.cache/
+*.pt
+*.pth
+*.pth.tar
+*.safetensors
+*.gguf
+*.onnx
+artifacts/m0/**
+!artifacts/m0/.gitkeep
+artifacts/m4/**
+!artifacts/m4/.gitkeep
+release/dist/

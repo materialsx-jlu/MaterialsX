@@ -1,0 +1,508 @@
+{
+  "source": "https://github.com/K-Dense-AI/scientific-agent-skills",
+  "commit": "65d6e786832e2c52832713117bbbf5096b56f77f",
+  "bundleLicense": "MIT",
+  "bundleLicensePath": "vendor/kdense-scientific-agent-skills/LICENSE.md",
+  "skills": [
+    {
+      "name": "aeon",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "fab3474f7b11ef9f41092cc722b1d64c2080c117e2225644548de2ddba99c2ce",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "analytical-method-validation",
+      "declaredLicense": "MIT",
+      "skillSha256": "9f6db7bd778545a5d59a04533d293e4f824169d210d39d25413142355962f69e",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "cirq",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "73b8e6e5da2b7bfedbe50434babb421e57c3f338b731275c5c2d705c6f7fb426",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "citation-management",
+      "declaredLicense": "MIT License",
+      "skillSha256": "24b73d1d84e34900c7c1556af4d7e6462cc846bcf6c5071112a77545ce258f73",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "dask",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "8419784c1256c3fb0fc1c3e57df8cd0758b288b5721c37d637b5efe47e704023",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "database-lookup",
+      "declaredLicense": "MIT",
+      "skillSha256": "dda99c6b4fbde7f127bf8f06a82a4a1e7d683486d215ae6282aac46136f06b85",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "datalad",
+      "declaredLicense": "MIT",
+      "skillSha256": "13b11667b0cb21d76ad5238fb62ff85fab823234d58bedfd86110f081aa1d164",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "datamol",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "39d11469c8997b0eb56fa2c92caada89835f8f2021affcc53eead42e868ab027",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "deepchem",
+      "declaredLicense": "MIT license",
+      "skillSha256": "2314814f2f3ea42eef87b4695e74c65cc551bbd52e5fb8ba3e6e4ba220e70e97",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "diffdock",
+      "declaredLicense": "MIT license",
+      "skillSha256": "c6feade726b2399c0db609d758862640c95f355fa32a5bd7e2203287ef99050d",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "experimental-design",
+      "declaredLicense": "MIT license",
+      "skillSha256": "8d1e072e96c40dea985deac2d67d2cb800bb8db1cb18b31db0e623ca66e66741",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "declaredLicense": "MIT",
+      "skillSha256": "71506b29ce46a6257332c95ac12a7c8bc3c18e35544d47fc3d870f94a82a65fe",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "fluidsim",
+      "declaredLicense": "MIT",
+      "skillSha256": "d616bf694c9b1d46f7879d6e2892035133e20ee1b190e68e253cdf990710ebfc",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "geomaster",
+      "declaredLicense": "MIT License",
+      "skillSha256": "920615befd7a815b338dcba0174a60ada8441a42a33a0a26704c84f57e20edb6",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "geopandas",
+      "declaredLicense": "MIT",
+      "skillSha256": "98450a46bf64f60210ddb28c561b764c904a50ca54e414b3901ccd6853c200e3",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "get-available-resources",
+      "declaredLicense": "MIT",
+      "skillSha256": "1ecca3aff6306e729935e5edb3930475b086752520b10096c0338a708863f58c",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "hypogenic",
+      "declaredLicense": "MIT",
+      "skillSha256": "dc3095345cb1b6cb487d48e04e8ac84a262508a8c3e9b4557ad8c9ceb764bb8f",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "hypothesis-generation",
+      "declaredLicense": "MIT",
+      "skillSha256": "8153fdc33e0a4cd012109931c6a822c0e0afe206769e1af3e7a3d07ea37e1137",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "iso-standards-readiness",
+      "declaredLicense": "MIT",
+      "skillSha256": "ea63a36e5d43750b94e5c604d685572a619b709afabf74cb5b91f0be0f1a83f1",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "lab-hardware-cad",
+      "declaredLicense": "MIT",
+      "skillSha256": "36b730f5dd095eca8f7239fee85d12e088a861f63c5187e7d5297c448bb26fa2",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "labarchive-integration",
+      "declaredLicense": "MIT",
+      "skillSha256": "2dbe25bc14be5e6e801dee327453211e7fe2331fb5aeba546659c0b1def1734b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "lamindb",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "3f80e651f16d506869b53e8a282edf1376c333218522b19be68daacb21d8e39c",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "liteparse",
+      "declaredLicense": "Apache-2.0",
+      "skillSha256": "63a10198d01794265f39293c5f27c4b669f609f9a795254581ed36ee6ac291a8",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "literature-review",
+      "declaredLicense": "MIT license",
+      "skillSha256": "950a6d0863ef657523813b985fe86599ac6bb99b695eee5953612d7e20c78011",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "markdown-mermaid-writing",
+      "declaredLicense": "Apache-2.0",
+      "skillSha256": "801fabc81393c8467f13ed705940468b95c3e61fdad33cb7cca7550cc7c99900",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "markitdown",
+      "declaredLicense": "MIT",
+      "skillSha256": "732ca5ec26a484fd17b76af279e1eea26443c1409eff307a22f597e18e6ff8be",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "matchms",
+      "declaredLicense": "Apache-2.0",
+      "skillSha256": "059f2bcca9e8cc822e295de13037931557fe805527c4aeb833519cd7bb1de9a8",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "matlab",
+      "declaredLicense": "MIT",
+      "skillSha256": "57f7287bb6d415a551f8b39215704ef6005b423983406fa4f8de23fc4d63b052",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "matplotlib",
+      "declaredLicense": "https://github.com/matplotlib/matplotlib/tree/main/LICENSE",
+      "skillSha256": "57c8fb3c504a7d11c338800d8dc2124d04176d9ec5d0428622d05bb498e3e8e4",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "medchem",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "2386610565d2758918e64b0b4821598a4f63fa4e4e6daac7af770a26a0a20480",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "molecular-dynamics",
+      "declaredLicense": "MIT",
+      "skillSha256": "ca248ad20180a5ae1dc053a9b9eb13ba3a04f467783ed073b1fa4f37d59a580b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "molfeat",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "4ba753eec9f330b1fcb2824e0cb1b3a2e632c7c1472e705d15d7901d617dd2ad",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "networkx",
+      "declaredLicense": "3-clause BSD license",
+      "skillSha256": "60895e38e1d4080b66e82c6b0b5f5e93d847f88aec5a6c8e3cf59926f1016874",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "ontology-term-resolution",
+      "declaredLicense": "MIT",
+      "skillSha256": "8fbd0c71c44203f30979c46b11a9f1308b464efae59219f61197ab46412c144a",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "open-notebook",
+      "declaredLicense": "MIT",
+      "skillSha256": "59fb41427cf04ac9d9e1f8bf59c60eac69e943b250f8bf6ac7b40886d097df00",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "openpiv",
+      "declaredLicense": "BSD-3-Clause",
+      "skillSha256": "7b77eeb059c6517692c2141297a8c67e3dfcb4d5c1a18e7a353088f89c4e0779",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "optimize-for-gpu",
+      "declaredLicense": "MIT",
+      "skillSha256": "5df21c95ec625f058226e9ea535c1b35c822144930929288284d6897527733ac",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "paper-lookup",
+      "declaredLicense": "MIT",
+      "skillSha256": "487f39acbc2d7988e967a4f479bf43100c221c1e258c2d24fdc7168e2098e33c",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "peer-review",
+      "declaredLicense": "MIT",
+      "skillSha256": "3422beafc240aa7d2703e71fe16e3400269a5ea17045d8b390a30efe58c3de67",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pennylane",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "1d24f143290a3b2115853308873a5297af64b0343b09472062fc288b49201f84",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pi-agent",
+      "declaredLicense": "MIT",
+      "skillSha256": "51221e4d90408f312d435f4e047adf2c1965825efefcd7d24b2ff8ab606d312d",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "polars",
+      "declaredLicense": "https://github.com/pola-rs/polars/blob/main/LICENSE",
+      "skillSha256": "0589f1b7f80a7262c075a56e913904d8aef83cc6c0384ba70d8d0f1296ba384b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "polars-bio",
+      "declaredLicense": "Apache-2.0",
+      "skillSha256": "2dd655de40d2ba1debacb136cfb1df22d4c22246142ba316b418b3b6a5ca9a09",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pptx-posters",
+      "declaredLicense": "MIT",
+      "skillSha256": "fa9416651e2e282eb9e9ceea373c71838f05325663dd3648f2100911df7ef49a",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "protocolsio-integration",
+      "declaredLicense": "MIT",
+      "skillSha256": "0bbc1104fce1552a0b60da7d6b438da61219e32f7eac282698f2e4dc17ec57a4",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pufferlib",
+      "declaredLicense": "MIT",
+      "skillSha256": "dc920861122efacfb82f81a8aea9d2302a73e5ff4e750e1876a725353ff24b66",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pymatgen",
+      "declaredLicense": "MIT",
+      "skillSha256": "84e4d8eaf9daa31bb1c610b51fad5d25ea76dd1f8b499a5dc962506f633f3e8d",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pymc",
+      "declaredLicense": "Apache License, Version 2.0",
+      "skillSha256": "fbb93459b2a0cd2170f637f95a850cf5049ea8300ee0b9921d3299ac28a8a8d1",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pymoo",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "bc5152f58681a49517e52135b4838d1f0cb31ec94ce38c67eb752785aa5f564a",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pytdc",
+      "declaredLicense": "MIT",
+      "skillSha256": "ca04c0c553f4de66d69f1a8c9836732f7428424f8ca41442b6f7fc3d34342eb9",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pytorch-lightning",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "eacd09ffc22ab266c385b4897136636dbaee15fe62dc8cec2264e7fa4f557810",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "pyzotero",
+      "declaredLicense": "MIT License",
+      "skillSha256": "64b8f3a602862b8dd32baf40397c0dfa5e7bf38567c75dd00c3a34bd2539a56b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "qiskit",
+      "declaredLicense": "Apache-2.0",
+      "skillSha256": "ecce52d2f6996324b6928414ed2f9ae770e7ac7cbeb3c25acedd754bf58fde70",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "qutip",
+      "declaredLicense": "MIT",
+      "skillSha256": "df46feb9e92ce8088e27de3d39afbb5cb559fc131630b1b028d593aeebdef23b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "rdkit",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "d87943f6d751f72ae3b5b421f2c73a6034ef91497fb533caa851fc763dbeca47",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "research-grants",
+      "declaredLicense": "MIT license",
+      "skillSha256": "9208b8b5092e89ef64daced11131c4eb1a50a7711cf6172b6b602419facd56fa",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "research-lookup",
+      "declaredLicense": "MIT license",
+      "skillSha256": "7288cf334db57f9d053a7a8175bf851c4e73faeac8069b976f71c62583f160f2",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scholar-evaluation",
+      "declaredLicense": "MIT",
+      "skillSha256": "50f2225d18288d5b4a720f85e0467bd3f8d99b96829e0ca80d0ab5ec14d1f289",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-brainstorming",
+      "declaredLicense": "MIT",
+      "skillSha256": "49ae9b430f3495a36de5fbfe4f053c0acc67440ad8b2bcb31749283e2286c48f",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-critical-thinking",
+      "declaredLicense": "MIT license",
+      "skillSha256": "b77ba9ed1872d85d804125a339e2038984052e7aaf3616813ab79f5ad91c0558",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-schematics",
+      "declaredLicense": "MIT license",
+      "skillSha256": "3ef33ab3eb6eed0f3625a9fe48d4dc7618abe07b5794015e125273220d7dafef",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-slides",
+      "declaredLicense": "MIT license",
+      "skillSha256": "9c5c4f7e991140f997c03833313a3045a57c36298e290df5832a98cea34f66a8",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-visualization",
+      "declaredLicense": "MIT",
+      "skillSha256": "f7c7f9a2350ea02db2db55cd28921a54c74b089f6762f1b0b63a13b8f6eeec33",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scientific-writing",
+      "declaredLicense": "MIT",
+      "skillSha256": "f6026e7d79cd3133e9343a7d6e6c5e06f4ad061888efb6a73fcb95e073eebf67",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "scikit-learn",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "0d443e2520a27dd6cdcbd8bfdd94f305de462166e97e0d4acdf3e35083a98b69",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "seaborn",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "9215df4ea0358f03af084dc2331c554016c26b524ae35518686c083672779b96",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "shap",
+      "declaredLicense": "MIT",
+      "skillSha256": "6e1e3a128848a9cb4235dd4089a25f82f657458bc80b78b03808023bfbb0e4d2",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "simpy",
+      "declaredLicense": "MIT",
+      "skillSha256": "7dc666b7b26f6942b0dd806acb062c5fdcfb7849944ae39a89b28f3366249dc1",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "stable-baselines3",
+      "declaredLicense": "MIT license",
+      "skillSha256": "f2b29acfdf6116e525eae9c89fcd1de925fb2be841727006b74e4a3bf5c37b4a",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "statistical-analysis",
+      "declaredLicense": "MIT license",
+      "skillSha256": "1b1d63fd667ef454a8e0cadf32457a511883d3308dcc79c47c48bc565d9a23f7",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "statistical-power",
+      "declaredLicense": "MIT license",
+      "skillSha256": "51ca6017ecaf5a6ec427d80f511063f570a983785399eedbd24c6fc4b9fd12f5",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "statsmodels",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "e9f981de460cc8641c376757859366d53064e1a2bb27e296870e7e42cefe7676",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "sympy",
+      "declaredLicense": "https://github.com/sympy/sympy/blob/master/LICENSE",
+      "skillSha256": "21be026a7a1400acc52a3ffab57caff7c2afc6be1da6075993f9c8f4ec90938b",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "timesfm-forecasting",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "8dc6f75f99e4faf1f81a9240da28c1103572382ec1f1b4fe4b6ba193e85cc23c",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "torch-geometric",
+      "declaredLicense": "MIT license",
+      "skillSha256": "3b6dd242f7633fdb1f63a1ec9f6a0a631931cba3a7943936764cb257345c047e",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "torchdrug",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "6e03c6bb06451fd4af1fb0a55e2ef862c111d63af79f4ca607393bcb19743b1f",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "transformers",
+      "declaredLicense": "Apache-2.0 license",
+      "skillSha256": "c1b66b110831f6a814364b96a7385c4371f57b06123740c1248ffb29ef16d686",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "umap-learn",
+      "declaredLicense": "BSD-3-Clause license",
+      "skillSha256": "3990319c2ad242d595ec56dc08a5ee2c373f53c96f2061d67e9931de3d74a7ca",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "uncertainty-and-units",
+      "declaredLicense": "MIT",
+      "skillSha256": "efe9d01c25525247d84be84cc5fb36f0bcd53619fc60f66085f83a6105754056",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "vaex",
+      "declaredLicense": "MIT license",
+      "skillSha256": "f9cb1c71dd2d0f7e9cf03c7450028eafbacb38ad8c5abe754c5e92cbb62a77ba",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "venue-templates",
+      "declaredLicense": "MIT license",
+      "skillSha256": "0635f0b7345dfb7a5cdc4c61cc65163ed3d88fa6ef5afa25931d0cc5613d44c1",
+      "review": "skill-declaration-not-dependency-clearance"
+    },
+    {
+      "name": "zarr-python",
+      "declaredLicense": "MIT license",
+      "skillSha256": "36f6900413beeba38209b4002d849a23694319202053e851ecd367b4769f8ed7",
+      "review": "skill-declaration-not-dependency-clearance"
+    }
+  ],
+  "customSkills": {
+    "names": [
+      "materials-literature-rpsme-json",
+      "materials-xyz-extraction"
+    ],
+    "declaredLicense": "AGPL-3.0-only",
+    "review": "team-code-authorized-example-data-rights-pending"
+  }
+}

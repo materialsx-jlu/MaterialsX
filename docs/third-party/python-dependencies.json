@@ -1,0 +1,949 @@
+{
+  "scope": "local installed snapshots; not a cross-platform wheel certification",
+  "lockSha256": "8f56bfc7cb56105dd853039d657242f74e904bb62a1320714590277ec5600e5f",
+  "environments": {
+    "development": {
+      "available": true,
+      "packages": [
+        {
+          "name": "ase",
+          "version": "3.29.0",
+          "declaredLicense": "LGPL-2.1-or-later",
+          "licenseExpression": "LGPL-2.1-or-later",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/ase-3.29.0.dist-info/licenses/LICENSE",
+              "sha256": "8ca76f9c8c2293e7563ac648d94770c2319d56be588eb190c5f0f9564c92d663"
+            }
+          ],
+          "metadataSha256": "6fac364e5cec27d94f17f3baff52276ef97014692b3d6691c55fc6dce43b06d7",
+          "review": "review-required"
+        },
+        {
+          "name": "attrs",
+          "version": "26.1.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/attrs-26.1.0.dist-info/licenses/LICENSE",
+              "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+            }
+          ],
+          "metadataSha256": "4cd40e690f23bf37cbcad34efd6758e062df1df07c86833f7e3ce95bf1fa38cc",
+          "review": "review-required"
+        },
+        {
+          "name": "cffi",
+          "version": "2.1.1",
+          "declaredLicense": "MIT-0",
+          "licenseExpression": "MIT-0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/cffi-2.1.1.dist-info/licenses/LICENSE",
+              "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+            }
+          ],
+          "metadataSha256": "558bafb9093a8e790175d9ecff9688382981d744877dad86fd6770db0f4dc918",
+          "review": "review-required"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2",
+          "declaredLicense": "MIT",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/charset_normalizer-3.5.2.dist-info/licenses/LICENSE",
+              "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+            }
+          ],
+          "metadataSha256": "89ce6362bb7be88558f4be99a98f5d1b4da93d19cd0323e5ee0bac05cf883dfb",
+          "review": "review-required"
+        },
+        {
+          "name": "contourpy",
+          "version": "1.4.0",
+          "declaredLicense": "BSD-3-Clause",
+          "licenseExpression": "BSD-3-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/contourpy-1.4.0.dist-info/licenses/LICENSE",
+              "sha256": "11401c428c7014a75728e8679f9c000aacf262015aaba65a760d41aa1130b3af"
+            }
+          ],
+          "metadataSha256": "40450acd747b288a5db999c435e1e921ffee0a38c7884a80cd46934c8004568f",
+          "review": "review-required"
+        },
+        {
+          "name": "cryptography",
+          "version": "50.0.1",
+          "declaredLicense": "Apache-2.0 OR BSD-3-Clause",
+          "licenseExpression": "Apache-2.0 OR BSD-3-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE",
+              "sha256": "3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE.APACHE",
+              "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/cryptography-50.0.1.dist-info/licenses/LICENSE.BSD",
+              "sha256": "602c4c7482de6479dd2e9793cda275e5e63d773dacd1eca689232ab7008fb4fb"
+            }
+          ],
+          "metadataSha256": "8e9b5570da4686848ee5c6bb83fffc224bcddf9793136731dd050ce0c05fffe2",
+          "review": "review-required"
+        },
+        {
+          "name": "cycler",
+          "version": "0.12.1",
+          "declaredLicense": "Copyright (c) 2015, matplotlib project",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/cycler-0.12.1.dist-info/LICENSE",
+              "sha256": "f1218143d766da3fea66f13396b7f15df46a83303f29bf96ba6e98eb4d42f408"
+            }
+          ],
+          "metadataSha256": "23289e19b76f1e01394227696e6af2b6cd1ce79e89731209bf9195148b18ed36",
+          "review": "review-required"
+        },
+        {
+          "name": "fonttools",
+          "version": "4.66.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/fonttools-4.66.1.dist-info/licenses/LICENSE",
+              "sha256": "6787208f83f659ccbc2223b2fde952ffa6f7e8aca62f1a8a2bf5bc51bb1b2383"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/fonttools-4.66.1.dist-info/licenses/LICENSE.external",
+              "sha256": "94a83aaee0729a0f302d34acc4acecbd9d58366f262429075fe557e4a54b2e69"
+            }
+          ],
+          "metadataSha256": "d354d7b32166f817cb64da296e3e3152df8130c8a09a65fa8399631e20e3d672",
+          "review": "review-required"
+        },
+        {
+          "name": "iniconfig",
+          "version": "2.3.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/iniconfig-2.3.0.dist-info/licenses/LICENSE",
+              "sha256": "3409fa91f7ace557894632676656e32264fe5ef7581535725dc9a23774551bd4"
+            }
+          ],
+          "metadataSha256": "40d773f84e4e112f495bbf4f1be9cbd2d456c0aeb6ef5311f75d1bf322f2165b",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.26.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/jsonschema-4.26.0.dist-info/licenses/COPYING",
+              "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+            }
+          ],
+          "metadataSha256": "05b189866ca98a96da3934bf6b83687ced3ff85325273b77e16b705f6d8b26d2",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "35abd41757f32b4ea24756920ded47b70173d77cbc052a5a6d3ab583b2e8d89d",
+          "review": "review-required"
+        },
+        {
+          "name": "kiwisolver",
+          "version": "1.5.1",
+          "declaredLicense": "=========================",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/kiwisolver-1.5.1.dist-info/licenses/LICENSE",
+              "sha256": "529c40e5f67f2f88904657a9f7879ae2f8dc76bc9bfef9cb10d988b48804ed61"
+            }
+          ],
+          "metadataSha256": "f07b7b6c0c9c2a624c8a31f931e16712f2cf3490e7dfd51643d68e9d42d4b2c9",
+          "review": "review-required"
+        },
+        {
+          "name": "matplotlib",
+          "version": "3.11.2",
+          "declaredLicense": "License agreement for matplotlib versions 1.3.0 and later",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: Python Software Foundation License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/matplotlib-3.11.2.dist-info/LICENSE",
+              "sha256": "822e8e528147569a41975592aee19c11992ab667ba50451cd929031d5fc74491"
+            }
+          ],
+          "metadataSha256": "e5f532226d1025af2dd15ff951df27391f66d46403b8244ea61e6b8eb3e4d806",
+          "review": "review-required"
+        },
+        {
+          "name": "numpy",
+          "version": "2.5.3",
+          "declaredLicense": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+          "licenseExpression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/LICENSE.txt",
+              "sha256": "649a589ab31076e79e9ce62ba24eae9959598124176640dbc95f87bd10f34fcf"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+              "sha256": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+              "sha256": "3f2c1ffa76383a55ae0aac01c9737cd70050dff63e1f026694fbe9d662573c98"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+              "sha256": "e340270d4f64384569a91d546acb5b094d69ce47f0c015db77abb74dc6f815af"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+              "sha256": "211e7d737d6179a08f791ebb0a99897ce7cd2457410c542876d125576edfe910"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+              "sha256": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+              "sha256": "a85ca13fdf90160b64a0698215868c13b74d835ad0a4e2ba44713b8c5058a056"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+              "sha256": "a14cc25e10d40a3aa705b7de2fb764a6535d8ee9b2db4e1724900585457dfd55"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/ma/LICENSE",
+              "sha256": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/LICENSE.md",
+              "sha256": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+              "sha256": "469778be8f33d54e1bcaab28c281cc472916d2d273f835e55bc487d30503face"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+              "sha256": "0e111337b25494a773106695f0e799f642b8567aaacca4f116a74a8177179156"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+              "sha256": "e7d4f4fb20358f314210a892ae17351e04993813646f697ec387385ca2a36918"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+              "sha256": "6f5828a57223d4cc7f8ea505a2623e7b978b242752c1515e355f46ba2cec1800"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+              "sha256": "9d4098846018319cd68e228ee6220361787f73bccbf00237a85e4fc9621b998f"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/numpy-2.5.3.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+              "sha256": "268b0ca06759d31ea3ca68dd35f20e877916e927b1c2a835e4592a3c4354b1f9"
+            }
+          ],
+          "metadataSha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+          "review": "review-required"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3",
+          "declaredLicense": "Apache-2.0 OR BSD-2-Clause",
+          "licenseExpression": "Apache-2.0 OR BSD-2-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/packaging-26.3.dist-info/licenses/LICENSE",
+              "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+              "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+            },
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/packaging-26.3.dist-info/licenses/LICENSE.BSD",
+              "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+            }
+          ],
+          "metadataSha256": "70fdb89fc4d4a9a043bf7372b8972bcc883fddff34ab55e9cf80d73875384763",
+          "review": "review-required"
+        },
+        {
+          "name": "pdfminer.six",
+          "version": "20260107",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pdfminer_six-20260107.dist-info/licenses/LICENSE",
+              "sha256": "f01e5d699a33766b5caf4a5099f2856aba4f3f75ea1df05dc0572b34b4bea8f2"
+            }
+          ],
+          "metadataSha256": "4ca427c77b90fe19db60c0b3b8dbb4c0adc82979d089ec2f1b9238acff15ff9c",
+          "review": "review-required"
+        },
+        {
+          "name": "pdfplumber",
+          "version": "0.11.10",
+          "declaredLicense": null,
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pdfplumber-0.11.10.dist-info/licenses/LICENSE.txt",
+              "sha256": "0d48994da4d1321e395b5e64a724ed4dec63fb96b88ac5b88fc014771e690821"
+            }
+          ],
+          "metadataSha256": "11a7f2c3a00208fe38389ad3022fbcde4610aec3b9ded312d82701eda1f56c23",
+          "review": "review-required"
+        },
+        {
+          "name": "pillow",
+          "version": "12.3.0",
+          "declaredLicense": "MIT-CMU",
+          "licenseExpression": "MIT-CMU",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pillow-12.3.0.dist-info/licenses/LICENSE",
+              "sha256": "dda12a98c1979cf3d94df1cff45d27a4cb3f04a60c76f76902ac54cac03ec0ce"
+            }
+          ],
+          "metadataSha256": "8fc07146cab33ef7582361dab6eac596d340b03ec648f18217da7894f73838c8",
+          "review": "review-required"
+        },
+        {
+          "name": "pluggy",
+          "version": "1.6.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pluggy-1.6.0.dist-info/licenses/LICENSE",
+              "sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606"
+            }
+          ],
+          "metadataSha256": "7438c35ee25a095eb7416f84b461c2d74425c5e734ad54c3912453c65244e01c",
+          "review": "review-required"
+        },
+        {
+          "name": "pycparser",
+          "version": "3.0",
+          "declaredLicense": "BSD-3-Clause",
+          "licenseExpression": "BSD-3-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pycparser-3.0.dist-info/licenses/LICENSE",
+              "sha256": "0c846399369ea76ddd7b5c44fe6d16497415fcf015f5cbb508c24bf98b81c5b1"
+            }
+          ],
+          "metadataSha256": "f547a60b0ab54cc2f242213d1f87960ad80df7dd5dfeb98d17a444d48bfb6b93",
+          "review": "review-required"
+        },
+        {
+          "name": "Pygments",
+          "version": "2.21.0",
+          "declaredLicense": "BSD-2-Clause",
+          "licenseExpression": "BSD-2-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pygments-2.21.0.dist-info/licenses/LICENSE",
+              "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17"
+            }
+          ],
+          "metadataSha256": "1dde075570136774c706bf0009183a793fe0ee262e4a5590cc6eff8453eedd43",
+          "review": "review-required"
+        },
+        {
+          "name": "pymupdf",
+          "version": "1.28.2",
+          "declaredLicense": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pymupdf-1.28.2.dist-info/COPYING",
+              "sha256": "40e60697600535eabfb5ae05f72829d88cfe8d02dd4792f5a754f6f51dabe55b"
+            }
+          ],
+          "metadataSha256": "5c1fc460889bd3ff8d213e6c0f29154a8cd3576505f4844d7c3e089fa45eed40",
+          "review": "review-required"
+        },
+        {
+          "name": "pyparsing",
+          "version": "3.3.3",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pyparsing-3.3.3.dist-info/licenses/LICENSE",
+              "sha256": "a5425f9dc14ac74d4c5f0b679e941f2442e32cca7452a4418d5b1a49893ebe4e"
+            }
+          ],
+          "metadataSha256": "f2ca34052d720622d300023472ef8ae94fe5b57d69acbb28a8667f6dd0e13497",
+          "review": "review-required"
+        },
+        {
+          "name": "pypdf",
+          "version": "6.19.0",
+          "declaredLicense": "BSD-3-Clause",
+          "licenseExpression": "BSD-3-Clause",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pypdf-6.19.0.dist-info/licenses/LICENSE",
+              "sha256": "a97ac230e5f33ef10a5367a850eb01f91f1a0b064e34742c7794d2294557f524"
+            }
+          ],
+          "metadataSha256": "c4f428636f3cb180014024dfb4414b41b8c75b568ffe4a06beeb5175b311c6b5",
+          "review": "review-required"
+        },
+        {
+          "name": "pypdfium2",
+          "version": "5.13.0",
+          "declaredLicense": "BSD-3-Clause, Apache-2.0, dependency licenses",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [],
+          "metadataSha256": "1baf911a529efd4c9d5778cd6fd71ca62eb5e3cf0ef3a5d87a71c4fe9805b389",
+          "review": "review-required"
+        },
+        {
+          "name": "pytest",
+          "version": "9.1.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/pytest-9.1.1.dist-info/licenses/LICENSE",
+              "sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b"
+            }
+          ],
+          "metadataSha256": "c5d032518012789cabc870d46589aca3aeda36cf9fa4399ee88bda3d10438451",
+          "review": "review-required"
+        },
+        {
+          "name": "python-dateutil",
+          "version": "2.9.0.post0",
+          "declaredLicense": "Dual License",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License",
+            "License :: OSI Approved :: Apache Software License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/python_dateutil-2.9.0.post0.dist-info/LICENSE",
+              "sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e"
+            }
+          ],
+          "metadataSha256": "a9d436da322be808332f98d88325998e87cb693a678a9969feb4cfad729a6e93",
+          "review": "review-required"
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/referencing-0.37.0.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "c93b00e6ab1524fd60848376604c189a114374776475c25a31d57be47b29de6a",
+          "review": "review-required"
+        },
+        {
+          "name": "reportlab",
+          "version": "4.5.1",
+          "declaredLicense": "BSD license (see license.txt for details), Copyright (c) 2000-2025, ReportLab Inc.",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/reportlab-4.5.1.dist-info/licenses/LICENSE",
+              "sha256": "ef831761646313921375fc2cb888e8eeaf7da213d0b92852c10c42f3a0b4d138"
+            }
+          ],
+          "metadataSha256": "821a35eee3c3cbfc51116b358b6be50a07f00964b257a9e24ca5c891c2df6c55",
+          "review": "review-required"
+        },
+        {
+          "name": "rpds-py",
+          "version": "2026.6.3",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+              "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
+            }
+          ],
+          "metadataSha256": "f8be7b17da3980b2c48596941411a43c70ac41b1e2d530aa531f2c15eab2eb1c",
+          "review": "review-required"
+        },
+        {
+          "name": "scipy",
+          "version": "1.18.1",
+          "declaredLicense": "Copyright (c) 2001-2002 Enthought, Inc. 2003, SciPy Developers.",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/scipy-1.18.1.dist-info/LICENSE.txt",
+              "sha256": "09a1b9e19573045b0784a181cc4bef677039d4f2111631c747bf72b7f19017d4"
+            }
+          ],
+          "metadataSha256": "1adfbde8be136cbf348b889c51028e7e1824cdb90d29a26d8e81501948864fae",
+          "review": "review-required"
+        },
+        {
+          "name": "six",
+          "version": "1.17.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/six-1.17.0.dist-info/LICENSE",
+              "sha256": "4375ba20e2b9c6c4e7cad2940a628fd90e95cc3d50ee92aae755715d8ba1fbd0"
+            }
+          ],
+          "metadataSha256": "562042078c2752549f6d8a7c86dbc5dd708088a7be6d80672ec7b07100b72468",
+          "review": "review-required"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0",
+          "declaredLicense": "PSF-2.0",
+          "licenseExpression": "PSF-2.0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+              "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+            }
+          ],
+          "metadataSha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "review": "review-required"
+        }
+      ]
+    },
+    "macos-arm64": {
+      "available": true,
+      "packages": [
+        {
+          "name": "attrs",
+          "version": "26.1.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/attrs-26.1.0.dist-info/licenses/LICENSE",
+              "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+            }
+          ],
+          "metadataSha256": "4cd40e690f23bf37cbcad34efd6758e062df1df07c86833f7e3ce95bf1fa38cc",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.26.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/jsonschema-4.26.0.dist-info/licenses/COPYING",
+              "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+            }
+          ],
+          "metadataSha256": "05b189866ca98a96da3934bf6b83687ced3ff85325273b77e16b705f6d8b26d2",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "35abd41757f32b4ea24756920ded47b70173d77cbc052a5a6d3ab583b2e8d89d",
+          "review": "review-required"
+        },
+        {
+          "name": "pillow",
+          "version": "12.3.0",
+          "declaredLicense": "MIT-CMU",
+          "licenseExpression": "MIT-CMU",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pillow-12.3.0.dist-info/licenses/LICENSE",
+              "sha256": "dda12a98c1979cf3d94df1cff45d27a4cb3f04a60c76f76902ac54cac03ec0ce"
+            }
+          ],
+          "metadataSha256": "8fc07146cab33ef7582361dab6eac596d340b03ec648f18217da7894f73838c8",
+          "review": "review-required"
+        },
+        {
+          "name": "pip",
+          "version": "26.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/LICENSE.txt",
+              "sha256": "634300a669d49aeae65b12c6c48c924c51a4cdf3d1ff086dc3456dc8bcaa2104"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/cachecontrol/LICENSE.txt",
+              "sha256": "86eeee87be2a43f3ff1f56496f451f69243926f025fedbb033666c304c4c161b"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/certifi/LICENSE",
+              "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/dependency_groups/LICENSE.txt",
+              "sha256": "1ab36e3e2a4ba8631625384f87e9e091db1faed034c5b23325b3239abf2cc525"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/distlib/LICENSE.txt",
+              "sha256": "808e10c8a6ab8deb149ff9b3fb19f447a808094606d712a9ca57fead3552599d"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/distro/LICENSE",
+              "sha256": "cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/idna/LICENSE.md",
+              "sha256": "b7a336abf3b04e180ec065cdd16e705d079e1cc7a14f910aa6e9187f36b9cd87"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/msgpack/COPYING",
+              "sha256": "492dedba85da5872f78e6091bcd1fea474d660d35acb4dee964b8aab3f007427"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/packaging/LICENSE",
+              "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/packaging/LICENSE.APACHE",
+              "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/packaging/LICENSE.BSD",
+              "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/pkg_resources/LICENSE",
+              "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/platformdirs/LICENSE",
+              "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/pygments/LICENSE",
+              "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/pyproject_hooks/LICENSE",
+              "sha256": "1b22b049b5267d6dfc23a67bf4a84d8ec04b9fdfb1a51d360e42b4342c8b4154"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/requests/LICENSE",
+              "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/resolvelib/LICENSE",
+              "sha256": "f388fd38cad13112c1dc0f669bbe80e7f84541edbafb72f3030d2ca7642c3c9d"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/rich/LICENSE",
+              "sha256": "deed7c17a4318158190a3ea239cc879a5a50271cebb98ae7025f48fbe58dca15"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/tomli/LICENSE",
+              "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/tomli_w/LICENSE",
+              "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/truststore/LICENSE",
+              "sha256": "33be7b7e8fa4fd19b1760e1a8ed8a668bdab852c91b692dd41424bcb725a9fca"
+            },
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pip-26.0.dist-info/licenses/src/pip/_vendor/urllib3/LICENSE.txt",
+              "sha256": "c37bf186e27cf9dbe9619e55edfe3cea7b30091ceb3da63c7dacbe0e6d77907b"
+            }
+          ],
+          "metadataSha256": "09cab52f0b9d16a8b84a3d41e615391c40fb3c7bf0870b2a9d2899941b9ffac8",
+          "review": "review-required"
+        },
+        {
+          "name": "pymupdf",
+          "version": "1.28.2",
+          "declaredLicense": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/pymupdf-1.28.2.dist-info/COPYING",
+              "sha256": "40e60697600535eabfb5ae05f72829d88cfe8d02dd4792f5a754f6f51dabe55b"
+            }
+          ],
+          "metadataSha256": "5c1fc460889bd3ff8d213e6c0f29154a8cd3576505f4844d7c3e089fa45eed40",
+          "review": "review-required"
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/referencing-0.37.0.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "c93b00e6ab1524fd60848376604c189a114374776475c25a31d57be47b29de6a",
+          "review": "review-required"
+        },
+        {
+          "name": "rpds-py",
+          "version": "2026.6.3",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+              "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
+            }
+          ],
+          "metadataSha256": "f8be7b17da3980b2c48596941411a43c70ac41b1e2d530aa531f2c15eab2eb1c",
+          "review": "review-required"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0",
+          "declaredLicense": "PSF-2.0",
+          "licenseExpression": "PSF-2.0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+              "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+            }
+          ],
+          "metadataSha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "review": "review-required"
+        }
+      ]
+    },
+    "windows-x64": {
+      "available": true,
+      "packages": [
+        {
+          "name": "attrs",
+          "version": "26.1.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/attrs-26.1.0.dist-info/licenses/LICENSE",
+              "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+            }
+          ],
+          "metadataSha256": "4cd40e690f23bf37cbcad34efd6758e062df1df07c86833f7e3ce95bf1fa38cc",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.26.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/jsonschema-4.26.0.dist-info/licenses/COPYING",
+              "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+            }
+          ],
+          "metadataSha256": "05b189866ca98a96da3934bf6b83687ced3ff85325273b77e16b705f6d8b26d2",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "35abd41757f32b4ea24756920ded47b70173d77cbc052a5a6d3ab583b2e8d89d",
+          "review": "review-required"
+        },
+        {
+          "name": "pillow",
+          "version": "12.3.0",
+          "declaredLicense": "MIT-CMU",
+          "licenseExpression": "MIT-CMU",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/pillow-12.3.0.dist-info/licenses/LICENSE",
+              "sha256": "4f7866a74802c6326f81faff59a56546b6aec2b10b91973e0e9308de95e79857"
+            }
+          ],
+          "metadataSha256": "2c4378001803cfac65809a50722d46e0da4ce8061e717f103e5d52734bab30f5",
+          "review": "review-required"
+        },
+        {
+          "name": "pymupdf",
+          "version": "1.28.2",
+          "declaredLicense": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/pymupdf-1.28.2.dist-info/COPYING",
+              "sha256": "40e60697600535eabfb5ae05f72829d88cfe8d02dd4792f5a754f6f51dabe55b"
+            }
+          ],
+          "metadataSha256": "5c1fc460889bd3ff8d213e6c0f29154a8cd3576505f4844d7c3e089fa45eed40",
+          "review": "review-required"
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/referencing-0.37.0.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "c93b00e6ab1524fd60848376604c189a114374776475c25a31d57be47b29de6a",
+          "review": "review-required"
+        },
+        {
+          "name": "rpds-py",
+          "version": "2026.6.3",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+              "sha256": "8bcb72c82ea8ae74802293c41d93ad7d51434001b0ae45a603a5af0f507aee0a"
+            }
+          ],
+          "metadataSha256": "e9deba3569d39352c663fd09d01d53a649c8ab2c28de1c37e80b3e2beaf84926",
+          "review": "review-required"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0",
+          "declaredLicense": "PSF-2.0",
+          "licenseExpression": "PSF-2.0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+              "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+            }
+          ],
+          "metadataSha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "review": "review-required"
+        }
+      ]
+    }
+  }
+}

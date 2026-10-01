@@ -1,0 +1,2114 @@
+{
+  "schemaVersion": 1,
+  "methodologyZh": "100 个可核实的材料模型与评测条目，来自 Matbench Discovery、Matbench 和原作者模型页；不代表全网使用量排名，也不代表权重已安装。",
+  "methodologyEn": "100 verifiable materials-model and benchmark entries from Matbench Discovery, Matbench, and author model pages; this is not a worldwide usage ranking or a list of installed weights.",
+  "sources": [
+    "https://github.com/janosh/matbench-discovery/tree/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models",
+    "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks",
+    "https://huggingface.co/collections/m3rg-iitd/llamat",
+    "https://huggingface.co/m3rg-iitd/matscibert",
+    "https://huggingface.co/batterydata/batterybert-uncased"
+  ],
+  "models": [
+    {
+      "id": "discovery/alchembert",
+      "name": "AlchemBERT",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/alchembert/alchembert.yml",
+      "checkpointUrl": "https://figshare.com/files/53298683",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "AlchemBERT 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "AlchemBERT is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 AlchemBERT 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the AlchemBERT materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 AlchemBERT 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether AlchemBERT fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/alignn",
+      "name": "ALIGNN",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/alignn/alignn.yml",
+      "checkpointUrl": "https://figshare.com/files/40344436",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "ALIGNN 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "ALIGNN is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 ALIGNN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the ALIGNN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 ALIGNN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether ALIGNN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/allegro-mp-l-0.1",
+      "name": "Allegro-MP-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/allegro/allegro-mp-l-0.1.yml",
+      "checkpointUrl": "https://www.nequip.net/models/mir-group/Allegro-MP-L:0.1",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Allegro-MP-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Allegro-MP-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Allegro-MP-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Allegro-MP-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Allegro-MP-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Allegro-MP-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/allegro-oam-l-0.1",
+      "name": "Allegro-OAM-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/allegro/allegro-oam-l-0.1.yml",
+      "checkpointUrl": "https://www.nequip.net/models/mir-group/Allegro-OAM-L:0.1",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Allegro-OAM-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Allegro-OAM-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Allegro-OAM-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Allegro-OAM-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Allegro-OAM-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Allegro-OAM-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/alphanet-v1-mptrj",
+      "name": "AlphaNet-v1-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/alphanet/alphanet-v1-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/52870784",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "AlphaNet-v1-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "AlphaNet-v1-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 AlphaNet-v1-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for AlphaNet-v1-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 AlphaNet-v1-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of AlphaNet-v1-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/alphanet-v1-oam",
+      "name": "AlphaNet-v1-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/alphanet/alphanet-v1-oam.yml",
+      "checkpointUrl": "https://figshare.com/files/53851139",
+      "license": "GPL-3.0",
+      "descriptionZh": "AlphaNet-v1-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "AlphaNet-v1-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 AlphaNet-v1-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for AlphaNet-v1-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 AlphaNet-v1-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of AlphaNet-v1-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/bam-mp-core",
+      "name": "BAM-MP-core",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/bam/bam-mp-core.yml",
+      "checkpointUrl": "https://figshare.com/files/65859867",
+      "license": "MIT",
+      "descriptionZh": "BAM-MP-core 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "BAM-MP-core is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 BAM-MP-core 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for BAM-MP-core, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 BAM-MP-core 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of BAM-MP-core and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/bowsr",
+      "name": "BOWSR",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/bowsr/bowsr.yml",
+      "checkpointUrl": "https://github.com/materialsvirtuallab/maml/raw/43619d4fb/maml/apps/bowsr/model/model_files/megnet/formation_energy.hdf5",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "BOWSR 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "BOWSR is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 BOWSR 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the BOWSR materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 BOWSR 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether BOWSR fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/cgcnn",
+      "name": "CGCNN",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/cgcnn/cgcnn.yml",
+      "checkpointUrl": "https://api.wandb.ai/files/janosh/matbench-discovery/cvrqqjf1/checkpoint.pth",
+      "license": "MIT",
+      "descriptionZh": "CGCNN 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "CGCNN is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 CGCNN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the CGCNN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 CGCNN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether CGCNN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/cgcnn-p",
+      "name": "CGCNN+P",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/cgcnn/cgcnn-p.yml",
+      "checkpointUrl": "https://api.wandb.ai/files/janosh/matbench-discovery/tx6cepg6/checkpoint.pth",
+      "license": "MIT",
+      "descriptionZh": "CGCNN+P 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "CGCNN+P is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 CGCNN+P 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the CGCNN+P materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 CGCNN+P 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether CGCNN+P fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/chgnet-0.3.0",
+      "name": "CHGNet",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/chgnet/chgnet-0.3.0.yml",
+      "checkpointUrl": "https://github.com/CederGroupHub/chgnet/raw/refs/heads/main/chgnet/pretrained/0.3.0/chgnet_0.3.0_e29f68s314m37.pth.tar",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "CHGNet 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "CHGNet is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 CHGNet 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for CHGNet, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 CHGNet 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of CHGNet and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa3-v1-mptrj",
+      "name": "DPA3-v1-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa3-v1-mptrj.yml",
+      "checkpointUrl": "https://bohrium-api.dp.tech/ds-dl/matbench-submit-DPA3mptraj-ictz-v2.zip",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA3-v1-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA3-v1-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA3-v1-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA3-v1-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA3-v1-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA3-v1-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa3-v1-openlam",
+      "name": "DPA3-v1-OpenLAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa3-v1-openlam.yml",
+      "checkpointUrl": "https://bohrium-api.dp.tech/ds-dl/dpa3openlam-74ng-v3.zip",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA3-v1-OpenLAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA3-v1-OpenLAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA3-v1-OpenLAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA3-v1-OpenLAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA3-v1-OpenLAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA3-v1-OpenLAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa3-v2-mptrj",
+      "name": "DPA3-v2-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa3-v2-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/52989056",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA3-v2-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA3-v2-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA3-v2-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA3-v2-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA3-v2-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA3-v2-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa3-v2-openlam",
+      "name": "DPA3-v2-OpenLAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa3-v2-openlam.yml",
+      "checkpointUrl": "https://figshare.com/files/52989059",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA3-v2-OpenLAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA3-v2-OpenLAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA3-v2-OpenLAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA3-v2-OpenLAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA3-v2-OpenLAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA3-v2-OpenLAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa-3.1-3m-ft",
+      "name": "DPA-3.1-3M-FT",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa-3.1-3m-ft.yml",
+      "checkpointUrl": "https://figshare.com/files/55141895",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA-3.1-3M-FT 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA-3.1-3M-FT is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA-3.1-3M-FT 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA-3.1-3M-FT, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA-3.1-3M-FT 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA-3.1-3M-FT and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa-3.1-mptrj",
+      "name": "DPA-3.1-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa-3.1-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/55141124",
+      "license": "LGPL-3.0",
+      "descriptionZh": "DPA-3.1-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA-3.1-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA-3.1-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA-3.1-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA-3.1-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA-3.1-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa-4.0.1-pro-mptrj",
+      "name": "DPA-4.0.1-Pro-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa-4.0.1-pro-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/65469204",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "DPA-4.0.1-Pro-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA-4.0.1-Pro-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA-4.0.1-Pro-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA-4.0.1-Pro-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA-4.0.1-Pro-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA-4.0.1-Pro-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/dpa-4.0-pro-mptrj",
+      "name": "DPA-4.0-Pro-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/deepmd/dpa-4.0-pro-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/64733586",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "DPA-4.0-Pro-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "DPA-4.0-Pro-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 DPA-4.0-Pro-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for DPA-4.0-Pro-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 DPA-4.0-Pro-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of DPA-4.0-Pro-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/ema-gnn",
+      "name": "EMA-GNN",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/ema_gnn/ema-gnn.yml",
+      "checkpointUrl": "https://figshare.com/files/67085774 # https://doi.org/10.6084/m9.figshare.33111509",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "EMA-GNN 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "EMA-GNN is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 EMA-GNN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the EMA-GNN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 EMA-GNN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether EMA-GNN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/eqnorm-mptrj",
+      "name": "Eqnorm MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/eqnorm/eqnorm-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/55429685",
+      "license": "MIT",
+      "descriptionZh": "Eqnorm MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Eqnorm MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Eqnorm MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Eqnorm MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Eqnorm MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Eqnorm MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/equflash-29m-oam",
+      "name": "EquFlash",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/equflash/equflash-29m-oam.yml",
+      "checkpointUrl": "https://figshare.com/ndownloader/files/65435004",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "EquFlash 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "EquFlash is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 EquFlash 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for EquFlash, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 EquFlash 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of EquFlash and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/equflashv2-45m-oam",
+      "name": "EquFlashV2",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/equflash/equflashv2-45m-oam.yml",
+      "checkpointUrl": "https://figshare.com/ndownloader/files/65435007",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "EquFlashV2 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "EquFlashV2 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 EquFlashV2 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for EquFlashV2, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 EquFlashV2 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of EquFlashV2 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/equiformer-v3-mp",
+      "name": "EquiformerV3+DeNS-MP",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/equiformer_v3/equiformer-v3-mp.yml",
+      "checkpointUrl": "https://github.com/atomicarchitects/equiformer_v3",
+      "license": "MIT",
+      "descriptionZh": "EquiformerV3+DeNS-MP 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "EquiformerV3+DeNS-MP is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 EquiformerV3+DeNS-MP 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for EquiformerV3+DeNS-MP, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 EquiformerV3+DeNS-MP 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of EquiformerV3+DeNS-MP and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/equiformer-v3-oam",
+      "name": "EquiformerV3+DeNS-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/equiformer_v3/equiformer-v3-oam.yml",
+      "checkpointUrl": "https://github.com/atomicarchitects/equiformer_v3",
+      "license": "MIT",
+      "descriptionZh": "EquiformerV3+DeNS-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "EquiformerV3+DeNS-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 EquiformerV3+DeNS-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for EquiformerV3+DeNS-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 EquiformerV3+DeNS-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of EquiformerV3+DeNS-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/eqv2-m-omat-salex-mp",
+      "name": "eqV2 M",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/eqv2/eqv2-m-omat-salex-mp.yml",
+      "checkpointUrl": "https://huggingface.co/fairchem/OMAT24/resolve/main/eqV2_86M_omat_mp_salex.pt",
+      "license": "Meta Research",
+      "descriptionZh": "eqV2 M 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "eqV2 M is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 eqV2 M 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for eqV2 M, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 eqV2 M 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of eqV2 M and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/eqv2-s-dens-mp",
+      "name": "eqV2 S DeNS",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/eqv2/eqv2-s-dens-mp.yml",
+      "checkpointUrl": "https://huggingface.co/fairchem/OMAT24/resolve/main/eqV2_dens_31M_mp.pt",
+      "license": "Meta Research",
+      "descriptionZh": "eqV2 S DeNS 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "eqV2 S DeNS is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 eqV2 S DeNS 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for eqV2 S DeNS, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 eqV2 S DeNS 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of eqV2 S DeNS and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/esen-30m-mp",
+      "name": "eSEN-30M-MP",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/esen/esen-30m-mp.yml",
+      "checkpointUrl": "https://huggingface.co/fairchem/OMAT24/resolve/main/esen_30m_mptrj.pt",
+      "license": "Meta Research",
+      "descriptionZh": "eSEN-30M-MP 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "eSEN-30M-MP is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 eSEN-30M-MP 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for eSEN-30M-MP, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 eSEN-30M-MP 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of eSEN-30M-MP and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/esen-30m-oam",
+      "name": "eSEN-30M-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/esen/esen-30m-oam.yml",
+      "checkpointUrl": "https://huggingface.co/fairchem/OMAT24/resolve/main/esen_30m_oam.pt",
+      "license": "Meta Research",
+      "descriptionZh": "eSEN-30M-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "eSEN-30M-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 eSEN-30M-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for eSEN-30M-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 eSEN-30M-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of eSEN-30M-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/esnet",
+      "name": "ESNet",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/esnet/esnet.yml",
+      "checkpointUrl": "https://figshare.com/files/55540055",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "ESNet 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "ESNet is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 ESNet 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the ESNet materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 ESNet 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether ESNet fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/gnome",
+      "name": "NequIP-GNoME",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/gnome/gnome.yml",
+      "checkpointUrl": "license:",
+      "license": "unreleased",
+      "descriptionZh": "NequIP-GNoME 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "NequIP-GNoME is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 NequIP-GNoME 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for NequIP-GNoME, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 NequIP-GNoME 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of NequIP-GNoME and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/grace-1l-oam",
+      "name": "GRACE-1L-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/grace/grace-1l-oam.yml",
+      "checkpointUrl": "https://ruhr-uni-bochum.sciebo.de/s/gFAv8pX2DJbk1kb",
+      "license": "ASL",
+      "descriptionZh": "GRACE-1L-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "GRACE-1L-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 GRACE-1L-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for GRACE-1L-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 GRACE-1L-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of GRACE-1L-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/grace-2l-mptrj",
+      "name": "GRACE-2L-MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/grace/grace-2l-mptrj.yml",
+      "checkpointUrl": "https://ruhr-uni-bochum.sciebo.de/s/42Ivgi3eaLCynwC",
+      "license": "ASL",
+      "descriptionZh": "GRACE-2L-MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "GRACE-2L-MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 GRACE-2L-MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for GRACE-2L-MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 GRACE-2L-MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of GRACE-2L-MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/grace-2l-oam",
+      "name": "GRACE-2L-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/grace/grace-2l-oam.yml",
+      "checkpointUrl": "https://ruhr-uni-bochum.sciebo.de/s/4zVTfzxornWfS4T",
+      "license": "ASL",
+      "descriptionZh": "GRACE-2L-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "GRACE-2L-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 GRACE-2L-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for GRACE-2L-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 GRACE-2L-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of GRACE-2L-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/grace-2l-oam-l",
+      "name": "GRACE-2L-OAM-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/grace/grace-2l-oam-l.yml",
+      "checkpointUrl": "https://ruhr-uni-bochum.sciebo.de/s/s6YrAAk9aTjQBd8",
+      "license": "ASL",
+      "descriptionZh": "GRACE-2L-OAM-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "GRACE-2L-OAM-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 GRACE-2L-OAM-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for GRACE-2L-OAM-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 GRACE-2L-OAM-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of GRACE-2L-OAM-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/grace-3l-oam-l",
+      "name": "GRACE-3L-OAM-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/grace/grace-3l-oam-l.yml",
+      "checkpointUrl": "https://huggingface.co/AMS-ICAMS-RUB/grace-foundation-models/resolve/main/models/GRACE-3L-OMAT-large-ft-AM-model.tar.gz",
+      "license": "ASL",
+      "descriptionZh": "GRACE-3L-OAM-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "GRACE-3L-OAM-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 GRACE-3L-OAM-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for GRACE-3L-OAM-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 GRACE-3L-OAM-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of GRACE-3L-OAM-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/hienet",
+      "name": "HIENet",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/hienet/hienet.yml",
+      "checkpointUrl": "https://raw.githubusercontent.com/divelab/AIRS/main/OpenMat/HIENet/checkpoints/HIENet-V3.pth",
+      "license": "GPL-3.0",
+      "descriptionZh": "HIENet 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "HIENet is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 HIENet 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for HIENet, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 HIENet 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of HIENet and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/m3gnet",
+      "name": "M3GNet",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/m3gnet/m3gnet.yml",
+      "checkpointUrl": "https://github.com/materialsvirtuallab/m3gnet/tree/3a8b14dfd5/pretrained/MP-2021.2.8-EFS",
+      "license": "MIT",
+      "descriptionZh": "M3GNet 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "M3GNet is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 M3GNet 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for M3GNet, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 M3GNet 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of M3GNet and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/mace-mp-0",
+      "name": "MACE-MP-0",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/mace/mace-mp-0.yml",
+      "checkpointUrl": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model",
+      "license": "MIT",
+      "descriptionZh": "MACE-MP-0 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MACE-MP-0 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MACE-MP-0 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MACE-MP-0, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MACE-MP-0 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MACE-MP-0 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/mace-mpa-0",
+      "name": "MACE-MPA-0",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/mace/mace-mpa-0.yml",
+      "checkpointUrl": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mpa_0/mace-mpa-0-medium.model",
+      "license": "MIT",
+      "descriptionZh": "MACE-MPA-0 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MACE-MPA-0 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MACE-MPA-0 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MACE-MPA-0, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MACE-MPA-0 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MACE-MPA-0 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/matris-10m-mp",
+      "name": "MatRIS-10M-MP",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/matris/matris-10m-mp.yml",
+      "checkpointUrl": "https://figshare.com/files/59143058",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "MatRIS-10M-MP 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MatRIS-10M-MP is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MatRIS-10M-MP 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MatRIS-10M-MP, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MatRIS-10M-MP 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MatRIS-10M-MP and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/matris-10m-oam",
+      "name": "MatRIS-10M-OAM",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/matris/matris-10m-oam.yml",
+      "checkpointUrl": "https://figshare.com/files/59142728",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "MatRIS-10M-OAM 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MatRIS-10M-OAM is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MatRIS-10M-OAM 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MatRIS-10M-OAM, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MatRIS-10M-OAM 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MatRIS-10M-OAM and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/matris-v050-mptrj",
+      "name": "MatRIS v0.5.0 MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/matris/matris-v050-mptrj.yml",
+      "checkpointUrl": "https://figshare.com/files/59143058",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "MatRIS v0.5.0 MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MatRIS v0.5.0 MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MatRIS v0.5.0 MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MatRIS v0.5.0 MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MatRIS v0.5.0 MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MatRIS v0.5.0 MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/mattersim-v1-5m",
+      "name": "MatterSim v1 5M",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/mattersim/mattersim-v1-5m.yml",
+      "checkpointUrl": "https://github.com/microsoft/mattersim/raw/refs/heads/main/pretrained_models/mattersim-v1.0.0-5M.pth",
+      "license": "MIT",
+      "descriptionZh": "MatterSim v1 5M 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "MatterSim v1 5M is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 MatterSim v1 5M 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for MatterSim v1 5M, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 MatterSim v1 5M 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of MatterSim v1 5M and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/megnet",
+      "name": "MEGNet",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/megnet/megnet.yml",
+      "checkpointUrl": "https://figshare.com/files/22291785",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "MEGNet 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "MEGNet is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 MEGNet 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the MEGNet materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 MEGNet 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether MEGNet fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/nequip-mp-l-0.1",
+      "name": "Nequip-MP-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/nequip/nequip-mp-l-0.1.yml",
+      "checkpointUrl": "https://www.nequip.net/models/mir-group/NequIP-MP-L:0.1",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Nequip-MP-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Nequip-MP-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Nequip-MP-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Nequip-MP-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Nequip-MP-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Nequip-MP-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/nequip-oam-l-0.1",
+      "name": "Nequip-OAM-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/nequip/nequip-oam-l-0.1.yml",
+      "checkpointUrl": "https://www.nequip.net/models/mir-group/NequIP-OAM-L:0.1",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Nequip-OAM-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Nequip-OAM-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Nequip-OAM-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Nequip-OAM-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Nequip-OAM-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Nequip-OAM-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/nequip-oam-xl-0.1",
+      "name": "Nequip-OAM-XL",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/nequip/nequip-oam-xl-0.1.yml",
+      "checkpointUrl": "https://www.nequip.net/models/mir-group/NequIP-OAM-XL:0.1",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Nequip-OAM-XL 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Nequip-OAM-XL is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Nequip-OAM-XL 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Nequip-OAM-XL, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Nequip-OAM-XL 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Nequip-OAM-XL and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/nequix-mp-1",
+      "name": "Nequix MP",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/nequix/nequix-mp-1.yml",
+      "checkpointUrl": "https://figshare.com/files/57245573",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Nequix MP 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Nequix MP is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Nequix MP 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Nequix MP, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Nequix MP 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Nequix MP and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/nequix-mp-1-pft",
+      "name": "Nequix MP PFT",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/nequix/nequix-mp-1-pft.yml",
+      "checkpointUrl": "https://figshare.com/files/60965527",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Nequix MP PFT 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Nequix MP PFT is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Nequix MP PFT 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Nequix MP PFT, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Nequix MP PFT 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Nequix MP PFT and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/orb-v2",
+      "name": "ORB v2 MPA",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/orb/orb-v2.yml",
+      "checkpointUrl": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v2-20241011.ckpt",
+      "license": "Apache-2.0",
+      "descriptionZh": "ORB v2 MPA 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "ORB v2 MPA is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 ORB v2 MPA 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for ORB v2 MPA, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 ORB v2 MPA 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of ORB v2 MPA and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/orb-v2-mptrj",
+      "name": "ORB v2 MPtrj",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/orb/orb-v2-mptrj.yml",
+      "checkpointUrl": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-mptraj-only-v2-20241014.ckpt",
+      "license": "Apache-2.0",
+      "descriptionZh": "ORB v2 MPtrj 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "ORB v2 MPtrj is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 ORB v2 MPtrj 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for ORB v2 MPtrj, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 ORB v2 MPtrj 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of ORB v2 MPtrj and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/orb-v3",
+      "name": "ORB v3",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/orb/orb-v3.yml",
+      "checkpointUrl": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v3/orb-v3-conservative-inf-mpa-20250404.ckpt",
+      "license": "Apache-2.0",
+      "descriptionZh": "ORB v3 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "ORB v3 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 ORB v3 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for ORB v3, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 ORB v3 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of ORB v3 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/pet-oam-xl-1.0.0",
+      "name": "PET-OAM-XL",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/pet/pet-oam-xl-1.0.0.yml",
+      "checkpointUrl": "https://huggingface.co/lab-cosmo/upet/resolve/main/models/pet-oam-xl-v1.0.0.ckpt",
+      "license": "BSD-3-Clause",
+      "descriptionZh": "PET-OAM-XL 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "PET-OAM-XL is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 PET-OAM-XL 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for PET-OAM-XL, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 PET-OAM-XL 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of PET-OAM-XL and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/prophet-oame-mbd",
+      "name": "Prophet-OAME-MBD",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/prophet/prophet-oame-mbd.yml",
+      "checkpointUrl": "https://huggingface.co/kairosmaterial/prophet/resolve/f9a54df874ba52b8b35e7d3f7f348b46e0135563/prophet-oame-mbd.pt",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "Prophet-OAME-MBD 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "Prophet-OAME-MBD is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 Prophet-OAME-MBD 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for Prophet-OAME-MBD, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 Prophet-OAME-MBD 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of Prophet-OAME-MBD and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/sevennet-0",
+      "name": "SevenNet-0",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/sevennet/sevennet-0.yml",
+      "checkpointUrl": "https://raw.githubusercontent.com/MDIL-SNU/SevenNet/dff008ac9c53d3/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth",
+      "license": "GPL-3.0",
+      "descriptionZh": "SevenNet-0 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "SevenNet-0 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 SevenNet-0 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for SevenNet-0, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 SevenNet-0 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of SevenNet-0 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/sevennet-l3i5",
+      "name": "SevenNet-l3i5",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/sevennet/sevennet-l3i5.yml",
+      "checkpointUrl": "https://raw.githubusercontent.com/MDIL-SNU/SevenNet/dff008ac9c5/sevenn/pretrained_potentials/SevenNet_l3i5/checkpoint_l3i5.pth",
+      "license": "GPL-3.0",
+      "descriptionZh": "SevenNet-l3i5 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "SevenNet-l3i5 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 SevenNet-l3i5 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for SevenNet-l3i5, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 SevenNet-l3i5 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of SevenNet-l3i5 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/sevennet-mf-ompa",
+      "name": "SevenNet-MF-ompa",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/sevennet/sevennet-mf-ompa.yml",
+      "checkpointUrl": "https://figshare.com/files/53029859",
+      "license": "GPL-3.0",
+      "descriptionZh": "SevenNet-MF-ompa 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "SevenNet-MF-ompa is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 SevenNet-MF-ompa 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for SevenNet-MF-ompa, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 SevenNet-MF-ompa 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of SevenNet-MF-ompa and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/sevennet-omni-i12",
+      "name": "SevenNet-Omni-i12",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/sevennet/sevennet-omni-i12.yml",
+      "checkpointUrl": "https://figshare.com/files/60977863",
+      "license": "MIT",
+      "descriptionZh": "SevenNet-Omni-i12 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "SevenNet-Omni-i12 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 SevenNet-Omni-i12 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for SevenNet-Omni-i12, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 SevenNet-Omni-i12 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of SevenNet-Omni-i12 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/tace-oam-l",
+      "name": "TACE-OAM-L",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/tace/tace-oam-l.yml",
+      "checkpointUrl": "https://huggingface.co/xvzemin/tace-foundations/resolve/main/TACE-OAM-L.pt",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "TACE-OAM-L 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "TACE-OAM-L is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 TACE-OAM-L 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for TACE-OAM-L, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 TACE-OAM-L 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of TACE-OAM-L and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/tace-oam-rra-preview",
+      "name": "TACE-OAM-RRA-Preview",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/tace/tace-oam-rra-preview.yml",
+      "checkpointUrl": "https://huggingface.co/xvzemin/tace-foundations/resolve/main/TACE-OAM-RRA-Preview.pt",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "TACE-OAM-RRA-Preview 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "TACE-OAM-RRA-Preview is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 TACE-OAM-RRA-Preview 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for TACE-OAM-RRA-Preview, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 TACE-OAM-RRA-Preview 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of TACE-OAM-RRA-Preview and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/tace-v1-oam-m",
+      "name": "TACE-v1-OAM-M",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/tace/tace-v1-oam-m.yml",
+      "checkpointUrl": "https://huggingface.co/xvzemin/tace-foundations/resolve/main/TACE-v1-OAM-M.pt",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "TACE-v1-OAM-M 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "TACE-v1-OAM-M is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 TACE-v1-OAM-M 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for TACE-v1-OAM-M, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 TACE-v1-OAM-M 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of TACE-v1-OAM-M and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/tece-oam-rra-1.0",
+      "name": "TECE-OAM-RRA-1.0",
+      "category": "atomistic",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/tace/tece-oam-rra-1.0.yml",
+      "checkpointUrl": "https://huggingface.co/xvzemin/tace-foundations/resolve/main/TECE-OAM-RRA-1.0.pt",
+      "license": "CC-BY-4.0",
+      "descriptionZh": "TECE-OAM-RRA-1.0 是 Matbench Discovery 收录的原子尺度模型，可用于评估材料结构相关的能量、力或应力；实际输出取决于该版本的权重和运行环境。",
+      "descriptionEn": "TECE-OAM-RRA-1.0 is an atomistic model listed by Matbench Discovery for structure-related energy, force, or stress evaluation; supported outputs depend on its checkpoint and runtime.",
+      "examples": [
+        {
+          "zh": "核查 TECE-OAM-RRA-1.0 的权重与许可，并制定用 CIF 结构计算能量的可复现流程。",
+          "en": "Check the checkpoint and license for TECE-OAM-RRA-1.0, then plan a reproducible energy calculation from a CIF structure."
+        },
+        {
+          "zh": "比较 TECE-OAM-RRA-1.0 与 CHGNet 在同一晶体结构上的适用范围、输入和验证指标。",
+          "en": "Compare the scope, inputs, and validation metrics of TECE-OAM-RRA-1.0 and CHGNet on the same crystal structure."
+        }
+      ]
+    },
+    {
+      "id": "discovery/voronoi-rf",
+      "name": "Voronoi RF",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/voronoi_rf/voronoi-rf.yml",
+      "checkpointUrl": "https://api.wandb.ai/artifactsV2/default/janosh/matbench-discovery/voronoi_rf_model_IS2RE/QXJ0aWZhY3Q6MTYwNjgyOTk3NA%3D%3D/fb0cf7ce8454e5fbe1bcd49d42c0e49b/voronoi_rf_model.joblib",
+      "license": "MIT",
+      "descriptionZh": "Voronoi RF 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Voronoi RF is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Voronoi RF 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Voronoi RF materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Voronoi RF 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Voronoi RF fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "discovery/wrenformer",
+      "name": "Wrenformer",
+      "category": "materials-property",
+      "benchmark": "Matbench Discovery",
+      "sourceUrl": "https://github.com/janosh/matbench-discovery/blob/71633e8bdfdfd41d56d64b1d777e5686d9eda3ec/models/wrenformer/wrenformer.yml",
+      "checkpointUrl": "https://api.wandb.ai/files/janosh/matbench-discovery/2kozbp4q/checkpoint.pth",
+      "license": "MIT",
+      "descriptionZh": "Wrenformer 是 Matbench Discovery 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Wrenformer is a materials-property or stability prediction submission in Matbench Discovery; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Wrenformer 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Wrenformer materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Wrenformer 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Wrenformer fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Auto-sklearn",
+      "name": "Auto-sklearn",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Auto-sklearn",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Auto-sklearn 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Auto-sklearn is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Auto-sklearn 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Auto-sklearn materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Auto-sklearn 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Auto-sklearn fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Ax_10_90_CrabNet_v1.2.7",
+      "name": "Ax 10 90 CrabNet v1.2.7",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Ax_10_90_CrabNet_v1.2.7",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Ax 10 90 CrabNet v1.2.7 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Ax 10 90 CrabNet v1.2.7 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Ax 10 90 CrabNet v1.2.7 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Ax 10 90 CrabNet v1.2.7 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Ax 10 90 CrabNet v1.2.7 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Ax 10 90 CrabNet v1.2.7 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Ax_CrabNet_v1.2.1",
+      "name": "Ax CrabNet v1.2.1",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Ax_CrabNet_v1.2.1",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Ax CrabNet v1.2.1 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Ax CrabNet v1.2.1 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Ax CrabNet v1.2.1 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Ax CrabNet v1.2.1 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Ax CrabNet v1.2.1 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Ax CrabNet v1.2.1 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Ax_SAASBO_CrabNet_v1.2.7",
+      "name": "Ax SAASBO CrabNet v1.2.7",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Ax_SAASBO_CrabNet_v1.2.7",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Ax SAASBO CrabNet v1.2.7 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Ax SAASBO CrabNet v1.2.7 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Ax SAASBO CrabNet v1.2.7 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Ax SAASBO CrabNet v1.2.7 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Ax SAASBO CrabNet v1.2.7 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Ax SAASBO CrabNet v1.2.7 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_CrabNet",
+      "name": "CrabNet",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_CrabNet",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "CrabNet 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "CrabNet is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 CrabNet 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the CrabNet materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 CrabNet 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether CrabNet fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_CrabNet_v1.2.1",
+      "name": "CrabNet v1.2.1",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_CrabNet_v1.2.1",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "CrabNet v1.2.1 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "CrabNet v1.2.1 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 CrabNet v1.2.1 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the CrabNet v1.2.1 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 CrabNet v1.2.1 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether CrabNet v1.2.1 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_DeeperGATGNN",
+      "name": "DeeperGATGNN",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_DeeperGATGNN",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "DeeperGATGNN 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "DeeperGATGNN is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 DeeperGATGNN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the DeeperGATGNN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 DeeperGATGNN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether DeeperGATGNN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_DimeNetPP_kgcnn_v2.1.0",
+      "name": "DimeNetPP kgcnn v2.1.0",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_DimeNetPP_kgcnn_v2.1.0",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "DimeNetPP kgcnn v2.1.0 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "DimeNetPP kgcnn v2.1.0 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 DimeNetPP kgcnn v2.1.0 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the DimeNetPP kgcnn v2.1.0 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 DimeNetPP kgcnn v2.1.0 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether DimeNetPP kgcnn v2.1.0 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Finder_v1.2_composition",
+      "name": "Finder v1.2 composition",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Finder_v1.2_composition",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Finder v1.2 composition 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Finder v1.2 composition is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Finder v1.2 composition 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Finder v1.2 composition materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Finder v1.2 composition 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Finder v1.2 composition fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_Finder_v1.2_structure",
+      "name": "Finder v1.2 structure",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_Finder_v1.2_structure",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "Finder v1.2 structure 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "Finder v1.2 structure is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 Finder v1.2 structure 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the Finder v1.2 structure materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 Finder v1.2 structure 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether Finder v1.2 structure fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_GN-OA",
+      "name": "GN-OA",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_GN-OA",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "GN-OA 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "GN-OA is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 GN-OA 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the GN-OA materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 GN-OA 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether GN-OA fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_MegNet_kgcnn_v2.1.0",
+      "name": "MegNet kgcnn v2.1.0",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_MegNet_kgcnn_v2.1.0",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "MegNet kgcnn v2.1.0 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "MegNet kgcnn v2.1.0 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 MegNet kgcnn v2.1.0 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the MegNet kgcnn v2.1.0 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 MegNet kgcnn v2.1.0 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether MegNet kgcnn v2.1.0 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_RFLR",
+      "name": "RFLR",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_RFLR",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "RFLR 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "RFLR is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 RFLR 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the RFLR materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 RFLR 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether RFLR fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_SchNet_kgcnn_v2.1.0",
+      "name": "SchNet kgcnn v2.1.0",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_SchNet_kgcnn_v2.1.0",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "SchNet kgcnn v2.1.0 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "SchNet kgcnn v2.1.0 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 SchNet kgcnn v2.1.0 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the SchNet kgcnn v2.1.0 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 SchNet kgcnn v2.1.0 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether SchNet kgcnn v2.1.0 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_TPOT",
+      "name": "TPOT",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_TPOT",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "TPOT 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "TPOT is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 TPOT 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the TPOT materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 TPOT 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether TPOT fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_alignn",
+      "name": "alignn",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_alignn",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "alignn 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "alignn is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 alignn 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the alignn materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 alignn 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether alignn fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_automatminer_expressv2020",
+      "name": "automatminer expressv2020",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_automatminer_expressv2020",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "automatminer expressv2020 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "automatminer expressv2020 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 automatminer expressv2020 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the automatminer expressv2020 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 automatminer expressv2020 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether automatminer expressv2020 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_cgcnnv2019",
+      "name": "cgcnnv2019",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_cgcnnv2019",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "cgcnnv2019 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "cgcnnv2019 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 cgcnnv2019 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the cgcnnv2019 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 cgcnnv2019 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether cgcnnv2019 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_coGN",
+      "name": "coGN",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_coGN",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "coGN 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "coGN is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 coGN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the coGN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 coGN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether coGN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_coNGN",
+      "name": "coNGN",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_coNGN",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "coNGN 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "coNGN is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 coNGN 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the coNGN materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 coNGN 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether coNGN fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_darwin",
+      "name": "darwin",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_darwin",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "darwin 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "darwin is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 darwin 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the darwin materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 darwin 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether darwin fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_gptchem",
+      "name": "gptchem",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_gptchem",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "gptchem 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "gptchem is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 gptchem 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the gptchem materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 gptchem 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether gptchem fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_lattice_xgboost",
+      "name": "lattice xgboost",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_lattice_xgboost",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "lattice xgboost 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "lattice xgboost is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 lattice xgboost 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the lattice xgboost materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 lattice xgboost 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether lattice xgboost fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_matformer",
+      "name": "matformer",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_matformer",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "matformer 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "matformer is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 matformer 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the matformer materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 matformer 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether matformer fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_modnet_v0.1.10",
+      "name": "modnet v0.1.10",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_modnet_v0.1.10",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "modnet v0.1.10 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "modnet v0.1.10 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 modnet v0.1.10 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the modnet v0.1.10 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 modnet v0.1.10 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether modnet v0.1.10 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_modnet_v0.1.12",
+      "name": "modnet v0.1.12",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_modnet_v0.1.12",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "modnet v0.1.12 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "modnet v0.1.12 is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 modnet v0.1.12 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the modnet v0.1.12 materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 modnet v0.1.12 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether modnet v0.1.12 fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "matbench/matbench_v0.1_rf",
+      "name": "rf",
+      "category": "materials-property",
+      "benchmark": "Matbench v0.1",
+      "sourceUrl": "https://github.com/materialsproject/matbench/tree/936176db18ca4cd7b38cbd957c017a5bac770c6b/benchmarks/matbench_v0.1_rf",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "rf 是 Matbench v0.1 收录的材料性质或稳定性预测方案；目录条目不代表预训练权重已公开。",
+      "descriptionEn": "rf is a materials-property or stability prediction submission in Matbench v0.1; this directory entry does not imply public pretrained weights.",
+      "examples": [
+        {
+          "zh": "说明如何复现 rf 的材料性质评测，包括输入特征、数据划分和指标。",
+          "en": "Explain how to reproduce the rf materials-property benchmark, including features, splits, and metrics."
+        },
+        {
+          "zh": "评估 rf 是否适合我的材料数据集，并列出运行前缺少的依赖与权重。",
+          "en": "Assess whether rf fits my materials dataset and list the missing dependencies and weights before running it."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-2-chat",
+      "name": "LLaMat 2-chat",
+      "category": "materials-chat",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-2-chat",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 2-chat 是面向材料研究的生成式语言模型；需单独取得兼容权重和推理服务后才能用于对话。",
+      "descriptionEn": "LLaMat 2-chat is a generative language model for materials research; compatible weights and an inference service are required before chat use.",
+      "examples": [
+        {
+          "zh": "用 LLaMat 2-chat 总结一篇材料论文的研究问题、实验方法和主要证据，并标注不确定之处。",
+          "en": "Use LLaMat 2-chat to summarize a materials paper's question, methods, and evidence, marking uncertainty."
+        },
+        {
+          "zh": "让 LLaMat 2-chat 比较两种复合材料工艺路线，并列出需要实验验证的假设。",
+          "en": "Ask LLaMat 2-chat to compare two composite-processing routes and identify hypotheses requiring experiments."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-3-chat",
+      "name": "LLaMat 3-chat",
+      "category": "materials-chat",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-3-chat",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 3-chat 是面向材料研究的生成式语言模型；需单独取得兼容权重和推理服务后才能用于对话。",
+      "descriptionEn": "LLaMat 3-chat is a generative language model for materials research; compatible weights and an inference service are required before chat use.",
+      "examples": [
+        {
+          "zh": "用 LLaMat 3-chat 总结一篇材料论文的研究问题、实验方法和主要证据，并标注不确定之处。",
+          "en": "Use LLaMat 3-chat to summarize a materials paper's question, methods, and evidence, marking uncertainty."
+        },
+        {
+          "zh": "让 LLaMat 3-chat 比较两种复合材料工艺路线，并列出需要实验验证的假设。",
+          "en": "Ask LLaMat 3-chat to compare two composite-processing routes and identify hypotheses requiring experiments."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-2-cif",
+      "name": "LLaMat 2-cif",
+      "category": "materials-cif-generation",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-2-cif",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 2-cif 是针对晶体结构 CIF 生成任务训练的材料语言模型；生成结果仍需检查化学式、晶胞和对称性。",
+      "descriptionEn": "LLaMat 2-cif is a materials language model trained for CIF crystal-structure generation; generated formulas, cells, and symmetry still require validation.",
+      "examples": [
+        {
+          "zh": "说明如何使用 LLaMat 2-cif 生成候选 CIF，并用 pymatgen 检查结构有效性。",
+          "en": "Explain how to generate a candidate CIF with LLaMat 2-cif and validate it with pymatgen."
+        },
+        {
+          "zh": "设计 LLaMat 2-cif 生成晶体结构后的去重、稳定性筛选和人工复核流程。",
+          "en": "Plan deduplication, stability screening, and human review after crystal generation with LLaMat 2-cif."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-3-cif",
+      "name": "LLaMat 3-cif",
+      "category": "materials-cif-generation",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-3-cif",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 3-cif 是针对晶体结构 CIF 生成任务训练的材料语言模型；生成结果仍需检查化学式、晶胞和对称性。",
+      "descriptionEn": "LLaMat 3-cif is a materials language model trained for CIF crystal-structure generation; generated formulas, cells, and symmetry still require validation.",
+      "examples": [
+        {
+          "zh": "说明如何使用 LLaMat 3-cif 生成候选 CIF，并用 pymatgen 检查结构有效性。",
+          "en": "Explain how to generate a candidate CIF with LLaMat 3-cif and validate it with pymatgen."
+        },
+        {
+          "zh": "设计 LLaMat 3-cif 生成晶体结构后的去重、稳定性筛选和人工复核流程。",
+          "en": "Plan deduplication, stability screening, and human review after crystal generation with LLaMat 3-cif."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-2",
+      "name": "LLaMat 2",
+      "category": "materials-language-base",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-2",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 2 是材料领域继续预训练的基础语言模型；不是已适配 MaterialsX 工具调用的指令模型。",
+      "descriptionEn": "LLaMat 2 is a materials-domain continued-pretraining base model, not an instruction model adapted to MaterialsX tool calls.",
+      "examples": [
+        {
+          "zh": "评估将 LLaMat 2 微调为材料文献问答模型需要的数据、许可和验证集。",
+          "en": "Assess the data, license, and validation set needed to fine-tune LLaMat 2 for materials-paper QA."
+        },
+        {
+          "zh": "比较 LLaMat 2 基座版与对应 chat 版在材料术语理解和指令遵循方面的差异。",
+          "en": "Compare the base LLaMat 2 with its chat variant for materials terminology and instruction following."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/llamat-3",
+      "name": "LLaMat 3",
+      "category": "materials-language-base",
+      "benchmark": "LLaMat",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/llamat-3",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "LLaMat 3 是材料领域继续预训练的基础语言模型；不是已适配 MaterialsX 工具调用的指令模型。",
+      "descriptionEn": "LLaMat 3 is a materials-domain continued-pretraining base model, not an instruction model adapted to MaterialsX tool calls.",
+      "examples": [
+        {
+          "zh": "评估将 LLaMat 3 微调为材料文献问答模型需要的数据、许可和验证集。",
+          "en": "Assess the data, license, and validation set needed to fine-tune LLaMat 3 for materials-paper QA."
+        },
+        {
+          "zh": "比较 LLaMat 3 基座版与对应 chat 版在材料术语理解和指令遵循方面的差异。",
+          "en": "Compare the base LLaMat 3 with its chat variant for materials terminology and instruction following."
+        }
+      ]
+    },
+    {
+      "id": "hf/m3rg-iitd/matscibert",
+      "name": "MatSciBERT",
+      "category": "materials-text",
+      "benchmark": "MatSciBERT",
+      "sourceUrl": "https://huggingface.co/m3rg-iitd/matscibert",
+      "checkpointUrl": null,
+      "license": "源站核查",
+      "descriptionZh": "MatSciBERT 是材料文献领域的文本编码模型，适合检索或下游信息抽取；它不是对话模型。",
+      "descriptionEn": "MatSciBERT is a materials-literature text encoder for retrieval or downstream information extraction; it is not a chat model.",
+      "examples": [
+        {
+          "zh": "用 MatSciBERT 设计材料论文段落的检索或实体抽取流程，并说明是否需要微调。",
+          "en": "Design a passage-retrieval or entity-extraction workflow with MatSciBERT, including any fine-tuning need."
+        },
+        {
+          "zh": "比较 MatSciBERT 与通用文本编码器在电池材料术语上的覆盖范围。",
+          "en": "Compare the coverage of battery-materials terminology in MatSciBERT and a general text encoder."
+        }
+      ]
+    },
+    {
+      "id": "hf/batterydata/batterybert-uncased",
+      "name": "BatteryBERT uncased",
+      "category": "materials-text",
+      "benchmark": "BatteryBERT",
+      "sourceUrl": "https://huggingface.co/batterydata/batterybert-uncased",
+      "checkpointUrl": null,
+      "license": "Apache-2.0",
+      "descriptionZh": "BatteryBERT uncased 是材料文献领域的文本编码模型，适合检索或下游信息抽取；它不是对话模型。",
+      "descriptionEn": "BatteryBERT uncased is a materials-literature text encoder for retrieval or downstream information extraction; it is not a chat model.",
+      "examples": [
+        {
+          "zh": "用 BatteryBERT uncased 设计材料论文段落的检索或实体抽取流程，并说明是否需要微调。",
+          "en": "Design a passage-retrieval or entity-extraction workflow with BatteryBERT uncased, including any fine-tuning need."
+        },
+        {
+          "zh": "比较 BatteryBERT uncased 与通用文本编码器在电池材料术语上的覆盖范围。",
+          "en": "Compare the coverage of battery-materials terminology in BatteryBERT uncased and a general text encoder."
+        }
+      ]
+    }
+  ]
+}

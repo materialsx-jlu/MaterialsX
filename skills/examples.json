@@ -1,0 +1,642 @@
+{
+  "pymatgen": [
+    {
+      "zh": "分析这个 CIF 晶体结构的空间群、晶格参数和配位环境，并检查结构是否合理。",
+      "en": "Analyze this CIF crystal structure for its space group, lattice parameters, and coordination environments, and check whether the structure is reasonable."
+    },
+    {
+      "zh": "根据这组形成能数据构建相图，找出稳定相及其能量凸包距离。",
+      "en": "Build a phase diagram from these formation energies and identify the stable phases and their energy above hull."
+    }
+  ],
+  "pymoo": [
+    {
+      "zh": "以强度最大、成本最低为双目标，设计一个带工艺约束的 NSGA-II 优化方案。",
+      "en": "Design an NSGA-II optimization with maximum strength and minimum cost as objectives, subject to process constraints."
+    },
+    {
+      "zh": "分析这组候选配方的 Pareto 前沿，并推荐三个具有代表性的折中方案。",
+      "en": "Analyze the Pareto front for these candidate formulations and recommend three representative trade-off solutions."
+    }
+  ],
+  "uncertainty-and-units": [
+    {
+      "zh": "计算该复合材料的比强度，统一输入单位，并传播密度和强度的测量不确定度。",
+      "en": "Calculate the specific strength of this composite, normalize the input units, and propagate the measurement uncertainties in density and strength."
+    },
+    {
+      "zh": "检查这份热导率计算是否存在量纲错误，并以合适的有效数字报告结果。",
+      "en": "Check this thermal-conductivity calculation for dimensional errors and report the result with appropriate significant figures."
+    }
+  ],
+  "experimental-design": [
+    {
+      "zh": "为温度、压力和保温时间三个因素设计一个复合材料成型的响应面实验。",
+      "en": "Design a response-surface experiment for composite molding with temperature, pressure, and dwell time as factors."
+    },
+    {
+      "zh": "为这项材料疲劳实验制定随机化、区组和重复测量方案，并说明样本编号规则。",
+      "en": "Create a randomization, blocking, and repeated-measures plan for this materials fatigue experiment, including a sample-ID scheme."
+    }
+  ],
+  "exploratory-data-analysis": [
+    {
+      "zh": "对这个材料性能 CSV 做探索性分析，检查缺失值、异常值、分布和潜在数据泄漏。",
+      "en": "Perform exploratory analysis on this materials-property CSV, checking missing values, outliers, distributions, and potential data leakage."
+    },
+    {
+      "zh": "比较不同批次拉伸数据的分布，并指出需要进一步核查的样品。",
+      "en": "Compare the tensile-data distributions across batches and flag samples that need further investigation."
+    }
+  ],
+  "statistical-analysis": [
+    {
+      "zh": "比较三种热处理工艺的屈服强度，选择合适的统计检验并报告效应量和置信区间。",
+      "en": "Compare the yield strength of three heat-treatment processes, choose an appropriate statistical test, and report effect sizes and confidence intervals."
+    },
+    {
+      "zh": "分析纤维含量与冲击强度的关系，检查模型假设并解释结果的实际意义。",
+      "en": "Analyze the relationship between fiber content and impact strength, check model assumptions, and explain the practical meaning of the results."
+    }
+  ],
+  "statistical-power": [
+    {
+      "zh": "估算检测两种材料平均强度相差 8% 所需的样本量，功效设为 0.8。",
+      "en": "Estimate the sample size needed to detect an 8% difference in mean strength between two materials with 0.8 power."
+    },
+    {
+      "zh": "为包含批次效应的三因素实验做模拟功效分析，并给出样本量建议。",
+      "en": "Run a simulation-based power analysis for a three-factor experiment with batch effects and recommend a sample size."
+    }
+  ],
+  "scikit-learn": [
+    {
+      "zh": "用这份材料成分和工艺数据预测拉伸强度，建立包含预处理和交叉验证的基线模型。",
+      "en": "Predict tensile strength from this composition and process dataset using a baseline pipeline with preprocessing and cross-validation."
+    },
+    {
+      "zh": "比较随机森林和梯度提升模型，避免数据泄漏，并输出可复现的评估报告。",
+      "en": "Compare random-forest and gradient-boosting models, prevent data leakage, and produce a reproducible evaluation report."
+    }
+  ],
+  "statsmodels": [
+    {
+      "zh": "用混合效应模型分析不同实验批次下温度对材料强度的影响。",
+      "en": "Use a mixed-effects model to analyze how temperature affects material strength across experimental batches."
+    },
+    {
+      "zh": "建立孔隙率与疲劳寿命的回归模型，给出残差诊断和置信区间。",
+      "en": "Fit a regression model for porosity versus fatigue life and provide residual diagnostics and confidence intervals."
+    }
+  ],
+  "matplotlib": [
+    {
+      "zh": "把这组应力—应变曲线绘制成适合论文的图，包含误差带、清晰图例和矢量导出。",
+      "en": "Plot these stress-strain curves as a publication-ready figure with error bands, a clear legend, and vector export."
+    },
+    {
+      "zh": "生成一个 2×2 多面板图，统一坐标轴、字体和颜色，并导出 PDF。",
+      "en": "Create a 2×2 multi-panel figure with consistent axes, typography, and colors, and export it as a PDF."
+    }
+  ],
+  "seaborn": [
+    {
+      "zh": "可视化不同配方组的强度分布，并叠加原始数据点和置信区间。",
+      "en": "Visualize strength distributions across formulation groups, including raw data points and confidence intervals."
+    },
+    {
+      "zh": "绘制材料特征的相关性热图，并突出与热导率关系最强的变量。",
+      "en": "Plot a correlation heatmap of material features and highlight the variables most strongly associated with thermal conductivity."
+    }
+  ],
+  "scientific-visualization": [
+    {
+      "zh": "把这些实验结果整理成期刊风格的三面板图，统一配色、标注和统计符号。",
+      "en": "Turn these results into a journal-style three-panel figure with consistent colors, annotations, and statistical symbols."
+    },
+    {
+      "zh": "为材料工艺—结构—性能关系制作一张适合论文的综合可视化。",
+      "en": "Create a publication-ready composite visualization of the process-structure-property relationships."
+    }
+  ],
+  "sympy": [
+    {
+      "zh": "符号推导层合板等效模量公式，并验证各项的单位。",
+      "en": "Symbolically derive the effective-modulus formula for a laminate and verify the units of each term."
+    },
+    {
+      "zh": "求解这组耦合扩散方程的稳态解析解，并给出可代入参数的表达式。",
+      "en": "Solve this coupled diffusion system for a steady-state analytical solution and provide a parameter-ready expression."
+    }
+  ],
+  "literature-review": [
+    {
+      "zh": "系统检索近五年热塑性复合材料界面改性的研究，整理检索式、筛选标准和证据表。",
+      "en": "Systematically review the last five years of research on interface modification in thermoplastic composites, including search strings, screening criteria, and an evidence table."
+    },
+    {
+      "zh": "综述 PEEK 复合材料热压成型参数对孔隙率和力学性能的影响，并核验引用。",
+      "en": "Review how hot-pressing parameters affect porosity and mechanical properties in PEEK composites, with verified citations."
+    }
+  ],
+  "citation-management": [
+    {
+      "zh": "核验这份参考文献列表的 DOI、作者和期刊信息，并生成规范的 BibTeX。",
+      "en": "Verify the DOIs, authors, and journal metadata in this reference list and generate clean BibTeX entries."
+    },
+    {
+      "zh": "查找这篇论文的准确引用信息，并检查是否存在撤稿或更正记录。",
+      "en": "Find the exact citation metadata for this paper and check for any retraction or correction records."
+    }
+  ],
+  "scientific-critical-thinking": [
+    {
+      "zh": "评估这篇论文关于纳米填料提高韧性的因果结论，找出混杂因素和替代解释。",
+      "en": "Evaluate this paper's causal claim that nanofillers improve toughness, identifying confounders and alternative explanations."
+    },
+    {
+      "zh": "检查这组实验是否足以支持作者的机制解释，并列出还需要的关键证据。",
+      "en": "Assess whether these experiments support the proposed mechanism and list the critical evidence still needed."
+    }
+  ],
+  "scientific-writing": [
+    {
+      "zh": "把这段材料实验结果改写成清晰、克制的论文 Results 段落，保留数值和不确定度。",
+      "en": "Rewrite these materials experiment results as a clear, restrained Results section while preserving values and uncertainties."
+    },
+    {
+      "zh": "根据这些要点起草论文的 Methods 部分，确保步骤可复现且不补造信息。",
+      "en": "Draft a reproducible Methods section from these notes without inventing missing information."
+    }
+  ],
+  "markitdown": [
+    {
+      "zh": "将这份材料论文 PDF 转换成结构化 Markdown，保留标题层级、表格和图片引用。",
+      "en": "Convert this materials-science PDF into structured Markdown while preserving heading hierarchy, tables, and image references."
+    },
+    {
+      "zh": "把这组 Word 和 Excel 实验记录转换为便于检索的 Markdown 文件。",
+      "en": "Convert these Word and Excel experiment records into searchable Markdown files."
+    }
+  ],
+  "rdkit": [
+    {
+      "zh": "计算这组聚合物单体的分子描述符和 Morgan 指纹，并进行相似性聚类。",
+      "en": "Calculate molecular descriptors and Morgan fingerprints for these polymer monomers and cluster them by similarity."
+    },
+    {
+      "zh": "在这个分子库中搜索包含指定官能团的候选物，并导出结构与匹配位置。",
+      "en": "Search this molecular library for candidates containing the specified functional group and export their structures and match locations."
+    }
+  ],
+  "molecular-dynamics": [
+    {
+      "zh": "为聚合物—石墨烯界面建立分子动力学模拟方案，包括力场、平衡流程和质量检查。",
+      "en": "Design a molecular-dynamics workflow for a polymer-graphene interface, including force-field choice, equilibration, and quality checks."
+    },
+    {
+      "zh": "分析这组轨迹的均方位移、径向分布函数和温压稳定性。",
+      "en": "Analyze these trajectories for mean-square displacement, radial distribution functions, and temperature-pressure stability."
+    }
+  ],
+  "deepchem": [
+    {
+      "zh": "用 DeepChem 建立分子溶解度预测基线，完成数据拆分、特征化和模型评估。",
+      "en": "Build a DeepChem baseline for molecular solubility prediction, including data splitting, featurization, and evaluation."
+    },
+    {
+      "zh": "比较图卷积模型与传统描述符模型在该材料数据集上的表现。",
+      "en": "Compare a graph-convolution model with a traditional descriptor model on this materials dataset."
+    }
+  ],
+  "molfeat": [
+    {
+      "zh": "为这批聚合物单体生成 Morgan 指纹、理化描述符和预训练分子表示。",
+      "en": "Generate Morgan fingerprints, physicochemical descriptors, and pretrained molecular embeddings for these polymer monomers."
+    },
+    {
+      "zh": "比较几种分子特征在玻璃化转变温度预测任务中的效果和计算成本。",
+      "en": "Compare several molecular featurizers for glass-transition-temperature prediction in terms of accuracy and computational cost."
+    }
+  ],
+  "shap": [
+    {
+      "zh": "用 SHAP 解释这个材料强度预测模型，展示全局重要性和三个样本的局部解释。",
+      "en": "Explain this material-strength model with SHAP, showing global importance and local explanations for three samples."
+    },
+    {
+      "zh": "检查 SHAP 结论在不同交叉验证折次中是否稳定，并指出相关特征带来的限制。",
+      "en": "Check whether the SHAP conclusions are stable across cross-validation folds and note limitations caused by correlated features."
+    }
+  ],
+  "torch-geometric": [
+    {
+      "zh": "用 PyTorch Geometric 构建晶体图神经网络来预测形成能，并说明图的节点和边特征。",
+      "en": "Build a crystal graph neural network with PyTorch Geometric to predict formation energy, specifying node and edge features."
+    },
+    {
+      "zh": "为这组分子图实现训练、验证和批处理流程，并报告基线性能。",
+      "en": "Implement training, validation, and batching for these molecular graphs and report baseline performance."
+    }
+  ],
+  "pymc": [
+    {
+      "zh": "建立一个分层贝叶斯模型，估计不同批次材料的真实强度及批次间差异。",
+      "en": "Build a hierarchical Bayesian model to estimate true material strength across batches and quantify between-batch variation."
+    },
+    {
+      "zh": "对这个疲劳寿命模型做后验预测检查，并诊断采样收敛情况。",
+      "en": "Run posterior predictive checks for this fatigue-life model and diagnose sampling convergence."
+    }
+  ],
+  "networkx": [
+    {
+      "zh": "把材料合成路线构建成有向网络，找出关键中间体和最短可行路径。",
+      "en": "Represent these material synthesis routes as a directed network and identify critical intermediates and shortest feasible paths."
+    },
+    {
+      "zh": "分析这个元素共现网络的中心性和社区结构，并生成可读的网络图。",
+      "en": "Analyze centrality and community structure in this element co-occurrence network and create a readable network plot."
+    }
+  ],
+  "polars": [
+    {
+      "zh": "用 Polars 清洗这批大型实验 CSV，统一类型和单位，并按配方汇总性能。",
+      "en": "Use Polars to clean these large experimental CSV files, normalize types and units, and aggregate properties by formulation."
+    },
+    {
+      "zh": "使用惰性查询连接样品、工艺和测试三张表，只输出通过质量检查的记录。",
+      "en": "Use lazy queries to join sample, process, and test tables and return only records that pass quality checks."
+    }
+  ],
+  "dask": [
+    {
+      "zh": "用 Dask 分块处理这组超出内存的模拟结果，并计算每个工况的统计摘要。",
+      "en": "Use Dask to process these out-of-memory simulation results in partitions and compute summaries for each condition."
+    },
+    {
+      "zh": "把这个参数扫描任务改造成可并行执行的 Dask 工作流，并设置合理分区。",
+      "en": "Convert this parameter sweep into a parallel Dask workflow with an appropriate partitioning strategy."
+    }
+  ],
+  "scientific-schematics": [
+    {
+      "zh": "绘制一张热压成型实验装置示意图，标注加热、压力、真空和测温位置。",
+      "en": "Create a schematic of a hot-press molding setup, labeling heating, pressure, vacuum, and temperature-sensing locations."
+    },
+    {
+      "zh": "制作一张纤维增强复合材料从工艺到微结构再到性能的机制图。",
+      "en": "Create a mechanism diagram linking processing, microstructure, and properties in a fiber-reinforced composite."
+    }
+  ],
+  "peer-review": [
+    {
+      "zh": "审阅这篇材料论文，重点检查实验设计、统计方法、机制证据和可复现性。",
+      "en": "Review this materials manuscript with emphasis on experimental design, statistics, mechanistic evidence, and reproducibility."
+    },
+    {
+      "zh": "把这些审稿笔记整理成主要问题、次要问题和给编辑的保密意见。",
+      "en": "Organize these review notes into major comments, minor comments, and confidential remarks to the editor."
+    }
+  ],
+  "pyzotero": [
+    {
+      "zh": "从我的 Zotero 材料学集合中筛选含 PEEK 的文献，并按年份和主题整理。",
+      "en": "Filter my Zotero materials collection for papers about PEEK and organize them by year and topic."
+    },
+    {
+      "zh": "将这些 DOI 添加到指定 Zotero 集合，补全元数据并添加项目标签。",
+      "en": "Add these DOIs to the specified Zotero collection, complete their metadata, and apply project tags."
+    }
+  ],
+  "get-available-resources": [
+    {
+      "zh": "检查当前机器的 CPU、内存、磁盘和 GPU，判断能否运行这个分子动力学任务。",
+      "en": "Inspect the current CPU, memory, disk, and GPU resources and determine whether this molecular-dynamics job can run locally."
+    },
+    {
+      "zh": "根据当前可用资源，为这项参数扫描建议并发数、内存限制和存储预算。",
+      "en": "Recommend concurrency, memory limits, and a storage budget for this parameter sweep based on currently available resources."
+    }
+  ],
+  "materials-literature-rpsme-json": [
+    {
+      "zh": "使用 @materials-literature-rpsme-json 提取 /绝对路径/paper.pdf 和 /绝对路径/SI.pdf，输出带证据的 RPSME JSON、中文摘要和校验报告。",
+      "en": "Use @materials-literature-rpsme-json to extract /absolute/path/paper.pdf and /absolute/path/SI.pdf into evidence-linked RPSME JSON, a Chinese summary, and a validation report."
+    },
+    {
+      "zh": "使用 @materials-literature-rpsme-json 处理这篇材料论文，完整核查配方、工艺、表征图像、性能和模拟复现信息；缺失项不要推断。",
+      "en": "Use @materials-literature-rpsme-json on this materials paper and audit its recipes, processing, characterization images, properties, and simulation reproducibility without inferring missing values."
+    }
+  ],
+  "materials-xyz-extraction": [
+    {
+      "zh": "使用 @materials-xyz-extraction 从 /绝对路径/paper.pdf 提取工艺 X、微结构 Y 和力学性能 Z，生成 Ontology 2.0 JSON 和校验报告。",
+      "en": "Use @materials-xyz-extraction to extract process X, microstructure Y, and mechanical properties Z from /absolute/path/paper.pdf into Ontology 2.0 JSON with a validation report."
+    },
+    {
+      "zh": "使用 @materials-xyz-extraction 整理这篇热塑性复合材料论文，保留全部工艺组、15 类字段的缺项状态、证据页码和候选 X→Y→Z 关系。",
+      "en": "Use @materials-xyz-extraction on this thermoplastic-composite paper, preserving every process group, missingness across all 15 categories, evidence pages, and candidate X→Y→Z links."
+    }
+  ],
+  "analytical-method-validation": [
+    {
+      "zh": "为合金中痕量元素的 ICP-MS 测定制定方法验证方案，列出线性、检出限和精密度检查。",
+      "en": "Plan validation of ICP-MS trace-element measurement in an alloy, including linearity, detection limits, and precision."
+    }
+  ],
+  "aeon": [
+    {
+      "zh": "用热压设备的温度和压力曲线预测成型缺陷，并按生产批次做交叉验证。",
+      "en": "Predict molding defects from hot-press temperature and pressure traces using batch-wise cross-validation."
+    }
+  ],
+  "cirq": [
+    {
+      "zh": "用 Cirq 构造一个两量子比特自旋模型的电路，比较理想与含噪模拟结果。",
+      "en": "Build a two-qubit spin-model circuit in Cirq and compare ideal and noisy simulation results."
+    }
+  ],
+  "database-lookup": [
+    {
+      "zh": "查询公开材料数据库中的 LiFePO4 条目，保存请求条件、记录标识和访问日期。",
+      "en": "Query public materials-database records for LiFePO4 and record filters, identifiers, and access date."
+    }
+  ],
+  "datalad": [
+    {
+      "zh": "为显微图像和拉伸测试 CSV 建立可复现的数据版本，并记录每次分析命令。",
+      "en": "Version microscopy images and tensile-test CSV files reproducibly and record each analysis command."
+    }
+  ],
+  "datamol": [
+    {
+      "zh": "标准化候选环氧单体的 SMILES，去重并计算基础分子描述符。",
+      "en": "Standardize candidate epoxy-monomer SMILES, deduplicate them, and calculate basic descriptors."
+    }
+  ],
+  "diffdock": [
+    {
+      "zh": "评估一种生物基聚合物降解酶与候选小分子的对接姿态，并列出复核步骤。",
+      "en": "Evaluate docking poses for a biopolymer-degrading enzyme and candidate ligands, with validation steps."
+    }
+  ],
+  "fluidsim": [
+    {
+      "zh": "建立树脂混合流场的二维模拟方案，检查网格、边界条件和收敛性。",
+      "en": "Plan a two-dimensional resin-mixing flow simulation and inspect mesh, boundaries, and convergence."
+    }
+  ],
+  "hypogenic": [
+    {
+      "zh": "根据复合材料疲劳寿命数据提出候选机制，并用留出集检查是否存在过拟合。",
+      "en": "Propose mechanisms from composite fatigue-life data and test for overfitting on a held-out set."
+    }
+  ],
+  "hypothesis-generation": [
+    {
+      "zh": "针对热压温度提高后孔隙率下降，提出三个竞争性机制和可区分它们的实验。",
+      "en": "For a drop in porosity after increasing hot-press temperature, propose three rival mechanisms and discriminating experiments."
+    }
+  ],
+  "iso-standards-readiness": [
+    {
+      "zh": "梳理材料检测实验室的 ISO 17025 文件缺口，形成待补证据清单。",
+      "en": "Review an ISO 17025 materials-testing laboratory for documentation gaps and produce an evidence checklist."
+    }
+  ],
+  "lab-hardware-cad": [
+    {
+      "zh": "设计可调厚度的热压试样定位夹具，给出参数、STEP 文件和尺寸检查项。",
+      "en": "Design an adjustable hot-press specimen fixture with parameters, STEP output, and dimensional checks."
+    }
+  ],
+  "liteparse": [
+    {
+      "zh": "从一篇材料论文的 PDF 中定位拉伸强度表格及其页码和坐标。",
+      "en": "Locate a tensile-strength table in a materials PDF with its page number and coordinates."
+    }
+  ],
+  "markdown-mermaid-writing": [
+    {
+      "zh": "把复合材料制备、表征和性能测试流程画成 Mermaid 图并附方法说明。",
+      "en": "Diagram composite fabrication, characterization, and property testing in Mermaid with method notes."
+    }
+  ],
+  "matchms": [
+    {
+      "zh": "比较两种聚合物热解产物的 MS/MS 谱图，报告相似度和可能的匹配物。",
+      "en": "Compare MS/MS spectra from two polymer pyrolysis products and report similarity and candidate matches."
+    }
+  ],
+  "matlab": [
+    {
+      "zh": "用 MATLAB 或 Octave 拟合 DSC 升温曲线，估计玻璃化转变区间并绘图。",
+      "en": "Fit a DSC heating curve in MATLAB or Octave, estimate the glass-transition interval, and plot it."
+    }
+  ],
+  "medchem": [
+    {
+      "zh": "为药物缓释涂层的候选活性分子检查结构警示和基础理化性质。",
+      "en": "Check structural alerts and basic physicochemical properties for candidate drug-eluting coating molecules."
+    }
+  ],
+  "ontology-term-resolution": [
+    {
+      "zh": "把实验记录中的化学物质名称映射到标准术语 ID，列出无法唯一匹配的名称。",
+      "en": "Map chemical names in lab records to standard term IDs and list ambiguous matches."
+    }
+  ],
+  "open-notebook": [
+    {
+      "zh": "为固态电解质项目建立文献笔记结构，记录证据摘录和待验证问题。",
+      "en": "Create a literature-notebook structure for a solid-electrolyte project with evidence excerpts and open questions."
+    }
+  ],
+  "openpiv": [
+    {
+      "zh": "分析树脂流动实验的两帧 PIV 图像，绘制速度场并标记异常矢量。",
+      "en": "Analyze two PIV frames from a resin-flow experiment, plot the velocity field, and flag outlier vectors."
+    }
+  ],
+  "optimize-for-gpu": [
+    {
+      "zh": "评估邻居列表计算迁移到 GPU 后的数值一致性、显存占用和实际加速比。",
+      "en": "Evaluate numerical agreement, memory use, and actual speedup after moving neighbor-list computation to a GPU."
+    }
+  ],
+  "paper-lookup": [
+    {
+      "zh": "检索近五年 PEEK/碳纤维界面改性论文，去重并记录 DOI 和全文可得性。",
+      "en": "Find recent PEEK/carbon-fiber interface papers, deduplicate them, and record DOI and full-text availability."
+    }
+  ],
+  "pennylane": [
+    {
+      "zh": "用 PennyLane 演示小分子能量的变分量子电路，并检查经典基线。",
+      "en": "Demonstrate a variational quantum circuit for small-molecule energy and compare a classical baseline."
+    }
+  ],
+  "pi-agent": [
+    {
+      "zh": "检查 MaterialsX 的 Pi Skill 加载路径，并设计一个只读材料数据库工具。",
+      "en": "Inspect MaterialsX Pi Skill loading paths and design a read-only materials-database tool."
+    }
+  ],
+  "pptx-posters": [
+    {
+      "zh": "制作一页复合材料力学性能会议海报，包含方法、结果图和参考文献。",
+      "en": "Create a one-page conference poster on composite mechanical properties with methods, results, and references."
+    }
+  ],
+  "pytorch-lightning": [
+    {
+      "zh": "为材料带隙预测建立 Lightning 训练框架，包含验证集、检查点和随机种子。",
+      "en": "Build a Lightning training workflow for band-gap prediction with validation, checkpoints, and fixed seeds."
+    }
+  ],
+  "qiskit": [
+    {
+      "zh": "用 Qiskit 构建简化的自旋哈密顿量演示，说明测量误差和模拟器设置。",
+      "en": "Build a simplified spin-Hamiltonian demonstration in Qiskit and explain measurement error and simulator settings."
+    }
+  ],
+  "qutip": [
+    {
+      "zh": "模拟半导体激子双能级系统的耗散动力学，绘制态占据随时间变化。",
+      "en": "Simulate dissipative dynamics of a semiconductor-exciton two-level system and plot populations over time."
+    }
+  ],
+  "research-grants": [
+    {
+      "zh": "为热塑性复合材料回收项目起草研究目标、工作包和三年里程碑。",
+      "en": "Draft aims, work packages, and three-year milestones for a thermoplastic-composite recycling proposal."
+    }
+  ],
+  "research-lookup": [
+    {
+      "zh": "梳理固态电解质界面阻抗的近期证据，并区分实验结果与推测。",
+      "en": "Review recent evidence on solid-electrolyte interfacial resistance and separate measurements from hypotheses."
+    }
+  ],
+  "scholar-evaluation": [
+    {
+      "zh": "评议一篇材料机器学习预印本的数据泄漏风险、基线设置和可复现性。",
+      "en": "Review a materials-ML preprint for data leakage, baselines, and reproducibility."
+    }
+  ],
+  "scientific-brainstorming": [
+    {
+      "zh": "围绕复合材料散热设计提出五个可实验验证的思路及主要反例。",
+      "en": "Generate five experimentally testable ideas for composite thermal management with key counterexamples."
+    }
+  ],
+  "scientific-slides": [
+    {
+      "zh": "把电池正极材料研究整理成十页组会报告，突出方法、结果和局限。",
+      "en": "Turn a cathode-materials study into a ten-slide group talk emphasizing methods, results, and limits."
+    }
+  ],
+  "simpy": [
+    {
+      "zh": "模拟复合材料试样制备流水线，估算热压设备利用率和排队时间。",
+      "en": "Simulate a composite-specimen production line and estimate hot-press utilization and queue time."
+    }
+  ],
+  "timesfm-forecasting": [
+    {
+      "zh": "预测炉温传感器的短期趋势，与季节性基线比较误差。",
+      "en": "Forecast short-term furnace-temperature readings and compare error against a seasonal baseline."
+    }
+  ],
+  "transformers": [
+    {
+      "zh": "用材料论文摘要微调一个分类器，区分电池、催化和复合材料主题。",
+      "en": "Fine-tune a classifier on materials-paper abstracts to distinguish battery, catalysis, and composite topics."
+    }
+  ],
+  "umap-learn": [
+    {
+      "zh": "把材料配方描述符降到二维，标记高强度样本并检验随机种子敏感性。",
+      "en": "Embed formulation descriptors in two dimensions, label high-strength samples, and test seed sensitivity."
+    }
+  ],
+  "vaex": [
+    {
+      "zh": "扫描千万行材料传感器数据，统计异常温度区间而不一次载入全部数据。",
+      "en": "Scan ten million materials-sensor rows for abnormal temperature intervals without loading all rows into memory."
+    }
+  ],
+  "venue-templates": [
+    {
+      "zh": "将一篇材料论文改为目标期刊的章节、图表和参考文献格式。",
+      "en": "Adapt a materials manuscript to a target journal's sections, figures, and reference style."
+    }
+  ],
+  "zarr-python": [
+    {
+      "zh": "把三维 CT 孔隙图像分块保存为 Zarr，并验证切片读取与元数据。",
+      "en": "Store a 3D CT porosity volume in Zarr chunks and verify slice reads and metadata."
+    }
+  ],
+  "geopandas": [
+    {
+      "zh": "绘制材料实验场地的采样点与污染扩散边界，并统一坐标参考系。",
+      "en": "Map sampling sites and contamination boundaries for a materials test site in one coordinate reference system."
+    }
+  ],
+  "geomaster": [
+    {
+      "zh": "结合遥感和地质图层筛选矿物原料采样区域，并报告空间不确定性。",
+      "en": "Combine remote sensing and geology layers to screen mineral-feedstock sampling areas and report spatial uncertainty."
+    }
+  ],
+  "stable-baselines3": [
+    {
+      "zh": "在热处理温控仿真环境中比较 PPO 与规则控制基线，不连接真实设备。",
+      "en": "Compare PPO with a rule-based controller in a simulated heat-treatment environment without connecting hardware."
+    }
+  ],
+  "torchdrug": [
+    {
+      "zh": "用 TorchDrug 对聚合物添加剂分子建立图表示并预测一个已标注的性质。",
+      "en": "Build graph representations of polymer-additive molecules in TorchDrug and predict a labeled property."
+    }
+  ],
+  "pytdc": [
+    {
+      "zh": "选择适合生物医用涂层活性分子的公开性质数据集，并说明划分与许可。",
+      "en": "Choose a public property dataset for bioactive coating molecules and document its split and license."
+    }
+  ],
+  "protocolsio-integration": [
+    {
+      "zh": "汇总公开的复合材料表面处理步骤，生成带来源的实验前检查清单。",
+      "en": "Summarize public composite-surface-treatment steps into a source-linked pre-experiment checklist."
+    }
+  ],
+  "labarchive-integration": [
+    {
+      "zh": "从授权的实验记录中整理热压批次、试样编号和测量文件对应关系。",
+      "en": "Organize hot-press batches, specimen IDs, and measurement files from authorized lab records."
+    }
+  ],
+  "lamindb": [
+    {
+      "zh": "为配方数据、显微图像和性能预测模型建立可追溯的数据谱系。",
+      "en": "Create lineage linking formulations, microscopy images, and property-prediction models."
+    }
+  ],
+  "pufferlib": [
+    {
+      "zh": "在模拟材料工艺环境中并行训练控制策略，记录随机种子和基线表现。",
+      "en": "Train a controller in parallel simulated processing environments and record seeds and baseline performance."
+    }
+  ],
+  "polars-bio": [
+    {
+      "zh": "为生物材料细胞相容性研究整理表达差异区间并记录数据来源。",
+      "en": "Organize differential genomic intervals for a biomaterial cytocompatibility study with source provenance."
+    }
+  ]
+}

@@ -1,0 +1,2358 @@
+{
+  "type": "object",
+  "properties": {
+    "ontology": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "const": "Materials XYZ Ontology"
+        },
+        "version": {
+          "const": "2.0.0"
+        },
+        "profile": {
+          "const": "reinforced-thermoplastic-composites"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "profile"
+      ],
+      "additionalProperties": false
+    },
+    "document_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "extraction": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "template",
+            "draft",
+            "complete"
+          ]
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_review": {
+          "enum": [
+            "pending",
+            "text_only",
+            "critical_pages_visual_checked"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "status",
+        "tool",
+        "date",
+        "scope",
+        "source_review",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "minItems": 0
+    },
+    "material_systems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/material_system"
+      },
+      "minItems": 0
+    },
+    "protocols": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/protocol"
+      },
+      "minItems": 0
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "minItems": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      },
+      "minItems": 0
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      },
+      "minItems": 0
+    },
+    "quality_issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/quality_issue"
+      },
+      "minItems": 0
+    },
+    "inventory": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/inventory"
+      },
+      "minItems": 0
+    },
+    "supporting_context": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "ontology",
+    "document_id",
+    "extraction",
+    "sources",
+    "material_systems",
+    "protocols",
+    "evidence",
+    "records",
+    "relations",
+    "quality_issues",
+    "inventory",
+    "supporting_context"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:materials-xyz:schema:2.0.0",
+  "title": "Materials XYZ Ontology 2.0.0 — project data standard",
+  "$defs": {
+    "quantity": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "scalar",
+            "text",
+            "categorical",
+            "boolean",
+            "vector",
+            "tensor",
+            "series",
+            "schedule",
+            "image_reference"
+          ]
+        },
+        "data": {},
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "data",
+        "unit",
+        "basis"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "scalar"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "text"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "categorical"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "boolean"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "vector"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "tensor"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "shape": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "minItems": 1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 1
+                  },
+                  "coordinate_system": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "component_order": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "shape",
+                  "components",
+                  "coordinate_system",
+                  "component_order"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "series"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "axes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "unit": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 2
+                  },
+                  "points": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2
+                    },
+                    "minItems": 1
+                  },
+                  "condition_note": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "axes",
+                  "points",
+                  "condition_note"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "schedule"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "image_reference"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "source_id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                  },
+                  "page": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "locator": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "source_id",
+                  "page",
+                  "locator"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "scalar",
+                  "vector",
+                  "tensor"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "metric": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definition": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "scalar",
+                "text",
+                "categorical",
+                "boolean",
+                "vector",
+                "tensor",
+                "series",
+                "schedule",
+                "image_reference"
+              ]
+            },
+            "data": {},
+            "unit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "basis": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "data",
+            "unit",
+            "basis"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "scalar"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "text"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "categorical"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "boolean"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "vector"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "tensor"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "shape": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "minItems": 1
+                      },
+                      "components": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        },
+                        "minItems": 1
+                      },
+                      "coordinate_system": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "component_order": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "shape",
+                      "components",
+                      "coordinate_system",
+                      "component_order"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "series"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "axes": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "unit": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "unit"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 2
+                      },
+                      "points": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 2
+                        },
+                        "minItems": 1
+                      },
+                      "condition_note": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "axes",
+                      "points",
+                      "condition_note"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "schedule"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "const": "image_reference"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "source_id": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                      },
+                      "page": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "locator": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "source_id",
+                      "page",
+                      "locator"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "scalar",
+                      "vector",
+                      "tensor"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "raw": {
+          "type": "object",
+          "properties": {
+            "value": {},
+            "unit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "value",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        "origin": {
+          "enum": [
+            "reported",
+            "digitized",
+            "calculated",
+            "simulated",
+            "author_interpretation",
+            "model_hypothesis"
+          ]
+        },
+        "measurement": {
+          "enum": [
+            "quantitative",
+            "qualitative",
+            "proxy",
+            "not_measurement"
+          ]
+        },
+        "state": {
+          "enum": [
+            "as_manufactured",
+            "post_failure",
+            "during_process",
+            "during_test",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "acquisition": {
+          "enum": [
+            "nominal_setting",
+            "measured",
+            "inferred",
+            "simulated",
+            "unknown"
+          ]
+        },
+        "protocol_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "specimen_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "inherited_from": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "normalization": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "derivation": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "uncertainty": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "SD",
+                    "SE",
+                    "CI",
+                    "range",
+                    "instrument",
+                    "other"
+                  ]
+                },
+                "value": {},
+                "unit": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "confidence_level": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "type",
+                "value",
+                "unit",
+                "confidence_level",
+                "note"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "qualifiers": {
+          "type": "object"
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "metric",
+        "label",
+        "definition",
+        "value",
+        "raw",
+        "origin",
+        "measurement",
+        "state",
+        "acquisition",
+        "protocol_id",
+        "specimen_id",
+        "evidence_ids",
+        "inherited_from",
+        "normalization",
+        "derivation",
+        "uncertainty",
+        "qualifiers",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "quantitative",
+            "qualitative",
+            "proxy_only",
+            "reported_setting",
+            "partial",
+            "not_reported",
+            "not_applicable",
+            "not_accessible",
+            "not_yet_extracted"
+          ]
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation"
+          },
+          "minItems": 0
+        },
+        "missing_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "observations",
+        "missing_fields",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "X": {
+      "type": "object",
+      "properties": {
+        "formulation": {
+          "$ref": "#/$defs/field"
+        },
+        "sizing": {
+          "$ref": "#/$defs/field"
+        },
+        "impregnation_route": {
+          "$ref": "#/$defs/field"
+        },
+        "thermopress_history": {
+          "$ref": "#/$defs/field"
+        },
+        "cooling_history": {
+          "$ref": "#/$defs/field"
+        }
+      },
+      "required": [
+        "formulation",
+        "sizing",
+        "impregnation_route",
+        "thermopress_history",
+        "cooling_history"
+      ],
+      "additionalProperties": false
+    },
+    "Y": {
+      "type": "object",
+      "properties": {
+        "porosity": {
+          "$ref": "#/$defs/field"
+        },
+        "impregnation_quality": {
+          "$ref": "#/$defs/field"
+        },
+        "crystallinity": {
+          "$ref": "#/$defs/field"
+        },
+        "orientation": {
+          "$ref": "#/$defs/field"
+        },
+        "residual_stress": {
+          "$ref": "#/$defs/field"
+        },
+        "interface": {
+          "$ref": "#/$defs/field"
+        }
+      },
+      "required": [
+        "porosity",
+        "impregnation_quality",
+        "crystallinity",
+        "orientation",
+        "residual_stress",
+        "interface"
+      ],
+      "additionalProperties": false
+    },
+    "Z": {
+      "type": "object",
+      "properties": {
+        "stiffness": {
+          "$ref": "#/$defs/field"
+        },
+        "strength": {
+          "$ref": "#/$defs/field"
+        },
+        "interlaminar_toughness": {
+          "$ref": "#/$defs/field"
+        },
+        "fatigue": {
+          "$ref": "#/$defs/field"
+        }
+      },
+      "required": [
+        "stiffness",
+        "strength",
+        "interlaminar_toughness",
+        "fatigue"
+      ],
+      "additionalProperties": false
+    },
+    "record": {
+      "type": "object",
+      "properties": {
+        "record_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "material_system_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "series": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage": {
+          "type": "object",
+          "properties": {
+            "generated_id": {
+              "type": "boolean"
+            },
+            "unit": {
+              "enum": [
+                "condition_group",
+                "batch",
+                "specimen"
+              ]
+            },
+            "batch_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "specimen_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "uniqueItems": true
+            },
+            "parent_record_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "uniqueItems": true
+            },
+            "same_specimen_xyz": {
+              "enum": [
+                "confirmed",
+                "not_confirmed",
+                "not_applicable"
+              ]
+            },
+            "possible_duplicate_cluster": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "linkage_evidence_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            }
+          },
+          "required": [
+            "generated_id",
+            "unit",
+            "batch_id",
+            "specimen_ids",
+            "parent_record_ids",
+            "same_specimen_xyz",
+            "possible_duplicate_cluster",
+            "linkage_evidence_ids"
+          ],
+          "additionalProperties": false
+        },
+        "X": {
+          "$ref": "#/$defs/X"
+        },
+        "Y": {
+          "$ref": "#/$defs/Y"
+        },
+        "Z": {
+          "$ref": "#/$defs/Z"
+        }
+      },
+      "required": [
+        "record_id",
+        "source_ids",
+        "material_system_id",
+        "label",
+        "series",
+        "lineage",
+        "X",
+        "Y",
+        "Z"
+      ],
+      "additionalProperties": false
+    },
+    "material_system": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "family": {
+          "enum": [
+            "metal",
+            "ceramic",
+            "polymer",
+            "carbon",
+            "glass",
+            "biological",
+            "composite",
+            "other",
+            "unknown"
+          ]
+        },
+        "constituents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "role": {
+                "enum": [
+                  "matrix",
+                  "reinforcement",
+                  "filler",
+                  "additive",
+                  "sizing",
+                  "coating",
+                  "precursor",
+                  "solvent",
+                  "other"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "family": {
+                "enum": [
+                  "metal",
+                  "ceramic",
+                  "polymer",
+                  "carbon",
+                  "glass",
+                  "biological",
+                  "composite",
+                  "other",
+                  "unknown"
+                ]
+              },
+              "grade": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "supplier": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "fraction": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "basis": {
+                        "enum": [
+                          "mass",
+                          "volume",
+                          "mole",
+                          "area",
+                          "other"
+                        ]
+                      },
+                      "denominator": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "evidence_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                        },
+                        "uniqueItems": true,
+                        "minItems": 1
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "basis",
+                      "denominator",
+                      "evidence_ids"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "attributes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "enum": [
+                            "scalar",
+                            "text",
+                            "categorical",
+                            "boolean",
+                            "vector",
+                            "tensor",
+                            "series",
+                            "schedule",
+                            "image_reference"
+                          ]
+                        },
+                        "data": {},
+                        "unit": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "basis": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "data",
+                        "unit",
+                        "basis"
+                      ],
+                      "additionalProperties": false,
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "scalar"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "text"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "categorical"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "boolean"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "vector"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                },
+                                "minItems": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "tensor"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "object",
+                                "properties": {
+                                  "shape": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "integer",
+                                      "minimum": 1
+                                    },
+                                    "minItems": 1
+                                  },
+                                  "components": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    },
+                                    "minItems": 1
+                                  },
+                                  "coordinate_system": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "component_order": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "shape",
+                                  "components",
+                                  "coordinate_system",
+                                  "component_order"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "series"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "object",
+                                "properties": {
+                                  "axes": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string",
+                                          "minLength": 1
+                                        },
+                                        "unit": {
+                                          "type": "string",
+                                          "minLength": 1
+                                        }
+                                      },
+                                      "required": [
+                                        "name",
+                                        "unit"
+                                      ],
+                                      "additionalProperties": false
+                                    },
+                                    "minItems": 2
+                                  },
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      },
+                                      "minItems": 2
+                                    },
+                                    "minItems": 1
+                                  },
+                                  "condition_note": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "axes",
+                                  "points",
+                                  "condition_note"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "schedule"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object"
+                                },
+                                "minItems": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "image_reference"
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "data": {
+                                "type": "object",
+                                "properties": {
+                                  "source_id": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                                  },
+                                  "page": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                  },
+                                  "locator": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  }
+                                },
+                                "required": [
+                                  "source_id",
+                                  "page",
+                                  "locator"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "enum": [
+                                  "scalar",
+                                  "vector",
+                                  "tensor"
+                                ]
+                              }
+                            }
+                          },
+                          "then": {
+                            "properties": {
+                              "unit": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "raw": {
+                      "type": "object",
+                      "properties": {
+                        "value": {},
+                        "unit": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "normalization": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "evidence_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "value",
+                    "raw",
+                    "normalization",
+                    "evidence_ids"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "role",
+              "name",
+              "family",
+              "grade",
+              "supplier",
+              "fraction",
+              "attributes",
+              "evidence_ids"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "family",
+        "constituents",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "kind": {
+          "enum": [
+            "paper",
+            "supplement",
+            "experiment_log",
+            "simulation_report"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doi": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "publication_year": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1500,
+              "maximum": 3000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "local_path": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "page_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "supplementary_status": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "doi",
+        "publication_year",
+        "version_note",
+        "file_name",
+        "local_path",
+        "sha256",
+        "page_count",
+        "supplementary_status"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "excerpt_kind": {
+          "enum": [
+            "verbatim",
+            "paraphrase",
+            "image_observation"
+          ]
+        },
+        "review": {
+          "enum": [
+            "text_checked",
+            "visual_checked"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "source_id",
+        "page",
+        "locator",
+        "excerpt",
+        "excerpt_kind",
+        "review"
+      ],
+      "additionalProperties": false
+    },
+    "protocol": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "standard": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conditions": {
+          "type": "object"
+        },
+        "specimen": {
+          "type": "object"
+        },
+        "replicates": {
+          "type": "object",
+          "properties": {
+            "minimum": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "exact": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "batch_replication": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "error_bar_definition": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "minimum",
+            "exact",
+            "batch_replication",
+            "error_bar_definition"
+          ],
+          "additionalProperties": false
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "method",
+        "standard",
+        "conditions",
+        "specimen",
+        "replicates",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "layer": {
+          "enum": [
+            "f1",
+            "f2",
+            "direct_XZ"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "association",
+            "author_mechanism",
+            "model_hypothesis",
+            "reported_model"
+          ]
+        },
+        "linkage_level": {
+          "enum": [
+            "within_group",
+            "across_group_comparison"
+          ]
+        },
+        "record_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "from_observation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "to_observation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "controls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "confounders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "validation_experiment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "layer",
+        "kind",
+        "linkage_level",
+        "record_ids",
+        "from_observation_ids",
+        "to_observation_ids",
+        "evidence_ids",
+        "claim",
+        "controls",
+        "confounders",
+        "limitations",
+        "validation_experiment",
+        "model"
+      ],
+      "additionalProperties": false
+    },
+    "quality_issue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "type": {
+          "enum": [
+            "source_conflict",
+            "duplicate_risk",
+            "source_quality",
+            "linkage_limitation",
+            "other"
+          ]
+        },
+        "observation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "observation_ids",
+        "evidence_ids",
+        "description",
+        "resolution",
+        "impact"
+      ],
+      "additionalProperties": false
+    },
+    "inventory": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 1
+        },
+        "disposition": {
+          "enum": [
+            "extracted",
+            "qualitative_only",
+            "not_digitized",
+            "context_only",
+            "not_accessible"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source_id",
+        "locator",
+        "pages",
+        "disposition",
+        "note"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "extraction": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sources": {
+            "minItems": 1
+          },
+          "material_systems": {
+            "minItems": 1
+          },
+          "evidence": {
+            "minItems": 1
+          },
+          "records": {
+            "minItems": 1
+          },
+          "inventory": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

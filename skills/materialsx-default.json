@@ -1,0 +1,11 @@
+{
+  "source": "MaterialsX curated local Skill snapshots",
+  "enabledSkills": [
+    "materials-literature-rpsme-json",
+    "materials-xyz-extraction"
+  ],
+  "skills": [
+    "materials-literature-rpsme-json",
+    "materials-xyz-extraction"
+  ]
+}

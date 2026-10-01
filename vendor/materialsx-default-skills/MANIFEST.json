@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "source": "MaterialsX curated local Skill snapshots",
+  "versions": {
+    "materials-literature-rpsme-json": "1.7.1",
+    "materials-xyz-extraction": "2.0.0"
+  },
+  "generatedAt": "2026-09-30T15:35:23.504Z",
+  "skills": [
+    "materials-literature-rpsme-json",
+    "materials-xyz-extraction"
+  ],
+  "files": [
+    {
+      "path": "skills/materials-literature-rpsme-json/INSTALLATION.md",
+      "bytes": 3318,
+      "sha256": "9081dda347d64d4e360edf4fb9425796e8d1386c29624099be8804f2c1f0e504"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/SKILL.md",
+      "bytes": 19328,
+      "sha256": "f04aa78b5a05cad11d59d656c477cd5b616ab11c70cfb455b664512a40e60bd2"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/agents/openai.yaml",
+      "bytes": 400,
+      "sha256": "909b0f7183559c190e254c710ae2d49fdd4c2b07556d0e837c45b3ea494e2c7d"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/advanced-extraction-p1.md",
+      "bytes": 13653,
+      "sha256": "48813c8b650e84fc126ce6f4727f0c04e2986e565b9b29c02160adef4d530e80"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/characterization-assets.md",
+      "bytes": 3348,
+      "sha256": "1b6c5eec9801a68b201a1e43b498d4ecc7cb7f529203e6250ca66d40d606d889"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/extraction-quality-p0.md",
+      "bytes": 10924,
+      "sha256": "53737dcc245bf12ac8f85ac72d67d7c5d36a2402cae992a985885affaa6647e8"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/formulation-contract.md",
+      "bytes": 4719,
+      "sha256": "75a0667abf42ac6a19846294521b766293b26b7f2cb7b63b5f74d65eb56ec8ac"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/instrument-normalization.md",
+      "bytes": 1897,
+      "sha256": "ee1c6484c5b5dfc27199cf28f7cad4372c6ed8deefb3df58a2844ac6ab43f7e7"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/literature-extraction.md",
+      "bytes": 7871,
+      "sha256": "08dd1998cb231fa3db388c7da20d155e0288f011e1884e9d51d68f69023c33ff"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/material-identity-resolution.md",
+      "bytes": 4279,
+      "sha256": "796a350cfb153e15e6f491edc517e3b1e7f5fe51a68661029adac5e219848060"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/ontology-model.md",
+      "bytes": 12215,
+      "sha256": "151ec29da0a8d658d17d53d1f524b125629ce373b240461db19526bd79ada03b"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/opportunity-discovery-v7.md",
+      "bytes": 5252,
+      "sha256": "6aa798dac2d9e21410445239039a89ea019c5d0ccaf182ef926357c6997fbd8e"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/prompt-stages.md",
+      "bytes": 3647,
+      "sha256": "fac701c47f706778e5ad0f7389ce922a7a9690f66e5d28ca7d6750641fb4ab0f"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/research-opportunities.md",
+      "bytes": 4509,
+      "sha256": "188bd93ab2033a483aa664fd9358efeea9f231704f751f81d56cd1eb39c2668b"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/rpsme-bundle-manifest-v1.schema.json",
+      "bytes": 3847,
+      "sha256": "9a8ae214389b41bbb19886ef5dab0baf823cad675ddb2a7f7fe0807dc1b24b70"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/rpsme-patent-package-v2.schema.json",
+      "bytes": 46504,
+      "sha256": "0f9153cdf2750b1198a08c5057eddb882510f149ee2b09c6e3a6ee850dab2b66"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/simulation-reproducibility.md",
+      "bytes": 2692,
+      "sha256": "480027a620c78d357fc8d8d823b05cd8a7cedec5c701aad27d6290d6482bc996"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/references/source-coverage.md",
+      "bytes": 6107,
+      "sha256": "7398fb44c45a35182bb002324689a536a953d5e1c76a3147ca8d862440381ada"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/requirements.txt",
+      "bytes": 52,
+      "sha256": "ebed5540c990d24943c1da6d66e8d350407e7098e6e3850ea0afee5ead267fe3"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/attach_research_opportunities.py",
+      "bytes": 1929,
+      "sha256": "e447c27a7a4ba4527fedd911691233ec37f50f823d9b078baef0c0b9821f5710"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/build_asset_manifest.py",
+      "bytes": 12802,
+      "sha256": "be105684fd807f1225569a65ae22c9803f1869632b1498094b703b93465020be"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/check_environment.py",
+      "bytes": 2265,
+      "sha256": "385b86b702c8cbc7e83789102328b49c244974803b1c92040fc72fb5bdf85640"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/digitize_chart.py",
+      "bytes": 8369,
+      "sha256": "441c45553a398516f027edf61efbe2dc97e17bd78225a6e9c2a6b688fd85962c"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/evaluate_extraction.py",
+      "bytes": 10832,
+      "sha256": "f8aca78cfc8847042f9f5aa64499f1939105957d58fa5432d93ada680bc366c9"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/extract_facts.py",
+      "bytes": 3812,
+      "sha256": "9ae71945a9c5b271a70809dc9c7decc06c46c332a5445eea46a2187183e3b862"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/extract_pdf_media.py",
+      "bytes": 7596,
+      "sha256": "4da64b84be545eaed186b3757fa6de64d58c3e01e6e4692677968dd68a6c8f3e"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/identity_connectors.py",
+      "bytes": 11883,
+      "sha256": "92bf57e62dadb75f726dceeb1b320d2a885bddfa70555601448e994a8e88a0e7"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/literature_batch.py",
+      "bytes": 19553,
+      "sha256": "e766dd9264d7dcdf2477f9ed43e98dec1b4e98bfa85e610a8e2373a481084b9a"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/literature_checks.py",
+      "bytes": 15787,
+      "sha256": "1eb65244020f9a153b5c321041c6075bd1b8b9178854c53f7a740165b4338e00"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/normalize_instrument_candidates.py",
+      "bytes": 5362,
+      "sha256": "cc5e767b19cf06404e9d32e61bd4aee3cc5f762871ee55cdc936296ba024ed27"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/p1_common.py",
+      "bytes": 1454,
+      "sha256": "9c58c3b7319869a5255b4eccabba62ccc664a54e7e4d3180c7fb1536d551b95b"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/package_bundle.py",
+      "bytes": 8400,
+      "sha256": "8f90e345cee8a0f2713c774020752fb5c86976814933a9fd499e1e88176b2518"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/pdf_quality.py",
+      "bytes": 1968,
+      "sha256": "a62b0ba721bc8929a2849f6e94d22ec3211ed348985412797dffbccaedda02c8"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/prepare_document_set.py",
+      "bytes": 3246,
+      "sha256": "57acbd80fc7673c8c29a17237db885c5c050c4035766b54aa5b7a548c4ccbbdf"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/prepare_pdf.py",
+      "bytes": 4738,
+      "sha256": "d55aa33036ad77db7205a6fd7c445080f5d5ce9a37ed377b94533e8bb260655e"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/prepare_tables.py",
+      "bytes": 9411,
+      "sha256": "bb6cc2a9b817555eb0f0eacb2c792e2fc9b76b57e68411733a5187e9db76a66f"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/quality_review.py",
+      "bytes": 13274,
+      "sha256": "cec1da1a6c7e0e72ff5b0e93e9b7a13f579c5184afb2702012055e859a0c314d"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/render_package_summary.py",
+      "bytes": 3845,
+      "sha256": "117ea37eb02cbb7c04603a7fb362d98ff9c462c6c200bf09213ac6efdbab13d2"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/review_dataset.py",
+      "bytes": 11678,
+      "sha256": "4f7491e460463dca24e349b49e459b14148be090d585283a257d3489e5da387a"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/__init__.py",
+      "bytes": 696,
+      "sha256": "3961d932a64ff2b9b38000d055a85bfc15492ef6acc87e9b2936a0ef0db5faa3"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/adapter.py",
+      "bytes": 46042,
+      "sha256": "8c82ea542b6c71fe339536e05fe88368208003dce0a799467d584b8bca425dee"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/adapter_v13.py",
+      "bytes": 14356,
+      "sha256": "ee3b7c6afb7ae49834b5a00e4f8c59ff057bd3f7b370bc3d4d34334f6e6608c7"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/bundle.py",
+      "bytes": 12113,
+      "sha256": "4bb10c3e1a6027cb1f1e61732f6c55898f4c3a99413819c7f1e0de71c4036b81"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/extraction_coverage.py",
+      "bytes": 8950,
+      "sha256": "0ae7c28b6f254a9ba32b0aaffb6fce0a3418dd22fcca714beb1ad2b7f48192db"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/flow.py",
+      "bytes": 11188,
+      "sha256": "aa65e3abede278e53986253213b090a7746fdbdebbd3340f25bc3dfaca18245e"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/material_identity.py",
+      "bytes": 5118,
+      "sha256": "89b430c895c9deb1f2e8b58e3995decd868fb88f93624b1833e3a0e5e6807f42"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/summary.py",
+      "bytes": 7895,
+      "sha256": "142b175fcecec657f7cd1cc16a6fa287ef92766d56183fe5df7ca94b91fbd1da"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/validator.py",
+      "bytes": 45422,
+      "sha256": "2de3fe804d615859dbca10ebaad5a8348e47ff7f334b5cd27d9cfab684ec29c4"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/rpsme_ontology_v2/vocabulary.py",
+      "bytes": 10103,
+      "sha256": "aa92ca65ea6ba3c756e69a80d40d7d7287ecfd1365c0978bcd96b6abcefe99c1"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/score_simulation_reproducibility.py",
+      "bytes": 9189,
+      "sha256": "d5531675a143346162e4c368c663c6f8ebded2d77c4ee2fd93ac497c4fe055b8"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/test_native_reading_order.py",
+      "bytes": 975,
+      "sha256": "311823265fd2f2f0bbfac8ac9d9c229da10c89da008df03082d0129600b2dc26"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/validate_bundle.py",
+      "bytes": 998,
+      "sha256": "a4ccc7941ea37ea4444fac81b61c05c56fa7531e3a963d5d1b410a1054a5d7e2"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/validate_opportunity_discovery.py",
+      "bytes": 3070,
+      "sha256": "af45640be270c7b80b73a362876596c6a870a6c150dd318f0373edaa05acf162"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/validate_package.py",
+      "bytes": 5112,
+      "sha256": "ec98ad095f83c18b298f309160daf52efb51ad46e5c0853d66b3afba481859a6"
+    },
+    {
+      "path": "skills/materials-literature-rpsme-json/scripts/validate_research_opportunities.py",
+      "bytes": 10713,
+      "sha256": "ee406f06edb81736465f30b51ec216e3b74409fc614bd1a3f0b7313fa5a1d69b"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/SKILL.md",
+      "bytes": 8637,
+      "sha256": "1e72a78fd6af158a328a584a3c0b728a1e7c68dc94d940fab5eea86a4158e26a"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/agents/openai.yaml",
+      "bytes": 452,
+      "sha256": "bcba0096a81a469f84b5f63bf06a18f728ed1aa0afc932bfe7cb44df54458f10"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/examples/polymers-16-00897-v1.xyz.json",
+      "bytes": 369653,
+      "sha256": "eb9967819ef63549630ae0ddf6ee892eeaeaebda45bffd810a13768d4ed9f2a4"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/examples/polymers-16-00897-v2.xyz.json",
+      "bytes": 510136,
+      "sha256": "4c3ca2ff1b50e7a4c47dedd1a05477ac339a1c3ad0902a8027bcaf3e4cd377f6"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/ontology.md",
+      "bytes": 6106,
+      "sha256": "d3cac65b36a9622ec519c33ff640e4121b4aeb3c32cd22ad89cecf42c5efd4c7"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/output-contract.md",
+      "bytes": 4286,
+      "sha256": "ccf30861e1eb4a8ce98d25361c47853105b2976ca2802304e1c03d2e97c457de"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/extraction-prompt.md",
+      "bytes": 2477,
+      "sha256": "f95c356351298d5400ee974f282e19811d789b6ed7aed07e918fa8a1540f9a15"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/ontology.md",
+      "bytes": 10328,
+      "sha256": "37ee558607a34163c98f5cc6e1abe000664fa65e4e142afb63107595d9cd00d5"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/record-template.json",
+      "bytes": 2879,
+      "sha256": "2fe3fbffd58f0d6401ccb50d4a62828cf5a01e0263a6170ab01337174cece584"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/requirements.txt",
+      "bytes": 20,
+      "sha256": "4046ca1e3a64f4ea791fb4fb3d8566242086ff1c8e2431e2c349e1052ffc6ba0"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/schema.json",
+      "bytes": 61675,
+      "sha256": "05a28e313ceb7387ed6602ac12bc44dd624f67be823c04b364b16242fb775bf4"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/template.json",
+      "bytes": 679,
+      "sha256": "62c7ffa07a202c79cc618876713560c779de319273a9bc47392baedd85f09d2c"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/references/xyz-v2/vocabulary.json",
+      "bytes": 8762,
+      "sha256": "b91f954fd88db39b06069951c217a4905962c2a968fd82b5051addf5fef4125d"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/build_xyz_v2_standard.py",
+      "bytes": 15031,
+      "sha256": "bb4c0b923a0bf4d1488b83e6419d8069d7fcc94febdc8019470b5469c5184820"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/export_report.py",
+      "bytes": 7665,
+      "sha256": "d7b0014cad64c9af421248de3730b0920e19b38ef7ce2f744f8afb4aec1fdee7"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/prepare_source.py",
+      "bytes": 1940,
+      "sha256": "822414cd36faab6d44882f70d8f35a5519fb662142844a60e9393fae6a46d87f"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/test_validate_extraction.py",
+      "bytes": 3876,
+      "sha256": "708b503c2488c586734f75f6094d10a28ce9ab51656a9138096f133e041810e7"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/test_xyz_v2.py",
+      "bytes": 4870,
+      "sha256": "833d8330f419f55b46a76e7480e56d664e37cba1d100010c622d86b7d722ca79"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/validate_extraction.py",
+      "bytes": 16584,
+      "sha256": "499ec938b3922d4704b386c87a4f5e75bce91932729e02c5bf81df9b8a1d2112"
+    },
+    {
+      "path": "skills/materials-xyz-extraction/scripts/xyz_v2.py",
+      "bytes": 24497,
+      "sha256": "799deed7eb79bbe9069c7fc114b8109f8732fd0e2347d873f739f3bf367f77a9"
+    }
+  ]
+}

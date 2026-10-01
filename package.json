@@ -1,0 +1,166 @@
+{
+  "name": "materialsx",
+  "productName": "MaterialsX",
+  "description": "面向材料研究与研发工程师的本地 AI 工作台",
+  "version": "0.0.1",
+  "author": "吉林大学 AI-DAOS 团队",
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "type": "module",
+  "main": "dist/apps/desktop/main/index.js",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "build": "npm run build:core && npm run build:desktop",
+    "build:core": "tsc -p tsconfig.json",
+    "build:desktop:main": "node scripts/build-desktop.mjs",
+    "build:desktop": "npm run build:desktop:main && vite build --config apps/desktop/vite.config.ts",
+    "check": "npm run check:core && npm run check:desktop",
+    "check:core": "tsc -p tsconfig.json --noEmit",
+    "check:desktop": "vue-tsc -p apps/desktop/renderer/tsconfig.json --noEmit",
+    "test": "node --import tsx --test packages/**/*.test.ts apps/**/*.test.ts",
+    "dev": "npm run build:desktop:main && concurrently -k -s first \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "vite --config apps/desktop/vite.config.ts",
+    "dev:electron": "wait-on tcp:127.0.0.1:5173 && cross-env MATERIALSX_RENDERER_URL=http://127.0.0.1:5173 electron dist/apps/desktop/main/index.js",
+    "desktop:start": "npm run build:desktop && electron dist/apps/desktop/main/index.js",
+    "package:dir": "npm run runtime:skills:mac && npm run build && electron-builder --dir --mac --arm64",
+    "runtime:skills:mac": "tsx scripts/build-skill-python-runtime.ts macos-arm64",
+    "runtime:skills:win": "tsx scripts/build-skill-python-runtime.ts windows-x64",
+    "package:mac": "npm run runtime:skills:mac && npm run build && electron-builder --mac dmg --arm64",
+    "package:win": "npm run runtime:skills:win && npm run build && electron-builder --win nsis --x64",
+    "control-plane:dev": "cross-env MATERIALSX_DEV_MODE=1 MATERIALSX_CONTROL_DATA=../../runtime/m3-control-plane go -C services/control-plane run ./cmd/server",
+    "control-plane:test": "go -C services/control-plane test ./...",
+    "m0:preflight": "tsx scripts/m0-preflight.ts",
+    "m0:pi": "tsx spikes/pi-sdk/smoke.ts",
+    "m0:electron": "electron apps/desktop/m0-smoke.cjs --m0-smoke",
+    "m0:lammps": "bash spikes/solvers/run-lammps.sh",
+    "m0:qe": "bash spikes/solvers/run-qe.sh",
+    "lmstudio:probe": "tsx scripts/lmstudio-pi-probe.ts",
+    "skills:sync": "tsx scripts/sync-kdense-skills.ts",
+    "skills:audit": "tsx scripts/audit-kdense-skills.ts",
+    "skills:manifest:materialsx": "tsx scripts/generate-materialsx-skill-manifest.ts",
+    "skills:accept:kdense": "tsx scripts/accept-kdense-skills.ts",
+    "skills:accept:materialsx": "tsx scripts/accept-materialsx-skills.ts",
+    "skills:accept": "npm run skills:accept:kdense && npm run skills:accept:materialsx",
+    "skills:verify-bundle": "tsx scripts/verify-packaged-skills.ts",
+    "m4:readiness": "tsx scripts/m4-release-readiness.ts",
+    "m4:release-gate": "tsx scripts/m4-release-readiness.ts --strict",
+    "verify": "npm run check && npm run test && npm run build && npm run control-plane:test && uv run --project python pytest && npm run skills:audit && npm run skills:accept && npm run m0:pi && npm run m0:preflight && npm run m4:readiness"
+  },
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "0.99.1",
+    "@lucide/vue": "1.49.0",
+    "@modelcontextprotocol/sdk": "1.31.0",
+    "dompurify": "3.4.16",
+    "element-plus": "2.14.6",
+    "katex": "0.18.9",
+    "markdown-it": "15.0.2",
+    "markdown-it-texmath": "1.0.0",
+    "pinia": "4.0.3",
+    "vue": "3.5.43",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "14.2.0",
+    "@types/node": "26.6.3",
+    "@vitejs/plugin-vue": "6.0.9",
+    "concurrently": "10.0.5",
+    "cross-env": "10.1.0",
+    "electron": "44.5.0",
+    "electron-builder": "26.15.3",
+    "esbuild": "0.28.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vite": "8.3.1",
+    "vue-tsc": "3.3.11",
+    "wait-on": "9.5.1"
+  },
+  "build": {
+    "appId": "cn.edu.jlu.jamip.materialsx",
+    "productName": "MaterialsX",
+    "copyright": "© 2026 吉林大学 AI-DAOS 团队",
+    "asar": true,
+    "directories": {
+      "output": "release/dist"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "LICENSE",
+      "NOTICE",
+      "THIRD_PARTY_LICENSES.md"
+    ],
+    "extraResources": [
+      {
+        "from": "docs/third-party",
+        "to": "docs/third-party"
+      },
+      {
+        "from": "vendor",
+        "to": "vendor"
+      },
+      {
+        "from": "skills",
+        "to": "skills"
+      },
+      {
+        "from": "models",
+        "to": "models"
+      },
+      {
+        "from": "docs",
+        "to": "docs",
+        "filter": [
+          "STATUS.md",
+          "m4/**/*"
+        ]
+      },
+      {
+        "from": "release/evidence",
+        "to": "release/evidence"
+      }
+    ],
+    "artifactName": "MaterialsX-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "hardenedRuntime": true,
+      "extraResources": [
+        {
+          "from": "runtime/skill-python/macos-arm64",
+          "to": "python-runtime"
+        }
+      ],
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "extraResources": [
+        {
+          "from": "runtime/skill-python/windows-x64",
+          "to": "python-runtime"
+        }
+      ],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    }
+  }
+}

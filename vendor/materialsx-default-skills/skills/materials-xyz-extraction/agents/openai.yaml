@@ -1,0 +1,6 @@
+interface:
+  display_name: "材料 XYZ 证据提取"
+  short_description: "按工艺组提取材料的配方工艺、微观结构与性能，核查缺项并提出可检验的因果假设"
+  default_prompt: "使用 $materials-xyz-extraction 按 Materials XYZ Ontology 2.0 提取这篇论文，逐工艺组生成包含 X、Y、Z 的 JSON，保留证据与缺项，校验 Schema，并输出训练数据视图。"
+policy:
+  allow_implicit_invocation: true

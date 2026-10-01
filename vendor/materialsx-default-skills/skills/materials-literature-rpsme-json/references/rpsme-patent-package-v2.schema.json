@@ -1,0 +1,790 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://multi-material.local/schemas/rpsme-patent-package-v2.schema.json",
+  "title": "RPSME Ontology Patent Package v2",
+  "type": "object",
+  "required": [
+    "package_version", "schema_version", "experiment_contract", "prompt_version", "generated_at",
+    "generator", "source", "experiment_records", "entities", "relations", "assertions", "evidence",
+    "quality_assessments"
+  ],
+  "properties": {
+    "package_version": { "const": "rpsme-patent-package-v2" },
+    "schema_version": { "enum": ["rpsme-ontology-1.0", "rpsme-ontology-1.1", "rpsme-ontology-1.2", "rpsme-ontology-1.3", "rpsme-ontology-1.4"] },
+    "experiment_contract": { "const": "rpsme-experiment-contract-v2" },
+    "prompt_version": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generator": {
+      "type": "object",
+      "required": ["name", "version", "deterministic"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "deterministic": { "type": "boolean" },
+        "model": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "source": { "$ref": "#/$defs/sourceDocument" },
+    "document_set": { "$ref": "#/$defs/documentSet" },
+    "experiment_records": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/experimentRecord" } },
+    "entities": { "$ref": "#/$defs/entities" },
+    "relations": { "type": "array", "items": { "$ref": "#/$defs/relation" } },
+    "assertions": { "type": "array", "items": { "$ref": "#/$defs/assertion" } },
+    "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
+    "quality_assessments": { "type": "array", "items": { "$ref": "#/$defs/qualityAssessment" } },
+    "bundle": { "$ref": "#/$defs/bundleDescriptor" },
+    "asset_manifest": { "$ref": "#/$defs/assetManifest" },
+    "paper_analysis": { "$ref": "#/$defs/paperAnalysis" },
+    "research_opportunities": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/researchOpportunity" } },
+    "migration": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schema_version": { "const": "rpsme-ontology-1.2" } }, "required": ["schema_version"] },
+      "then": {
+        "required": ["document_set"],
+        "properties": { "entities": { "required": ["simulation_results"] } }
+      }
+    },
+    {
+      "if": { "properties": { "schema_version": { "const": "rpsme-ontology-1.3" } }, "required": ["schema_version"] },
+      "then": {
+        "required": ["document_set", "bundle", "asset_manifest"],
+        "properties": {
+          "entities": {
+            "required": ["simulation_results", "instrument_mentions", "simulation_runs", "simulation_parameters", "asset_references"]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "schema_version": { "const": "rpsme-ontology-1.4" } }, "required": ["schema_version"] },
+      "then": {
+        "required": ["document_set", "bundle", "asset_manifest", "paper_analysis", "research_opportunities"],
+        "properties": { "entities": { "required": ["simulation_results", "instrument_mentions", "simulation_runs", "simulation_parameters", "asset_references"] } }
+      }
+    }
+  ],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9._:-]*(?:-[A-Za-z0-9._:-]+)*$", "minLength": 3 },
+    "valueStatus": { "enum": ["reported", "inherited", "calculated", "digitized", "predicted", "inferred", "pending"] },
+    "evidenceIds": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+    "profile": { "type": "object" },
+    "localizedText": {
+      "type": "object", "required": ["zh-CN", "en"], "additionalProperties": false,
+      "properties": { "zh-CN": { "type": "string", "minLength": 1 }, "en": { "type": "string", "minLength": 1 } }
+    },
+    "opportunityFact": {
+      "type": "object", "required": ["statement", "evidence_ids"],
+      "properties": { "statement": { "$ref": "#/$defs/localizedText" }, "evidence_ids": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } } }
+    },
+    "paperAnalysis": {
+      "type": "object",
+      "required": ["analysis_id", "analysis_version", "source_scope", "paper_type", "core_idea", "core_contribution", "real_breakthrough", "breakthrough_types", "paper_facts", "limitations", "research_context"],
+      "properties": {
+        "analysis_id": { "$ref": "#/$defs/id" }, "analysis_version": { "type": "integer", "minimum": 1 },
+        "source_scope": { "enum": ["abstract", "full_text"] }, "paper_type": { "type": "string", "minLength": 1 },
+        "core_idea": { "$ref": "#/$defs/localizedText" }, "core_contribution": { "$ref": "#/$defs/localizedText" }, "real_breakthrough": { "$ref": "#/$defs/localizedText" },
+        "breakthrough_types": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "paper_facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/opportunityFact" } },
+        "limitations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/localizedText" } },
+        "research_context": { "type": "object" }
+      }
+    },
+    "opportunityScore": {
+      "type": "object", "required": ["score", "reason"], "additionalProperties": false,
+      "properties": { "score": { "type": "integer", "minimum": 1, "maximum": 10 }, "reason": { "$ref": "#/$defs/localizedText" } }
+    },
+    "opportunityKeyword": {
+      "type": "object", "required": ["key", "category", "zh-CN", "en", "source", "status"], "additionalProperties": false,
+      "properties": { "key": { "type": "string", "minLength": 1 }, "category": { "type": "string", "minLength": 1 }, "zh-CN": { "type": "string", "minLength": 1 }, "en": { "type": "string", "minLength": 1 }, "source": { "enum": ["controlled_vocabulary", "auto_generated"] }, "status": { "enum": ["active", "pending_review"] } },
+      "allOf": [{ "if": { "properties": { "source": { "const": "auto_generated" } } }, "then": { "properties": { "status": { "const": "pending_review" } } } }]
+    },
+    "researchOpportunity": {
+      "type": "object",
+      "required": ["direction_id", "ordinal", "archetype", "title", "objective", "rationale", "research_question", "hypothesis", "novelty", "novelty_status", "value_status", "evidence_layers", "minimum_validation", "experiment_design", "simulation_plan", "execution", "budget", "risks", "scores", "publication_target", "recommendation", "keywords", "next_7_days"],
+      "properties": {
+        "direction_id": { "$ref": "#/$defs/id" }, "ordinal": { "type": "integer", "minimum": 1, "maximum": 3 }, "archetype": { "enum": ["validation", "extension", "platform"] },
+        "title": { "$ref": "#/$defs/localizedText" }, "objective": { "$ref": "#/$defs/localizedText" }, "rationale": { "$ref": "#/$defs/localizedText" }, "research_question": { "$ref": "#/$defs/localizedText" }, "hypothesis": { "$ref": "#/$defs/localizedText" }, "novelty": { "$ref": "#/$defs/localizedText" },
+        "novelty_status": { "enum": ["preliminary", "literature_screened", "expert_reviewed"] }, "value_status": { "const": "derived" },
+        "novelty_screening": { "type": "object", "required": ["query", "searched_at", "competing_papers"], "properties": { "query": { "type": "string", "minLength": 1 }, "searched_at": { "type": "string", "format": "date-time" }, "competing_papers": { "type": "array" } } },
+        "expert_review": { "type": "object", "required": ["reviewer", "reviewed_at"], "properties": { "reviewer": { "type": "string", "minLength": 1 }, "reviewed_at": { "type": "string", "format": "date-time" } } },
+        "evidence_layers": { "type": "object", "required": ["paper_facts", "reasoned_inference", "unverified_assumptions"] },
+        "minimum_validation": { "type": "object", "required": ["design", "measurements", "success_criteria", "stop_conditions"] },
+        "experiment_design": { "type": "object", "required": ["samples", "variables", "controls", "process", "characterization", "performance_tests", "statistics", "sample_size", "success_criteria", "failure_criteria", "next_decision"] },
+        "simulation_plan": {
+          "type": "object", "required": ["status"], "properties": { "status": { "enum": ["applicable", "not_applicable"] } },
+          "allOf": [{ "if": { "properties": { "status": { "const": "applicable" } } }, "then": { "required": ["method", "inputs", "parameters", "expected_outputs", "experimental_cross_validation"] }, "else": { "required": ["reason"] } }]
+        },
+        "execution": { "type": "object", "required": ["required_conditions", "timeline", "owner"] },
+        "budget": { "type": "object", "required": ["currency", "min", "max", "assumptions", "includes", "excludes"], "properties": { "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }, "min": { "type": "number", "minimum": 0 }, "max": { "type": "number", "minimum": 0 } } },
+        "risks": { "type": "object", "required": ["items", "stop_conditions"] },
+        "scores": { "type": "object", "required": ["feasibility", "scientific_value", "novelty", "difficulty", "cost", "competition", "publication_potential"], "additionalProperties": false, "properties": { "feasibility": { "$ref": "#/$defs/opportunityScore" }, "scientific_value": { "$ref": "#/$defs/opportunityScore" }, "novelty": { "$ref": "#/$defs/opportunityScore" }, "difficulty": { "$ref": "#/$defs/opportunityScore" }, "cost": { "$ref": "#/$defs/opportunityScore" }, "competition": { "$ref": "#/$defs/opportunityScore" }, "publication_potential": { "$ref": "#/$defs/opportunityScore" } } },
+        "publication_target": { "type": "object", "required": ["level", "rationale", "evidence_gaps"] }, "recommendation": { "enum": ["do", "observe", "drop"] },
+        "keywords": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/opportunityKeyword" } },
+        "next_7_days": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/localizedText" } }
+      },
+      "allOf": [
+        { "if": { "properties": { "novelty_status": { "const": "literature_screened" } } }, "then": { "required": ["novelty_screening"] } },
+        { "if": { "properties": { "novelty_status": { "const": "expert_reviewed" } } }, "then": { "required": ["expert_review"] } }
+      ]
+    },
+    "sourceFile": {
+      "type": "object",
+      "required": ["document_id", "role", "filename", "sha256", "page_count"],
+      "properties": {
+        "document_id": { "$ref": "#/$defs/id" },
+        "role": { "enum": ["main", "supplementary", "appendix", "dataset_description"] },
+        "filename": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "page_count": { "type": "integer", "minimum": 1 },
+        "mime_type": { "type": "string", "minLength": 1 },
+        "canonical_url": { "type": ["string", "null"] },
+        "relationship_verified_by": { "type": "string" },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "documentSet": {
+      "type": "object",
+      "required": ["primary_document_id", "documents"],
+      "properties": {
+        "primary_document_id": { "$ref": "#/$defs/id" },
+        "documents": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/sourceFile" } },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "bundleDescriptor": {
+      "type": "object",
+      "required": ["bundle_version", "delivery_mode", "profile"],
+      "properties": {
+        "bundle_version": { "const": "rpsme-bundle-1.0" },
+        "delivery_mode": { "enum": ["json_only", "bundle"] },
+        "manifest_path": { "type": ["string", "null"], "pattern": "^(manifest\\.json)?$" },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "assetRights": {
+      "type": "object",
+      "required": ["access_level", "redistribution_allowed", "rights_basis"],
+      "properties": {
+        "access_level": { "enum": ["public", "restricted", "private_research", "unknown"] },
+        "redistribution_allowed": { "type": ["boolean", "null"] },
+        "rights_basis": { "type": "string", "minLength": 1 },
+        "license": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    },
+    "assetDescriptor": {
+      "type": "object",
+      "required": ["asset_id", "sha256", "byte_size", "media_type", "origin_type", "availability_status", "rights", "profile"],
+      "properties": {
+        "asset_id": { "$ref": "#/$defs/id" },
+        "relative_path": { "type": ["string", "null"], "minLength": 1 },
+        "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "byte_size": { "type": ["integer", "null"], "minimum": 0 },
+        "media_type": { "type": "string", "minLength": 1 },
+        "origin_type": { "enum": ["native_raw", "published_original", "pdf_extracted", "derived_thumbnail", "simulation_input", "simulation_output", "external_reference"] },
+        "availability_status": { "enum": ["bundled", "external", "locator_only", "unavailable"] },
+        "source_document_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "parent_asset_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "source_locator": { "type": "object" },
+        "derivation": { "type": "object" },
+        "rights": { "$ref": "#/$defs/assetRights" },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "assetManifest": {
+      "type": "object",
+      "required": ["bundle_version", "assets", "profile"],
+      "properties": {
+        "bundle_version": { "const": "rpsme-bundle-1.0" },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/assetDescriptor" } },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "sourceDocument": {
+      "type": "object",
+      "required": ["id", "source_type", "publication_number", "title", "jurisdiction", "application_date", "publication_date", "canonical_url", "language", "profile"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "source_type": { "enum": ["patent", "paper", "master_thesis", "doctoral_thesis", "report", "standard", "internal_experiment"] },
+        "publication_number": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$",
+          "description": "Patent publication number or a stable source identifier for literature and other non-patent documents. Patent-specific syntax is enforced conditionally below."
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": "string", "minLength": 2 },
+        "application_date": { "type": ["string", "null"], "format": "date" },
+        "publication_date": { "type": ["string", "null"], "format": "date" },
+        "canonical_url": { "type": ["string", "null"] },
+        "language": { "type": "string", "minLength": 2 },
+        "profile": { "$ref": "#/$defs/profile" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "source_type": { "const": "patent" } },
+            "required": ["source_type"]
+          },
+          "then": {
+            "properties": {
+              "publication_number": { "pattern": "^[A-Z]{2}[A-Z0-9]{5,}$" }
+            }
+          }
+        }
+      ],
+      "not": { "anyOf": [{ "required": ["upload"] }, { "required": ["uploaded_by"] }, { "required": ["uploaded_at"] }] }
+    },
+    "experimentRecord": {
+      "type": "object",
+      "required": ["id", "source_id", "label", "experiment_type", "material_family", "is_comparative", "record_status", "version", "profile"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "source_id": { "$ref": "#/$defs/id" },
+        "label": { "type": "string", "minLength": 1 },
+        "experiment_type": { "type": "string", "minLength": 1 },
+        "material_family": { "type": "string", "minLength": 1 },
+        "is_comparative": { "type": "boolean" },
+        "baseline_experiment_id": { "type": ["string", "null"] },
+        "record_status": { "enum": ["needs_source_action", "needs_extraction_review", "ready_for_primary_review"] },
+        "version": { "type": "integer", "minimum": 1 },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "entityBase": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "experiment_id": { "$ref": "#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "value_status": { "$ref": "#/$defs/valueStatus" },
+        "evidence_ids": { "$ref": "#/$defs/evidenceIds" },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "documentElement": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["source_id", "element_type", "locator", "text"],
+      "properties": {
+        "source_id": { "$ref": "#/$defs/id" },
+        "element_type": { "type": "string", "minLength": 1 },
+        "locator": { "type": "object" },
+        "text": { "type": "string", "minLength": 1 }
+      }
+    },
+    "material": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["entity_kind", "canonical_name", "identity_status", "profile"],
+      "properties": {
+        "entity_kind": { "enum": ["material_class", "chemical", "substance", "commercial_product", "purchased_batch"] },
+        "canonical_name": { "type": "string", "minLength": 1 },
+        "identity_status": { "type": "string", "minLength": 1 },
+        "profile": { "type": "object", "properties": { "identity_resolution": { "$ref": "#/$defs/identityResolution" } } }
+      }
+    },
+    "identityResolution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role", "experiment_ids", "evidence_ids", "composition", "identifiers"],
+      "properties": {
+        "role": { "enum": ["raw_material", "synthesized_material"] },
+        "experiment_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "evidence_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "composition": { "type": "object" },
+        "identifiers": { "type": "array", "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "value", "evidence_ids"],
+          "properties": {
+            "type": { "enum": ["cas", "formula", "inchi_key", "canonical_smiles"] },
+            "value": { "type": "string", "minLength": 1, "maxLength": 1000 },
+            "evidence_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+            "reference": {
+              "type": "object", "additionalProperties": false,
+              "required": ["url", "accessed_at", "quote"],
+              "properties": {
+                "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+                "accessed_at": { "type": "string", "format": "date-time" },
+                "quote": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        } }
+      },
+      "allOf": [{
+        "if": { "properties": { "role": { "const": "synthesized_material" } } },
+        "then": { "properties": {
+          "experiment_ids": { "minItems": 1 }, "evidence_ids": { "minItems": 1 },
+          "composition": { "minProperties": 1 }, "identifiers": { "maxItems": 0 }
+        } }
+      }]
+    },
+    "materialAlias": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["material_id", "alias", "alias_type"],
+      "properties": {
+        "material_id": { "$ref": "#/$defs/id" },
+        "alias": { "type": "string", "minLength": 1 },
+        "alias_type": { "type": "string", "minLength": 1 }
+      }
+    },
+    "recipe": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "recipe_type", "basis", "value_status", "profile"],
+      "properties": {
+        "recipe_type": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 }
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "required": ["original_value", "original_unit", "dimension"],
+      "properties": {
+        "original_value": {},
+        "original_unit": { "type": ["string", "null"] },
+        "normalized_value": {},
+        "normalized_unit": { "type": ["string", "null"] },
+        "dimension": { "type": "string", "minLength": 1 },
+        "normalization_note": { "type": "string" }
+      },
+      "not": { "properties": { "original_value": { "type": "null" } }, "required": ["original_value"] }
+    },
+    "ingredientUsage": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "recipe_id", "material_id", "role", "basis_type", "basis", "value_status", "not_used", "evidence_ids", "profile"],
+      "properties": {
+        "recipe_id": { "$ref": "#/$defs/id" },
+        "material_id": { "$ref": "#/$defs/id" },
+        "role": { "type": "string", "minLength": 1 },
+        "basis_type": { "enum": ["mass_parts", "mass_fraction", "volume_fraction", "actual_mass", "actual_volume", "amount_of_substance", "source_defined"] },
+        "basis": { "type": "string", "minLength": 1 },
+        "not_used": { "type": "boolean" },
+        "amount": { "$ref": "#/$defs/measurement" }
+      }
+    },
+    "processRoute": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "route_type", "value_status", "profile"],
+      "properties": { "route_type": { "type": "string", "minLength": 1 } }
+    },
+    "processStep": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "route_id", "normalized_order", "source_step", "operation_type", "display_name_zh", "source_text", "value_status", "parameters", "evidence_ids", "profile"],
+      "properties": {
+        "route_id": { "$ref": "#/$defs/id" },
+        "normalized_order": { "type": "integer", "minimum": 1 },
+        "source_step": { "type": ["string", "integer"] },
+        "source_substep": { "type": ["string", "null"] },
+        "operation_type": { "type": "string", "minLength": 1 },
+        "display_name_zh": { "type": "string", "minLength": 1 },
+        "source_text": { "type": "string" },
+        "parameters": { "type": "object" }
+      }
+    },
+    "materialState": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "name", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "state_origin": { "enum": ["source_reported", "normalized_transition", "inferred", "unknown"] }
+      }
+    },
+    "processFeed": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "material_id", "feed_kind", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "material_id": { "$ref": "#/$defs/id" },
+        "display_name_zh": { "type": "string" },
+        "feed_kind": { "enum": ["auxiliary", "reinforcement", "substrate", "atmosphere", "other"] },
+        "amount": { "$ref": "#/$defs/measurement" }
+      }
+    },
+    "specimen": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "specimen_kind", "name", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "specimen_kind": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "test": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "specimen_id", "test_type", "method", "conditions", "value_status", "evidence_ids"],
+      "properties": {
+        "specimen_id": { "$ref": "#/$defs/id" },
+        "test_type": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "conditions": { "type": "object" }
+      }
+    },
+    "propertyObservation": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "test_id", "property_type", "value_status", "conditions", "evidence_ids", "profile"],
+      "properties": {
+        "test_id": { "$ref": "#/$defs/id" },
+        "property_type": { "type": "string", "minLength": 1 },
+        "display_name_zh": { "type": ["string", "null"] },
+        "value": { "$ref": "#/$defs/measurement" },
+        "conditions": { "type": "object" },
+        "observation_role": { "enum": ["single", "replicate", "aggregate", "derived"] },
+        "replicate_index": { "type": ["integer", "null"], "minimum": 1 },
+        "statistic_type": { "type": ["string", "null"] },
+        "sample_size": { "type": ["integer", "null"], "minimum": 1 },
+        "uncertainty": { "type": "object" },
+        "aggregation_input_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "is_relative": { "type": "boolean" },
+        "baseline_experiment_id": { "type": ["string", "null"] },
+        "baseline_observation_id": { "type": ["string", "null"] }
+      }
+    },
+    "structureObservation": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "method", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "characterization_event_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "observation_type": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
+        "quantitative_descriptors": { "type": "object" }
+      }
+    },
+    "characterizationInstrument": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "instrument_type", "technique_code", "display_name_zh", "abbreviation", "capability_reference", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "instrument_type": { "type": "string", "minLength": 1 },
+        "technique_code": { "type": "string", "minLength": 1 },
+        "display_name_zh": { "type": "string", "minLength": 1 },
+        "abbreviation": { "type": "string", "minLength": 1 },
+        "manufacturer": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "instrument_model_candidate": {
+          "type": ["object", "null"],
+          "properties": {
+            "canonical_key": { "type": "string", "minLength": 1 },
+            "manufacturer_normalized": { "type": ["string", "null"] },
+            "model_normalized": { "type": ["string", "null"] },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "normalization_status": { "enum": ["resolved", "candidate", "unresolved_model", "conflict", "not_applicable"] },
+        "reported_spatial_resolution": { "anyOf": [{ "$ref": "#/$defs/measurement" }, { "type": "null" }] },
+        "capability_reference": { "type": "object" }
+      }
+    },
+    "instrumentMention": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "technique_code", "raw_text", "normalization_status", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "technique_code": { "type": "string", "minLength": 1 },
+        "raw_text": { "type": "string", "minLength": 1 },
+        "manufacturer_raw": { "type": ["string", "null"] },
+        "model_raw": { "type": ["string", "null"] },
+        "normalization_status": { "enum": ["resolved", "candidate", "unresolved_model", "conflict", "not_applicable"] },
+        "instrument_model_candidate": { "type": ["object", "null"] },
+        "normalization_confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+      }
+    },
+    "characterizationEvent": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "technique_code", "acquisition_parameters", "sample_preparation", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "instrument_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "instrument_mention_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "specimen_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "material_state_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "material_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "technique_code": { "type": "string", "minLength": 1 },
+        "acquisition_parameters": { "type": "object" },
+        "sample_preparation": { "type": "object" }
+        ,"acquisition_completeness": { "enum": ["complete", "partial", "minimal", "not_reported"] }
+      }
+    },
+    "characterizationMeasurement": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "characterization_event_id", "metric_type", "value_status", "conditions", "observation_role", "evidence_ids", "profile"],
+      "properties": {
+        "characterization_event_id": { "$ref": "#/$defs/id" },
+        "metric_type": { "type": "string", "minLength": 1 },
+        "display_name_zh": { "type": ["string", "null"] },
+        "value": { "$ref": "#/$defs/measurement" },
+        "conditions": { "type": "object" },
+        "observation_role": { "enum": ["single", "replicate", "aggregate", "derived"] },
+        "replicate_index": { "type": ["integer", "null"], "minimum": 1 },
+        "statistic_type": { "type": ["string", "null"] },
+        "sample_size": { "type": ["integer", "null"], "minimum": 1 },
+        "uncertainty": { "type": "object" },
+        "aggregation_input_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+      }
+    },
+    "mediaArtifact": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "artifact_type", "media_type", "source_locator", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "characterization_event_id": { "$ref": "#/$defs/id" },
+        "simulation_study_id": { "$ref": "#/$defs/id" },
+        "simulation_run_id": { "$ref": "#/$defs/id" },
+        "artifact_type": { "enum": ["image", "figure", "elemental_map", "diffraction_pattern", "height_map", "force_map", "data_cube", "trajectory_snapshot", "simulation_model", "input_file", "output_file", "other"] },
+        "media_type": { "type": "string", "minLength": 1 },
+        "image_type": { "type": ["string", "null"] },
+        "source_locator": { "type": "object" },
+        "storage_uri": { "type": ["string", "null"] },
+        "channels": { "type": "array" },
+        "scale_bar": { "type": "object" },
+        "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "asset_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "origin_type": { "enum": ["native_raw", "published_original", "pdf_extracted", "derived_thumbnail", "simulation_input", "simulation_output", "external_reference"] },
+        "parent_asset_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "crop_bbox": { "type": "object" },
+        "availability_status": { "enum": ["bundled", "external", "locator_only", "unavailable"] }
+      },
+      "oneOf": [
+        { "required": ["characterization_event_id"], "not": { "anyOf": [{ "required": ["simulation_study_id"] }, { "required": ["simulation_run_id"] }] } },
+        { "required": ["simulation_study_id"], "not": { "anyOf": [{ "required": ["characterization_event_id"] }, { "required": ["simulation_run_id"] }] } },
+        { "required": ["simulation_run_id"], "not": { "anyOf": [{ "required": ["characterization_event_id"] }, { "required": ["simulation_study_id"] }] } }
+      ]
+    },
+    "mechanismHypothesis": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "mechanism_type", "description", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "mechanism_type": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "simulationStudy": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "simulation_type", "scale", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "simulation_type": { "type": "string", "minLength": 1 },
+        "scale": { "type": "string", "minLength": 1 },
+        "software": { "type": ["string", "null"] },
+        "software_version": { "type": ["string", "null"] },
+        "solver": { "type": ["string", "null"] },
+        "model_name": { "type": ["string", "null"] },
+        "scientific_question": { "type": ["string", "null"] },
+        "modeled_entity_refs": { "type": "array", "items": { "$ref": "#/$defs/entityRef" } },
+        "reproducibility_assessment": { "$ref": "#/$defs/reproducibilityAssessment" },
+        "input_parameters": { "type": "object" },
+        "boundary_conditions": { "type": "object" },
+        "material_models": { "type": "array" },
+        "run_protocol": { "type": "array" },
+        "calibrated_by_experiment": { "type": ["boolean", "null"] },
+        "validated_by_experiment": { "type": ["boolean", "null"] },
+        "value_status": { "const": "predicted" }
+      }
+    },
+    "reproducibilityAssessment": {
+      "type": "object",
+      "required": ["level", "source_parameter_coverage", "protocol_completeness", "input_artifact_availability", "missing_reproduction_fields", "rerun_status"],
+      "properties": {
+        "level": { "enum": ["R0", "R1", "R2", "R3", "R4", "R5"] },
+        "source_parameter_coverage": { "type": "number", "minimum": 0, "maximum": 1 },
+        "protocol_completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "input_artifact_availability": { "enum": ["none", "partial", "complete"] },
+        "missing_reproduction_fields": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "rerun_status": { "enum": ["not_requested", "queued", "running", "succeeded", "failed"] },
+        "result_match_tolerance": { "type": ["object", "null"] },
+        "result_match_status": { "enum": ["not_evaluated", "within_tolerance", "outside_tolerance"] }
+      }
+    },
+    "simulationRun": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "simulation_study_id", "run_label", "origin_type", "run_status", "reproducibility_assessment", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "simulation_study_id": { "$ref": "#/$defs/id" },
+        "run_label": { "type": "string", "minLength": 1 },
+        "origin_type": { "enum": ["author_reported", "author_supplied", "reconstructed_from_text", "generated_by_platform", "platform_executed"] },
+        "run_status": { "enum": ["described", "input_partial", "input_complete", "static_validated", "queued", "running", "executed", "failed"] },
+        "software": { "type": ["string", "null"] },
+        "software_version": { "type": ["string", "null"] },
+        "solver": { "type": ["string", "null"] },
+        "environment": { "type": "object" },
+        "random_seed": { "type": ["integer", "string", "null"] },
+        "reproducibility_assessment": { "$ref": "#/$defs/reproducibilityAssessment" }
+      }
+    },
+    "simulationParameter": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "simulation_run_id", "namespace", "parameter_key", "parameter_role", "value", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "simulation_run_id": { "$ref": "#/$defs/id" },
+        "namespace": { "type": "string", "minLength": 1 },
+        "parameter_key": { "type": "string", "minLength": 1 },
+        "parameter_role": { "enum": ["method", "model", "boundary_condition", "initial_condition", "solver", "runtime", "output_control", "other"] },
+        "value": {},
+        "unit": { "type": ["string", "null"] },
+        "dimension": { "type": ["string", "null"] },
+        "normalized_value": {},
+        "normalized_unit": { "type": ["string", "null"] }
+      }
+    },
+    "assetReference": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "asset_id", "asset_role", "origin_type", "availability_status", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "asset_id": { "$ref": "#/$defs/id" },
+        "asset_role": { "enum": ["published_figure", "published_panel", "thumbnail", "native_raw", "structure_input", "input_script", "force_field", "mesh", "trajectory", "log", "output_table", "output_figure", "other"] },
+        "origin_type": { "enum": ["native_raw", "published_original", "pdf_extracted", "derived_thumbnail", "simulation_input", "simulation_output", "external_reference"] },
+        "availability_status": { "enum": ["bundled", "external", "locator_only", "unavailable"] },
+        "source_locator": { "type": "object" }
+      }
+    },
+    "simulationResult": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "simulation_study_id", "result_type", "metric_type", "value_status", "conditions", "evidence_ids", "profile"],
+      "properties": {
+        "simulation_study_id": { "$ref": "#/$defs/id" },
+        "simulation_run_id": { "anyOf": [{ "$ref": "#/$defs/id" }, { "type": "null" }] },
+        "result_type": { "enum": ["quantitative", "qualitative", "structure", "timeseries"] },
+        "metric_type": { "type": "string", "minLength": 1 },
+        "display_name_zh": { "type": ["string", "null"] },
+        "value": { "$ref": "#/$defs/measurement" },
+        "description": { "type": ["string", "null"] },
+        "conditions": { "type": "object" },
+        "uncertainty": { "type": "object" },
+        "provenance_status": { "enum": ["author_reported", "digitized_from_source", "platform_reproduced", "platform_predicted"] },
+        "result_tolerance": { "type": ["object", "null"] },
+        "value_status": { "const": "predicted" }
+      }
+    },
+    "comparison": {
+      "allOf": [{ "$ref": "#/$defs/entityBase" }],
+      "type": "object",
+      "required": ["experiment_id", "baseline_experiment_id", "comparability_status", "value_status", "profile"],
+      "properties": {
+        "baseline_experiment_id": { "$ref": "#/$defs/id" },
+        "comparability_status": { "enum": ["comparable", "partially_comparable", "not_comparable", "needs_review"] }
+      }
+    },
+    "genericEntity": { "allOf": [{ "$ref": "#/$defs/entityBase" }], "type": "object" },
+    "entities": {
+      "type": "object",
+      "required": ["document_elements", "experiment_runs", "experiment_changes", "materials", "material_aliases", "recipes", "ingredient_usages", "process_routes", "process_steps", "material_states", "specimens", "tests", "property_observations", "structure_observations", "mechanism_hypotheses", "simulation_studies", "comparisons"],
+      "properties": {
+        "document_elements": { "type": "array", "items": { "$ref": "#/$defs/documentElement" } },
+        "experiment_runs": { "type": "array", "items": { "$ref": "#/$defs/genericEntity" } },
+        "experiment_changes": { "type": "array", "items": { "$ref": "#/$defs/genericEntity" } },
+        "materials": { "type": "array", "items": { "$ref": "#/$defs/material" } },
+        "material_aliases": { "type": "array", "items": { "$ref": "#/$defs/materialAlias" } },
+        "recipes": { "type": "array", "items": { "$ref": "#/$defs/recipe" } },
+        "ingredient_usages": { "type": "array", "items": { "$ref": "#/$defs/ingredientUsage" } },
+        "process_routes": { "type": "array", "items": { "$ref": "#/$defs/processRoute" } },
+        "process_steps": { "type": "array", "items": { "$ref": "#/$defs/processStep" } },
+        "material_states": { "type": "array", "items": { "$ref": "#/$defs/materialState" } },
+        "process_feeds": { "type": "array", "items": { "$ref": "#/$defs/processFeed" } },
+        "specimens": { "type": "array", "items": { "$ref": "#/$defs/specimen" } },
+        "tests": { "type": "array", "items": { "$ref": "#/$defs/test" } },
+        "property_observations": { "type": "array", "items": { "$ref": "#/$defs/propertyObservation" } },
+        "structure_observations": { "type": "array", "items": { "$ref": "#/$defs/structureObservation" } },
+        "characterization_instruments": { "type": "array", "items": { "$ref": "#/$defs/characterizationInstrument" } },
+        "instrument_mentions": { "type": "array", "items": { "$ref": "#/$defs/instrumentMention" } },
+        "characterization_events": { "type": "array", "items": { "$ref": "#/$defs/characterizationEvent" } },
+        "characterization_measurements": { "type": "array", "items": { "$ref": "#/$defs/characterizationMeasurement" } },
+        "media_artifacts": { "type": "array", "items": { "$ref": "#/$defs/mediaArtifact" } },
+        "mechanism_hypotheses": { "type": "array", "items": { "$ref": "#/$defs/mechanismHypothesis" } },
+        "simulation_studies": { "type": "array", "items": { "$ref": "#/$defs/simulationStudy" } },
+        "simulation_runs": { "type": "array", "items": { "$ref": "#/$defs/simulationRun" } },
+        "simulation_parameters": { "type": "array", "items": { "$ref": "#/$defs/simulationParameter" } },
+        "simulation_results": { "type": "array", "items": { "$ref": "#/$defs/simulationResult" } },
+        "asset_references": { "type": "array", "items": { "$ref": "#/$defs/assetReference" } },
+        "comparisons": { "type": "array", "items": { "$ref": "#/$defs/comparison" } }
+      }
+    },
+    "entityRef": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "enum": ["source_document", "document_element", "experiment_record", "experiment_run", "experiment_change", "material", "material_alias", "recipe", "ingredient_usage", "process_feed", "process_route", "process_step", "material_state", "specimen", "test", "property_observation", "structure_observation", "characterization_instrument", "instrument_mention", "characterization_event", "characterization_measurement", "media_artifact", "mechanism_hypothesis", "simulation_study", "simulation_run", "simulation_parameter", "simulation_result", "asset_reference", "comparison"] },
+        "id": { "$ref": "#/$defs/id" },
+        "field_path": { "type": "string" }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "required": ["id", "type", "subject", "object", "value_status", "evidence_ids", "profile"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["REPORTS", "HAS_RECIPE", "HAS_USAGE", "USES_MATERIAL", "INTRODUCED_AT", "FEEDS", "HAS_ROUTE", "HAS_STEP", "CONSUMES", "PRODUCES", "SOURCE_OF", "HAS_SPECIMEN", "TESTED_BY", "YIELDS", "HAS_CHARACTERIZATION", "USES_INSTRUMENT", "RESOLVES_TO", "CHARACTERIZES", "GENERATES", "YIELDS_STRUCTURE", "YIELDS_MEASUREMENT", "YIELDS_SIMULATION_RESULT", "DERIVED_FROM", "HAS_MECHANISM", "HAS_SIMULATION", "HAS_RUN", "HAS_PARAMETER", "HAS_ASSET", "INPUT_OF", "OUTPUT_OF", "REPRODUCES", "MODELS", "SUPPORTS", "REFUTES", "HAS_COMPARISON", "COMPARES_TO", "HAS_CHANGE", "ALIASES", "POSSIBLE_MATCH"] },
+        "subject": { "$ref": "#/$defs/entityRef" },
+        "object": { "$ref": "#/$defs/entityRef" },
+        "value_status": { "$ref": "#/$defs/valueStatus" },
+        "evidence_ids": { "$ref": "#/$defs/evidenceIds" },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "required": ["id", "subject", "predicate", "value_status", "value", "evidence_ids"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "subject": { "$ref": "#/$defs/entityRef" },
+        "predicate": { "type": "string", "minLength": 1 },
+        "value_status": { "$ref": "#/$defs/valueStatus" },
+        "value": {},
+        "evidence_ids": { "$ref": "#/$defs/evidenceIds" },
+        "inference_method": { "type": "string", "minLength": 1 },
+        "depends_on_assertion_ids": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+      },
+      "allOf": [
+        { "if": { "properties": { "value_status": { "const": "reported" } }, "required": ["value_status"] }, "then": { "properties": { "evidence_ids": { "minItems": 1 } } } },
+        { "if": { "properties": { "value_status": { "const": "inferred" } }, "required": ["value_status"] }, "then": { "required": ["inference_method", "depends_on_assertion_ids"], "properties": { "depends_on_assertion_ids": { "minItems": 1 } } } }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["id", "source_id", "document_element_id", "experiment_id", "field_path", "evidence_text", "locator", "extraction_method", "extraction_confidence"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "source_id": { "$ref": "#/$defs/id" },
+        "document_element_id": { "$ref": "#/$defs/id" },
+        "experiment_id": { "$ref": "#/$defs/id" },
+        "field_path": { "type": "string", "minLength": 1 },
+        "evidence_text": { "type": "string", "minLength": 1 },
+        "locator": { "type": "object" },
+        "extraction_method": { "type": "string", "minLength": 1 },
+        "extraction_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "qualityAssessment": {
+      "type": "object",
+      "required": ["id", "experiment_id", "assessment_type", "dimensions", "status", "profile"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "experiment_id": { "$ref": "#/$defs/id" },
+        "assessment_type": { "type": "string", "minLength": 1 },
+        "dimensions": { "type": "object" },
+        "overall_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "profile": { "$ref": "#/$defs/profile" }
+      }
+    }
+  }
+}

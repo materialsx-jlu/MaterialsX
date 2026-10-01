@@ -1,0 +1,23 @@
+units lj
+atom_style atomic
+boundary p p p
+
+lattice fcc 0.8442
+region box block 0 3 0 3 0 3
+create_box 1 box
+create_atoms 1 box
+mass 1 1.0
+
+pair_style lj/cut 2.5
+pair_coeff 1 1 1.0 1.0 2.5
+neighbor 0.3 bin
+neigh_modify delay 0 every 1 check yes
+
+velocity all create 0.7 4928459 mom yes rot no dist gaussian
+fix thermostat all nvt temp 0.7 0.7 1.0
+timestep 0.005
+thermo 10
+thermo_style custom step atoms temp pe ke etotal press
+run 20
+
+print "MATERIALSX_LAMMPS_OK"
