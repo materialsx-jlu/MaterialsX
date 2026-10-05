@@ -8,11 +8,11 @@
 
 执行 `python3 scripts/generate-third-party-inventory.py` 生成以下清单，升级依赖、同步 Skills、重新装配 Python 运行时后必须重做并人工复核：
 
-- [npm 完整锁文件清单](docs/third-party/npm-dependencies.json)：706 个路径条目，含传递、开发和平台可选依赖；记录版本、声明、来源、integrity、可用许可文件哈希。不同路径不代表不同组件数量，也不是安装包最终 SBOM。
-- [Python 依赖快照](docs/third-party/python-dependencies.json)：开发环境和 macOS arm64/Windows x64 内置运行时；记录版本、METADATA/许可文件哈希。某平台不存在时明确标记 unavailable，不从另一平台推断。
+- [npm 完整锁文件清单](docs/third-party/npm-dependencies.json)：718 个路径条目，含传递、开发和平台可选依赖；记录版本、声明、来源、integrity、可用许可文件哈希。不同路径不代表不同组件数量，也不是安装包最终 SBOM。
+- [Python 依赖快照](docs/third-party/python-dependencies.json)：开发环境和 macOS arm64/Windows x64/Linux x64 内置运行时；记录版本、METADATA/许可文件哈希。某平台不存在时明确标记 unavailable，不从另一平台推断。
 - [82 项上游 Skills 的逐项声明](docs/third-party/skills-licenses.json)：固定提交、定义哈希和声明原文。Skill 中的软件许可声明可能指其工具包，不能代替所有脚本、参考和依赖审核。
 
-Node 版本来自 `package-lock.json`；Python 实际版本来自本地 dist-info。Python 运行时构建脚本目前使用版本范围，**重建可能产生不同版本**，不能仅凭 `python/uv.lock` 声称安装包依赖已全部固定。
+Node 版本来自 `package-lock.json`；Python 实际版本来自本地 dist-info。PDF Python 构建脚本锁定直接依赖版本，实际平台文件另由受管运行时清单校验；CPython 构建、传递依赖和二进制仍须按本版清单复核，不能仅凭 `python/uv.lock` 声称安装包依赖已全部固定。
 
 ## 直接 JavaScript 依赖
 
@@ -43,7 +43,7 @@ Node 版本来自 `package-lock.json`；Python 实际版本来自本地 dist-inf
 | concurrently / cross-env / wait-on | 10.0.5 / 10.1.0 / 9.5.1 | MIT |
 | @types/node / @types/markdown-it | 26.6.3 / 14.2.0 | MIT |
 
-目前 npm 锁文件的 674 项均有 license 字段；仅此不能说明其所有原生二进制、字体和子依赖的通知均已完整收集。未安装平台的许可文件标为待复核。Electron 安装包须保留 `LICENSE.electron.txt` 与 `LICENSES.chromium.html`。
+目前 npm 锁文件 718 项中有 718 项声明 license 字段；仅此不能说明其所有原生二进制、字体和子依赖的通知均已完整收集。未安装平台的许可文件标为待复核。Electron 安装包须保留 `LICENSE.electron.txt` 与 `LICENSES.chromium.html`。
 
 ## Python 与原生运行时
 

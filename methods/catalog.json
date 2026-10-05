@@ -87,7 +87,7 @@
           "sha256": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
         }
       ],
-      "dependencyLock": "b3c0639ea1e5e34ea5e9f57dd57781a70b008585244ec8cd08a41e1d130ca858",
+      "dependencyLock": "b86f9e95efeb6c2da27d267d78060c701841d31db4cc2022d45bb57bf47d6388",
       "runtime": "bundled-node",
       "precision": "float64",
       "maxSamples": 300,
@@ -213,7 +213,7 @@
           "sha256": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
         }
       ],
-      "dependencyLock": "b3c0639ea1e5e34ea5e9f57dd57781a70b008585244ec8cd08a41e1d130ca858",
+      "dependencyLock": "b86f9e95efeb6c2da27d267d78060c701841d31db4cc2022d45bb57bf47d6388",
       "runtime": "bundled-node",
       "precision": "float64",
       "maxSamples": 300,

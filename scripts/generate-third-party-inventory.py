@@ -66,6 +66,7 @@ def main():
         "development": "python/.venv/lib/python3.12/site-packages",
         "macos-arm64": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages",
         "windows-x64": "runtime/skill-python/windows-x64/Lib/site-packages",
+        "linux-x64": "runtime/skill-python/linux-x64/lib/python3.12/site-packages",
     }.items():
         base = ROOT / relative
         entries = []
