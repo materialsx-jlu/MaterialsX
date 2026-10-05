@@ -1,8 +1,13 @@
 name: Desktop preview packages
 on:
   workflow_dispatch:
+  push:
+    branches: ['codex/release-v*']
+permissions:
+  contents: read
 jobs:
   package:
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -22,6 +27,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      ELECTRON_BUILDER_COMPRESSION_LEVEL: "3"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,12 +38,26 @@ jobs:
         with:
           version: "0.9.18"
       - run: npm ci
+      - id: version
+        run: node -e "require('fs').appendFileSync(process.env.GITHUB_OUTPUT, 'value=' + require('./package.json').version + '\n')"
       - run: npm run check
       - run: npm run build
       - run: node --import tsx scripts/build-skill-python-runtime.ts ${{ matrix.runtime }}
       - run: node --import tsx scripts/agent/ua6-runtime-lock.ts ${{ matrix.runtime }}
       - run: node --import tsx scripts/release/preview-config.ts ${{ matrix.platform }} --core
       - run: npx electron-builder ${{ matrix.target }} --config runtime/release-build/${{ matrix.platform }}/builder.json
+      - name: Linux display dependencies
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update -qq && sudo apt-get install -y libgtk-3-0t64 libnss3 libasound2t64 libgbm1 xvfb
+      - name: Linux packaged resource startup
+        if: matrix.platform == 'linux'
+        run: xvfb-run -a npx electron scripts/release/packaged-resource-smoke.cjs release/dist/${{ steps.version.outputs.value }}/linux-unpacked/resources runtime/release-build/linux/resource-smoke.json --no-sandbox
+      - name: Windows packaged resource startup
+        if: matrix.platform == 'win'
+        run: npx electron scripts/release/packaged-resource-smoke.cjs release/dist/${{ steps.version.outputs.value }}/win-unpacked/resources runtime/release-build/win/resource-smoke.json
+      - name: macOS packaged resource startup
+        if: matrix.platform == 'mac'
+        run: npx electron scripts/release/packaged-resource-smoke.cjs release/dist/${{ steps.version.outputs.value }}/mac-arm64/MaterialsX.app/Contents/Resources runtime/release-build/mac/resource-smoke.json
       - uses: actions/upload-artifact@v4
         with:
           name: desktop-preview-${{ matrix.runtime }}
@@ -47,6 +67,7 @@ jobs:
             release/dist/*/*.AppImage
             release/dist/*/*.tar.gz
             runtime/release-build/${{ matrix.platform }}/release-support.json
+            runtime/release-build/${{ matrix.platform }}/resource-smoke.json
           if-no-files-found: error
 
 # Engineering artifacts only: no implicit Release upload, signing or scientific approval.
