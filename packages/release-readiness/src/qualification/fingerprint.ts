@@ -26,6 +26,7 @@ export async function fingerprint(root: string) {
   for (const p of [
     "package.json",
     "package-lock.json",
+    ".gitattributes",
     "tsconfig.json",
     "LICENSE",
     "NOTICE",

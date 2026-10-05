@@ -1,3 +1,7 @@
+# Controlled text hashes must survive Windows' default autocrlf checkout.
+* text=auto eol=lf
+# Preserve original upstream files, including notices and pinned Skill scripts.
+vendor/** -text
 # Frozen M6 contract/sample hashes must be identical on macOS and Windows checkouts.
 models/potentials/** text eol=lf
 samples/atomistic/** text eol=lf
