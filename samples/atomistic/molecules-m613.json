@@ -1,0 +1,14 @@
+{
+  "version": "m6.13-v1",
+  "samples": [
+    {
+      "id": "ethanol-neutral",
+      "file": "ethanol-neutral.extxyz",
+      "sha256": "9d16632443ecfaa0553c40163f106a1398c8c54630c027f27c55cce2698686c2",
+      "expected": "parse-valid",
+      "provenance": "team-synthetic",
+      "license": "AGPL-3.0-only",
+      "description": "ASE-generated ethanol geometry, explicit neutral singlet; 24 Å nonperiodic display box is not physical volume."
+    }
+  ]
+}

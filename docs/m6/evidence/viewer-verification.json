@@ -1,0 +1,60 @@
+{
+  "stage": "M6.2",
+  "date": "2026-10-02",
+  "platform": "macos-arm64",
+  "checks": {
+    "typeChecks": true,
+    "tsTests": {
+      "total": 105,
+      "passed": 104,
+      "skipped": 1,
+      "skippedReason": "Existing opt-in real PostgreSQL identity integration"
+    },
+    "m6FrozenAudit": true,
+    "m61Contracts": true,
+    "m62Contracts": true,
+    "geometryBaselinePythonTests": 9,
+    "realM61CoreRuntimeRegression": true,
+    "actualDesktopViewer": {
+      "stage": "M6.2",
+      "platform": "darwin",
+      "electron": "44.5.0",
+      "actualDesktop": true,
+      "local3Dmol": "2.5.5",
+      "nativeMouseRotation": true,
+      "nativeAtomPicking": true,
+      "displaySupercell": true,
+      "distanceAngstrom": 4.147665005759265,
+      "molecularAngle": true,
+      "styles": 3,
+      "sharedThemes": true,
+      "bilingual": true,
+      "pngExport": true,
+      "originalExportHashVerified": true,
+      "singleActiveFrame": true,
+      "disposeCycles": 3,
+      "contextLostFallback": true,
+      "strictIpc": true,
+      "nativeGeometryFixtures": 7,
+      "registeredArtifacts": true,
+      "chatArtifactReference": true,
+      "unknownReferenceIgnored": true,
+      "modelHtmlEscaped": true,
+      "realSinglepoint": "CHGNet 0.3.0",
+      "forceColoring": true,
+      "scientificQuality": "needs_review",
+      "llmCalls": 0,
+      "paymentCalls": 0
+    },
+    "build": true,
+    "publicSecretScanner": {
+      "passed": true,
+      "binaryLargeSymlinkManualReviewPending": true
+    }
+  },
+  "windowsActualEvidence": "pending",
+  "installerEvidence": "pending",
+  "scientificReferenceEvidence": "pending",
+  "llmRequests": 0,
+  "paymentRequests": 0
+}

@@ -1,0 +1,956 @@
+{
+  "version": "m6.10-v1",
+  "entries": [
+    {
+      "potentialId": "sevennet-0-11jul2024",
+      "family": "sevennet",
+      "adapter": "sevennet-ase",
+      "basePotentialId": "sevennet-0-11jul2024",
+      "environmentProfileId": "sevennet-0.13.0-cpu-v1",
+      "dependencyLockSha256": "4bcc3e46cd3ab527eafca190051bc0f7f28c44deaf7ce0e29fb1e77c9ab30fb3",
+      "sourceRevision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+      "url": "https://raw.githubusercontent.com/MDIL-SNU/SevenNet/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth",
+      "sha256": "7052cb42b7b3be42b40b97fa0d21077a48c54b5548948fc4dcf346629f813c36",
+      "bytes": 10268648,
+      "license": "MIT",
+      "notices": [
+        {
+          "path": "docs/m6/licenses/sevennet-LICENSE.txt",
+          "sha256": "bfcac52925669ea0c2b895e0dd80fbbe9245398b851d734483bed3ce0bc165ed"
+        },
+        {
+          "path": "docs/m6/licenses/sevennet-0-README.md",
+          "sha256": "54507f3eefc41adad601f2eda860b85bde43faafcb2d91d7a694c0b7bda69ac3"
+        },
+        {
+          "path": "docs/m6/licenses/sevennet-calculator.py.txt",
+          "sha256": "5e86552f9a714b0ef227aa478a618a4a13db02a01ea14d6f4f8f054d19855dbf"
+        }
+      ],
+      "reviewedAt": "2026-10-02T00:00:00.000Z",
+      "elements": [
+        "H",
+        "He",
+        "Li",
+        "Be",
+        "B",
+        "C",
+        "N",
+        "O",
+        "F",
+        "Ne",
+        "Na",
+        "Mg",
+        "Al",
+        "Si",
+        "P",
+        "S",
+        "Cl",
+        "Ar",
+        "K",
+        "Ca",
+        "Sc",
+        "Ti",
+        "V",
+        "Cr",
+        "Mn",
+        "Fe",
+        "Co",
+        "Ni",
+        "Cu",
+        "Zn",
+        "Ga",
+        "Ge",
+        "As",
+        "Se",
+        "Br",
+        "Kr",
+        "Rb",
+        "Sr",
+        "Y",
+        "Zr",
+        "Nb",
+        "Mo",
+        "Tc",
+        "Ru",
+        "Rh",
+        "Pd",
+        "Ag",
+        "Cd",
+        "In",
+        "Sn",
+        "Sb",
+        "Te",
+        "I",
+        "Xe",
+        "Cs",
+        "Ba",
+        "La",
+        "Ce",
+        "Pr",
+        "Nd",
+        "Pm",
+        "Sm",
+        "Eu",
+        "Gd",
+        "Tb",
+        "Dy",
+        "Ho",
+        "Er",
+        "Tm",
+        "Yb",
+        "Lu",
+        "Hf",
+        "Ta",
+        "W",
+        "Re",
+        "Os",
+        "Ir",
+        "Pt",
+        "Au",
+        "Hg",
+        "Tl",
+        "Pb",
+        "Bi",
+        "Ac",
+        "Th",
+        "Pa",
+        "U",
+        "Np",
+        "Pu"
+      ],
+      "loadedMemoryMiB": 634.921875,
+      "dtype": "float32",
+      "platforms": [
+        {
+          "platform": "macos-arm64",
+          "device": "cpu",
+          "status": "verified",
+          "evidenceId": "m610:sevennet-cpu-derivatives"
+        },
+        {
+          "platform": "macos-arm64",
+          "device": "mps",
+          "status": "not-tested",
+          "evidenceId": null
+        },
+        {
+          "platform": "windows-x64",
+          "device": "cpu",
+          "status": "not-tested",
+          "evidenceId": null
+        },
+        {
+          "platform": "windows-x64",
+          "device": "cuda",
+          "status": "not-tested",
+          "evidenceId": null
+        }
+      ]
+    }
+  ],
+  "potentials": [
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "sevennet-0-11jul2024",
+      "name": "SevenNet-0 11July2024",
+      "family": "SevenNet",
+      "checkpoint": "checkpoint_sevennet_0.pth",
+      "role": "extension-candidate",
+      "source": {
+        "id": "SevenNet-sevenn-pretrained_potentials-SevenNet_0__11Jul2024-README-md",
+        "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+        "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "path": "sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+        "sha256": "54507f3eefc41adad601f2eda860b85bde43faafcb2d91d7a694c0b7bda69ac3"
+      },
+      "evidence": [
+        {
+          "id": "SevenNet-LICENSE",
+          "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/LICENSE",
+          "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+          "path": "LICENSE",
+          "sha256": "bfcac52925669ea0c2b895e0dd80fbbe9245398b851d734483bed3ce0bc165ed"
+        },
+        {
+          "id": "SevenNet-calculator",
+          "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/calculator.py",
+          "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+          "path": "sevenn/calculator.py",
+          "sha256": "5e86552f9a714b0ef227aa478a618a4a13db02a01ea14d6f4f8f054d19855dbf"
+        }
+      ],
+      "citation": "https://doi.org/10.1021/acs.jctc.4c00190",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/MDIL-SNU/SevenNet/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth",
+        "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "sha256": "7052cb42b7b3be42b40b97fa0d21077a48c54b5548948fc4dcf346629f813c36",
+        "bytes": 10268648,
+        "verification": "download-hashed"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "SevenNet-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "SevenNet-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "permitted-with-notices"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": [
+          "H",
+          "He",
+          "Li",
+          "Be",
+          "B",
+          "C",
+          "N",
+          "O",
+          "F",
+          "Ne",
+          "Na",
+          "Mg",
+          "Al",
+          "Si",
+          "P",
+          "S",
+          "Cl",
+          "Ar",
+          "K",
+          "Ca",
+          "Sc",
+          "Ti",
+          "V",
+          "Cr",
+          "Mn",
+          "Fe",
+          "Co",
+          "Ni",
+          "Cu",
+          "Zn",
+          "Ga",
+          "Ge",
+          "As",
+          "Se",
+          "Br",
+          "Kr",
+          "Rb",
+          "Sr",
+          "Y",
+          "Zr",
+          "Nb",
+          "Mo",
+          "Tc",
+          "Ru",
+          "Rh",
+          "Pd",
+          "Ag",
+          "Cd",
+          "In",
+          "Sn",
+          "Sb",
+          "Te",
+          "I",
+          "Xe",
+          "Cs",
+          "Ba",
+          "La",
+          "Ce",
+          "Pr",
+          "Nd",
+          "Pm",
+          "Sm",
+          "Eu",
+          "Gd",
+          "Tb",
+          "Dy",
+          "Ho",
+          "Er",
+          "Tm",
+          "Yb",
+          "Lu",
+          "Hf",
+          "Ta",
+          "W",
+          "Re",
+          "Os",
+          "Ir",
+          "Pt",
+          "Au",
+          "Hg",
+          "Tl",
+          "Pb",
+          "Bi",
+          "Ac",
+          "Th",
+          "Pa",
+          "U",
+          "Np",
+          "Pu"
+        ],
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "eV",
+          "forces": "eV/angstrom",
+          "stress": "eV/angstrom^3",
+          "stressConvention": "Official ASE: positive-tension, xx,yy,zz,yz,xz,xy; native pressure sign negated and component order converted."
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "SevenNet-sevenn-pretrained_potentials-SevenNet_0__11Jul2024-README-md",
+          "SevenNet-calculator"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "sevennet-ase",
+        "profileId": "sevennet-0.13.0-cpu-v1",
+        "codeRevision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "diskEstimateMiB": 1600,
+        "memoryEstimateMiB": 634.921875,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "verified",
+            "evidenceId": "m610:sevennet-cpu-derivatives"
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "audited",
+      "installation": "absent",
+      "runtimeEvidenceIds": [
+        "m610:sevennet-cpu-derivatives"
+      ],
+      "taskEvidenceIds": [
+        "m610:sevennet-fixed-cell"
+      ],
+      "description": {
+        "zh": "MPTrj/PBE+U 单头通用势；已接入独立 PyTorch/e3nn CPU 环境，支持无机周期晶体探索性单点和固定晶胞优化。无独立精度证据。",
+        "en": "Single-head MPTrj/PBE+U potential in a dedicated PyTorch/e3nn CPU environment. Inorganic bulk exploratory single points and fixed-cell relaxation; independent accuracy is unverified."
+      },
+      "examples": [
+        {
+          "zh": "在 SevenNet-0 11July2024 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating SevenNet-0 11July2024, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 SevenNet-0 11July2024 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for SevenNet-0 11July2024; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "该版没有上游独立验证集；训练误差不能当作独立精度，仍须科学复核。",
+          "en": "This release has no independent upstream validation split; training errors are not independent accuracy evidence."
+        },
+        {
+          "zh": "当前仅 macOS arm64 CPU 经本机工程检查；MPS、CUDA 与 Windows 未验收。",
+          "en": "Only macOS arm64 CPU is locally checked. MPS, CUDA and Windows remain unverified."
+        },
+        {
+          "zh": "未启用 D3、分子、表面、电荷、自旋、MD 和变胞优化；不跨模型直接比较总能量。",
+          "en": "D3, molecules, surfaces, charge, spin, MD and variable-cell optimization are disabled; cross-model total energies are not aligned."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/sevennet-0",
+        "discovery/sevennet-l3i5",
+        "discovery/sevennet-mf-ompa",
+        "discovery/sevennet-omni-i12"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "hub-sevennet-nano-4-5a",
+      "name": "SevenNet-Nano 4.5A",
+      "aliases": [
+        "checkpoint_7net_nano_4.5.pth",
+        "SevenNet nano 4.5",
+        "SevenNet 轻量势 4.5"
+      ],
+      "entityType": "checkpoint",
+      "family": "SevenNet",
+      "category": "materials",
+      "description": {
+        "zh": "官方 Nano 发布中的独立 checkpoint，已记录发布者哈希和体积；适配器、元素、训练域和独立精度未审核，暂不可运行。",
+        "en": "Distinct checkpoint from the official Nano release, with publisher digest and size. Adapter, elements, training domain and independent accuracy are unreviewed; not executable."
+      },
+      "examples": [
+        {
+          "zh": "查看 SevenNet-Nano 4.5A 的官方发布、权重身份和待审核项。",
+          "en": "Inspect official release, weight identity and pending review for SevenNet-Nano 4.5A."
+        },
+        {
+          "zh": "对比 SevenNet-Nano 4.5A 与 SevenNet-0 的来源和环境要求，未适配时不要运行。",
+          "en": "Compare SevenNet-Nano 4.5A with SevenNet-0 sources and environment requirements; do not run before adaptation."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "来源页用于研究核查；除明确注明的字段外，具体版本、资产、许可与科学能力尚待逐项核实。未安装，未运行验收。",
+          "en": "The source page is for research review. Except explicitly documented fields, versions, assets, licenses and scientific capabilities need field-level verification. Not installed or runtime validated."
+        }
+      ],
+      "sources": [
+        {
+          "id": "official",
+          "url": "https://sevennet.readthedocs.io/en/latest/user_guide/pretrained.html",
+          "revision": null,
+          "sha256": null,
+          "status": "documented",
+          "note": {
+            "zh": "官方资料定位；未固定可执行资产。",
+            "en": "Official documentation located; executable assets are not pinned."
+          }
+        },
+        {
+          "id": "SevenNet-Nano-release",
+          "url": "https://github.com/MDIL-SNU/SevenNet/releases/tag/v0.13.1.cp",
+          "revision": "f38f3e7417be1127f8eee93d80be1b6415fa546d",
+          "sha256": "e618147cc8330ba146d2ae53c0a7604926336de49cf3e064900778f6fe85eb75",
+          "status": "documented",
+          "note": {
+            "zh": "官方 GitHub Release API 快照；SHA 是本地规范化发布元数据快照，不是权重 SHA。",
+            "en": "Official GitHub Release API snapshot. Source SHA hashes normalized metadata, not the checkpoint."
+          }
+        }
+      ],
+      "fieldEvidence": {
+        "capabilities.cutoffAngstrom": [
+          "official"
+        ],
+        "capabilities.headPolicy": [
+          "official"
+        ],
+        "capabilities.dataset": [
+          "official"
+        ],
+        "asset": [
+          "SevenNet-Nano-release"
+        ]
+      },
+      "capabilities": {
+        "energy": "unknown",
+        "forces": "unknown",
+        "stress": "unknown",
+        "forceRelation": "unknown",
+        "elements": null,
+        "periodicity": [],
+        "domains": [],
+        "heads": [],
+        "headPolicy": "single",
+        "charge": "unknown",
+        "spin": {
+          "input": "unknown",
+          "semantics": "unknown"
+        },
+        "electricField": "unknown",
+        "particleSemantics": "unknown",
+        "cutoffAngstrom": 4.5,
+        "longRange": [],
+        "compositionRole": "unknown",
+        "requiredComponents": [],
+        "functional": null,
+        "dataset": "distilled SevenNet-Omni mpa",
+        "units": {
+          "energy": null,
+          "forces": null,
+          "stress": null
+        },
+        "temperatureK": null,
+        "pressureGPa": null,
+        "tasks": []
+      },
+      "asset": {
+        "url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_4.5.pth",
+        "revision": "v0.13.1.cp",
+        "sha256": "91701b8949d95f51b7652492b5da9228c1a48a9af63840046ca9709b9653c63d",
+        "bytes": 458194
+      },
+      "licenses": {
+        "code": null,
+        "weights": null,
+        "trainingData": null,
+        "redistribution": "unknown"
+      },
+      "execution": {
+        "legacyId": null,
+        "adapter": null,
+        "profileId": null,
+        "state": "needs_review",
+        "blockers": [
+          "ADAPTER_VERSION_NOT_REVIEWED",
+          "WEIGHT_LICENSE_REVIEW_REQUIRED",
+          "DOMAIN_NOT_VALIDATED"
+        ],
+        "runtimeEvidenceIds": [],
+        "taskEvidenceIds": [],
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "platforms": []
+      },
+      "maintenance": "unknown",
+      "access": "unknown",
+      "reviewedAt": "2026-10-02T00:00:00Z",
+      "nextStage": "M6.11",
+      "relatedIds": []
+    },
+    {
+      "id": "hub-sevennet-nano-5-0a",
+      "name": "SevenNet-Nano 5.0A",
+      "aliases": [
+        "checkpoint_7net_nano_5.0.pth",
+        "SevenNet nano 5.0",
+        "SevenNet 轻量势 5.0"
+      ],
+      "entityType": "checkpoint",
+      "family": "SevenNet",
+      "category": "materials",
+      "description": {
+        "zh": "官方 Nano 发布中的独立 checkpoint，已记录发布者哈希和体积；适配器、元素、训练域和独立精度未审核，暂不可运行。",
+        "en": "Distinct checkpoint from the official Nano release, with publisher digest and size. Adapter, elements, training domain and independent accuracy are unreviewed; not executable."
+      },
+      "examples": [
+        {
+          "zh": "查看 SevenNet-Nano 5.0A 的官方发布、权重身份和待审核项。",
+          "en": "Inspect official release, weight identity and pending review for SevenNet-Nano 5.0A."
+        },
+        {
+          "zh": "对比 SevenNet-Nano 5.0A 与 SevenNet-0 的来源和环境要求，未适配时不要运行。",
+          "en": "Compare SevenNet-Nano 5.0A with SevenNet-0 sources and environment requirements; do not run before adaptation."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "来源页用于研究核查；除明确注明的字段外，具体版本、资产、许可与科学能力尚待逐项核实。未安装，未运行验收。",
+          "en": "The source page is for research review. Except explicitly documented fields, versions, assets, licenses and scientific capabilities need field-level verification. Not installed or runtime validated."
+        }
+      ],
+      "sources": [
+        {
+          "id": "official",
+          "url": "https://sevennet.readthedocs.io/en/latest/user_guide/pretrained.html",
+          "revision": null,
+          "sha256": null,
+          "status": "documented",
+          "note": {
+            "zh": "官方资料定位；未固定可执行资产。",
+            "en": "Official documentation located; executable assets are not pinned."
+          }
+        },
+        {
+          "id": "SevenNet-Nano-release",
+          "url": "https://github.com/MDIL-SNU/SevenNet/releases/tag/v0.13.1.cp",
+          "revision": "f38f3e7417be1127f8eee93d80be1b6415fa546d",
+          "sha256": "e618147cc8330ba146d2ae53c0a7604926336de49cf3e064900778f6fe85eb75",
+          "status": "documented",
+          "note": {
+            "zh": "官方 GitHub Release API 快照；SHA 是本地规范化发布元数据快照，不是权重 SHA。",
+            "en": "Official GitHub Release API snapshot. Source SHA hashes normalized metadata, not the checkpoint."
+          }
+        }
+      ],
+      "fieldEvidence": {
+        "capabilities.cutoffAngstrom": [
+          "official"
+        ],
+        "capabilities.headPolicy": [
+          "official"
+        ],
+        "capabilities.dataset": [
+          "official"
+        ],
+        "asset": [
+          "SevenNet-Nano-release"
+        ]
+      },
+      "capabilities": {
+        "energy": "unknown",
+        "forces": "unknown",
+        "stress": "unknown",
+        "forceRelation": "unknown",
+        "elements": null,
+        "periodicity": [],
+        "domains": [],
+        "heads": [],
+        "headPolicy": "single",
+        "charge": "unknown",
+        "spin": {
+          "input": "unknown",
+          "semantics": "unknown"
+        },
+        "electricField": "unknown",
+        "particleSemantics": "unknown",
+        "cutoffAngstrom": 5.0,
+        "longRange": [],
+        "compositionRole": "unknown",
+        "requiredComponents": [],
+        "functional": null,
+        "dataset": "distilled SevenNet-Omni mpa",
+        "units": {
+          "energy": null,
+          "forces": null,
+          "stress": null
+        },
+        "temperatureK": null,
+        "pressureGPa": null,
+        "tasks": []
+      },
+      "asset": {
+        "url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_5.0.pth",
+        "revision": "v0.13.1.cp",
+        "sha256": "2d13ff210e8201380646e254ad3587b4e03b13b335c7a54c7a84117d339081d0",
+        "bytes": 458194
+      },
+      "licenses": {
+        "code": null,
+        "weights": null,
+        "trainingData": null,
+        "redistribution": "unknown"
+      },
+      "execution": {
+        "legacyId": null,
+        "adapter": null,
+        "profileId": null,
+        "state": "needs_review",
+        "blockers": [
+          "ADAPTER_VERSION_NOT_REVIEWED",
+          "WEIGHT_LICENSE_REVIEW_REQUIRED",
+          "DOMAIN_NOT_VALIDATED"
+        ],
+        "runtimeEvidenceIds": [],
+        "taskEvidenceIds": [],
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "platforms": []
+      },
+      "maintenance": "unknown",
+      "access": "unknown",
+      "reviewedAt": "2026-10-02T00:00:00Z",
+      "nextStage": "M6.11",
+      "relatedIds": []
+    },
+    {
+      "id": "hub-sevennet-nano-5-5a",
+      "name": "SevenNet-Nano 5.5A",
+      "aliases": [
+        "checkpoint_7net_nano_5.5.pth",
+        "SevenNet nano 5.5",
+        "SevenNet 轻量势 5.5"
+      ],
+      "entityType": "checkpoint",
+      "family": "SevenNet",
+      "category": "materials",
+      "description": {
+        "zh": "官方 Nano 发布中的独立 checkpoint，已记录发布者哈希和体积；适配器、元素、训练域和独立精度未审核，暂不可运行。",
+        "en": "Distinct checkpoint from the official Nano release, with publisher digest and size. Adapter, elements, training domain and independent accuracy are unreviewed; not executable."
+      },
+      "examples": [
+        {
+          "zh": "查看 SevenNet-Nano 5.5A 的官方发布、权重身份和待审核项。",
+          "en": "Inspect official release, weight identity and pending review for SevenNet-Nano 5.5A."
+        },
+        {
+          "zh": "对比 SevenNet-Nano 5.5A 与 SevenNet-0 的来源和环境要求，未适配时不要运行。",
+          "en": "Compare SevenNet-Nano 5.5A with SevenNet-0 sources and environment requirements; do not run before adaptation."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "来源页用于研究核查；除明确注明的字段外，具体版本、资产、许可与科学能力尚待逐项核实。未安装，未运行验收。",
+          "en": "The source page is for research review. Except explicitly documented fields, versions, assets, licenses and scientific capabilities need field-level verification. Not installed or runtime validated."
+        }
+      ],
+      "sources": [
+        {
+          "id": "official",
+          "url": "https://sevennet.readthedocs.io/en/latest/user_guide/pretrained.html",
+          "revision": null,
+          "sha256": null,
+          "status": "documented",
+          "note": {
+            "zh": "官方资料定位；未固定可执行资产。",
+            "en": "Official documentation located; executable assets are not pinned."
+          }
+        },
+        {
+          "id": "SevenNet-Nano-release",
+          "url": "https://github.com/MDIL-SNU/SevenNet/releases/tag/v0.13.1.cp",
+          "revision": "f38f3e7417be1127f8eee93d80be1b6415fa546d",
+          "sha256": "e618147cc8330ba146d2ae53c0a7604926336de49cf3e064900778f6fe85eb75",
+          "status": "documented",
+          "note": {
+            "zh": "官方 GitHub Release API 快照；SHA 是本地规范化发布元数据快照，不是权重 SHA。",
+            "en": "Official GitHub Release API snapshot. Source SHA hashes normalized metadata, not the checkpoint."
+          }
+        }
+      ],
+      "fieldEvidence": {
+        "capabilities.cutoffAngstrom": [
+          "official"
+        ],
+        "capabilities.headPolicy": [
+          "official"
+        ],
+        "capabilities.dataset": [
+          "official"
+        ],
+        "asset": [
+          "SevenNet-Nano-release"
+        ]
+      },
+      "capabilities": {
+        "energy": "unknown",
+        "forces": "unknown",
+        "stress": "unknown",
+        "forceRelation": "unknown",
+        "elements": null,
+        "periodicity": [],
+        "domains": [],
+        "heads": [],
+        "headPolicy": "single",
+        "charge": "unknown",
+        "spin": {
+          "input": "unknown",
+          "semantics": "unknown"
+        },
+        "electricField": "unknown",
+        "particleSemantics": "unknown",
+        "cutoffAngstrom": 5.5,
+        "longRange": [],
+        "compositionRole": "unknown",
+        "requiredComponents": [],
+        "functional": null,
+        "dataset": "distilled SevenNet-Omni mpa",
+        "units": {
+          "energy": null,
+          "forces": null,
+          "stress": null
+        },
+        "temperatureK": null,
+        "pressureGPa": null,
+        "tasks": []
+      },
+      "asset": {
+        "url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_5.5.pth",
+        "revision": "v0.13.1.cp",
+        "sha256": "17ad9486f2484c17ab3154798c9284e587823661cc16440944034c9d15af4f3e",
+        "bytes": 458194
+      },
+      "licenses": {
+        "code": null,
+        "weights": null,
+        "trainingData": null,
+        "redistribution": "unknown"
+      },
+      "execution": {
+        "legacyId": null,
+        "adapter": null,
+        "profileId": null,
+        "state": "needs_review",
+        "blockers": [
+          "ADAPTER_VERSION_NOT_REVIEWED",
+          "WEIGHT_LICENSE_REVIEW_REQUIRED",
+          "DOMAIN_NOT_VALIDATED"
+        ],
+        "runtimeEvidenceIds": [],
+        "taskEvidenceIds": [],
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "platforms": []
+      },
+      "maintenance": "unknown",
+      "access": "unknown",
+      "reviewedAt": "2026-10-02T00:00:00Z",
+      "nextStage": "M6.11",
+      "relatedIds": []
+    },
+    {
+      "id": "hub-sevennet-nano-6-0a",
+      "name": "SevenNet-Nano 6.0A",
+      "aliases": [
+        "checkpoint_7net_nano_6.0.pth",
+        "SevenNet nano 6.0",
+        "SevenNet 轻量势 6.0"
+      ],
+      "entityType": "checkpoint",
+      "family": "SevenNet",
+      "category": "materials",
+      "description": {
+        "zh": "官方 Nano 发布中的独立 checkpoint，已记录发布者哈希和体积；适配器、元素、训练域和独立精度未审核，暂不可运行。",
+        "en": "Distinct checkpoint from the official Nano release, with publisher digest and size. Adapter, elements, training domain and independent accuracy are unreviewed; not executable."
+      },
+      "examples": [
+        {
+          "zh": "查看 SevenNet-Nano 6.0A 的官方发布、权重身份和待审核项。",
+          "en": "Inspect official release, weight identity and pending review for SevenNet-Nano 6.0A."
+        },
+        {
+          "zh": "对比 SevenNet-Nano 6.0A 与 SevenNet-0 的来源和环境要求，未适配时不要运行。",
+          "en": "Compare SevenNet-Nano 6.0A with SevenNet-0 sources and environment requirements; do not run before adaptation."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "来源页用于研究核查；除明确注明的字段外，具体版本、资产、许可与科学能力尚待逐项核实。未安装，未运行验收。",
+          "en": "The source page is for research review. Except explicitly documented fields, versions, assets, licenses and scientific capabilities need field-level verification. Not installed or runtime validated."
+        }
+      ],
+      "sources": [
+        {
+          "id": "official",
+          "url": "https://sevennet.readthedocs.io/en/latest/user_guide/pretrained.html",
+          "revision": null,
+          "sha256": null,
+          "status": "documented",
+          "note": {
+            "zh": "官方资料定位；未固定可执行资产。",
+            "en": "Official documentation located; executable assets are not pinned."
+          }
+        },
+        {
+          "id": "SevenNet-Nano-release",
+          "url": "https://github.com/MDIL-SNU/SevenNet/releases/tag/v0.13.1.cp",
+          "revision": "f38f3e7417be1127f8eee93d80be1b6415fa546d",
+          "sha256": "e618147cc8330ba146d2ae53c0a7604926336de49cf3e064900778f6fe85eb75",
+          "status": "documented",
+          "note": {
+            "zh": "官方 GitHub Release API 快照；SHA 是本地规范化发布元数据快照，不是权重 SHA。",
+            "en": "Official GitHub Release API snapshot. Source SHA hashes normalized metadata, not the checkpoint."
+          }
+        }
+      ],
+      "fieldEvidence": {
+        "capabilities.cutoffAngstrom": [
+          "official"
+        ],
+        "capabilities.headPolicy": [
+          "official"
+        ],
+        "capabilities.dataset": [
+          "official"
+        ],
+        "asset": [
+          "SevenNet-Nano-release"
+        ]
+      },
+      "capabilities": {
+        "energy": "unknown",
+        "forces": "unknown",
+        "stress": "unknown",
+        "forceRelation": "unknown",
+        "elements": null,
+        "periodicity": [],
+        "domains": [],
+        "heads": [],
+        "headPolicy": "single",
+        "charge": "unknown",
+        "spin": {
+          "input": "unknown",
+          "semantics": "unknown"
+        },
+        "electricField": "unknown",
+        "particleSemantics": "unknown",
+        "cutoffAngstrom": 6.0,
+        "longRange": [],
+        "compositionRole": "unknown",
+        "requiredComponents": [],
+        "functional": null,
+        "dataset": "distilled SevenNet-Omni mpa",
+        "units": {
+          "energy": null,
+          "forces": null,
+          "stress": null
+        },
+        "temperatureK": null,
+        "pressureGPa": null,
+        "tasks": []
+      },
+      "asset": {
+        "url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_6.0.pth",
+        "revision": "v0.13.1.cp",
+        "sha256": "f53132f0847aaeba40be9e2e92440ac17d169366b92c8f23edfafbd92e166b39",
+        "bytes": 458194
+      },
+      "licenses": {
+        "code": null,
+        "weights": null,
+        "trainingData": null,
+        "redistribution": "unknown"
+      },
+      "execution": {
+        "legacyId": null,
+        "adapter": null,
+        "profileId": null,
+        "state": "needs_review",
+        "blockers": [
+          "ADAPTER_VERSION_NOT_REVIEWED",
+          "WEIGHT_LICENSE_REVIEW_REQUIRED",
+          "DOMAIN_NOT_VALIDATED"
+        ],
+        "runtimeEvidenceIds": [],
+        "taskEvidenceIds": [],
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "platforms": []
+      },
+      "maintenance": "unknown",
+      "access": "unknown",
+      "reviewedAt": "2026-10-02T00:00:00Z",
+      "nextStage": "M6.11",
+      "relatedIds": []
+    }
+  ]
+}

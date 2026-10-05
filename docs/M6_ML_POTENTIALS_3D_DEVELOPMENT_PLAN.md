@@ -1,10 +1,12 @@
 # MaterialsX M6：机器学习势、智能选势与原子级 3D 工作台开发计划
 
-版本：1.0  
-制定日期：2026-10-01  
-状态：开发规划，全部工作包尚未开始  
-执行基线：本文件  
+版本：1.1
+制定日期：2026-10-01
+状态：M6.0 工程交付完成；M6.1 核心运行时代码与 macOS CPU 实测已实现，Windows 实机及正式安装包验收待完成；M6.2 静态 3D/产物已实现并完成 macOS 桌面验收，Windows/安装包待验收；M6.3 优化/对比已实现并完成 macOS 工程验收；M6.4 硬过滤、默认 Skills 与受控平台科学调度已实现并完成 macOS 工程验收；M6.5 短程 NVE/NVT 与轨迹已实现并完成 macOS 工程验收；M6.6 扩展包/保留集/质量矩阵/macOS 离线测试包工程已实现；独立科学质量、Windows 实机/完整安装器和签名验收待完成
+执行基线：本文件
 版权：© 2026 吉林大学 AI-DAOS 团队
+
+2026-10-02 后续规划：按用户最新指示，M6.7–M6.12 以 [势资源中心开发计划](M6_POTENTIAL_HUB_DEVELOPMENT_PLAN.md) 为执行规划，扩展全面目录、按需下载与挂载、AI 自动分析及新势持续增补。本文继续作为 M6.0–M6.6 的历史基线；M7 多尺度方向暂缓；M6.7–M6.9 已完成 macOS 工程验收，使用方式与边界见 [下载挂载与自动分析](m6/automatic-analysis.md)。M6.10 已完成 SevenNet 新家族 macOS CPU 工程验收，见 [记录](m6/sevennet-adapter.md)；M6.11–M6.12 尚未实施。
 
 ## 1. 产品目标与首条闭环
 
@@ -31,7 +33,7 @@
 - LLM 可以依据材料、任务和模型证据自动选择势，并说明理由。
 - 结果支持原子、分子、晶体及真实模拟轨迹的交互式 3D 展示。
 - 与本地 Pi、Python、已有 Skills 和研究项目协同；保留本地模型和平台模型两种 LLM 模式。
-- 本次只建立开发文档，不下载权重、不安装依赖、不改程序或启动计算。
+- 原始规划轮只建立文档；2026-10-01 用户授权实施 M6.0，具体实现与未通过门槛见 [M6.0 交付](m6/README.md)。
 
 ### 1.2 首版范围与后续范围
 
@@ -85,7 +87,7 @@
 
 | 家族 | 初始候选 | 默认定位 | 来源 |
 | --- | --- | --- | --- |
-| MACE | MP-0b3 small/medium、MPA-0、OMAT-0、MATPES-PBE-0、MATPES-r2SCAN-0、OMOL-0、MH-1 等可获权重 | 覆盖材料与分子不同训练域；按 checkpoint 区分 | [MACE foundations](https://github.com/ACEsuit/mace-foundations) |
+| MACE | MP-0b3 medium、MP-0b2 small、MPA-0、OMAT-0、MATPES-PBE-0、MATPES-r2SCAN-0、OMOL-0、MH-1 | 覆盖材料与分子不同训练域；按 checkpoint 区分 | [MACE foundations](https://github.com/ACEsuit/mace-foundations) |
 | CHGNet | 公开预训练版本，具体版本在 M6.0 固定 | 无机材料任务候选，不能因元素覆盖自动用于聚合物 | [CHGNet](https://chgnet.lbl.gov/) |
 | MatterSim | v1.0.0-1M、v1.0.0-5M | 材料体系候选 | [MatterSim](https://github.com/microsoft/mattersim) |
 | ORB | 当期官方发布中满足能量/力要求的保守型版本，revision 待锁定 | 原子模拟候选，检查力是否来自能量梯度 | [ORB](https://github.com/orbital-materials/orb-models) |
@@ -93,7 +95,7 @@
 | MatGL | M3GNet/TensorNet 势能 checkpoint，revision 待锁定 | 材料计算候选；不混入带隙等性质预测器 | [MatGL](https://github.com/materialyzeai/matgl) |
 | UMA | 官方可取得且用途允许的具体权重 | 跨域候选，授权、task/head 和硬件分别审核 | [FAIRChem](https://fair-chem.github.io/index.html) |
 
-优先核心候选：MACE-MP-0b3 small 与 CHGNet 的适用版本；首先验证材料晶体优化。它们不代表分子/聚合物核心势已具备，分子任务需另外通过相应权重验收。
+M6.0 固定核心候选：MACE-MP-0b3 medium 与 CHGNet 0.3.0；官方 0b3 release 没有 small 文件，较小的 MP-0b2 small 另列扩展候选。真实哈希已锁定，首先在 M6.1 验证 CPU 单点、之后验证晶体优化。它们不代表分子/聚合物核心势已具备，分子任务需另外通过相应权重验收。
 
 NequIP、Allegro、DeePMD 等训练/执行框架可进入扩展适配计划，但只有绑定具体、公开、适用的权重后才登记为可运行势。没有预训练权重的框架不能充作一个通用势。
 
@@ -344,7 +346,7 @@ Skills 指令只指导任务流程，工具规则是执行约束。不得通过�
 
 ## 12. 计划改造位置
 
-以下是未来实施位置，本次只新增规划文档。
+以下是各阶段实施位置；M6.0 已落地的注册表、合同、样本与目录入口见 [交付说明](m6/README.md)。
 
 | 位置 | 工作 |
 | --- | --- |
@@ -435,9 +437,11 @@ Skills 指令只指导任务流程，工具规则是执行约束。不得通过�
 
 ## 17. 后续实施记录与待定事项
 
-所有工作包初始为未开始。本文件只是执行计划，不表示默认包、模型、3D viewer 或智能选势已经落地。
+2026-10-01：MX-601 / M6.0 注册表、数据合同、几何样本、冻结策略与目录 UI 已交付。16 个具体候选、两核心真实哈希、许可/硬件矩阵已登记；全部权重未安装、运行/领域未验证。M6.1–M6.6 未开始，3D viewer 与智能选势未实现。验收见 [记录](m6/acceptance.md)。
 
-M6.0 必须确定：核心 checkpoint/revision、许可证、双平台运行环境、安装体积预算、原子数/步数默认上限、保留样本与质量阈值、参数和 schema 版本。
+M6.0 已固定核心 checkpoint/revision/摘要、许可准入决策、双平台 CPU 环境目标与体积预算、资源上限、13 个几何/反例样本、数值及限定领域质量目标、七个任务 Skill 名称与 schema `m6.0-v1`。完整依赖锁与双平台运行待 M6.1；独立 DFT 保留集标签仍缺失，领域 gate 保持阻断。策略不以测试结果倒推修改。
+
+2026-10-01：MX-602 / M6.1 已实现两家族冻结依赖环境、真实结构导入、CPU 单点、项目归属检查、任务持久化/队列/取消、真实产物、桌面入口及本地 Pi 的固定科学工具。macOS 两核心在三组受扰动几何上通过固定数值门槛；科学质量仍为 needs_review。Windows 已接入相同真实模型 CI，尚无已运行证据；正式安装包和独立 DFT 参考集门槛仍待完成。实现与逐项状态见 [运行时说明](m6/runtime.md) 和 [验收记录](m6/runtime-acceptance.md)。M6.0 冻结文件保持原始历史状态，本机记录不回写冒充原基线。
 
 后续每个工作包在 `docs/m6/` 保存脱敏验证：真实还是 mock、机器与依赖、模型哈希、样本来源、数值和性能结果、已通过范围与阻断项。验收失败只能保持该能力未通过，不把“程序执行结束”写成“科研结论成立”。
 
@@ -459,3 +463,30 @@ M5 的云 LLM、登录和支付可独立推进；M6 的核心本地计算与 3D 
 - [3Dmol GLViewer](https://www.3dmol.org/doc/GLViewer.html)
 - [NGL 文档](https://nglviewer.org/ngl/api/index.html)
 - 项目文档：`docs/DEVELOPMENT_PLAN.md`、`docs/MODEL_CATALOG.md`、`docs/INTEGRATIONS.md`、`docs/M5_TOKEN_API_DEVELOPMENT_PLAN.md`。
+
+
+## M6.2 执行补充（2026-10-02）
+
+MX-603 静态 3D、晶胞、按 PBC 轴显示超胞、点选/测距/测角、真实力模长着色、结果/聊天产物卡片、全局主题及 PNG/原始结构导出已实现。窄 IPC 校验项目、登记产物、realpath、symlink、大小与实际字节哈希；显示限制独立于源结构，场景仅在本地固定组件中加载。M6.0 冻结合同不变，新增 m6.2-v1。
+
+macOS Electron 原生鼠标/点选、七个几何、实际 CHGNet 产物、主题/导出及生命周期验收完成，M6.1 双核心数值与资源恢复回归通过。Windows CI/实机与正式安装包仍待验收，科学质量不升级。对比/位移属于 M6.3，轨迹属于 M6.5，未加入本次静态阶段。见 [使用](m6/viewer.md)、[证据](m6/viewer-acceptance.md)。
+
+## M6.3 执行补充（2026-10-02）
+
+MX-604 已实现 ASE 3.26.0 FIRE：默认固定晶胞、100 步、fmax 0.05 eV/Å；变胞显式选择压力和各向同性/全形状约束，记录 E+pV 与过滤器广义力。原 M6.0 合同和质量策略不修改；100 步是新桌面默认，原冻结策略的 200 步记录保留为历史基线；实际任务预算匹配显式参数，上限 500 步。
+
+真实逐步指标、最终 extxyz/JSON、双语报告、登记摘要清单与取消/失败最后有效结构已接通；新任务不冒充优化器续算。并排两个本地 3D、同步/独立视角、真实位移/最终力着色、能量曲线与导出完成 macOS Electron 验收；CHGNet/MACE 扰动 Si 固定晶胞真实收敛，受控变胞、步数上限、取消、超时、恢复、原文件保护与修改后拒读通过。Windows 与完整安装包待验收，科学质量保持 needs_review。完整任务 Skills/智能选势和平台科学调度仍属 M6.4；轨迹仍属 M6.5。见 [使用](m6/relaxation.md)、[证据](m6/relaxation-acceptance.md)。
+
+### M6.4 / MX-605 实施记录（2026-10-02）
+
+已交付实际 checkpoint 元素覆盖及权重/环境身份重验、兼容性过滤、可信证据提案合同、选择产物、七项默认双语 Skills/分类/例子/`@`/势目录跳转，以及本地/平台受控科学调度。探索候选因独立误差证据不足并列；正式计算保持阻断。MD Skill 仅规划，执行器仍属 M6.5。macOS 核心真实单点/力差比较/取消与实际桌面验收通过，平台使用合成流式 Responses 配合真实 Pi SDK/Go 原生网关验证/本机计算；真实供应商、Windows、正式安装包与独立 DFT 领域精度仍待验收。M6.0 冻结文件不改，以单独 M6.4 合同和启用清单扩展。见 [使用](m6/selection.md)、[证据](m6/selection-acceptance.md)。
+
+## M6.5 实现状态（2026-10-02）
+
+MX-606 受限固定晶胞 NVE/NVT、真实逐步诊断与按采样保留的轨迹、惰性帧 3D 播放/时间轴/导出、同输入同初速度双势曲线比较、部分帧和几何新段、本地及批准范围内的平台调度已实现。macOS 真实双核心 1000 fs NVE、CHGNet 500 fs NVT 与 CPU 取消/资源/恢复/篡改拒读及 Electron 工程验收通过。只开放无机三维周期晶体探索计算，不提升科学质量或生产准入；Windows/安装包/大体系性能与独立 DFT 待验收。MD Skill 已启用，历史 M6.4 仅规划描述保留其阶段事实。见 [使用](m6/dynamics.md)、[验收](m6/dynamics-acceptance.md)。
+
+## M6.6 实现状态（2026-10-02）
+
+MX-607 的审核扩展包管理、CHGNet r2SCAN 固定权重与运行适配、严格科学保留集合同/本机实算/误差报告/取消与恢复、质量矩阵、离线资源闭合哈希清单和双平台 CI 已实现。macOS 未签名 unpacked app 实际启动，经打包 IPC 运行三个模型，双核心另在 OS 网络拒绝下实算；2000 原子视图完成本机交互工程测试。M6.0 冻结策略与原抽取 Skills 保持原样。
+
+独立 DFT 数据尚无，合成数据必须 blocked，所有模型 needs_review 且正式用途阻断；单点筛查不代表优化/MD/领域任务准入。Windows 实机、DMG/NSIS 新安装与低空间测试、签名/公证、指定设备上的大轨迹和同时输入延迟仍待验收。CI 未运行。完整 MX-607 科学与双平台发布条件尚未成立，见 [使用](m6/validation.md)、[工程验收](m6/validation-acceptance.md)。

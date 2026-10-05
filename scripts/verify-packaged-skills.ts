@@ -6,7 +6,12 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 const root = process.cwd();
-const candidates = [
+const resourceArg = process.argv.indexOf("--resources");
+if (resourceArg >= 0 && !process.argv[resourceArg + 1]) throw new Error("--resources requires a local Resources directory");
+const candidates = resourceArg >= 0 ? [{
+  platform: process.platform === "win32" ? "Windows x64" : "macOS arm64",
+  resources: resolve(process.argv[resourceArg + 1]!),
+}] : [
   {
     platform: "macOS arm64",
     resources: resolve(root, "release/dist/mac-arm64/MaterialsX.app/Contents/Resources"),
@@ -44,8 +49,8 @@ for (const candidate of candidates) {
     );
     skillCount += manifest.skills.length;
   }
-  if (skillCount !== 84) {
-    throw new Error(`${candidate.platform} package contains ${skillCount} Skills instead of 84`);
+  if (skillCount !== 93) {
+    throw new Error(`${candidate.platform} package contains ${skillCount} Skills instead of 93`);
   }
   await Promise.all([
     access(resolve(candidate.resources, "skills/descriptions.zh.json")),
@@ -67,7 +72,7 @@ for (const candidate of candidates) {
   }
   const categoryEntries = JSON.parse(categories) as Array<{ id: string; skills: string[] }>;
   const categorized = categoryEntries.flatMap((entry) => entry.skills);
-  if (categoryEntries.length !== 12 || categorized.length !== skillCount || new Set(categorized).size !== skillCount) {
+  if (categoryEntries.length !== 13 || categorized.length !== skillCount || new Set(categorized).size !== skillCount) {
     throw new Error(`${candidate.platform} package has incomplete or duplicate Skill categories`);
   }
   const modelCatalog = JSON.parse(

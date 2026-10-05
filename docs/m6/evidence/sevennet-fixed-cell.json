@@ -1,0 +1,44 @@
+{
+  "stage": "M6.10",
+  "evidenceId": "m610:sevennet-fixed-cell",
+  "passed": true,
+  "platform": "macos-arm64",
+  "device": "cpu",
+  "potentialId": "sevennet-0-11jul2024",
+  "weightSha256": "7052cb42b7b3be42b40b97fa0d21077a48c54b5548948fc4dcf346629f813c36",
+  "dependencyLockSha256": "4bcc3e46cd3ab527eafca190051bc0f7f28c44deaf7ce0e29fb1e77c9ab30fb3",
+  "sample": "Team-constructed 8-atom Si diamond; atom 0 displaced by [0.15,-0.06,0.04] angstrom",
+  "options": {
+    "optimizer": "FIRE",
+    "cellMode": "fixed",
+    "cellConstraint": "none",
+    "externalPressureGPa": null,
+    "maxSteps": 100,
+    "fmaxEvPerAngstrom": 0.03
+  },
+  "stopReason": "converged",
+  "completedSteps": 24,
+  "initial": {
+    "step": 0,
+    "energyEv": -43.083207994846816,
+    "objectiveEv": -43.083207994846816,
+    "maxForceEvPerAngstrom": 1.479790254550659,
+    "maxFilterForceEvPerAngstrom": 1.479790254550659,
+    "volumeAngstrom3": 160.10300699999996,
+    "minimumDistanceAngstrom": 2.257115138844273,
+    "elapsedSeconds": 0.10210433299653232
+  },
+  "final": {
+    "step": 24,
+    "energyEv": -43.20645310671739,
+    "objectiveEv": -43.20645310671739,
+    "maxForceEvPerAngstrom": 0.027939298195580962,
+    "maxFilterForceEvPerAngstrom": 0.027939298195580962,
+    "volumeAngstrom3": 160.10300699999996,
+    "minimumDistanceAngstrom": 2.3492171115664555,
+    "elapsedSeconds": 1.0246507918927819
+  },
+  "unchangedCell": true,
+  "scientificQuality": "needs_review",
+  "scope": "Real fixed-cell optimization engineering acceptance; not independent DFT accuracy."
+}

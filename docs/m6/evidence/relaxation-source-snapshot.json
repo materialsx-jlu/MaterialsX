@@ -1,0 +1,285 @@
+{
+  "version": "m6.3-v1",
+  "date": "2026-10-02",
+  "status": "macos-relaxation-and-comparison-verified-windows-installer-pending",
+  "scientificQuality": "needs_review",
+  "historicalM60M61M62SnapshotsPreserved": true,
+  "files": [
+    {
+      "path": ".github/workflows/m61.yml",
+      "sha256": "9d2bbf878681eb81b10a7f1bee3a1edaee42fa8023c97ea7d6df497f7aba5e5e"
+    },
+    {
+      "path": "apps/desktop/m62-ui-smoke.cjs",
+      "sha256": "9cf881a3e3212fed1787c65502d2c2949d93b025945a5d7aea44b5888b9731e2"
+    },
+    {
+      "path": "apps/desktop/m63-ui-smoke.cjs",
+      "sha256": "f18d8986d0f3188eecec97f87ac67e80310a005a54cbffb5a842e8552dd5ddea"
+    },
+    {
+      "path": "apps/desktop/main/atomic-export.ts",
+      "sha256": "e268235d3a3c968af90239549f2aba7a060e1230120ce3f2147bae5ded85af1f"
+    },
+    {
+      "path": "apps/desktop/main/index.ts",
+      "sha256": "9aa843e57da200a548432297aa1968acc85a26d3f8ed5fe0b16ce73fab9addaf"
+    },
+    {
+      "path": "apps/desktop/preload/index.ts",
+      "sha256": "215c48837f310a0f2dc868b1263b13f8547a44f3f15288ecd151850ea1a4f711"
+    },
+    {
+      "path": "apps/desktop/renderer/atomic-comparison.html",
+      "sha256": "a66ef892b0a2c5835128e502a21d6acbf5e861de4f8e2f28c9a88ff25d04899e"
+    },
+    {
+      "path": "apps/desktop/renderer/atomic-viewer.html",
+      "sha256": "86fbed685b000e69fe1225cc75f615382d656634e40a8987f8f7dab7bc3ac5be"
+    },
+    {
+      "path": "apps/desktop/renderer/src/App.vue",
+      "sha256": "887b19cc711bdd7d5a550c600229ecedc11917ba13f8d13184c869a7ad12aa95"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.css",
+      "sha256": "9c9af19cd7aaf7f4b9ac83777a62c7b71a36da4e803df15e1986cbea0b531fee"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.ts",
+      "sha256": "004e0e310a8c6cccb51dc823b48b2e3cdb6d64145ebc1e9db42975f2bf4ad991"
+    },
+    {
+      "path": "apps/desktop/renderer/src/comparison-frame.css",
+      "sha256": "c10dade9fe130763f644ac6fda33aada70f8291a917ca72fb8c92e4242df0882"
+    },
+    {
+      "path": "apps/desktop/renderer/src/comparison-frame.ts",
+      "sha256": "1e67ba546cda118a7c407611be24b9d3aeb84bc7bc73c4c9246b0fb2e35f465d"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicArtifactCard.vue",
+      "sha256": "a21e1e0efb77435c9ceaf67453aae348caa8c09f47a0c2ec5761265d686ff982"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicComparisonDrawer.vue",
+      "sha256": "b5e83d390e646f70196d205d45943e4e5ee8a1affdfefc81877f50d813d10a9f"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicViewerDrawer.vue",
+      "sha256": "e06d1085cd3674a654a9ccb8554e4dce5b4fe0869f8ac7f9fefd3110156c7932"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticMessageArtifacts.vue",
+      "sha256": "282f2e6fc965f678cd50b0d96af33a0618624077bc04bebda09bf32898818b69"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticRunPanel.vue",
+      "sha256": "cc92d9fc8ed8dcdb2bf8a37bacc0a250b44f14c81a43e911c3c6ae4624416e6c"
+    },
+    {
+      "path": "apps/desktop/renderer/src/utils/atomic-viewer.ts",
+      "sha256": "263d00fa412d19cc17e952863bfdbeef706f5c4ed67b18a3c69db2497d301edb"
+    },
+    {
+      "path": "apps/desktop/vite.config.ts",
+      "sha256": "15424062af2717ac1c0e926189ba13c0e6008d20ab94c40c6d19392d6e96fa58"
+    },
+    {
+      "path": "atomistic/relaxation.py",
+      "sha256": "b285feb91a7cbd96907916c367ed23a0851b2cc88e2929d69cdaaf2c65a88d7c"
+    },
+    {
+      "path": "atomistic/tests/test_relaxation.py",
+      "sha256": "ca3bc16800a4798d8444f0a0e4de2392a92e14fd4f52268889b09ab7b33b3062"
+    },
+    {
+      "path": "atomistic/tests/test_worker_resources.py",
+      "sha256": "d9ecd96713b931a172d2f57c37b3508359c7ed5117f59b2679cb28383a1ab5e8"
+    },
+    {
+      "path": "docs/m6/images/viewer-artifacts.png",
+      "sha256": "29c303e2ea4cc2f17d9ae5a144e231e8f383a9eab18f95a9d8d2febb1be1ab86"
+    },
+    {
+      "path": "docs/m6/images/viewer-chat-artifact.png",
+      "sha256": "391db24e222525a35707a0a273cd37588734839d920f9c203b053fb8f7f93a2a"
+    },
+    {
+      "path": "docs/m6/images/viewer-dark.png",
+      "sha256": "2442bf9a08b2ba02bd9911fc38d3dd77a921c89348a88c609b6bcd7789e41e2d"
+    },
+    {
+      "path": "docs/m6/images/viewer-forces.png",
+      "sha256": "9e8082a9115f34461d21c71a613c62e824996b605890d60ad945af25baff8d80"
+    },
+    {
+      "path": "docs/m6/images/viewer-light.png",
+      "sha256": "318b18a4ee5d12cf6bdeda26da64e00946c6ffbebe4516c3ef8430303310998b"
+    },
+    {
+      "path": "docs/m6/images/viewer-molecule.png",
+      "sha256": "708168e9442c3d1fbb271fedd697146ec24eacb3b006b33b0c9f2c745005db26"
+    },
+    {
+      "path": "docs/m6/relaxation-acceptance.md",
+      "sha256": "0bfd96250c1fd76c77aa80d58f51a682a12fb2c4677fc384334a1607a562e7a4"
+    },
+    {
+      "path": "docs/m6/relaxation.md",
+      "sha256": "95f1a6e45d214510bb0594084059ee1d8813efede57bedf44b2908e70f5fa4f7"
+    },
+    {
+      "path": "docs/m6/viewer-acceptance.md",
+      "sha256": "dce89def271bcdbbcc795bfe26b1d65d39fdf66e02e9ed403c70dce72a3919c3"
+    },
+    {
+      "path": "docs/m6/viewer.md",
+      "sha256": "ddb7846eca5ab58c0ce7bacfb36f39af92bc72270623e2cc12600ec481657aea"
+    },
+    {
+      "path": "docs/third-party/3DMOL_LICENSE.txt",
+      "sha256": "4c6eaaed856f3f28a3b1a98e74f4a8a71618de7d51ea4155c29f6f793bcef861"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "076ab2f331f33269f8340f45df8e29ee65bcead874cdd92eeb2f1282fcd102a9"
+    },
+    {
+      "path": "package.json",
+      "sha256": "9193e8a65eec54104b902134830d08446232631d727a481f3952db88f0bc3797"
+    },
+    {
+      "path": "packages/atomistic/src/artifact-io.ts",
+      "sha256": "8c59eee1cf788ebb411ad65a1524cafedb8756ce6de6adbb7eb82342ed68e5f8"
+    },
+    {
+      "path": "packages/atomistic/src/process.ts",
+      "sha256": "101932f013a9901e686040de69785c406a831e9418cdeac50352ca4656390542"
+    },
+    {
+      "path": "packages/atomistic/src/registry.test.ts",
+      "sha256": "19550b29e4503ad6f13323f2fe9e978db781d26be23bc65c749fdb07717a5722"
+    },
+    {
+      "path": "packages/atomistic/src/registry.ts",
+      "sha256": "93c4ad1d2d447099e8197228ac9627d7890d9fa9d6552c0fb0cb2598c149f267"
+    },
+    {
+      "path": "packages/atomistic/src/relaxation.test.ts",
+      "sha256": "7f104e65e60859ef73f60ae547e2b5a62f484867d17624761726da6eec6e5864"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.test.ts",
+      "sha256": "97141665a619c25724f951ca91d47201e89402817ccc67cc30150d30ce41a0ec"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.ts",
+      "sha256": "22876efcb819dd16f09655c4149f9dfb0b84840a3b61eaf28faebf88f37311d7"
+    },
+    {
+      "path": "packages/atomistic/src/viewer-geometry.ts",
+      "sha256": "34fd8731bea8636809e2b9a8a53203b8eb353fade65d9aae23161779aa012018"
+    },
+    {
+      "path": "packages/atomistic/src/viewer.test.ts",
+      "sha256": "ecbc937c2acd8eaa00f74c3e278998259cfcff7681da6457aacf2eeffb6f42ca"
+    },
+    {
+      "path": "packages/contracts/src/atomic-viewer.ts",
+      "sha256": "51eb22f8f9e97f0d13ecc7c0ec38f337d958d1479bdfe33e3e401e625d22bce6"
+    },
+    {
+      "path": "packages/contracts/src/atomistic-relaxation.ts",
+      "sha256": "c361a3c203c73bbecaafe0d501362e3435bf61fcee6b3d784172780654099a46"
+    },
+    {
+      "path": "packages/contracts/src/desktop.ts",
+      "sha256": "6265a62226fa06a43bafd849aa80b3d230833dbb0065895eac71f1237de456bb"
+    },
+    {
+      "path": "schemas/.gitattributes",
+      "sha256": "5c0ccd4346d40a9a257042b8a485544d843749688aee93ed1bcf52679a9a2441"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameCommand.json",
+      "sha256": "237e0247d07dca870b29e31ef274c3adb1848d93646a6cd042785d64efa48ead"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameEvent.json",
+      "sha256": "177e472cd9a8027f5f1cec8858c46fb667921c1646c31a49832dfc45afd77b58"
+    },
+    {
+      "path": "schemas/m62/AtomicPngExport.json",
+      "sha256": "e1a01b55700f07d30bf3d22f955828cf1dfd8806a2c1dc38150dc31a43ea5301"
+    },
+    {
+      "path": "schemas/m62/AtomicViewPayload.json",
+      "sha256": "2f4b24b269a7d01f98c6afe14204d9efadb3112b34059992d50f4a485008fdb3"
+    },
+    {
+      "path": "schemas/m62/AtomicViewRequest.json",
+      "sha256": "87625fc2b210283f493487b0458faf0165d35761dc0a7a2379e1fed7505f3630"
+    },
+    {
+      "path": "schemas/m62/StaticAtomicScene.json",
+      "sha256": "4a54fddc20ac5404329c6f80daa3de2bf5827ee5cb06eec5ed72e12d31399636"
+    },
+    {
+      "path": "schemas/m63/ComparisonCommand.json",
+      "sha256": "fd0f8270fdd57348d0132f1a2a603e938c5ea88a20c213fd0a19debdaff54b40"
+    },
+    {
+      "path": "schemas/m63/ComparisonEvent.json",
+      "sha256": "e2b0ef3f6321b3341b88ffee18e1dd6ba66f49ca2447603124536e2f0ac29a42"
+    },
+    {
+      "path": "schemas/m63/ComparisonScene.json",
+      "sha256": "8b47a259faaae6aa46a7adad09ec2473e2fcb0c3a79323baf8ee9ef18963153a"
+    },
+    {
+      "path": "schemas/m63/RelaxationCheckpoint.json",
+      "sha256": "501ab99f4d764f84a1a2c555c53da9841674dda0be3016d338234838a5852c84"
+    },
+    {
+      "path": "schemas/m63/RelaxationComparison.json",
+      "sha256": "d24360d37a1997fd8dfd4a4f8834e5a33efcc401ce14dd820a71afa0010d9c55"
+    },
+    {
+      "path": "schemas/m63/RelaxationHistory.json",
+      "sha256": "db2a46314dfe6a2247f31b6c5770e1e61b68eb663a5a5bd646aab05efddd5def"
+    },
+    {
+      "path": "schemas/m63/RelaxationOptions.json",
+      "sha256": "fc2c15eae802109ed5506b31436946aabaf9f0a248e9975b252bbfd926b0d422"
+    },
+    {
+      "path": "schemas/m63/RelaxationStep.json",
+      "sha256": "7b123c959425d65061b0db48048f3fe58f5c83a6c23903b68a16b626321c42b9"
+    },
+    {
+      "path": "schemas/m63/RelaxationSummary.json",
+      "sha256": "d567716f1d76ae5aacbfa1ac3eaf07c74a31ca351839dd1e46ad8d8db79329db"
+    },
+    {
+      "path": "schemas/m63/ScientificSnapshot.json",
+      "sha256": "73a9280de483111449adb9b8d3dc13cd25bb3cb640a88910c916a5a1ffcb69e8"
+    },
+    {
+      "path": "schemas/m63/StartRelaxation.json",
+      "sha256": "33259b2d7b4ccfe5e5964b198680c365a81d8d38b170d872d11b213deb96581f"
+    },
+    {
+      "path": "scripts/m62-contracts.ts",
+      "sha256": "1d0e1aeba2a5ec6d911b9bd691ff248b6a391978ea1602bfed6cafb3e59d3299"
+    },
+    {
+      "path": "scripts/m63-contracts.ts",
+      "sha256": "f09f717843414d5d540964adcce5619085bfd79ccddb4f72d6bdcd81edf0b74c"
+    },
+    {
+      "path": "scripts/m63-runtime-test.ts",
+      "sha256": "cfdf2a7ad1930f6492e276085a4c4baafc6735386f7c31b8e224925c15997018"
+    }
+  ]
+}

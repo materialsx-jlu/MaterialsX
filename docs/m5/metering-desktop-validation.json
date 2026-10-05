@@ -1,0 +1,15 @@
+{
+  "platform": "darwin",
+  "electron": "44.5.0",
+  "realBuiltDesktop": true,
+  "syntheticProvider": true,
+  "consentDenialNoDispatch": true,
+  "approvedSelections": true,
+  "requests": 2,
+  "streamingDeltas": 1,
+  "usageVisible": true,
+  "transactionalWalletVisible": true,
+  "testCreditsOnly": true,
+  "localCancelMs": 20,
+  "upstreamCancelVerified": false
+}

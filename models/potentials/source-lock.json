@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "reviewedAt": "2026-10-01",
+  "sources": [
+    {
+      "id": "mace-foundations-README-md",
+      "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+      "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+      "path": "README.md",
+      "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+    },
+    {
+      "id": "mace-LICENSE-md",
+      "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+      "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+      "path": "LICENSE.md",
+      "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+    },
+    {
+      "id": "mace-mace-calculators-foundations_models-py",
+      "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+      "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+      "path": "mace/calculators/foundations_models.py",
+      "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+    },
+    {
+      "id": "chgnet-README-md",
+      "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/README.md",
+      "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+      "path": "README.md",
+      "sha256": "3e05b1f0dde58cd2e69f5ada2cf03ca959f884d03ebab44b4f1cf21dc1c4c3df"
+    },
+    {
+      "id": "chgnet-LICENSE",
+      "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/LICENSE",
+      "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+      "path": "LICENSE",
+      "sha256": "a06789a2624485a9de5903d3d4cceeec6127a36042dd7364999ff994587a4a41"
+    },
+    {
+      "id": "mattersim-README-md",
+      "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/README.md",
+      "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+      "path": "README.md",
+      "sha256": "b222a569a01bc94712f2385661cb3d6294ec8bedff7aa8ec93b902f4a1005d95"
+    },
+    {
+      "id": "mattersim-LICENSE-txt",
+      "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/LICENSE.txt",
+      "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+      "path": "LICENSE.txt",
+      "sha256": "fd532481d828e13a0b13ccb598e02338a3617740675a862ee6bdc1541b68e93d"
+    },
+    {
+      "id": "orb-models-README-md",
+      "url": "https://github.com/orbital-materials/orb-models/blob/1794f852543600d1611d2a3728a95142574f5dc2/README.md",
+      "revision": "1794f852543600d1611d2a3728a95142574f5dc2",
+      "path": "README.md",
+      "sha256": "6ee1f8fcda191b3d4a4d1716256af566c85d279a56352d5722439e9c28210938"
+    },
+    {
+      "id": "orb-models-LICENSE",
+      "url": "https://github.com/orbital-materials/orb-models/blob/1794f852543600d1611d2a3728a95142574f5dc2/LICENSE",
+      "revision": "1794f852543600d1611d2a3728a95142574f5dc2",
+      "path": "LICENSE",
+      "sha256": "ae89c659da81fa5cf80f03e1fe25fc7c6fac7db0b66d80592562537a614e0dbb"
+    },
+    {
+      "id": "SevenNet-sevenn-pretrained_potentials-SevenNet_0__11Jul2024-README-md",
+      "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+      "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+      "path": "sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+      "sha256": "54507f3eefc41adad601f2eda860b85bde43faafcb2d91d7a694c0b7bda69ac3"
+    },
+    {
+      "id": "SevenNet-LICENSE",
+      "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/LICENSE",
+      "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+      "path": "LICENSE",
+      "sha256": "bfcac52925669ea0c2b895e0dd80fbbe9245398b851d734483bed3ce0bc165ed"
+    },
+    {
+      "id": "matgl-README-md",
+      "url": "https://github.com/materialyzeai/matgl/blob/8def32f2d1c33fa6b7ec72655306ee4ea02a303b/README.md",
+      "revision": "8def32f2d1c33fa6b7ec72655306ee4ea02a303b",
+      "path": "README.md",
+      "sha256": "2d302b6087d83ae391fae091b3955ae1cc9870d04548a89e0ee77c58f81c6188"
+    },
+    {
+      "id": "matgl-LICENSE",
+      "url": "https://github.com/materialyzeai/matgl/blob/8def32f2d1c33fa6b7ec72655306ee4ea02a303b/LICENSE",
+      "revision": "8def32f2d1c33fa6b7ec72655306ee4ea02a303b",
+      "path": "LICENSE",
+      "sha256": "a1f95e08d7efe8e911aed04b891d51b90ba46291585f43939134806670ee2a38"
+    },
+    {
+      "id": "fairchem-README-md",
+      "url": "https://github.com/facebookresearch/fairchem/blob/c22fb1bedb2b4ca453376749f42999be1589856d/README.md",
+      "revision": "c22fb1bedb2b4ca453376749f42999be1589856d",
+      "path": "README.md",
+      "sha256": "d9a2065afcc918e8fd7dfec188df6bb7e22043564dc8f95ef932c4039ed316d1"
+    },
+    {
+      "id": "fairchem-LICENSE-md",
+      "url": "https://github.com/facebookresearch/fairchem/blob/c22fb1bedb2b4ca453376749f42999be1589856d/LICENSE.md",
+      "revision": "c22fb1bedb2b4ca453376749f42999be1589856d",
+      "path": "LICENSE.md",
+      "sha256": "3e10827938aae9e591647722c830065a95b3af2721f0d7f02f373869b40fe81d"
+    }
+  ],
+  "coreWeightIdentities": [
+    {
+      "name": "chgnet-0.3.0",
+      "url": "https://raw.githubusercontent.com/CederGroupHub/chgnet/b9a6c15860237297a5a5169660e83b2e61a78e76/chgnet/pretrained/0.3.0/chgnet_0.3.0_e29f68s314m37.pth.tar",
+      "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+      "sha256": "d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1",
+      "bytes": 4863221,
+      "verification": "download-hashed"
+    },
+    {
+      "name": "mace-mp-0b3-medium",
+      "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0b3/mace-mp-0b3-medium.model",
+      "revision": "release:mace_mp_0b3/asset:213936922",
+      "sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+      "bytes": 79472952,
+      "verification": "download-hashed"
+    }
+  ],
+  "hubMetadata": [
+    {
+      "repoId": "materialyze/TensorNet-PES-MatPES-PBE-2025.2",
+      "revision": "7ac2b90400a87eca7f44c1e7956dca6b1c85e418",
+      "gated": false,
+      "licenseLabel": "unknown",
+      "files": [
+        {
+          "rfilename": "model.json",
+          "blobId": "544966013206da7faa1966ffa360a82fb2d31c3e",
+          "size": 5298
+        },
+        {
+          "rfilename": "model.pt",
+          "blobId": "9a0af1a7c180ddf6854baba36d2dd97f6b6e2112",
+          "size": 4495,
+          "lfs": {
+            "sha256": "19a0a506a58ea454e407040d55c393a174a5165834f22ea95c4c923ad9a406cc",
+            "size": 4495,
+            "pointerSize": 129
+          }
+        },
+        {
+          "rfilename": "state.pt",
+          "blobId": "b0754148d40d39252772fb163518dfa8631ad814",
+          "size": 3402824,
+          "lfs": {
+            "sha256": "b9efa8c708014dd6c37e348f65dc1d8ae5c7bd5c7290de4d9f210e16c7fc3766",
+            "size": 3402824,
+            "pointerSize": 132
+          }
+        }
+      ]
+    },
+    {
+      "repoId": "facebook/UMA",
+      "revision": "f611b917d9c68566bbbeccbb0aa0f7cad1696cb2",
+      "gated": "manual",
+      "licenseLabel": "other",
+      "files": [
+        {
+          "rfilename": "checkpoints/uma-s-1p2p1.pt",
+          "blobId": "d52c46409b22cdbe7c3f490e272b38f66e1c6339",
+          "size": 2333393615,
+          "lfs": {
+            "sha256": "b2673b85037b075674c25f55c34ffe1ff1e15db924be977b10a184765df0d5ce",
+            "size": 2333393615,
+            "pointerSize": 135
+          }
+        }
+      ]
+    }
+  ]
+}

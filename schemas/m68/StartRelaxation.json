@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]{0,95}$"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "optimizer": {
+          "type": "string",
+          "const": "FIRE"
+        },
+        "cellMode": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        },
+        "cellConstraint": {
+          "type": "string",
+          "enum": [
+            "none",
+            "hydrostatic",
+            "full"
+          ]
+        },
+        "externalPressureGPa": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": -10,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "fmaxEvPerAngstrom": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 0.2
+        }
+      },
+      "required": [
+        "optimizer",
+        "cellMode",
+        "cellConstraint",
+        "externalPressureGPa",
+        "maxSteps",
+        "fmaxEvPerAngstrom"
+      ],
+      "additionalProperties": false
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxAtoms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxWallSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "maxMemoryMiB": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 8192
+        },
+        "maxOutputMiB": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "threads": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "maxAtoms",
+        "maxSteps",
+        "maxWallSeconds",
+        "maxMemoryMiB",
+        "maxOutputMiB",
+        "threads"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "projectId",
+    "structureId",
+    "potentialId",
+    "options"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m68/StartRelaxation.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

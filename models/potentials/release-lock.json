@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "releaseId": "m6-0-candidates-20261001-v1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "e963ae3f927d6784c5718e204d84eae53483fdf48669a834ae87ca9b8c1f5888"
+    },
+    {
+      "path": "docs/m6/licenses/chgnet-LICENSE.txt",
+      "sha256": "a06789a2624485a9de5903d3d4cceeec6127a36042dd7364999ff994587a4a41"
+    },
+    {
+      "path": "docs/m6/licenses/mace-LICENSE.txt",
+      "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+    },
+    {
+      "path": "docs/m6/licenses/mace-foundations-LICENSE.txt",
+      "sha256": "31ea0ccf7bc19797081bff51c7eff3a3927c8cb6c1d7a726dec3d157b436da1c"
+    },
+    {
+      "path": "models/potentials/environment-targets.json",
+      "sha256": "ea251c0c24d7c41ec705140a85cfde9b59afdcbe8c31f7d127ff0e76e0120ad2"
+    },
+    {
+      "path": "models/potentials/quality-policy.json",
+      "sha256": "0fce9e8bfee064ab10f567433d27b0e9bcea000bf9ca3ed7671ff41ebfdb864b"
+    },
+    {
+      "path": "models/potentials/registry.json",
+      "sha256": "e918c6e8a063f93d535d3850a3cb6603977b3cf5f864917c568bfa571b898819"
+    },
+    {
+      "path": "models/potentials/source-lock.json",
+      "sha256": "0af6ebf57fa5d9e65d3f5219d196545b3d1eb2d9f7608abe3f6e1f52c27b6d8f"
+    },
+    {
+      "path": "models/potentials/task-skills.json",
+      "sha256": "ba12c1ba98643068bfb55a297f98895720e1b392d693a6513503b8e086701e28"
+    },
+    {
+      "path": "packages/atomistic/src/registry.ts",
+      "sha256": "93c4ad1d2d447099e8197228ac9627d7890d9fa9d6552c0fb0cb2598c149f267"
+    },
+    {
+      "path": "packages/contracts/src/atomistic.ts",
+      "sha256": "4aed3e450910006f77c270dd7af59520c66946e3ba00eb321e883ec6f0accbc8"
+    },
+    {
+      "path": "samples/atomistic/cu-slab.extxyz",
+      "sha256": "c5e614e47b66370f556f17898298b9a73dbb114c073b34a7c7cb9b07f59b2357"
+    },
+    {
+      "path": "samples/atomistic/cu-slab.structure.json",
+      "sha256": "ea91cbd19f835fec6841ecb06ddd8ddc33db49ad139c9325840a4497772233c6"
+    },
+    {
+      "path": "samples/atomistic/cu-vacancy.POSCAR",
+      "sha256": "85c46f47203f72d4afeb4f80f75a2a392c93c6181b84fa28dfa9ce170f10ce4e"
+    },
+    {
+      "path": "samples/atomistic/cu-vacancy.structure.json",
+      "sha256": "725dc0cd1ba1f47d28896c889399f58d1a5f3de3846acf58fef4ded2dc51c374"
+    },
+    {
+      "path": "samples/atomistic/manifest.json",
+      "sha256": "6d9c3fe58269b35dabaaffd83f6a70942c012db79e39551edf6200b56232a8f9"
+    },
+    {
+      "path": "samples/atomistic/methane.structure.json",
+      "sha256": "3f5028f05fcff59f1e2e032e1f4154ee2be834f56d5f854455a918a69dc8dbb8"
+    },
+    {
+      "path": "samples/atomistic/methane.xyz",
+      "sha256": "c7a5de08bdd73737d2eb967acda36b7f53c9267d0ae37cc2f588bbc39fc257e8"
+    },
+    {
+      "path": "samples/atomistic/missing-pbc.structure.json",
+      "sha256": "113132bcd302a2e83501035d24dd348c8ed03c6d4890f5014ce5c8eff2a33bba"
+    },
+    {
+      "path": "samples/atomistic/nacl-rocksalt.cif",
+      "sha256": "8c6d410fa4038801b2552122582c6ce4643a4c8d345578a50003e4f2269f8dd4"
+    },
+    {
+      "path": "samples/atomistic/nacl-rocksalt.structure.json",
+      "sha256": "590d8cb0c635f1e8c2fdf2a58fe39f864fc8c4cb594a6ddaa11dde4d3eea8efc"
+    },
+    {
+      "path": "samples/atomistic/nonfinite.xyz",
+      "sha256": "0a84de127cd3e38a478ed7dc4ce2d79804e9310984dcf5b4a8cfb806e02d4bac"
+    },
+    {
+      "path": "samples/atomistic/overlap.xyz",
+      "sha256": "6bdd57995826b00725825b53dc22604dcff40325a8cb7fd1bf3d13f2e3b82572"
+    },
+    {
+      "path": "samples/atomistic/partial-occupancy.cif",
+      "sha256": "76b7721db8e0b4f67b7c9509ef7594588fe4ea8e2df4660f2690503bf748455c"
+    },
+    {
+      "path": "samples/atomistic/si-diamond.POSCAR",
+      "sha256": "6e5be3cfe63c70a5567592d4ae6e207d5213ac57625faf864b57261bcce96812"
+    },
+    {
+      "path": "samples/atomistic/si-diamond.structure.json",
+      "sha256": "cb7927adb5bae3530dc578c3b2d4451ebbf2ae03e2cbd7e4b1f3bff06df141f6"
+    },
+    {
+      "path": "samples/atomistic/si-triclinic.extxyz",
+      "sha256": "03fe72b2ae5f668807c1cecee0517b7a80b78c29676e56a9fa0fd70d6d7ddb61"
+    },
+    {
+      "path": "samples/atomistic/si-triclinic.structure.json",
+      "sha256": "58e420aad4d809733f8490829b678e3472469ee60bdd83d797f9bac65f1acc3c"
+    },
+    {
+      "path": "samples/atomistic/singular-cell.POSCAR",
+      "sha256": "39eb060df9a4ee7b1f754a024bea7810fa858ac462198931ed4d4416907c7af1"
+    },
+    {
+      "path": "samples/atomistic/unknown-element.xyz",
+      "sha256": "5597da75c1092d93bc5bdab356fcfeb1a03252160a1354babf0da1267bfe4f28"
+    },
+    {
+      "path": "samples/atomistic/water.structure.json",
+      "sha256": "69193d6e9656ae693bb9f493ca34a312d0f60d7f97ba7d692a2fc3b51e0e4e76"
+    },
+    {
+      "path": "samples/atomistic/water.xyz",
+      "sha256": "afa454f2cfa4890d99d747af96874876a318c54fc05b2f4ae219ba4c1f12828c"
+    },
+    {
+      "path": "schemas/m6/AtomicStructure.json",
+      "sha256": "d745cf32cd5a4500683656337b930e5ca0c1e68b9dadf1879cfae22103d1ae29"
+    },
+    {
+      "path": "schemas/m6/AtomicViewerConfig.json",
+      "sha256": "b8b7904c925f9a629fdef7e942652d7c58d88c87927998fdccad0331f8cdc522"
+    },
+    {
+      "path": "schemas/m6/AtomisticArtifact.json",
+      "sha256": "43f54757529fd3a610b5887e3be559cdbc816fb57f445045570330f88b5c8fa6"
+    },
+    {
+      "path": "schemas/m6/AtomisticBudget.json",
+      "sha256": "c62567f8bd1de16911b2a65a544bdbcf0614684b526d0f92f1dc9a5abd18ed07"
+    },
+    {
+      "path": "schemas/m6/AtomisticJob.json",
+      "sha256": "a8c6e889ec5d2849e84039349c28132e32fd60469904799c57ec5f7b61f219a6"
+    },
+    {
+      "path": "schemas/m6/AtomisticPlan.json",
+      "sha256": "6c3806a46fef6cc9cb7823e72932b66410d115b7e955212d9b1c63890a3c8189"
+    },
+    {
+      "path": "schemas/m6/AtomisticResult.json",
+      "sha256": "e6206dfa70d17a4f1fa626e428d5e705368b518a4b3610e1ba8a49b9d203989f"
+    },
+    {
+      "path": "schemas/m6/PotentialManifest.json",
+      "sha256": "d22cd6122ba7c96414874544e1a451d6b35a2536f5535f235ead50dfe5515516"
+    },
+    {
+      "path": "schemas/m6/PotentialRegistry.json",
+      "sha256": "6c75584ebdba95c75b4a1a37bfd9e7a5fab0cc498d60e92b6c496440bc9ad90b"
+    },
+    {
+      "path": "schemas/m6/PotentialSelection.json",
+      "sha256": "23c5d85ca67691bc376994ceb68c7df5f0e8467fa4b0844e39d901f46e9c3862"
+    },
+    {
+      "path": "scripts/generate-m6-samples.py",
+      "sha256": "fcbceb28724176da5d22f71fc5da8128e5732823d74dc8f42b746ee3dae77044"
+    }
+  ]
+}

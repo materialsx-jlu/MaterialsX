@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "m5.4-validation-v1",
+  "environment": "synthetic-provider-real-postgres-electron",
+  "realMainPreloadVue": true,
+  "adminMFA": true,
+  "orderUI": true,
+  "refundUI": true,
+  "refundedFen": "50",
+  "returnedCredits": "500",
+  "availableCredits": "500",
+  "csvExport": true,
+  "cashAndSyntheticSeparated": true,
+  "ledgerVerified": true,
+  "realMoney": false,
+  "generatedAt": "2026-10-01T10:51:39.436Z",
+  "unverified": [
+    "real-wechat-merchant",
+    "live-native-QR",
+    "actual-payment-and-refund",
+    "formal-prices-and-refund-policy",
+    "production-metering-bound",
+    "Windows-UI"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "stage": "M6.14",
+  "passed": true,
+  "platform": "macos-arm64",
+  "resourceManifest": {
+    "version": "m6.14-v1",
+    "passed": true,
+    "platform": "macos-arm64",
+    "filesVerified": 121865,
+    "expandedRuntimeBytes": 3393591432,
+    "coreWeightsBytes": 84336173,
+    "scientificQuality": "needs_review",
+    "signedRelease": false
+  },
+  "isolatedResourceTree": true,
+  "bundledNativeCheckpointMounted": true,
+  "actualBundledNativeSP": true,
+  "installedSourcesUnchanged": true,
+  "energyEv": -37.00741774844945,
+  "nativeBinaryTamperRejected": true,
+  "fullInstallerTested": false,
+  "packagedElectronLaunched": false,
+  "signedRelease": false,
+  "weightsDownloaded": 0,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

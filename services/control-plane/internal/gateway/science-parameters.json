@@ -1,0 +1,140 @@
+{
+  "type": "object",
+  "required": [
+    "action",
+    "targetId",
+    "secondaryId",
+    "potentialId",
+    "domain",
+    "mode",
+    "evidenceIds"
+  ],
+  "properties": {
+    "action": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "inspect"
+        },
+        {
+          "type": "string",
+          "const": "import_sample"
+        },
+        {
+          "type": "string",
+          "const": "select"
+        },
+        {
+          "type": "string",
+          "const": "singlepoint"
+        },
+        {
+          "type": "string",
+          "const": "relaxation"
+        },
+        {
+          "type": "string",
+          "const": "md"
+        },
+        {
+          "type": "string",
+          "const": "get"
+        },
+        {
+          "type": "string",
+          "const": "cancel"
+        },
+        {
+          "type": "string",
+          "const": "view"
+        },
+        {
+          "type": "string",
+          "const": "compare"
+        }
+      ]
+    },
+    "targetId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "secondaryId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "potentialId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "domain": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "inorganic-crystals"
+        },
+        {
+          "type": "string",
+          "const": "molecules"
+        },
+        {
+          "type": "string",
+          "const": "polymers"
+        },
+        {
+          "type": "string",
+          "const": "surfaces"
+        },
+        {
+          "type": "string",
+          "const": "interfaces"
+        },
+        {
+          "type": "string",
+          "const": "unknown"
+        }
+      ]
+    },
+    "mode": {
+      "anyOf": [
+        {
+          "type": "string",
+          "const": "production"
+        },
+        {
+          "type": "string",
+          "const": "exploratory"
+        }
+      ]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 128
+      },
+      "maxItems": 20
+    }
+  },
+  "additionalProperties": false
+}

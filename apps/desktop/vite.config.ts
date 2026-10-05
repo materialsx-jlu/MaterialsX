@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   build: {
+    rollupOptions: {input:{comparison:fileURLToPath(new URL("./renderer/atomic-comparison.html",import.meta.url)),main:fileURLToPath(new URL("./renderer/index.html",import.meta.url)),atomic:fileURLToPath(new URL("./renderer/atomic-viewer.html",import.meta.url))}},
     outDir: fileURLToPath(new URL("../../dist/apps/desktop/renderer", import.meta.url)),
     emptyOutDir: true,
   },

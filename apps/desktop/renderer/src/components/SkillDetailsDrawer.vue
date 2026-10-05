@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ExamplePrompts from './ExamplePrompts.vue';
 import { computed } from "vue";
 import { ArrowRight, CheckCircle2, Copy, FlaskConical, Languages, MessageSquareText, ShieldCheck } from "@lucide/vue";
 import { ElDrawer } from "element-plus";
@@ -11,6 +12,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   close: [];
+  "open-models": [];
   use: [skillName: string];
   "use-example": [skillName: string, prompt: string];
   "update:locale": [locale: "zh" | "en"];
@@ -42,7 +44,7 @@ const description = computed(() =>
       <div :class="['skill-detail-status', { reviewing: !skill.enabled }]">
         <CheckCircle2 v-if="skill.enabled" :size="15" />
         <ShieldCheck v-else :size="15" />
-        {{ skill.enabled ? '已启用，可以在研究任务中使用' : '验收中，暂未加入默认运行能力' }}
+        {{ skill.availability === 'planned' ? (locale === 'zh' ? '已内置 · 仅规划，执行器待 M6.5' : 'Bundled · Planning only, execution in M6.5') : skill.enabled ? '已启用，可以在研究任务中使用' : '验收中，暂未加入默认运行能力' }}
       </div>
 
       <section class="skill-detail-section">
@@ -60,23 +62,10 @@ const description = computed(() =>
           <strong>{{ locale === 'zh' ? '使用示例' : 'Example prompts' }}</strong>
           <span>{{ skill.examples.length }}</span>
         </div>
-        <div class="skill-example-list">
-          <article v-for="(example, index) in skill.examples" :key="`${skill.name}-${index}`" class="skill-example-card">
-            <div class="skill-example-number">{{ String(index + 1).padStart(2, '0') }}</div>
-            <p :lang="locale === 'zh' ? 'zh-CN' : 'en'">{{ example[locale] }}</p>
-            <button
-              type="button"
-              class="skill-example-copy"
-              :aria-label="locale === 'zh' ? `将示例 ${index + 1} 填入输入框` : `Use example ${index + 1} in chat`"
-              @click="emit('use-example', skill.name, example[locale])"
-            >
-              <Copy :size="14" />
-              {{ locale === 'zh' ? '填入输入框' : 'Use in chat' }}
-            </button>
-          </article>
-        </div>
+        <ExamplePrompts :examples="skill.examples" :locale="locale" @use="emit('use-example',skill.name,$event)"/>
       </section>
 
+      <section v-if="skill.applicablePotentialIds?.length" class="skill-detail-section"><strong>{{locale==='zh'?'关联核心势（仍需兼容与精度检查）':'Related core potentials (eligibility checks required)'}}</strong><p>{{skill.applicablePotentialIds.join(' · ')}}</p><button class="secondary-button" @click="emit('open-models')">{{locale==='zh'?'打开势目录与本地计算':'Open potential directory and local tasks'}}</button></section>
       <section class="skill-detail-section skill-detail-meta">
         <div><span>许可证</span><strong>{{ skill.license }}</strong></div>
         <div><span>来源</span><strong>{{ skill.source }}</strong></div>

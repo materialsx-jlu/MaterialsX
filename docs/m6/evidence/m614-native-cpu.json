@@ -1,0 +1,318 @@
+{
+  "stage": "M6.14",
+  "passed": true,
+  "platform": "macos-arm64",
+  "model": "nep-si-2022-nep4-3body",
+  "package": {
+    "potentialId": "nep-si-2022-nep4-3body",
+    "family": "nep",
+    "adapter": "nep-cpu",
+    "basePotentialId": "chgnet-0.3.0",
+    "environmentProfileId": "nep-cpu-1.4-shared-chgnet-v1",
+    "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+    "sourceRevision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+    "url": "https://raw.githubusercontent.com/brucefan1983/GPUMD/87c1cf22401ac8c791adda0879e0af704dd5f981/potentials/nep/Si_2022_NEP4_3body.txt",
+    "sha256": "ad5c2c273a95684d2b19b5b26295b2914e6412a2fe2c377e09ece399b7fa22ca",
+    "bytes": 50446,
+    "license": "GPL-3.0-only",
+    "notices": [
+      {
+        "path": "docs/m6/licenses/nep-cpu-LICENSE.txt",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      },
+      {
+        "path": "docs/m6/licenses/gpumd-LICENCE.txt",
+        "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+      },
+      {
+        "path": "docs/m6/licenses/nep-si-README.md",
+        "sha256": "68083047b683b108efc556ba94adf21098bbf94131cdf4373a70ba43c3ea277c"
+      }
+    ],
+    "reviewedAt": "2026-10-02T00:00:00.000Z",
+    "elements": [
+      "Si"
+    ],
+    "loadedMemoryMiB": 900,
+    "dtype": "float64",
+    "platforms": [
+      {
+        "platform": "macos-arm64",
+        "device": "cpu",
+        "status": "verified",
+        "evidenceId": "m614-native-cpu"
+      },
+      {
+        "platform": "windows-x64",
+        "device": "cpu",
+        "status": "not-tested",
+        "evidenceId": null
+      }
+    ]
+  },
+  "checks": [
+    "Actual cold download of the pinned official 50,446-byte silicon NEP4 artifact and SHA verification.",
+    "Actual native SP and converged perturbed-silicon FIRE; capped run is nonconverged; wrong elements, MD, long range, production and variable cell rejected.",
+    "Actual local Pi science tool dispatch and full frozen automatic analysis with bilingual real reports and final structure.",
+    "Native checkpoint offline collection roundtrip, source-bound reproduction receipt, restart/3D recovery and tampered artifact rejection."
+  ],
+  "rows": [
+    {
+      "task": "singlepoint",
+      "result": {
+        "schemaVersion": "m6.0-v1",
+        "runId": "ea870cbe-5c8b-42db-8941-77c9afab0e71",
+        "planId": "ea870cbe-5c8b-42db-8941-77c9afab0e71",
+        "structureId": "8051773b-4c6b-48c1-b9e8-d09ac4052d24",
+        "potentialId": "nep-si-2022-nep4-3body",
+        "potentialSha256": "ad5c2c273a95684d2b19b5b26295b2914e6412a2fe2c377e09ece399b7fa22ca",
+        "atomCount": 8,
+        "energyEv": -36.81802451159661,
+        "forcesEvPerAngstrom": [
+          [
+            -1.8036565728582388,
+            0.7973055743827359,
+            -0.43100555226612197
+          ],
+          [
+            -0.17960748639755786,
+            -0.0787443915537741,
+            0.06041475435553122
+          ],
+          [
+            0.14519786902300194,
+            0.0979254961014408,
+            0.060272205921515165
+          ],
+          [
+            0.14509948277095147,
+            -0.0784873567762508,
+            -0.07499945089701611
+          ],
+          [
+            0.40370896522697686,
+            0.3154838198545413,
+            0.36236505430650306
+          ],
+          [
+            0.5401914519717551,
+            -0.515812594226659,
+            -0.4824222433794687
+          ],
+          [
+            0.6009019531989975,
+            -0.5443398773100626,
+            0.5268613510376525
+          ],
+          [
+            0.14816433706411453,
+            0.006669329528028576,
+            -0.021486119078595368
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            -0.009117182185932361,
+            -0.01119816835043865,
+            -0.011583755655850247,
+            -0.008909259822328507,
+            0.0039000070716332927,
+            -0.002127366719323837
+          ]
+        },
+        "stopReason": "singlepoint",
+        "completedSteps": 1,
+        "quality": "needs_review",
+        "validationEvidenceIds": []
+      },
+      "engine": {
+        "version": "m6.14-v1",
+        "nativeEnergy": "eV-total",
+        "nativeStress": "eV atomic virial tensor",
+        "stressFactor": -1,
+        "graphConverter": "nep-cpu-native",
+        "elementTypeMap": {
+          "Si": 0
+        },
+        "engine": {
+          "version": "m6.14-v1",
+          "platform": "macos-arm64",
+          "sourceRevision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+          "sourceSha256": "3eff42dbfdf852b9f5d5d0cec3ed558fd59a923e7e8f06c120334ea52da25030",
+          "binary": "nep-runner",
+          "binarySha256": "ef2b3e59eff4dd0c843a1436af5fb0d621fa49c800c958f0fa9b9141bddef927",
+          "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+          "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.5)",
+          "createdAt": "2026-10-02T14:47:08.717Z",
+          "scientificQuality": "needs_review"
+        },
+        "longRange": "absent",
+        "dispersion": "not-added",
+        "aseStress": "positive-tension-xx,yy,zz,yz,xz,xy",
+        "quality": "needs_review"
+      }
+    },
+    {
+      "task": "FIRE",
+      "result": {
+        "schemaVersion": "m6.0-v1",
+        "runId": "abbd5524-1d76-483e-bd1f-1f6b18394297",
+        "planId": "abbd5524-1d76-483e-bd1f-1f6b18394297",
+        "structureId": "8051773b-4c6b-48c1-b9e8-d09ac4052d24",
+        "potentialId": "nep-si-2022-nep4-3body",
+        "potentialSha256": "ad5c2c273a95684d2b19b5b26295b2914e6412a2fe2c377e09ece399b7fa22ca",
+        "atomCount": 8,
+        "energyEv": -37.006759994297425,
+        "forcesEvPerAngstrom": [
+          [
+            -0.01817131945526585,
+            0.009764463848978073,
+            -0.006735779031441838
+          ],
+          [
+            0.012714412275444873,
+            0.0002754005488483924,
+            -0.001038236095039411
+          ],
+          [
+            0.00040723932499898106,
+            -0.008381011243363799,
+            -0.0009731865649228646
+          ],
+          [
+            0.0004296062214013338,
+            0.00018600715079219142,
+            0.0077112587742462916
+          ],
+          [
+            0.0049836173042733,
+            -0.016896198990913325,
+            -0.0035031573493043296
+          ],
+          [
+            0.0018035543420804687,
+            0.004941218024561765,
+            0.018379862758392318
+          ],
+          [
+            -0.013484582715065493,
+            0.020903855126668952,
+            -0.022852806441564302
+          ],
+          [
+            0.011317472702132443,
+            -0.0107937344655724,
+            0.00901204394963397
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            -0.008835669364917571,
+            -0.008834085367276706,
+            -0.008833843545244864,
+            -0.00002357324086655181,
+            0.000009432494538748278,
+            -0.000005465451145237778
+          ]
+        },
+        "stopReason": "converged",
+        "completedSteps": 30,
+        "quality": "needs_review",
+        "validationEvidenceIds": []
+      },
+      "summary": {
+        "version": "m6.3-v1",
+        "runId": "abbd5524-1d76-483e-bd1f-1f6b18394297",
+        "planId": "abbd5524-1d76-483e-bd1f-1f6b18394297",
+        "structureId": "8051773b-4c6b-48c1-b9e8-d09ac4052d24",
+        "finalStructureId": "abbd5524-1d76-483e-bd1f-1f6b18394297:final",
+        "finalStructureSha256": "8d2c133c490b2fa086e5199936d4440ec62afe7a5018e603517f963b64e10e6c",
+        "options": {
+          "optimizer": "FIRE",
+          "cellMode": "fixed",
+          "cellConstraint": "none",
+          "externalPressureGPa": null,
+          "maxSteps": 100,
+          "fmaxEvPerAngstrom": 0.05
+        },
+        "stopReason": "converged",
+        "completedSteps": 30,
+        "initial": {
+          "step": 0,
+          "energyEv": -36.81802451159661,
+          "objectiveEv": -36.81802451159661,
+          "maxForceEvPerAngstrom": 2.0185735056818555,
+          "maxFilterForceEvPerAngstrom": 2.0185735056818555,
+          "volumeAngstrom3": 160.10300699999996,
+          "minimumDistanceAngstrom": 2.2581781927031352,
+          "elapsedSeconds": 0.005829958012327552
+        },
+        "final": {
+          "step": 30,
+          "energyEv": -37.006759994297425,
+          "objectiveEv": -37.006759994297425,
+          "maxForceEvPerAngstrom": 0.03377951883037723,
+          "maxFilterForceEvPerAngstrom": 0.03377951883037723,
+          "volumeAngstrom3": 160.10300699999996,
+          "minimumDistanceAngstrom": 2.3506300548995553,
+          "elapsedSeconds": 0.1602172921411693
+        },
+        "displacementDefinition": "final-minus-initial-cartesian-no-MIC-includes-cell-strain",
+        "displacementsAngstrom": [
+          [
+            -0.12099929583351746,
+            0.06437485977038446,
+            -0.048160614494798575
+          ],
+          [
+            0.008794008603413742,
+            -0.010073116062222276,
+            0.007609403188887587
+          ],
+          [
+            0.018723380921007227,
+            -0.004447367400081555,
+            0.007541414738199137
+          ],
+          [
+            0.018693005542159025,
+            -0.009965086606806395,
+            0.003096740830097293
+          ],
+          [
+            0.017915151150657005,
+            -0.0025439053527305244,
+            0.009706590000893911
+          ],
+          [
+            0.019180001503575905,
+            -0.012839449681419701,
+            -0.0006223647361185414
+          ],
+          [
+            0.02396442022852696,
+            -0.017713784151481837,
+            0.015893196783954622
+          ],
+          [
+            0.013729327884175468,
+            -0.006792150515643414,
+            0.004935633688887053
+          ]
+        ],
+        "quality": "needs_review"
+      }
+    }
+  ],
+  "scientificQuality": "needs_review",
+  "independentDFTAccuracyValidated": false,
+  "newPythonEnvironment": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

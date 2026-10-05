@@ -1,0 +1,55 @@
+{
+  "version": "m6.1-v1",
+  "status": "macos-cpu-verified-windows-pending",
+  "scientificQuality": "needs_review",
+  "files": [
+    {
+      "path": "atomistic/environments/mace/pyproject.toml",
+      "sha256": "eed264965a29854c8184e22e09804ba1e3f2b6a7e2d710efecf08879aee64ed5"
+    },
+    {
+      "path": "atomistic/environments/mace/uv.lock",
+      "sha256": "941774c09a1341eab3a38a5d6de0d7673f6a1aa7e26fe30c3c7cf78b9f21e419"
+    },
+    {
+      "path": "atomistic/environments/chgnet/pyproject.toml",
+      "sha256": "a5a2e2e1aa1b849a3b6c05d6cac78eb65cc40564d64a9ba0da7b72ccec9f28fd"
+    },
+    {
+      "path": "atomistic/environments/chgnet/uv.lock",
+      "sha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef"
+    },
+    {
+      "path": "atomistic/adapters.py",
+      "sha256": "c5ac0cf5d3b57de2bf6298896e7d8bff9a6e50e63f7ea366913cc45815453321"
+    },
+    {
+      "path": "atomistic/structures.py",
+      "sha256": "fb233c5b2b2c671a419da8d2af83c7d70ab28e4581a2cc4fe4914c389a79ff08"
+    },
+    {
+      "path": "atomistic/worker.py",
+      "sha256": "7e538ca12a15c42b5beb9b85cfc2875c865f0b5e6623b18e85f28b57369642c8"
+    },
+    {
+      "path": "atomistic/probe.py",
+      "sha256": "f0c2e35d62d5acd518736ca7e9c84b049a51d72594baf34cf2e0fe47fa4d8864"
+    },
+    {
+      "path": "packages/contracts/src/atomistic-runtime.ts",
+      "sha256": "72c76a280f029363b7c66a0ce0436fe6b3da7b346c0665bb79eb5c13d3b66938"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.ts",
+      "sha256": "2794f36b4655e1e063ce788998453bd6869b2b954d9164024bbcf4cd53849338"
+    },
+    {
+      "path": "packages/atomistic/src/process.ts",
+      "sha256": "101932f013a9901e686040de69785c406a831e9418cdeac50352ca4656390542"
+    },
+    {
+      "path": "packages/pi-adapter/src/atomistic-tools.ts",
+      "sha256": "d21ddef3b89adfb27cae11cbc260595d8951e1a1dec1d6530bf756872c05ce55"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "cu-vacancy",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "Cu",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "Cu",
+      "position": [
+        0.0,
+        1.805,
+        1.805
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a3",
+      "element": "Cu",
+      "position": [
+        1.805,
+        0.0,
+        1.805
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": [
+    [
+      3.61,
+      0,
+      0
+    ],
+    [
+      0,
+      3.61,
+      0
+    ],
+    [
+      0,
+      0,
+      3.61
+    ]
+  ],
+  "pbc": [
+    true,
+    true,
+    true
+  ],
+  "charge": null,
+  "spinMultiplicity": null,
+  "source": {
+    "artifactId": "sample-cu-vacancy",
+    "sha256": "85c46f47203f72d4afeb4f80f75a2a392c93c6181b84fa28dfa9ce170f10ce4e",
+    "format": "poscar",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

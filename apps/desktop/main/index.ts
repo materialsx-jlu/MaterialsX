@@ -1,222 +1,128 @@
+import {TeamResearchWorkspace} from "./team-research.js";
+import {registerTeamResearchIpc} from "./team-research-ipc.js";
+import {AgentWorkspace} from './agent-workspace.js';
+import {registerAgentWorkspaceIpc} from './agent-workspace-ipc.js';
+import {PublicResearchNetwork} from "../../../packages/agent/src/papers/network.js";
+import {createResearchFetch} from "./research-network.js";
+import {ResearchPaperService} from "./paper-service.js";
+import {registerAgentConfiguration} from "./agent-configuration.js";
+import {ResearchService} from "./research-service.js";
+import {registerResearchIpc} from "./research-ipc.js";
+import {DesktopAgentRuntime} from './agent-runtime.js';
+import {registerAgentMessaging} from './agent-messaging.js';
+import { loadBuiltinSkills as readBuiltinSkills, loadResearchModels as readResearchModels, loadPotentialRegistry as readPotentialRegistry } from "./catalog-loader.js";
+import { runtimeDiagnostics } from "./runtime-diagnostics.js";
+import { saveSupportBundle } from "./support-bundle.js";
+import {CatalogWeightManager} from '../../../packages/atomistic/src/catalog-weights.js';
+import {catalogWeightRequest,type PotentialModelState} from '../../../packages/contracts/src/catalog-weights.js';
+import {currentScientificScopeSchema as scientificScopeSchema,type ScientificScope} from '../../../packages/contracts/src/potential-physics.js';
+import {PotentialDistributionService} from '../../../packages/atomistic/src/potential-distribution.js';
+import {storageSelectionSchema} from '../../../packages/contracts/src/potential-distribution.js';
+import {inspectReproductionReceipt} from '../../../packages/atomistic/src/reproduction-receipt.js';
+import {CatalogUpdateService} from '../../../packages/atomistic/src/catalog-updates.js';
+import {PotentialDiscoveryService} from '../../../packages/atomistic/src/potential-discovery.js';
+import {discoverySearchSchema,discoverySyncSchema} from '../../../packages/contracts/src/potential-discovery.js';
+import {ownedText} from '../../../packages/atomistic/src/discovery-io.js';
+import { mountReviewedCatalog } from "../../../packages/atomistic/src/mounted-catalog.js";
+import { PotentialAnalysisService } from "../../../packages/atomistic/src/potential-workflow.js";
+import { UserSkillService } from "../../../packages/atomistic/src/user-skills.js";
+import { analysisScopeSchema,currentAnalysisRequestSchema as analysisRequestSchema,freezeAnalysisSchema,type AnalysisScope } from "../../../packages/contracts/src/potential-workflow.js";
+import { mountedPackageRequest,selectedRunSchema as mountedSelectedRunSchema } from "../../../packages/contracts/src/potential-packages.js";
+import { userSkillDraftSchema } from "../../../packages/contracts/src/potential-hub.js";
+import { defineTool } from "@earendil-works/pi-coding-agent";
+import { Type } from "typebox";
+import { z } from "zod";
+import { selectionRequestSchema } from "../../../packages/contracts/src/potential-physics.js";
+import { trajectoryRequestSchema, mdPngExportSchema } from "../../../packages/contracts/src/atomistic-dynamics.js";
+
+import {ticketsSchema,ticketSchema,newTicketSchema,ticketReplySchema,attachmentInputSchema,attachmentSchema} from "../../../packages/contracts/src/lifecycle.js";
 import { execFile } from "node:child_process";
 import { randomUUID } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
-import { realpath, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { realpath, writeFile, open, rename, rm } from "node:fs/promises";
 import { arch, hostname, platform } from "node:os";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
-import { app, BrowserWindow, dialog, ipcMain, shell } from "electron";
-import type {
-  ConnectionSummary,
-  DesktopBootstrap,
-  MessageStreamEvent,
-  ModelSettings,
-  ResearchModelSummary,
-  ReleaseReadiness,
-  SendMessageInput,
-  SkillSummary,
-} from "../../../packages/contracts/src/desktop.js";
+import { app, BrowserWindow, dialog, ipcMain, safeStorage, shell } from "electron";
+import { IdentityClient, IdentityLoginError } from "../../../packages/control-plane-client/src/identity.js";
+import { SystemCredentialVault } from "./credential-vault.js";
+import type { ConnectionSummary, DesktopBootstrap, MessageStreamEvent, ModelSettings, ReleaseReadiness, SkillSummary } from "../../../packages/contracts/src/desktop.js";
+import {billingActivitySchema,workspaceStatusSchema,taskBillsSchema,taskRequestsSchema,releasesSchema,walletSchema,creditLedgerSchema,unsignedInteger,creditDecimal,paymentPlansSchema,paymentOrdersSchema,orderSchema,paymentRefundsSchema,paymentRefundSchema,refundInputSchema,subscriptionPeriodsSchema} from "../../../packages/contracts/src/platform.js";
 import { validateModelSelection } from "../../../packages/pi-adapter/src/capabilities.js";
-import {
-  discoverLocalModels,
-  PiLocalSessionService,
-  resolveManagedPython,
-} from "../../../packages/pi-adapter/src/local-session.js";
-import { TextStreamBuffer } from "../../../packages/pi-adapter/src/text-stream-buffer.js";
+import { discoverLocalModels, PiLocalSessionService } from "../../../packages/pi-adapter/src/local-session.js";
+import { PiPlatformSessionService, type CloudAsset } from "../../../packages/pi-adapter/src/platform-session.js";
+
+import { snapshotTextFile } from "./cloud-files.js";
+
 import { ControlPlaneClient } from "../../../packages/control-plane-client/src/index.js";
-import { createReleaseReadiness, redactSupportData } from "../../../packages/release-readiness/src/index.js";
+import { createReleaseReadiness } from "../../../packages/release-readiness/src/index.js";
 import { WorkspaceStore, loadJson } from "./store.js";
+import { createCatalogTools } from "../../../packages/pi-adapter/src/catalog-tools.js";
+import { buildPotentialCatalog,searchCatalog,searchSkills,findCatalogEntry } from "../../../packages/atomistic/src/potential-hub.js";
+import { catalogId } from "../../../packages/contracts/src/potential-hub.js";
+import { ScientificValidationService } from "../../../packages/atomistic/src/scientific-validation.js";
+import { packageRequestSchema } from "../../../packages/contracts/src/atomistic-validation.js";
+import { AtomisticRuntime } from "../../../packages/atomistic/src/runtime.js";
+import { localId } from "../../../packages/contracts/src/atomistic-runtime.js";
+import { atomicPngExportSchema, atomicViewRequestSchema } from "../../../packages/contracts/src/atomic-viewer.js";
+import { cleanAtomicPng } from "./atomic-export.js";
+import { createAtomisticTools } from "../../../packages/pi-adapter/src/atomistic-tools.js";
 
 const execFileAsync = promisify(execFile);
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const developmentRoot = resolve(currentDir, "../../../..");
 const projectRoot = app.isPackaged ? process.resourcesPath : developmentRoot;
 let mainWindow: BrowserWindow | null = null;
+let shuttingDown = false;
 let store: WorkspaceStore;
+let agentRuntime:DesktopAgentRuntime;
+let agentWorkspace:AgentWorkspace;
+let researchService:ResearchService;
 let piSessions: PiLocalSessionService;
+let atomistic: AtomisticRuntime;
+let catalogUpdates:CatalogUpdateService;
+let potentialDistribution:PotentialDistributionService;
+let catalogWeights:CatalogWeightManager;
+const loadingModels=new Set<string>();
+const loadedModels=new Set<string>();
+let potentialDiscovery:PotentialDiscoveryService;
+let discoveryTimer:ReturnType<typeof setInterval>|null=null;
+let potentialAnalysis:PotentialAnalysisService;
+let userSkills:UserSkillService;
+const analysisScopes=new Map<string,AnalysisScope>();
+let scientificValidation:ScientificValidationService;
+const scienceScopes=new Map<string,ScientificScope>();
+const requestAtomicView=(projectId:string,structureId:string)=>mainWindow?.webContents.send("atomistic:view-request",{kind:"import",projectId,structureId});
+let identityClient: IdentityClient;
+let teamResearch: TeamResearchWorkspace;
+let platformSessions: PiPlatformSessionService;
+const cloudFiles = new Map<string, CloudAsset[]>();
+const activeConversations = new Set<string>();
 const controlPlane = new ControlPlaneClient();
 
-interface KdenseManifest {
-  skills: string[];
+const rootPackage = loadJson<{version: string}>(join(projectRoot, "package.json"));
+const loadSkills = (): SkillSummary[] => [...readBuiltinSkills(projectRoot), ...(userSkills?.summaries() ?? [])];
+const loadResearchModels = () => readResearchModels(projectRoot);
+const loadPotentialRegistry = () => readPotentialRegistry(projectRoot);
+function loadPotentialCatalog() {
+  const base = mountReviewedCatalog(projectRoot, buildPotentialCatalog(loadPotentialRegistry(), loadJson<unknown>(join(projectRoot, "models/potentials/catalog-m67.json"))));
+  return catalogUpdates ? catalogUpdates.catalog(base) : base;
 }
 
-interface KdenseConfig {
-  enabledSkills: string[];
-}
-
-interface SkillCatalog {
-  vendor: string;
-  config: string;
-  source: string;
-  defaultLicense?: string;
-}
-
-type SkillTranslations = Record<string, string>;
-type SkillExamples = Record<string, Array<{ zh: string; en: string }>>;
-
-interface RootPackage {
-  version: string;
-}
-
-interface SkillCategory {
-  id: string;
-  labelZh: string;
-  labelEn: string;
-  skills: string[];
-}
-
-interface ResearchModelCatalog {
-  models: ResearchModelSummary[];
-}
-
-const rootPackage = loadJson<RootPackage>(join(projectRoot, "package.json"));
-
-function scalar(source: string, key: string): string {
-  return source.match(new RegExp(`^${key}:\\s*(.+)$`, "m"))?.[1]?.trim().replace(/^['"]|['"]$/g, "") ?? "";
-}
-
-function loadSkills(): SkillSummary[] {
-  const categories = loadJson<SkillCategory[]>(join(projectRoot, "skills/categories.json")) ?? [];
-  const skillCategories = new Map(categories.flatMap((category) =>
-    category.skills.map((name) => [name, category] as const),
-  ));
-  const translations = loadJson<SkillTranslations>(join(projectRoot, "skills/descriptions.zh.json"));
-  const englishDescriptions = loadJson<SkillTranslations>(join(projectRoot, "skills/descriptions.en.json"));
-  const examples = loadJson<SkillExamples>(join(projectRoot, "skills/examples.json"));
-  const catalogs: SkillCatalog[] = [
-    {
-      vendor: "vendor/kdense-scientific-agent-skills",
-      config: "skills/kdense-initial.json",
-      source: "K-Dense Scientific Agent Skills",
-    },
-    {
-      vendor: "vendor/materialsx-default-skills",
-      config: "skills/materialsx-default.json",
-      source: "MaterialsX 内置材料抽取 Skills",
-      defaultLicense: "AGPL-3.0-only",
-    },
-  ];
-  return catalogs.flatMap((catalog) => {
-    const vendor = join(projectRoot, catalog.vendor);
-    const manifest = loadJson<KdenseManifest>(join(vendor, "MANIFEST.json"));
-    const config = loadJson<KdenseConfig>(join(projectRoot, catalog.config));
-    const enabled = new Set(config?.enabledSkills ?? []);
-    return (manifest?.skills ?? []).map((name) => {
-      const category = skillCategories.get(name);
-      const path = join(vendor, "skills", name, "SKILL.md");
-      const skillSource = existsSync(path) ? readFileSync(path, "utf8") : "";
-      const descriptionEn =
-        englishDescriptions?.[name] || scalar(skillSource, "description") || "Materials science research workflow skill.";
-      const descriptionZh = translations?.[name] || "材料科研工作流技能。";
-      return {
-        name,
-        category: category?.id ?? "resources",
-        categoryLabelZh: category?.labelZh ?? "资源与环境",
-        categoryLabelEn: category?.labelEn ?? "Resources & environment",
-        source: catalog.source,
-        description: descriptionEn,
-        descriptionZh,
-        descriptionEn,
-        examples: examples?.[name] ?? [],
-        license: scalar(skillSource, "license") || catalog.defaultLicense || "待复核",
-        enabled: enabled.has(name),
-      };
-    });
-  });
-}
-
-function loadResearchModels(): ResearchModelSummary[] {
-  return loadJson<ResearchModelCatalog>(join(projectRoot, "models/catalog.json"))?.models ?? [];
-}
-
-async function diagnostics(): Promise<ConnectionSummary[]> {
-  const checks: ConnectionSummary[] = [
-    {
-      id: "pi",
-      name: "Pi Agent Runtime",
-      kind: "runtime",
-      status: "ready",
-      detail: "SDK 0.99.1 · 隔离资源加载",
-    },
-    {
-      id: "mcp-local",
-      name: "Materials MCP",
-      kind: "mcp",
-      status: "ready",
-      detail: "stdio · materials_ping 已验证",
-    },
-  ];
-  const managedPython = resolveManagedPython(projectRoot);
-  const probes: Array<[string, string, string, string[]]> = [
-    ["python", "Python Science", managedPython, ["--version"]],
-    ["tesseract", "Tesseract OCR", "tesseract", ["--version"]],
-  ];
-  for (const [id, name, command, args] of probes) {
-    try {
-      const { stdout, stderr } = await execFileAsync(command, args, { timeout: 4_000 });
-      checks.push({ id, name, kind: "runtime", status: "ready", detail: `${stdout || stderr}`.trim().split("\n")[0] ?? "已就绪" });
-    } catch {
-      checks.push({ id, name, kind: "runtime", status: "attention", detail: "项目运行时中不可用" });
-    }
-  }
-  checks.push(
-    {
-      id: "lammps",
-      name: "LAMMPS",
-      kind: "solver",
-      status: existsSync(join(projectRoot, "runtime/m0-solvers/lammps/bin/lmp")) ? "ready" : "offline",
-      detail: "项目私有求解器环境",
-    },
-    {
-      id: "qe",
-      name: "Quantum ESPRESSO",
-      kind: "solver",
-      status: existsSync(join(projectRoot, "runtime/m0-solvers/qe-osx64/bin/pw.x")) ? "ready" : "offline",
-      detail: "QE 7.4 · 小体系 SCF",
-    },
-  );
-  const modelSettings = store.getSettings();
-  if (modelSettings.mode === "local") {
-    try {
-      const models = await discoverLocalModels(modelSettings.localEndpoint);
-      checks.push({
-        id: "lmstudio",
-        name: "LM Studio",
-        kind: "runtime",
-        status: models.some((item) => item.id === modelSettings.modelId) ? "ready" : "attention",
-        detail: `${models.length} 个模型 · ${modelSettings.localEndpoint}`,
-      });
-    } catch (cause) {
-      checks.push({
-        id: "lmstudio",
-        name: "LM Studio",
-        kind: "runtime",
-        status: "offline",
-        detail: cause instanceof Error ? cause.message : "本地模型服务不可用",
-      });
-    }
-  }
-  const controlPlaneReady = await controlPlane.health();
-  checks.push({
-    id: "control-plane",
-    name: "订阅控制面",
-    kind: "runtime",
-    status: controlPlaneReady ? "ready" : "offline",
-    detail: controlPlaneReady ? "127.0.0.1:8787 · 额度账本在线" : "本地 M3 开发服务未启动",
-  });
-  return checks;
-}
+const diagnostics = () => runtimeDiagnostics(projectRoot, store.getSettings(), controlPlane,()=>researchService.diagnostic());
 
 async function bootstrap(): Promise<DesktopBootstrap> {
   return {
     appVersion: rootPackage?.version ?? app.getVersion(),
     platform: `${platform()} · ${hostname()}`,
     projects: store.listProjects(),
-    conversations: store.listConversations(),
+    conversations: store.listConversations().filter(c=>!agentRuntime?.subtasks.scope(c.id)),
     settings: store.getSettings(),
     skills: loadSkills(),
     models: loadResearchModels(),
+    potentialRegistry: loadPotentialRegistry(),
+    potentialCatalog: loadPotentialCatalog(),
     connections: await diagnostics(),
     runs: store.listRuns(),
   };
@@ -243,37 +149,7 @@ async function releaseReadiness(currentDiagnostics?: ConnectionSummary[]): Promi
   });
 }
 
-async function exportSupportBundle(): Promise<{ canceled: boolean; path?: string }> {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const result = await dialog.showSaveDialog(mainWindow!, {
-    title: "导出 MaterialsX 脱敏诊断包",
-    defaultPath: join(app.getPath("documents"), `MaterialsX-support-${timestamp}.json`),
-    filters: [{ name: "JSON", extensions: ["json"] }],
-  });
-  if (result.canceled || !result.filePath) return { canceled: true };
-  const currentDiagnostics = await diagnostics();
-  const bundle = redactSupportData({
-    schemaVersion: 1,
-    generatedAt: new Date().toISOString(),
-    application: {
-      name: "MaterialsX",
-      version: rootPackage?.version ?? app.getVersion(),
-      packaged: app.isPackaged,
-      platform: platform(),
-      architecture: arch(),
-      electron: process.versions.electron,
-      node: process.versions.node,
-    },
-    workspace: store.getSupportSummary(),
-    connections: currentDiagnostics.map(({ id, name, kind, status }) => ({ id, name, kind, status })),
-    release: await releaseReadiness(currentDiagnostics),
-    privacy: {
-      excluded: ["project paths", "file contents", "conversation text", "tokens", "credentials", "model endpoints"],
-    },
-  });
-  await writeFile(result.filePath, `${JSON.stringify(bundle, null, 2)}\n`, { mode: 0o600 });
-  return { canceled: false, path: result.filePath };
-}
+const exportSupportBundle = () => saveSupportBundle({ mainWindow, store, diagnostics, releaseReadiness, version: rootPackage?.version ?? app.getVersion() });
 
 function assertText(value: unknown, field: string): string {
   if (typeof value !== "string" || value.trim().length === 0 || value.length > 20_000) {
@@ -288,6 +164,124 @@ function sendMessageStream(event: MessageStreamEvent): void {
 }
 
 function registerIpc(): void {
+  registerResearchIpc(researchService,()=>mainWindow);
+  registerTeamResearchIpc(teamResearch);
+  registerAgentWorkspaceIpc(agentWorkspace,agentRuntime);
+  ipcMain.handle('potentials:model-states',async()=>{
+    const mounted=await atomistic.mountedPackages.status(),runtime=atomistic.status();
+    const rows:PotentialModelState[]=[];
+    for(const e of loadPotentialCatalog().entries){
+      const r=runtime.find(r=>r.potentialId===e.id),p=mounted.find(p=>p.potentialId===e.id);
+      if(e.entityType!=='checkpoint'&&!r)continue;
+      const installed=!!r?.installed&&(!p||p.state==='installed');
+      const supported=!!r,runtimeReady=p?atomistic.environmentReady(e.id):!!r?.installed;
+      let cache={potentialId:e.id,state:'absent' as PotentialModelState['state'],bytes:0,totalBytes:e.asset.bytes,observedSha256:null as string|null,expectedSha256:e.asset.sha256,verifiedAgainstCatalog:false,error:null as string|null};
+      const downloadable=catalogWeights.allowed(e);
+      try{if(downloadable)cache=await catalogWeights.status(e.id);}catch(err){cache.error=err instanceof Error?err.message:'CATALOG_CACHE_INVALID';}
+      if(p)cache={...cache,state:p.state,bytes:p.bytes,totalBytes:p.totalBytes,expectedSha256:p.sha256,observedSha256:p.state==='installed'?p.sha256:null,verifiedAgainstCatalog:p.state==='installed',error:p.error};
+      if(installed){cache.state=loadedModels.has(e.id)?'ready':'installed';cache.bytes=e.asset.bytes??p?.totalBytes??0;cache.observedSha256=e.asset.sha256;cache.verifiedAgainstCatalog=true;}
+      else loadedModels.delete(e.id);
+      let usable=true;try{catalogUpdates.assertUsable(e.id);}catch(err){usable=false;cache.error=err instanceof Error?err.message:'POTENTIAL_WITHDRAWN';}
+      if(loadingModels.has(e.id))cache.state='loading';
+      rows.push({...cache,supported,managedPackage:!!p,cacheOwned:p?(p.cacheOwned||p.state==='paused'):cache.bytes>0&&!installed,runtimeReady,canDownload:usable&&(!!p||downloadable&&!installed),canImport:usable&&(!!p||downloadable&&!!e.asset.sha256&&!!e.asset.bytes&&!installed),canLoad:usable&&installed&&cache.state!=='loading'});
+    }return rows;
+  });
+  ipcMain.handle('potentials:catalog-weight-download',(_e,q:unknown)=>catalogWeights.download(catalogWeightRequest.parse(q).potentialId));
+  ipcMain.handle('potentials:catalog-weight-cancel',(_e,q:unknown)=>catalogWeights.cancel(catalogWeightRequest.parse(q).potentialId));
+  ipcMain.handle('potentials:catalog-weight-import',async(_e,q:unknown)=>{const id=catalogWeightRequest.parse(q).potentialId;const f=await dialog.showOpenDialog(mainWindow!,{properties:['openFile'],filters:[{name:'Model checkpoint',extensions:['bin','model','pt','pth','ckpt','cp']}]});if(f.canceled||!f.filePaths[0])return false;await catalogWeights.importFile(id,f.filePaths[0]);return true;});
+  ipcMain.handle('potentials:catalog-weight-reveal',async(_e,q:unknown)=>{const id=catalogWeightRequest.parse(q).potentialId;const r=atomistic.status().find(r=>r.potentialId===id);const file=r?.installed?await atomistic.checkpointFile(id):await catalogWeights.cachedFile(id);shell.showItemInFolder(file);});
+  ipcMain.handle('potentials:model-load',async(_e,q:unknown)=>{
+    const id=catalogWeightRequest.parse(q).potentialId;if(loadingModels.size)throw Error('SCIENCE_BUSY');loadedModels.delete(id);loadingModels.add(id);mainWindow?.webContents.send('potentials:model-changed');
+    try{const receipt=await atomistic.loadPotential(id);loadedModels.add(id);return receipt;}
+    finally{loadingModels.delete(id);mainWindow?.webContents.send('potentials:model-changed');}
+  });
+  ipcMain.handle("potentials:packages",async()=>{const p=await atomistic.mountedPackages.status();return p.map(s=>{let error=s.error;try{catalogUpdates.assertUsable(s.potentialId);}catch(e){error=e instanceof Error?e.message:"POTENTIAL_WITHDRAWN";}return {...s,error,runtimeReady:atomistic.environmentReady(s.potentialId)};});});
+  ipcMain.handle("potentials:download",(_e,input:unknown)=>atomistic.mountedPackages.download(mountedPackageRequest.parse(input).potentialId));
+  ipcMain.handle("potentials:cancel-download",(_e,id:unknown)=>atomistic.mountedPackages.cancel(localId.parse(id)));
+  ipcMain.handle("potentials:uninstall",(_e,id:unknown)=>{const pid=localId.parse(id);if(potentialAnalysis.busy(pid))throw Error('PACKAGE_IN_USE');return atomistic.mountedPackages.uninstall(pid);});
+  ipcMain.handle("potentials:disable",(_e,input:unknown)=>{const q=z.strictObject({potentialId:localId,disabled:z.boolean()}).parse(input);if(potentialAnalysis.busy(q.potentialId))throw Error('PACKAGE_IN_USE');return atomistic.mountedPackages.setDisabled(q.potentialId,q.disabled);});
+  ipcMain.handle("potentials:import",async(_e,input:unknown)=>{const q=mountedPackageRequest.parse(input);atomistic.mountedPackages.entry(q.potentialId);const f=await dialog.showOpenDialog(mainWindow!,{properties:['openFile'],filters:[{name:'Reviewed checkpoint',extensions:['bin','model','tar']}]});if(f.canceled||!f.filePaths[0])return false;await atomistic.mountedPackages.importFile(q.potentialId,f.filePaths[0]);return true;});
+  ipcMain.handle("potentials:assess-analysis",(_e,input:unknown)=>potentialAnalysis.assess(analysisRequestSchema.parse(input)));
+  ipcMain.handle("potentials:freeze-analysis",(_e,input:unknown)=>{const q=z.strictObject({projectId:localId,proposal:freezeAnalysisSchema}).parse(input);return potentialAnalysis.freeze(q.projectId,q.proposal);});
+  ipcMain.handle("potentials:approve-analysis",(_e,input:unknown)=>{const q=z.strictObject({projectId:localId,id:localId,planSha256:z.string().regex(/^[a-f0-9]{64}$/)}).parse(input);return potentialAnalysis.approve(q.projectId,q.id,q.planSha256);});
+  ipcMain.handle("potentials:workflows",(_e,id:unknown)=>potentialAnalysis.list(localId.parse(id)));
+  ipcMain.handle("potentials:cancel-analysis",(_e,input:unknown)=>{const q=z.strictObject({projectId:localId,id:localId}).parse(input);return potentialAnalysis.cancel(q.projectId,q.id);});
+  ipcMain.handle("potentials:analysis-scope",(_e,input:unknown)=>{const scope=analysisScopeSchema.parse(input);if(activeConversations.has(scope.conversationId)||!store.listConversations().some(c=>c.id===scope.conversationId&&c.projectId===scope.projectId))throw Error('CONVERSATION_NOT_IDLE_OR_OWNED');const science=scienceScopes.get(scope.conversationId);if(!science||science.structureId!==scope.structureId||science.permission!==scope.permission||scope.maxSteps<(science.options?.maxSteps??1))throw Error('SCIENTIFIC_SCOPE_REQUIRED');analysisScopes.set(scope.conversationId,scope);piSessions.invalidate(scope.conversationId);return scope;});
+  ipcMain.handle("skills:user-list",()=>userSkills.list());
+  ipcMain.handle("skills:preview",(_e,input:unknown)=>userSkills.preview(input));
+  ipcMain.handle("skills:save",(_e,input:unknown)=>{const q=z.strictObject({draft:userSkillDraftSchema,expectedRevision:z.number().int().positive().nullable()}).parse(input);if(activeConversations.size)throw Error('SKILL_CHANGE_REQUIRES_IDLE_CONVERSATIONS');const result=userSkills.save(q.draft,q.expectedRevision);piSessions.dispose();platformSessions.dispose();return result;});
+  ipcMain.handle("skills:enable",(_e,input:unknown)=>{const q=z.strictObject({name:z.string(),enabled:z.boolean()}).parse(input);if(activeConversations.size)throw Error('SKILL_CHANGE_REQUIRES_IDLE_CONVERSATIONS');const result=userSkills.setEnabled(q.name,q.enabled);piSessions.dispose();platformSessions.dispose();return result;});
+  ipcMain.handle("skills:delete",(_e,input:unknown)=>{const q=z.strictObject({name:z.string(),revision:z.number().int().positive()}).parse(input);if(activeConversations.size)throw Error('SKILL_CHANGE_REQUIRES_IDLE_CONVERSATIONS');userSkills.remove(q.name,q.revision);piSessions.dispose();platformSessions.dispose();});
+
+  ipcMain.handle("atomistic:electronic-state",(_event,input:unknown)=>atomistic.annotateElectronicState(input));
+  ipcMain.handle("atomistic:assess",(_event,input:unknown)=>atomistic.assess(selectionRequestSchema.parse(input)));
+  ipcMain.handle("atomistic:start-selected",(_event,input:unknown)=>atomistic.startSelected(mountedSelectedRunSchema.parse(input)));
+  ipcMain.handle("atomistic:list-structures",(_event,projectId:unknown)=>atomistic.listStructures(localId.parse(projectId)));
+  ipcMain.handle("atomistic:import-sample",(_event,input:unknown)=>{const q=z.strictObject({projectId:localId,sampleId:localId}).parse(input);return atomistic.importSample(q.projectId,q.sampleId);});
+  ipcMain.handle("atomistic:scope",(_event,input:unknown)=>{
+    const scope=scientificScopeSchema.parse(input);
+    if(!store.listConversations().some(c=>c.id===scope.conversationId&&c.projectId===scope.projectId)||activeConversations.has(scope.conversationId))throw Error("请选择空闲的项目对话");
+    atomistic.inspect({projectId:scope.projectId,structureId:scope.structureId});scienceScopes.set(scope.conversationId,scope);analysisScopes.delete(scope.conversationId);piSessions.invalidate(scope.conversationId);return scope;
+  });
+  ipcMain.handle("atomistic:clear-scope",(_event,id:unknown)=>{const conversationId=localId.parse(id);if(activeConversations.has(conversationId))throw Error("对话正在运行");scienceScopes.delete(conversationId);analysisScopes.delete(conversationId);piSessions.invalidate(conversationId);});
+  ipcMain.handle("atomistic:get-scope",(_event,id:unknown)=>scienceScopes.get(localId.parse(id))??null);
+  ipcMain.handle("science:packages",async()=>{const list=await atomistic.packages.status();return list.map(p=>({...p,runtimeReady:p.state==="installed"&&atomistic.status().some(r=>r.potentialId===p.potentialId&&r.installed)}));});
+  ipcMain.handle("science:download-package",(_event,input:unknown)=>atomistic.packages.download(input));
+  ipcMain.handle("science:cancel-package",()=>atomistic.packages.cancel());
+  ipcMain.handle("science:disable-package",(_event,input:unknown,disabled:unknown)=>{if(typeof disabled!=="boolean")throw Error("INVALID_PACKAGE_STATE");const q=packageRequestSchema.parse(input);if(potentialAnalysis.busy(q.potentialId)||atomistic.packageInUse(q.potentialId))throw Error("PACKAGE_IN_USE");return atomistic.packages.setDisabled(q,disabled);});
+  ipcMain.handle("science:import-package",async(_event,input:unknown)=>{const q=packageRequestSchema.parse(input);const file=await dialog.showOpenDialog(mainWindow!,{properties:["openFile"],filters:[{name:"Pinned CHGNet r2SCAN checkpoint",extensions:["bin","tar"]}]});if(file.canceled||!file.filePaths[0])return false;if(potentialAnalysis.busy(q.potentialId)||atomistic.packageInUse(q.potentialId))throw Error("PACKAGE_IN_USE");await atomistic.packages.importFile(q,file.filePaths[0]);return true;});
+  ipcMain.handle("science:import-dataset",async(_event,id:unknown)=>{const projectId=localId.parse(id);if(!store.getProject(projectId))throw Error("UNKNOWN_PROJECT");const file=await dialog.showOpenDialog(mainWindow!,{properties:["openFile"],filters:[{name:"MaterialsX scientific holdout JSON",extensions:["json"]}]});if(file.canceled||!file.filePaths[0])return false;await scientificValidation.importDataset(projectId,file.filePaths[0]);return true;});
+  ipcMain.handle("science:datasets",(_event,id:unknown)=>scientificValidation.listDatasets(localId.parse(id)));
+  ipcMain.handle("science:matrix",(_event,id:unknown)=>scientificValidation.matrix(localId.parse(id)));
+  ipcMain.handle("science:evaluate",(_event,input:unknown)=>scientificValidation.start(input));
+  ipcMain.handle("science:evaluations",(_event,id:unknown)=>scientificValidation.list(localId.parse(id)));
+  ipcMain.handle("science:cancel-evaluation",(_event,input:{projectId:unknown;id:unknown})=>scientificValidation.cancel(localId.parse(input.projectId),localId.parse(input.id)));
+  ipcMain.handle("science:export-evaluation",async(_event,input:{projectId:unknown;id:unknown})=>{const record=scientificValidation.list(localId.parse(input.projectId)).find(r=>r.id===localId.parse(input.id));if(!record?.report||record.status!=="completed")throw Error("EVALUATION_REPORT_NOT_AVAILABLE");const save=await dialog.showSaveDialog(mainWindow!,{defaultPath:`materialsx-evaluation-${record.id}.json`,filters:[{name:"Scientific evaluation JSON",extensions:["json"]}]});if(save.canceled||!save.filePath)return false;await writeFile(save.filePath,JSON.stringify(record.report,null,2)+"\n",{mode:0o600});return true;});
+  ipcMain.handle("atomistic:md",(_event,input:unknown)=>atomistic.startMD(input));
+  ipcMain.handle("atomistic:trajectory",(_event,input:unknown)=>atomistic.trajectory(input));
+  ipcMain.handle("atomistic:frame",(_event,input:unknown)=>atomistic.trajectoryFrame(input));
+  ipcMain.handle("atomistic:compare-md",(_event,input:unknown)=>atomistic.compareMD(input));
+  ipcMain.handle("atomistic:export-md-png",async(_event,input:unknown)=>{
+    const q=mdPngExportSchema.parse(input);const frame=await atomistic.trajectoryFrame(q.request);const bytes=cleanAtomicPng(q.png);
+    const save=await dialog.showSaveDialog(mainWindow!,{defaultPath:`materialsx-md-step-${frame.step.step}.png`,filters:[{name:"PNG",extensions:["png"]}]});
+    if(save.canceled||!save.filePath)return false;if(!save.filePath.toLowerCase().endsWith('.png'))throw Error('PNG_EXPORT_EXTENSION');await writeFile(save.filePath,bytes,{mode:0o600});return true;
+  });
+  ipcMain.handle("atomistic:export-trajectory",async(_event,input:unknown)=>{
+    const q=trajectoryRequestSchema.parse(input);const payload=await atomistic.trajectory(q);
+    const save=await dialog.showSaveDialog(mainWindow!,{defaultPath:`materialsx-${payload.partial?'partial-':''}trajectory.extxyz`,filters:[{name:"Extended XYZ trajectory (Å, Å/fs, fs)",extensions:["extxyz"]}]});
+    if(save.canceled||!save.filePath)return false;if(!save.filePath.toLowerCase().endsWith('.extxyz'))throw Error('TRAJECTORY_EXPORT_EXTENSION');
+    // Stage next to the user-selected destination; a bad frame never leaves a claimed complete export.
+    const temp=`${save.filePath}.${randomUUID()}.tmp`,file=await open(temp,'wx',0o600);
+    try{await atomistic.trajectoryExport(q,async data=>{let n=0;while(n<data.length){const r=await file.write(data,n,data.length-n);if(!r.bytesWritten)throw Error('EXPORT_WRITE_FAILED');n+=r.bytesWritten;}});await file.sync();await file.close();await rename(temp,save.filePath);return true;}
+    catch(error){await file.close().catch(()=>{});await rm(temp,{force:true});throw error;}
+  });
+  ipcMain.handle("atomistic:relax",(_event,input:unknown)=>atomistic.startRelaxation(input));
+  ipcMain.handle("atomistic:comparison",(_event,input:unknown)=>atomistic.comparison(input));
+  ipcMain.handle("atomistic:use-output",(_event,input:unknown)=>atomistic.useOutputStructure(input));
+  ipcMain.handle("atomistic:view",(_event,input:unknown)=>atomistic.view(input));
+  ipcMain.handle("atomistic:export-structure",async(_event,input:unknown)=>{
+    const request=atomicViewRequestSchema.parse(input);const {bytes,format}=await atomistic.originalStructure(request);
+    const file=await dialog.showSaveDialog(mainWindow!,{defaultPath:`structure.${format}`,filters:[{name:"Original atomic structure",extensions:[format]}]});
+    if(file.canceled||!file.filePath)return false;if(!file.filePath.toLowerCase().endsWith(`.${format}`))throw Error("STRUCTURE_EXPORT_EXTENSION");
+    await writeFile(file.filePath,bytes,{mode:0o600});return true;
+  });
+  ipcMain.handle("atomistic:export-png",async(_event,input:unknown)=>{
+    const parsed=atomicPngExportSchema.parse(input);await atomistic.view(parsed.request);const png=cleanAtomicPng(parsed.png);
+    const file=await dialog.showSaveDialog(mainWindow!,{defaultPath:"materialsx-structure.png",filters:[{name:"PNG",extensions:["png"]}]});
+    if(file.canceled||!file.filePath)return false;if(!file.filePath.toLowerCase().endsWith(".png"))throw Error("PNG_EXPORT_EXTENSION");
+    await writeFile(file.filePath,png,{mode:0o600});return true;
+  });
+  ipcMain.handle("atomistic:runtime",()=>atomistic.status());
+  ipcMain.handle("atomistic:list",(_event,projectId:unknown)=>atomistic.list(localId.parse(projectId)));
+  ipcMain.handle("atomistic:composition",(_event,input:unknown)=>atomistic.composition(input));
+  ipcMain.handle("atomistic:get",(_event,input:unknown)=>atomistic.get(input));
+  ipcMain.handle("atomistic:start",(_event,input:unknown)=>atomistic.start(input));
+  ipcMain.handle("atomistic:cancel",(_event,input:unknown)=>atomistic.cancel(input));
+  ipcMain.handle("atomistic:choose-structure",async(_event,input:unknown)=>{
+    const projectId=localId.parse(input);if(!store.getProject(projectId))throw Error("UNKNOWN_PROJECT");
+    const file=await dialog.showOpenDialog(mainWindow!,{properties:["openFile"],filters:[{name:"Atomic structures (CIF / XYZ / extxyz / POSCAR)",extensions:["cif","xyz","extxyz","poscar"]},{name:"POSCAR / CONTCAR",extensions:["*"]}]});
+    if(file.canceled||!file.filePaths[0])return null;return atomistic.importFile(projectId,file.filePaths[0]);
+  });
   ipcMain.handle("workspace:bootstrap", () => bootstrap());
   ipcMain.handle("workspace:reveal-artifact", async (_event, input: unknown) => {
     const path = await realpath(assertText(input, "artifactPath"));
@@ -314,65 +308,52 @@ function registerIpc(): void {
   ipcMain.handle("workspace:list-messages", (_event, conversationId: unknown) =>
     store.listMessages(assertText(conversationId, "conversationId")),
   );
-  ipcMain.handle("workspace:send-message", async (_event, input: SendMessageInput) => {
-    const projectId = assertText(input?.projectId, "projectId");
-    const conversationId = assertText(input?.conversationId, "conversationId");
-    const content = assertText(input?.content, "content");
-    store.appendMessage(conversationId, "user", content, "complete");
-    store.renameConversationFromFirstMessage(conversationId, content);
-    const settings = store.getSettings();
-    if (settings.mode === "platform") {
-      store.appendMessage(
-        conversationId,
-        "system",
-        "任务已安全保存在本地。平台模型网关将在 MX-108 接入；当前内容没有发送到外部模型。",
-        "waiting_model",
-      );
-      store.addRun(projectId, content.slice(0, 80), "waiting_model");
-      return store.listMessages(conversationId);
-    }
-    const project = store.getProject(projectId);
-    if (!project) throw new Error("项目不存在");
-    const run = store.addRun(projectId, content.slice(0, 80), "running");
-    const streamId = `stream:${conversationId}`;
-    let sequence = 0;
-    let streamedText = "";
-    const emit = (event: Omit<MessageStreamEvent, "conversationId" | "streamId" | "sequence">): void => {
-      sendMessageStream({ conversationId, streamId, sequence: sequence++, ...event });
-    };
-    const buffer = new TextStreamBuffer((delta) => emit({ type: "delta", delta }), 32);
-    emit({ type: "start" });
-    try {
-      const answer = await piSessions.prompt(conversationId, project.path, settings, content, (delta) => {
-        streamedText += delta;
-        buffer.push(delta);
-      });
-      buffer.close();
-      store.appendMessage(conversationId, "assistant", answer, "complete");
-      store.updateRun(run.id, "completed");
-      emit({ type: "complete", content: answer });
-    } catch (cause) {
-      buffer.close();
-      const message = cause instanceof Error ? cause.message : String(cause);
-      const cancelled = /abort/i.test(message);
-      const partial = streamedText.trim();
-      if (partial) store.appendMessage(conversationId, "assistant", partial, cancelled ? "cancelled" : "failed");
-      if (!partial || !cancelled) {
-        store.appendMessage(
-          conversationId,
-          "system",
-          `本地任务${cancelled ? "已停止" : "失败"}：${message}`,
-          cancelled ? "cancelled" : "failed",
-        );
-      }
-      store.updateRun(run.id, cancelled ? "cancelled" : "failed");
-      emit({ type: cancelled ? "cancelled" : "error", content: partial, error: message });
-    }
-    return store.listMessages(conversationId);
+  ipcMain.handle("cloud:list-files", (_event,id:unknown) => (cloudFiles.get(assertText(id,"conversationId"))??[]).map(({id,name})=>({id,name})));
+  ipcMain.handle("cloud:clear-files", (_event,id:unknown) => { const key=assertText(id,"conversationId"); if(activeConversations.has(key))throw new Error("任务运行中无法修改文件范围"); cloudFiles.delete(key); });
+  const paymentId=(v:unknown)=>{const text=assertText(v,"paymentId");if(!/^[A-Za-z0-9_.:-]{1,128}$/.test(text))throw new Error("订单参数无效");return text};
+  ipcMain.handle("payments:plans",async()=>paymentPlansSchema.parse(await(await identityClient.platformRequest("/v1/billing/plans")).json()));
+  ipcMain.handle("payments:orders",async(_event,cursor:unknown)=>paymentOrdersSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`)).json()));
+  ipcMain.handle("payments:create",async(_event,input:{productVersionId:unknown;key:unknown})=>{const plans=paymentPlansSchema.parse(await(await identityClient.platformRequest("/v1/billing/plans")).json());if(plans.mode!=="test"&&plans.mode!=="wechat-pilot"&&!(plans.mode==="wechat-native"&&plans.formalSalesEnabled))throw Error("Payment creation disabled");return orderSchema.parse(await(await identityClient.platformRequest("/v1/billing/orders",{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify({productVersionId:paymentId(input.productVersionId),channel:plans.mode==="test"?"test":"wechat"})})).json())});
+  ipcMain.handle("payments:query",async(_event,input:{id:unknown;key:unknown})=>orderSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/query`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:"{}"})).json()));  ipcMain.handle("payments:close",async(_event,input:{id:unknown;key:unknown})=>orderSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/close`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:"{}"})).json()));
+  ipcMain.handle("payments:refunds",async(_event,id:unknown)=>paymentRefundsSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(id)}/refunds`)).json()));
+  ipcMain.handle("payments:refund",async(_event,input:{id:unknown;input:unknown;key:unknown})=>paymentRefundSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/refunds`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(refundInputSchema.parse(input.input))})).json()));
+  ipcMain.handle("payments:periods",async()=>subscriptionPeriodsSchema.parse(await(await identityClient.platformRequest("/v1/billing/subscriptions")).json()));
+  ipcMain.handle("payments:export",async(_event,cursor:unknown)=>{const res=await identityClient.platformRequest(`/v1/billing/export${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`);if(!res.ok||!res.headers.get("Content-Type")?.startsWith("text/csv"))throw new Error("订单导出失败");const text=await res.text();if(Buffer.byteLength(text)>256*1024)throw new Error("导出内容过大");const next=res.headers.get("X-Next-Cursor");if(next)paymentId(next);const file=await dialog.showSaveDialog({defaultPath:"materialsx-orders.csv",filters:[{name:"CSV",extensions:["csv"]}]});if(file.canceled||!file.filePath)return {saved:false,nextCursor:next};await writeFile(file.filePath,text,{encoding:"utf8",mode:0o600});return {saved:true,nextCursor:next}});
+ ipcMain.handle("support:list",async(_event,cursor:unknown)=>ticketsSchema.parse(await(await identityClient.platformRequest(`/v1/support/tickets${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`)).json()));
+ ipcMain.handle("support:create",async(_event,input:{body:unknown;key:unknown})=>ticketSchema.parse(await(await identityClient.platformRequest("/v1/support/tickets",{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(newTicketSchema.parse(input.body))})).json()));
+ ipcMain.handle("support:reply",async(_event,input:{id:unknown;body:unknown;key:unknown})=>ticketSchema.parse(await(await identityClient.platformRequest(`/v1/support/tickets/${paymentId(input.id)}/reply`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(ticketReplySchema.parse(input.body))})).json()));
+ ipcMain.handle("support:attach",async(_event,input:{id:unknown;body:unknown;key:unknown})=>attachmentSchema.parse(await(await identityClient.platformRequest(`/v1/support/tickets/${paymentId(input.id)}/attachments`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(attachmentInputSchema.parse(input.body))})).json()));
+ ipcMain.handle("platform:activity",async()=>billingActivitySchema.parse(await(await identityClient.platformRequest("/v1/billing/activity")).json()));
+  ipcMain.handle("platform:status",async()=>workspaceStatusSchema.parse(await(await identityClient.platformRequest("/v1/workspace/status")).json()));
+ ipcMain.handle("platform:bills",async(_event,cursor:unknown)=>taskBillsSchema.parse(await(await identityClient.platformRequest(`/v1/billing/tasks${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`)).json()));
+ ipcMain.handle("platform:requests",async(_event,id:unknown)=>taskRequestsSchema.parse(await(await identityClient.platformRequest(`/v1/tasks/${paymentId(id)}/requests`)).json()).items);
+ ipcMain.handle("platform:releases",async()=>releasesSchema.parse(await(await identityClient.platformRequest("/v1/releases")).json()));
+ ipcMain.handle("platform:download",async(_event,url:unknown)=>{if(typeof url!=="string"||!/^https:\/\/github\.com\/materialsx-jlu\/MaterialsX\/releases\/download\/v[0-9]+\.[0-9]+\.[0-9]+(?:-[A-Za-z0-9.-]+)?\/[A-Za-z0-9_.-]+$/.test(url))throw Error("Invalid release URL");const catalog=releasesSchema.parse(await(await identityClient.platformRequest("/v1/releases")).json());if(!catalog.items.some(r=>r.state==="published"&&r.manifest.assets.some(a=>a.downloadUrl===url)))throw Error("Release unavailable");await shell.openExternal(url)});
+ ipcMain.handle("platform:export",async(_event,cursor:unknown)=>{const res=await identityClient.platformRequest(`/v1/billing/tasks/export${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`);if(!res.ok||!res.headers.get("Content-Type")?.startsWith("text/csv"))throw Error("Task export failed");const body=await res.text();if(Buffer.byteLength(body)>256*1024)throw Error("Export too large");const next=res.headers.get("X-Next-Cursor");if(next)paymentId(next);const file=await dialog.showSaveDialog({defaultPath:"materialsx-task-bills.csv",filters:[{name:"CSV",extensions:["csv"]}]});if(file.canceled||!file.filePath)return {saved:false,nextCursor:next};await writeFile(file.filePath,body,{encoding:"utf8",mode:0o600});return {saved:true,nextCursor:next}});
+  ipcMain.handle("billing:wallet", async()=>walletSchema.parse(await (await identityClient.platformRequest("/v1/billing/wallet")).json()));
+  ipcMain.handle("billing:ledger",async(_event,cursor:unknown)=>{const after=cursor===undefined?undefined:unsignedInteger.parse(cursor);return creditLedgerSchema.parse(await(await identityClient.platformRequest(`/v1/billing/ledger${after?`?cursor=${after}`:""}`)).json())});
+  ipcMain.handle("cloud:catalog", () => platformSessions.catalog());
+  ipcMain.handle("cloud:run", async (_event,id:unknown) => {
+    if(shuttingDown)return null;
+    const conversation=assertText(id,"conversationId"),account=await identityClient.snapshot();
+    if(shuttingDown)return null;
+    if(account.status!=="connected"||!account.user)return null;
+    const taskId=store.latestCloudTask(account.user.id,conversation);if(!taskId)return null;
+    return platformSessions.refreshSnapshot(conversation,taskId);
   });
-  ipcMain.handle("workspace:cancel-run", (_event, conversationId: unknown) =>
-    piSessions.cancel(assertText(conversationId, "conversationId")),
-  );
+  ipcMain.handle("cloud:choose-files", async (_event,input:{projectId:string;conversationId:string}) => {
+    const project=store.getProject(assertText(input?.projectId,"projectId"));
+    const conversation=store.listConversations().find(c=>c.id===input?.conversationId&&c.projectId===project?.id);
+    if (!project||!conversation||activeConversations.has(conversation.id)) throw new Error("请先选择空闲的项目对话");
+    const result=await dialog.showOpenDialog(mainWindow!,{title:"选择允许云模型读取的项目文本（每个最多32KiB）",defaultPath:project.path,
+      properties:["openFile","multiSelections"],filters:[{name:"UTF-8文本",extensions:["txt","md","json","csv","cif","xyz","log"]}]});
+    if(result.canceled) return (cloudFiles.get(conversation.id)??[]).map(({id,name})=>({id,name}));
+    if(result.filePaths.length>8)throw new Error("最多选择8个文本文件");
+    const assets=await Promise.all(result.filePaths.map(path=>snapshotTextFile(project.path,path)));
+    cloudFiles.set(conversation.id,assets);return assets.map(({id,name})=>({id,name}));
+  });
+  registerAgentConfiguration(store,researchService,userSkills,()=>activeConversations.size===0);
+  registerAgentMessaging({authorizeResearch:(id,cloud)=>researchService.authorizeProject(id,cloud),store,piSessions,platformSessions,agentRuntime,identityClient,atomistic,potentialAnalysis,userSkills,projectRoot,activeConversations,cloudFiles,scienceScopes,analysisScopes,loadSkills,window:()=>mainWindow,isShuttingDown:()=>shuttingDown,requestAtomicView,sendMessageStream,assertText});
   ipcMain.handle("settings:save-model", (_event, input: ModelSettings) => {
     const mode = input?.mode;
     const modelId = assertText(input?.modelId, "modelId");
@@ -382,19 +363,55 @@ function registerIpc(): void {
       modelId,
       ...(mode === "local" ? { localEndpoint } : {}),
     });
-    return store.saveSettings({ mode, modelId, localEndpoint });
+    const cloudMaxCredits=creditDecimal.parse(input.cloudMaxCredits??"500");if(Number(cloudMaxCredits)<=0)throw new Error("任务积分上限必须大于零");
+    const agentEngine=z.enum(['pi','codex']).parse(input.agentEngine??'pi');
+    const options=z.strictObject({localProtocol:z.enum(['chat-completions','responses']).optional(),localContextBudget:z.number().int().min(2048).max(131072).optional(),localMaxOutputTokens:z.number().int().min(64).max(65536).optional(),cloudWorkspaceTools:z.boolean().optional()}).parse(Object.fromEntries(['localProtocol','localContextBudget','localMaxOutputTokens','cloudWorkspaceTools'].filter(k=>input[k as keyof ModelSettings]!==undefined).map(k=>[k,input[k as keyof ModelSettings]])));
+    return store.saveSettings({ mode, modelId, localEndpoint,cloudMaxCredits,agentEngine,...Object.fromEntries(Object.entries(options).filter(([,v])=>v!==undefined)) });
   });
   ipcMain.handle("settings:probe-local-models", (_event, endpoint: unknown) => {
     const localEndpoint = assertText(endpoint, "localEndpoint");
     validateModelSelection({ mode: "local", modelId: "probe", localEndpoint });
     return discoverLocalModels(localEndpoint);
   });
+  ipcMain.handle("potentials:catalog",()=>loadPotentialCatalog());
+  ipcMain.handle('potentials:storage',()=>potentialDistribution.inventory());
+  ipcMain.handle('potentials:cleanup',async(_e,input:unknown)=>{const q=z.strictObject({selection:storageSelectionSchema,locale:z.enum(['zh','en'])}).parse(input);const inventory=await potentialDistribution.inventory();if(q.selection.inventorySha256!==inventory.inventorySha256)throw Error('STORAGE_PREVIEW_STALE');const rows=q.selection.ids.map(id=>{const r=inventory.items.find(r=>r.id===id);if(!r?.removable)throw Error('STORAGE_ITEM_PROTECTED_OR_MISSING');return r;});const confirm=await dialog.showMessageBox(mainWindow!,{type:'warning',title:q.locale==='zh'?'清理 MaterialsX 缓存':'Clean MaterialsX cache',message:rows.map(r=>`${r.label[q.locale]} · ${(r.bytes/1048576).toFixed(2)} MiB`).join('\n'),detail:q.locale==='zh'?'将删除所列缓存。共享计算环境、来源证据、原始结构、计算结果及复现回执会保留。':'The listed caches will be deleted. Shared runtimes, source evidence, inputs, results and reproduction receipts will be preserved.',buttons:q.locale==='zh'?['取消','确认清理']:['Cancel','Confirm cleanup'],defaultId:0,cancelId:0});if(confirm.response!==1)return null;const result=await potentialDistribution.cleanup(q.selection);mainWindow?.webContents.send('potentials:catalog-changed');return result;});
+  ipcMain.handle('potentials:export-collection',async(_e,input:unknown)=>{const ids=z.array(catalogId).min(1).max(50).parse(input);const f=await dialog.showOpenDialog(mainWindow!,{properties:['openDirectory']});if(f.canceled||!f.filePaths[0])return null;return potentialDistribution.exportCollection(f.filePaths[0],ids);});
+  ipcMain.handle('potentials:import-collection',async()=>{const f=await dialog.showOpenDialog(mainWindow!,{properties:['openDirectory']});if(f.canceled||!f.filePaths[0])return null;const r=await potentialDistribution.importCollection(f.filePaths[0]);mainWindow?.webContents.send('potentials:catalog-changed');return r;});
+  ipcMain.handle('potentials:export-catalog',async()=>{const f=await dialog.showSaveDialog(mainWindow!,{defaultPath:'materialsx-catalog-bundle.json',filters:[{name:'Signed catalog bundle',extensions:['json']}]});if(f.canceled||!f.filePath)return false;await writeFile(f.filePath,JSON.stringify(catalogUpdates.bundle(),null,2)+'\n',{flag:'wx',mode:0o600});return true;});
+  ipcMain.handle('atomistic:export-receipt',async(_e,input:unknown)=>{const q=z.strictObject({projectId:localId,runId:localId}).parse(input);const receipt=await atomistic.reproductionReceipt(q);const f=await dialog.showSaveDialog(mainWindow!,{defaultPath:'materialsx-reproduction-'+q.runId+'.json',filters:[{name:'Reproduction receipt',extensions:['json']}]});if(f.canceled||!f.filePath)return false;await writeFile(f.filePath,JSON.stringify(receipt,null,2)+'\n',{flag:'wx',mode:0o600});return true;});
+  ipcMain.handle('atomistic:inspect-receipt',async()=>{const f=await dialog.showOpenDialog(mainWindow!,{properties:['openFile'],filters:[{name:'Reproduction receipt',extensions:['json']}]});if(f.canceled||!f.filePaths[0])return null;return inspectReproductionReceipt(projectRoot,JSON.parse(ownedText(f.filePaths[0],4*1024*1024)));});
+  ipcMain.handle("potentials:updates",()=>catalogUpdates.status());
+  ipcMain.handle("potentials:refresh-updates",()=>catalogUpdates.refresh(true));
+  ipcMain.handle("potentials:import-catalog",async()=>{const f=await dialog.showOpenDialog(mainWindow!,{properties:["openFile"],filters:[{name:"Signed potential catalog",extensions:["json"]}]});if(f.canceled||!f.filePaths[0])return false;catalogUpdates.accept(JSON.parse(ownedText(f.filePaths[0],32*1024*1024)));return true;});
+  ipcMain.handle("potentials:discovery-status",()=>potentialDiscovery.status());
+  ipcMain.handle("potentials:discovery-search",(_e,input:unknown)=>potentialDiscovery.search(discoverySearchSchema.parse(input)));
+  ipcMain.handle("potentials:discovery-sync",(_e,input:unknown)=>potentialDiscovery.sync(discoverySyncSchema.parse(input).sourceIds,true));
+  ipcMain.handle("potentials:discovery-cancel",()=>potentialDiscovery.cancel());
+  ipcMain.handle("potentials:discovery-evidence",(_e,id:unknown)=>potentialDiscovery.readEvidence(catalogId.parse(id)));
+  ipcMain.handle("potentials:discovery-source",(_e,id:unknown)=>shell.openExternal(potentialDiscovery.get(catalogId.parse(id)).observation.url));
+  ipcMain.handle("potentials:search",(_event,input:unknown)=>searchCatalog(loadPotentialCatalog(),input));
+  ipcMain.handle("skills:search",(_event,input:unknown)=>searchSkills(loadSkills(),input));
+  ipcMain.handle("potentials:source",(_event,id:unknown)=>shell.openExternal(findCatalogEntry(loadPotentialCatalog(),catalogId.parse(id)).sources[0]!.url));
   ipcMain.handle("models:open-source", (_event, modelId: unknown) => {
     const id = assertText(modelId, "modelId");
     const model = loadResearchModels().find((item) => item.id === id);
+    const potential = loadPotentialRegistry().potentials.find((item) => item.id === id);
+    if (!model && potential) return shell.openExternal(potential.source.url);
     if (!model || !model.sourceUrl.startsWith("https://")) throw new Error("模型来源不可用");
     return shell.openExternal(model.sourceUrl);
   });
+  ipcMain.handle("account:devices", (_event, cursor: unknown) => identityClient.devices(assertText(cursor, "cursor")));
+  ipcMain.handle("account:get", () => identityClient.snapshot());
+  ipcMain.handle("account:login", async () => {
+    platformSessions.dispose(); cloudFiles.clear();scienceScopes.clear();analysisScopes.clear();
+    try { return await identityClient.login(); }
+    catch (error) { return {status:"unavailable",secureStorage:safeStorage.isEncryptionAvailable()&&safeStorage.getSelectedStorageBackend?.()!=="basic_text",user:null,devices:[],nextCursor:null,
+      error:error instanceof IdentityLoginError ? error.message : "平台登录未完成，请检查身份服务连接和系统安全存储后重试"}; }
+  });
+  ipcMain.handle("account:cancel-login", () => identityClient.cancelLogin());
+  ipcMain.handle("account:logout", async () => { platformSessions.dispose(); cloudFiles.clear();scienceScopes.clear();analysisScopes.clear(); return identityClient.logout(); });
+  ipcMain.handle("account:revoke-device", (_event, id: unknown) => identityClient.revoke(assertText(id, "deviceId")));
   ipcMain.handle("subscription:get", () => controlPlane.snapshot(`local-${store.getInstallationId()}`));
   ipcMain.handle("subscription:activate-development", (_event, planId: unknown) => {
     if (planId !== "pro" && planId !== "research") throw new Error("测试套餐无效");
@@ -441,9 +458,48 @@ app.setName("MaterialsX");
 app.whenReady().then(async () => {
   const userData = app.getPath("userData");
   store = new WorkspaceStore(join(userData, "materialsx.sqlite"));
-  piSessions = new PiLocalSessionService(projectRoot, userData);
+  const researchRequest=await createResearchFetch();
+  catalogUpdates=new CatalogUpdateService(projectRoot,userData);
+  potentialDiscovery=new PotentialDiscoveryService(projectRoot,userData,loadPotentialCatalog,researchRequest);
+  const notifyPotential=(channel:string)=>{if(mainWindow&&!mainWindow.isDestroyed()&&!mainWindow.webContents.isDestroyed())mainWindow.webContents.send(channel);};
+  catalogUpdates.onChanged(changed=>notifyPotential(changed?"potentials:catalog-changed":"potentials:discovery-changed"));potentialDiscovery.onChanged(()=>notifyPotential("potentials:discovery-changed"));
+  atomistic = new AtomisticRuntime(projectRoot,userData,id=>store.getProject(id)?.path??null,id=>catalogUpdates.assertUsable(id));
+  await atomistic.restore();
+  potentialAnalysis=new PotentialAnalysisService(projectRoot,userData,atomistic);potentialAnalysis.restore();
+  catalogWeights=new CatalogWeightManager(userData,()=>loadPotentialCatalog(),id=>catalogUpdates.assertUsable(id),fetch,()=>notifyPotential('potentials:model-changed'));
+  potentialDistribution=new PotentialDistributionService(projectRoot,userData,atomistic.mountedPackages,id=>potentialAnalysis.busy(id),id=>catalogUpdates.assertUsable(id),catalogWeights);
+  userSkills=new UserSkillService(userData,()=>readBuiltinSkills(projectRoot).map(s=>s.name),loadPotentialCatalog);
+  scientificValidation=new ScientificValidationService(projectRoot,userData,atomistic,id=>store.getProject(id)?.path??null);
+  await scientificValidation.restore();
+  const defaultMcpDirectory=process.env.MATERIALSX_MOOS_MCP_DIRECTORY??(!app.isPackaged?join(developmentRoot,"../MOOS/services/materials-mcp"):null);
+  let savedMcp=store.mcpConfiguration();
+  if(savedMcp.revision===1)savedMcp=store.saveMcpConfiguration({...savedMcp,directory:defaultMcpDirectory,origin:process.env.MATERIALSX_MOOS_ORIGIN??savedMcp.origin,enabled:!!defaultMcpDirectory&&existsSync(join(defaultMcpDirectory,"dist/src/server.js")),revision:2},1);
+  researchService=new ResearchService(store,{client:null,assetRoot:projectRoot,jobStateRoot:join(userData,'long-jobs')});await researchService.configure(savedMcp,true);
+  researchService.scientific.atomistic=atomistic;
+  researchService.papers=new ResearchPaperService(store,researchService,projectRoot,userData,new PublicResearchNetwork(researchRequest));
+  potentialDistribution.attachStorage(researchService.papers);
+  await researchService.papers.environment.check();
+  piSessions = new PiLocalSessionService(projectRoot, userData, (path,conversationId)=>{
+    const child=agentRuntime?.subtasks.scope(conversationId);const project=child?store.getProject(child.projectId):store.listProjects().find(p=>p.path===path);
+    const definitions=[...(project?researchService.tools(project.id,conversationId):[]),...(project&&agentWorkspace?agentWorkspace.tools(project.id,conversationId):[]),defineTool({name:"skill_draft",label:"Preview user Skill",description:"Validate an instructions-only bilingual user Skill draft and show it in the MaterialsX My Skills editor. Does not save, overwrite builtin instructions or execute anything. All fields are required.",parameters:Type.Object({draft:Type.Object({schemaVersion:Type.Literal("m6.7-v1"),name:Type.String(),description:Type.Object({zh:Type.String(),en:Type.String()}),instructions:Type.Object({zh:Type.String(),en:Type.String()}),examples:Type.Array(Type.Object({zh:Type.String(),en:Type.String()})),potentialIds:Type.Array(Type.String()),requiredTools:Type.Array(Type.String())},{additionalProperties:false})},{additionalProperties:false}),async execute(_id,args){const p=userSkills.preview(args.draft);mainWindow?.webContents.send("skills:draft",p.draft);return {content:[{type:"text" as const,text:JSON.stringify({name:p.draft.name,sha256:p.sha256,saved:false,previewShown:true})}],details:undefined};}}),...createCatalogTools(loadPotentialCatalog,loadSkills,potentialDiscovery),...(project?createAtomisticTools(atomistic,project.id,id=>requestAtomicView(project.id,id),analysisScopes.has(conversationId)?{service:potentialAnalysis,scope:analysisScopes.get(conversationId)!,prompt:"User requested analysis in this conversation; select an eligible potential from catalog evidence."}:undefined,analysisScopes.has(conversationId)?scienceScopes.get(conversationId):undefined):[])];
+    return project&&agentWorkspace?agentWorkspace.childTools(project.id,conversationId,definitions):definitions;
+  },()=>userSkills.paths());
+  const vault = new SystemCredentialVault(join(userData, "platform-session.bin"), safeStorage);
+  try {
+    identityClient = new IdentityClient(process.env.MATERIALSX_IDENTITY_URL ?? (app.isPackaged ? null : "http://127.0.0.1:8788"),
+      vault, (url) => shell.openExternal(url), !app.isPackaged);
+  } catch {
+    console.warn("MaterialsX identity origin configuration rejected; platform login disabled");
+    identityClient = new IdentityClient(null, vault, (url) => shell.openExternal(url));
+  }
+  teamResearch=new TeamResearchWorkspace(store,researchService,identityClient);
+  platformSessions = new PiPlatformSessionService(identityClient,(account,conversation,task)=>store.saveCloudTask(account,conversation,task.id));
+  researchService.papers.rpsme=(c,p,pdf,approved,signal)=>piSessions.extractRpsme(c,p,pdf,approved,signal);
+  agentRuntime=new DesktopAgentRuntime(store,piSessions,platformSessions,userData,{packaged:app.isPackaged,resourcesPath:process.resourcesPath,projectRoot:developmentRoot},async (projectId,ids)=>{const managed=await researchService.campaigns.queryJobs(projectId,ids);return [...managed,...ids.filter(id=>!managed.some(j=>j.id===id)).flatMap<{id:string;state:string}>(id=>{try {const receipt=atomistic.get({projectId,runId:id});return [{id,state:receipt.job.status}];}catch {try {const receipt=potentialAnalysis.get(projectId,id);return [{id,state:receipt.state}];}catch{return [];}}})];},researchService);
+  agentWorkspace=new AgentWorkspace(store,agentRuntime,userData);
   registerIpc();
   await createWindow();
+  if(process.env.MATERIALSX_DISCOVERY_AUTOSYNC!=="0"){const refresh=()=>{void catalogUpdates.refresh().catch(()=>{});void potentialDiscovery.sync().catch(()=>{});};setTimeout(refresh,1500).unref();discoveryTimer=setInterval(refresh,3600000);discoveryTimer.unref();}
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) void createWindow();
   });
@@ -454,6 +510,16 @@ app.on("window-all-closed", () => {
 });
 
 app.on("before-quit", () => {
+  shuttingDown = true;
+  if(discoveryTimer)clearInterval(discoveryTimer);catalogUpdates?.dispose();potentialDiscovery?.dispose();
+  catalogWeights?.dispose();potentialAnalysis?.dispose();atomistic?.mountedPackages.cancel();scientificValidation?.dispose();atomistic?.packages.cancel();
+  atomistic?.dispose();
+  identityClient?.cancelLogin();
+  platformSessions?.dispose();
+  void agentWorkspace?.browser.dispose();
+  void agentRuntime?.dispose();
+  void teamResearch?.close();
+  void researchService?.close();
   piSessions?.dispose();
   store?.close();
 });

@@ -50,5 +50,19 @@
   "labarchive-integration": "Safely read and organize LabArchives electronic lab records and inventory information.",
   "lamindb": "Track versions and lineage of research data, models, and results with LaminDB.",
   "pufferlib": "Plan parallel reinforcement-learning environments and training evaluation with PufferLib.",
-  "polars-bio": "Process large genomic intervals and bioinformatics data with Polars Bio."
+  "polars-bio": "Process large genomic intervals and bioinformatics data with Polars Bio.",
+  "materials-atomic-structure-inspect": "Inspect imported or bundled atomic structures for elements, cell, periodic boundaries and blocking issues while preserving the source; inspection is not simulation.",
+  "materials-mlip-selection": "Controlled exploratory crystal and ANI-2x neutral singlet isolated molecular workflows, real artifacts and 3D; gate elements, charge, spin, boundaries and long-range requirements; retain needs_review.",
+  "materials-mlip-singlepoint": "Controlled exploratory crystal and ANI-2x neutral singlet isolated molecular workflows, real artifacts and 3D; gate elements, charge, spin, boundaries and long-range requirements; retain needs_review.",
+  "materials-mlip-relaxation": "Controlled exploratory crystal and ANI-2x neutral singlet isolated molecular workflows, real artifacts and 3D; gate elements, charge, spin, boundaries and long-range requirements; retain needs_review.",
+  "materials-mlip-md": "Run bounded fixed-cell NVE/NVT molecular dynamics with verified core potentials. Produce real frames, temperature/energy diagnostics and bilingual reports, with local 3D playback and export. Exploratory inorganic bulk crystals only; needs scientific review.",
+  "materials-mlip-comparison": "Compare actual single-point force differences from two compatible potentials on the same immutable structure, retaining versions and evidence. Unaligned total energies cannot be compared; agreement is not accuracy.",
+  "materials-atomic-3d-view": "Open local atomistic 3D previews with nonorthogonal cells, inferred bonds, distances and image export. Molecular viewing does not imply molecular calculator eligibility.",
+  "materials-skill-creator": "Create or update a bilingual research workflow Skill with project, planning, MOOS data and materials tool dependencies. Preview and review before saving.",
+  "materials-potential-discovery": "Discover official potential releases and paper leads, read evidence, and distinguish pending metadata, supported models and withdrawals.",
+  "materials-research-workbench": "Compare materials conditions, present recipes/processes and document simulation gaps using project inputs and MOOS evidence; generate tables, overviews and reports.",
+  "materials-tensile-analysis": "Analyze configured project engineering tensile CSV/XLSX records. Preserve original values, fit intervals and exclusion reasons; create real curves, statistics, reports and replay bundles.",
+  "materials-next-experiment": "Plan the next experiments using saved hypotheses, controls, independent preparations, blocks and budgets. Link actual outcomes, gate surrogate candidates on fixed validation, and export designs, candidate tables and replay files.",
+  "materials-method-packages": "Find versioned method packages with licenses and reference receipts; analyze selected material observations using existing tools and deliver actual JSON and reports.",
+  "materials-long-compute": "Run approved long local computations, continue after app exit, and reconcile real receipts and results before resuming research."
 }

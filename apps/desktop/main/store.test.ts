@@ -97,3 +97,12 @@ describe("WorkspaceStore", () => {
     store.close();
   });
 });
+
+it("restores cloud task pointers by account without copying credentials or scientific content",()=>{
+ const {database}=temporaryDatabase();const first=new WorkspaceStore(database);
+ first.saveCloudTask("account-A","conversation","task-fixture");first.close();
+ const restarted=new WorkspaceStore(database);
+ assert.equal(restarted.latestCloudTask("account-A","conversation"),"task-fixture");
+ assert.equal(restarted.latestCloudTask("account-B","conversation"),null);
+ restarted.close();
+});

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "m5.0-v1",
+  "generatedAt": "2026-10-01T03:47:02Z",
+  "environment": "real-provider",
+  "provider": "rootflowai",
+  "model": "gpt-5.6",
+  "protocol": "responses",
+  "status": "blocked",
+  "protocolDecision": "pending_real_verification",
+  "budgetFen": "0",
+  "budgetPolicy": "waived-for-diagnostic-test",
+  "reservedUpperFen": "0",
+  "generationCalls": 0,
+  "checks": [
+    {
+      "id": "test_authorization",
+      "status": "passed",
+      "reason": "monetary_cap_waived_price_remains_unverified"
+    },
+    {
+      "id": "models",
+      "status": "blocked",
+      "reason": "exact_target_model_not_visible",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": false,
+        "completed": false,
+        "usage": {
+          "source": "responses",
+          "inputTokens": null,
+          "outputTokens": null,
+          "cachedInputTokens": null,
+          "uncachedInputTokens": null,
+          "reasoningTokens": null
+        },
+        "eventCount": 0
+      }
+    }
+  ],
+  "unverified": [
+    "account_price_and_group",
+    "model_origin",
+    "context_window",
+    "cache_write_billing",
+    "upstream_cancellation",
+    "provider_log_reconciliation",
+    "commercial_data_terms",
+    "live_pi_agent"
+  ]
+}

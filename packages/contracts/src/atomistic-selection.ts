@@ -1,0 +1,14 @@
+import { z } from 'zod';
+import { atomisticBudgetSchema, potentialSelectionSchema } from './atomistic.js';
+import { localId, runnablePotentialId } from './atomistic-runtime.js';
+import { relaxationOptionsSchema } from './atomistic-relaxation.js';
+export const selectionRequestSchema=z.strictObject({projectId:localId,structureId:localId,domain:z.enum(['inorganic-crystals','molecules','polymers','surfaces','interfaces','unknown']),mode:z.enum(['production','exploratory']),task:z.enum(['singlepoint','relaxation','md']),budget:atomisticBudgetSchema.optional()});
+export type SelectionRequest=z.infer<typeof selectionRequestSchema>;
+export const capabilityReceiptSchema=z.strictObject({potentialId:runnablePotentialId,sha256:z.string().regex(/^[a-f0-9]{64}$/),dependencyLockSha256:z.string().regex(/^[a-f0-9]{64}$/),elements:z.array(z.string().regex(/^[A-Z][a-z]?$/)).min(1).max(118),loadedMemoryMiB:z.number().positive(),device:z.literal('cpu'),adapter:z.record(z.string(),z.unknown())});
+export type CapabilityReceipt=z.infer<typeof capabilityReceiptSchema>;
+export const selectionAssessmentSchema=z.strictObject({version:z.literal('m6.4-v1'),id:localId,createdAt:z.iso.datetime(),registrySha256:z.string().regex(/^[a-f0-9]{64}$/),structureSha256:z.string().regex(/^[a-f0-9]{64}$/),request:selectionRequestSchema,selection:potentialSelectionSchema,capabilities:z.array(capabilityReceiptSchema).max(3),rankingBasis:z.string().max(4096)});
+export type SelectionAssessment=z.infer<typeof selectionAssessmentSchema>;
+export const selectionProposalSchema=z.strictObject({assessmentId:localId,selectedPotentialId:runnablePotentialId,evidenceIds:z.array(localId).min(1).max(20)});
+export const selectedRunSchema=z.strictObject({projectId:localId,proposal:selectionProposalSchema,options:relaxationOptionsSchema.optional()});
+export const scientificScopeSchema=z.strictObject({projectId:localId,conversationId:localId,structureId:localId,domain:selectionRequestSchema.shape.domain,mode:selectionRequestSchema.shape.mode,permission:z.enum(['inspect','singlepoint','relaxation']),options:relaxationOptionsSchema.optional()}).refine(s=>s.permission==='relaxation' ? !!s.options : !s.options,'relaxation permission requires explicit options');
+export type ScientificScope=z.infer<typeof scientificScopeSchema>;

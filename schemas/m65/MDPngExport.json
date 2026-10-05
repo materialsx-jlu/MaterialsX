@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "request": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "frame": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      },
+      "required": [
+        "projectId",
+        "runId",
+        "frame"
+      ],
+      "additionalProperties": false
+    },
+    "png": {
+      "type": "string",
+      "maxLength": 12582912,
+      "pattern": "^data:image\\/png;base64,[A-Za-z0-9+/]+={0,2}$"
+    }
+  },
+  "required": [
+    "request",
+    "png"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.5-v1/MDPngExport.json",
+  "x-runtime-refinements": "Owned immutable input, verified frame ranges/digests, actual step/time and numerical diagnostics must be checked by runtime."
+}

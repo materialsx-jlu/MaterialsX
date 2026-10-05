@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "conversationId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "inorganic-crystals",
+        "molecules",
+        "polymers",
+        "surfaces",
+        "interfaces",
+        "unknown"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "production",
+        "exploratory"
+      ]
+    },
+    "permission": {
+      "type": "string",
+      "enum": [
+        "inspect",
+        "singlepoint",
+        "relaxation"
+      ]
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "optimizer": {
+          "type": "string",
+          "const": "FIRE"
+        },
+        "cellMode": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        },
+        "cellConstraint": {
+          "type": "string",
+          "enum": [
+            "none",
+            "hydrostatic",
+            "full"
+          ]
+        },
+        "externalPressureGPa": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": -10,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "fmaxEvPerAngstrom": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 0.2
+        }
+      },
+      "required": [
+        "optimizer",
+        "cellMode",
+        "cellConstraint",
+        "externalPressureGPa",
+        "maxSteps",
+        "fmaxEvPerAngstrom"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "projectId",
+    "conversationId",
+    "structureId",
+    "domain",
+    "mode",
+    "permission"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.4-v1/ScientificScope.json",
+  "x-runtime-refinements": "Real checkpoint/structure/dependency identities, project ownership, hard exclusions, authorized scope and citations must be checked in the local runtime."
+}

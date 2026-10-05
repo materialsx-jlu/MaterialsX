@@ -1,0 +1,63 @@
+{
+  "stage": "M6.3",
+  "date": "2026-10-02",
+  "platform": "macos-arm64",
+  "checks": {
+    "typeChecks": true,
+    "desktopBuild": true,
+    "tsTests": {
+      "total": 108,
+      "passed": 107,
+      "skipped": 1,
+      "skippedReason": "Existing opt-in real PostgreSQL identity integration"
+    },
+    "m6FrozenAudit": true,
+    "m61Contracts": true,
+    "m62Contracts": true,
+    "m63Contracts": true,
+    "geometryBaselinePythonTests": 9,
+    "atomisticPythonTests": 22,
+    "twoRealCoreFixedCellRelaxations": true,
+    "realChgnetHydrostaticAndFullCell": true,
+    "actualDesktop": {
+      "stage": "M6.3",
+      "platform": "darwin",
+      "electron": "44.5.0",
+      "passed": true,
+      "actualDesktop": true,
+      "realPotential": "CHGNet 0.3.0",
+      "fixedCellDefault": true,
+      "converged": true,
+      "maxStepsNotConverged": true,
+      "explicitVariableCellPressure": true,
+      "emptyPressureBlocksStart": true,
+      "actualRuns": 3,
+      "twoBounded3DViews": true,
+      "nativeRotation": true,
+      "synchronizedViews": true,
+      "independentViews": true,
+      "displacementAndForceColors": true,
+      "sharedThemes": true,
+      "bilingual": true,
+      "finalExportHashVerified": true,
+      "webglFallbackTable": true,
+      "contextLossRetry": true,
+      "newGeometryTask": true,
+      "strictIPC": true,
+      "llmCalls": 0,
+      "paymentCalls": 0
+    },
+    "m61RealCpuRegression": true,
+    "m62ActualDesktopRegression": true,
+    "publicSecretScanner": {
+      "passed": true,
+      "binaryLargeSymlinkManualReviewPending": true
+    }
+  },
+  "windowsActualEvidence": "pending",
+  "installerEvidence": "pending",
+  "scientificReferenceEvidence": "pending",
+  "scientificQuality": "needs_review",
+  "llmRequests": 0,
+  "paymentRequests": 0
+}

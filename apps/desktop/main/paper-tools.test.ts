@@ -1,0 +1,33 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,readFile,rm} from 'node:fs/promises';
+import {join,resolve} from 'node:path';
+import {tmpdir} from 'node:os';
+import {randomUUID} from 'node:crypto';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {StreamableHTTPClientTransport} from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import {WorkspaceStore} from './store.js';
+import {ResearchService} from './research-service.js';
+import {ResearchPaperService} from './paper-service.js';
+import {supervisionStore} from './agent-supervision-store.js';
+import {HostMcp} from '../../../packages/agent/src/host-mcp.js';
+import {TaskSupervisor} from '../../../packages/agent/src/task-supervisor.js';
+import {directPlan} from '../../../packages/agent/src/research-planning.js';
+import {PublicResearchNetwork,SerialSourceQueue} from '../../../packages/agent/src/papers/network.js';
+import {PiLocalSessionService} from '../../../packages/pi-adapter/src/local-session.js';
+import {permissionGrantSchema,taskRefSchema} from '../../../packages/contracts/src/agent.js';
+test('Paper tools share exact input schemas and execution receipts across SDK/MCP; defaults stay optional and network grants are enforced',{skip:process.platform!=='darwin'||process.arch!=='arm64'},async()=>{
+ const temp=await mkdtemp(join(tmpdir(),'ua6-tool-')),path=join(temp,'project');await mkdir(path);const store=new WorkspaceStore(join(temp,'state.sqlite')),p=store.createProject(path),conversation=store.createConversation(p.id),run=store.addRun(p.id,'Fixture paper tools','running');let mcp:HostMcp|undefined;const client=new Client({name:'ua6-fixture',version:'1'}),research=new ResearchService(store,{client:null});
+ const pdf=await readFile(resolve('tests/fixtures/agent/ua6-paper.pdf')),atom='<feed xmlns="http://www.w3.org/2005/Atom" xmlns:o="urn:opensearch"><o:totalResults>1</o:totalResults><entry><id>http://arxiv.org/abs/2609.12345v1</id><title>Synthetic fixture</title><summary>Not a real paper.</summary><published>2026-09-01T00:00:00Z</published><updated>2026-09-01T00:00:00Z</updated></entry></feed>';
+ research.papers=new ResearchPaperService(store,research,process.cwd(),temp,new PublicResearchNetwork((async url=>String(url).includes('/pdf/')?new Response(pdf,{headers:{'content-type':'application/pdf'}}):new Response(atom)) as typeof fetch,new SerialSourceQueue(0)));
+ const pi=new PiLocalSessionService(process.cwd(),temp,(_path,id)=>research.tools(p.id,id));
+ try{const task=taskRefSchema.parse({taskId:run.id,projectId:p.id,conversationId:conversation.id}),grant=permissionGrantSchema.parse({grantId:randomUUID(),projectId:p.id,conversationId:conversation.id,permissions:['read','search','patch','network'],approvedBy:'local-user',maxCredits:null,maxSeconds:120}),context={task,grant,methods:pi.toolCapabilities(path,conversation.id)},control=new TaskSupervisor({context,engine:'codex',connectionId:'fixture',accountRef:'local',projectPath:path,...supervisionStore(store,run.id)});control.acceptPlan(directPlan('Read fixture paper and export a citation',context));
+ const readOnly=await pi.hostTools(path,conversation.id,['read','search']);assert(!readOnly.some(t=>t.name==='paper_search'||t.name==='paper_fetch'));assert(readOnly.some(t=>t.name==='environment_check'));
+ const tools=await pi.hostTools(path,conversation.id,grant.permissions),search=tools.find(t=>t.name==='paper_search')!;assert(!((search.parameters as any).required as string[]).includes('page'));assert(!((search.parameters as any).required as string[]).includes('refresh'));
+ mcp=new HostMcp({files:[],skills:[]},undefined,{tools,permissions:grant.permissions,signal:new AbortController().signal},control);await mcp.start();await client.connect(new StreamableHTTPClientTransport(new URL(mcp.url),{requestInit:{headers:{Authorization:'Bearer '+mcp.token}}}) as unknown as import('@modelcontextprotocol/sdk/shared/transport.js').Transport);
+ const call=async(name:string,args:Record<string,unknown>)=>{const raw=await client.callTool({name,arguments:args});assert(!raw.isError);return JSON.parse((raw.content as Array<{text:string}>)[0]!.text);};
+ const found=await call('paper_search',{query:'machine learning potentials',source:'arxiv',publicQueryConfirmed:true,limit:1}),id=found.items[0].paperId;
+ assert.equal((await call('paper_fetch',{paperId:id,grant:'personal-research'})).status,'downloaded');assert.equal((await call('paper_read',{paperId:id,fromPage:1,toPage:1})).status,'fully_read');const output=await call('paper_export',{paperIds:[id],format:'bibtex'});assert((await readFile(output.path,'utf8')).includes('2609.12345v1'));
+ assert.deepEqual(control.snapshot().attempts.map(a=>a.method),['paper_search','paper_fetch','paper_read','paper_export']);assert(control.snapshot().attempts.every(a=>a.state==='completed'&&a.resultRef));
+ }finally{await client.close();await mcp?.close();pi.dispose();await research.close();store.close();await rm(temp,{recursive:true,force:true});}
+});

@@ -1,0 +1,20 @@
+{
+  "environment": "synthetic-fixture",
+  "sdkVersion": "0.99.1",
+  "protocol": "openai-responses",
+  "actualSupplierVerified": false,
+  "requests": 2,
+  "toolDeltas": 2,
+  "textDeltas": 2,
+  "toolResultRoundtrip": true,
+  "inputTokens": 8,
+  "cacheReadTokens": 2,
+  "outputTokens": 4,
+  "unverified": [
+    "real_supplier",
+    "real_model",
+    "context_window",
+    "price",
+    "live_pi_agent"
+  ]
+}

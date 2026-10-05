@@ -1,0 +1,60 @@
+{
+  "materialWorkflow": {
+    "realLocalPdf": true,
+    "realPythonValidation": true,
+    "modelRequests": 2,
+    "phases": [
+      "extraction",
+      "metadata"
+    ],
+    "sameTask": true,
+    "cacheCalls": 0,
+    "consumedCredits": "56",
+    "scientificQuality": "needs_review"
+  },
+  "schemaVersion": "m5.3-validation-v1",
+  "generatedAt": "2026-10-01T09:46:51.774Z",
+  "environment": "synthetic-provider-real-postgres",
+  "model": "gpt-5.6-sol",
+  "protocol": "responses",
+  "identity": "real-PKCE-PG",
+  "toolRoundtrip": true,
+  "requests": [
+    {
+      "execution": "completed",
+      "settlement": "settled",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 10,
+        "outputTokens": 4,
+        "cachedInputTokens": 2,
+        "uncachedInputTokens": 8,
+        "reasoningTokens": 1
+      },
+      "terminalReceived": true
+    },
+    {
+      "execution": "completed",
+      "settlement": "settled",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 10,
+        "outputTokens": 4,
+        "cachedInputTokens": 2,
+        "uncachedInputTokens": 8,
+        "reasoningTokens": 1
+      },
+      "terminalReceived": true
+    }
+  ],
+  "deltaCount": 2,
+  "taskState": "completed",
+  "scientificQuality": "not_evaluated",
+  "unverified": [
+    "procurement_price",
+    "formal_sales_price",
+    "upstream_cancellation",
+    "production_TLS",
+    "Windows_UI"
+  ]
+}

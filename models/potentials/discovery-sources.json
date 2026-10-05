@@ -1,0 +1,213 @@
+{
+  "version": "m6.11-v1",
+  "sources": [
+    {
+      "id": "sevennet",
+      "label": {
+        "zh": "SevenNet 官方发布/变更",
+        "en": "SevenNet official releases/changes"
+      },
+      "family": "SevenNet",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/MDIL-SNU/SevenNet/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-sevennet-0",
+        "hub-sevennet-l3i5",
+        "hub-sevennet-omat",
+        "hub-sevennet-mf-ompa",
+        "hub-sevennet-omni",
+        "hub-sevennet-omni-i8",
+        "hub-sevennet-omni-i12",
+        "hub-sevennet-nano",
+        "hub-sevennet-nano-4-5a",
+        "hub-sevennet-nano-5-0a"
+      ]
+    },
+    {
+      "id": "mace-foundations",
+      "label": {
+        "zh": "MACE 官方发布/变更",
+        "en": "MACE official releases/changes"
+      },
+      "family": "MACE",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/ACEsuit/mace-foundations/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-mace-mp-0",
+        "hub-mace-mp-0a",
+        "hub-mace-mp-0b",
+        "hub-mace-mp-0b2",
+        "hub-mace-mp-0b3",
+        "hub-mace-mpa-0",
+        "hub-mace-omat-0",
+        "hub-mace-matpes-pbe-0",
+        "hub-mace-matpes-r2scan-0",
+        "hub-mace-mh-0"
+      ]
+    },
+    {
+      "id": "chgnet",
+      "label": {
+        "zh": "CHGNet 官方发布/变更",
+        "en": "CHGNet official releases/changes"
+      },
+      "family": "CHGNet",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/CederGroupHub/chgnet/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-chgnet",
+        "chgnet-0.3.0",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "id": "matgl",
+      "label": {
+        "zh": "MatGL 官方发布/变更",
+        "en": "MatGL official releases/changes"
+      },
+      "family": "MatGL",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/materialyzeai/matgl/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-m3gnet",
+        "hub-tensornet-matpes",
+        "hub-tensornet",
+        "hub-tensornet2",
+        "matgl-tensornet-matpes-pbe-2025-2"
+      ]
+    },
+    {
+      "id": "matgl-models",
+      "label": {
+        "zh": "MatGL 官方模型仓库",
+        "en": "MatGL official model repositories"
+      },
+      "family": "MatGL",
+      "kind": "huggingface",
+      "url": "https://huggingface.co/api/models?author=materialyze&limit=30&sort=lastModified&direction=-1&full=true",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-m3gnet",
+        "hub-tensornet-matpes",
+        "hub-tensornet",
+        "hub-tensornet2",
+        "matgl-tensornet-matpes-pbe-2025-2"
+      ]
+    },
+    {
+      "id": "nequip",
+      "label": {
+        "zh": "NequIP 官方发布/变更",
+        "en": "NequIP official releases/changes"
+      },
+      "family": "NequIP",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/mir-group/nequip/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-nequip-oam",
+        "hub-nequip"
+      ]
+    },
+    {
+      "id": "gpumd",
+      "label": {
+        "zh": "NEP / GPUMD 官方发布/变更",
+        "en": "NEP / GPUMD official releases/changes"
+      },
+      "family": "NEP / GPUMD",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/brucefan1983/GPUMD/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": []
+    },
+    {
+      "id": "gap",
+      "label": {
+        "zh": "GAP 官方发布/变更",
+        "en": "GAP official releases/changes"
+      },
+      "family": "GAP",
+      "kind": "github_commits",
+      "url": "https://api.github.com/repos/libAtoms/GAP/commits",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": [
+        "hub-gap",
+        "hub-gap-si2018",
+        "hub-amorphous-carbon-gap",
+        "hub-gap20",
+        "hub-gap-ge2sb2te5",
+        "hub-gap-hfo2",
+        "hub-gap-licl",
+        "hub-gap-licl-kcl",
+        "hub-gap-si-h",
+        "hub-li-c-gap"
+      ]
+    },
+    {
+      "id": "schnetpack",
+      "label": {
+        "zh": "SchNetPack 官方发布/变更",
+        "en": "SchNetPack official releases/changes"
+      },
+      "family": "SchNetPack",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/atomistic-machine-learning/schnetpack/releases",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": []
+    },
+    {
+      "id": "arxiv-mlip",
+      "label": {
+        "zh": "arXiv 原子间势论文",
+        "en": "arXiv interatomic-potential papers"
+      },
+      "family": "Research literature",
+      "kind": "arxiv",
+      "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22interatomic+potential%22+OR+ti%3A%22machine+learning+potential%22&sortBy=lastUpdatedDate&sortOrder=descending&start=0&max_results=30",
+      "intervalHours": 168,
+      "enabled": true,
+      "relatedCatalogIds": []
+    },
+    {
+      "id": "openkim",
+      "label": {
+        "zh": "OpenKIM 公开模型元数据",
+        "en": "OpenKIM public model metadata"
+      },
+      "family": "OpenKIM",
+      "kind": "openkim",
+      "url": "https://query.openkim.org/api",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": []
+    },
+    {
+      "id": "nist-ipr",
+      "label": {
+        "zh": "NIST IPR 入口与条目变更",
+        "en": "NIST IPR index and entry changes"
+      },
+      "family": "NIST IPR",
+      "kind": "nist",
+      "url": "https://www.ctcms.nist.gov/potentials/",
+      "intervalHours": 24,
+      "enabled": true,
+      "relatedCatalogIds": []
+    }
+  ]
+}

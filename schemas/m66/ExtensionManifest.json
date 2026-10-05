@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.6-v1"
+    },
+    "entries": {
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "potentialId": {
+            "type": "string",
+            "const": "chgnet-r2scan"
+          },
+          "family": {
+            "type": "string",
+            "const": "chgnet"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 8388608
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sourceRevision": {
+            "type": "string",
+            "const": "b9a6c15860237297a5a5169660e83b2e61a78e76"
+          },
+          "environmentProfileId": {
+            "type": "string",
+            "const": "chgnet-0.3.0-cpu-v1"
+          },
+          "license": {
+            "type": "string",
+            "const": "BSD-3-Clause-LBNL"
+          },
+          "licenseSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "readmeSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "functional": {
+            "type": "string",
+            "const": "r2SCAN"
+          }
+        },
+        "required": [
+          "potentialId",
+          "family",
+          "bytes",
+          "sha256",
+          "url",
+          "sourceRevision",
+          "environmentProfileId",
+          "license",
+          "licenseSha256",
+          "readmeSha256",
+          "reviewedAt",
+          "functional"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/ExtensionManifest.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

@@ -1,0 +1,70 @@
+{
+  "stage": "M6.5",
+  "date": "2026-10-02",
+  "platform": "darwin-arm64",
+  "passed": true,
+  "scientificQuality": "needs_review",
+  "checks": {
+    "typescriptAndVue": "passed",
+    "typescriptTests": {
+      "total": 118,
+      "passed": 117,
+      "failed": 0,
+      "skipped": 1,
+      "skip": "existing opt-in PostgreSQL unit test; dedicated actual isolated PostgreSQL MD integration passed"
+    },
+    "goTests": "passed",
+    "desktopBuild": "passed; existing 3Dmol eval/bundle-size warnings",
+    "contractsM60ThroughM65": "passed",
+    "pythonAtomisticTests": 32,
+    "pythonSampleTests": 9,
+    "curatedSkillAcceptance": {
+      "passed": 9,
+      "total": 9
+    },
+    "mdSkillFormat": "passed",
+    "realM62DesktopRegression": "passed",
+    "realM63DesktopRegression": "passed",
+    "realM64DesktopRegression": "passed",
+    "actualDualNVEAndCHGNetNVT": "passed",
+    "actualMDResourceCancellationRecovery": "passed",
+    "actualMDDesktop": "passed",
+    "actualMDPKCEPostgresGatewayDesktop": "passed",
+    "publicSecretScan": "passed; 3061 text snapshots; 33 binary/large/symlink assets not scanned; no history scan"
+  },
+  "defaultSkills": 91,
+  "categories": 13,
+  "originalCuratedFilesUnchanged": 75,
+  "frozenM60FilesUnchanged": 43,
+  "performance": {
+    "firstFrameP95Ms": 148,
+    "inputDispatchP95Ms": 0.2999999523162842,
+    "scope": "Input dispatch only, not visible-frame latency. 8-atom Si, 10 real frames, five drawer opens; not a 2000-atom throughput benchmark"
+  },
+  "providerTestMode": "synthetic streaming Responses; actual Pi SDK, PKCE, temporary PostgreSQL gateway, native consent and local CPU MD",
+  "realProviderCalls": 0,
+  "paymentCalls": 0,
+  "existingAccountDatabasesModified": false,
+  "newWeightsDownloaded": false,
+  "newLargePythonEnvironments": false,
+  "installerBuilt": false,
+  "releasePublished": false,
+  "existingPackagedSkillCheck": {
+    "passed": false,
+    "reason": "existing macOS installer has 84 Skills; source/dev has 91. Requires rebuild and separate installer acceptance"
+  },
+  "limits": [
+    "formal-domain DFT accuracy validation unavailable; production blocked",
+    "bounded CPU inorganic bulk exploration, fixed cell NVE/NVT only",
+    "Windows actual-machine and complete installer acceptance pending",
+    "real-provider multistep scientific reasoning unverified",
+    "8-atom UI benchmark does not establish large-structure/long-trajectory performance",
+    "geometry-only new segment, not exact velocity/integrator/RNG continuation"
+  ],
+  "receipts": [
+    "dynamics-runtime.json",
+    "dynamics-runtime-quick.json",
+    "dynamics-ui.json",
+    "dynamics-cloud-ui.json"
+  ]
+}

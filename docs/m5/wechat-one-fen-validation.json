@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-01",
+  "scope": "Isolated one-fen real merchant diagnostic; no production sales or ledger grants",
+  "currency": "CNY",
+  "amountFen": "1",
+  "paymentState": "SUCCESS",
+  "nativeCreationResponseSignatureVerified": true,
+  "paymentNotificationSignatureAndDecryptionVerified": true,
+  "querySignatureVerified": true,
+  "orderMerchantAppCurrencyAmountMatched": true,
+  "publicCallbackReachable": true,
+  "paidAt": "2026-10-01T20:20:15+08:00",
+  "formalSalesEnabled": false,
+  "creditOrSubscriptionGranted": false,
+  "refundExecuted": false,
+  "temporaryTunnelStopped": true,
+  "temporaryProbeStopped": true
+}

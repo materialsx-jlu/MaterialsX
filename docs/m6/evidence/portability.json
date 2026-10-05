@@ -1,0 +1,23 @@
+{
+  "version": "m6.1-v1",
+  "platform": "macos-arm64",
+  "measurements": [
+    {
+      "family": "mace",
+      "portable": true,
+      "relocatedInterpreterAndImports": true,
+      "expandedBytes": 887561057
+    },
+    {
+      "family": "chgnet",
+      "portable": true,
+      "relocatedInterpreterAndImports": true,
+      "expandedBytes": 778570983
+    }
+  ],
+  "expandedBytes": 1666132040,
+  "expandedMiB": 1588.9473342895508,
+  "capMiB": 6144,
+  "installerFreeDiskGateMiB": 8192,
+  "fullInstallerTested": false
+}

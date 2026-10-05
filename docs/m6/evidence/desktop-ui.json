@@ -1,0 +1,18 @@
+{
+  "stage": "M6.1",
+  "platform": "darwin",
+  "electron": "44.5.0",
+  "actualDesktop": true,
+  "isolatedUserData": true,
+  "formats": "CIF via native picker",
+  "realSinglepoint": "CHGNet 0.3.0",
+  "diskArtifacts": true,
+  "cancelledMaceJob": true,
+  "strictIpc": true,
+  "sharedThemes": true,
+  "bilingual": true,
+  "unchangedSkills": 84,
+  "oldCatalogCount": 100,
+  "modelCalls": 0,
+  "paymentCalls": 0
+}

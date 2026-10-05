@@ -1,0 +1,25 @@
+{
+  "stage": "M6.11",
+  "passed": true,
+  "nativeElectron": true,
+  "liveSourceCache": true,
+  "sourceCount": 12,
+  "bilingual": true,
+  "defaultSkills": 93,
+  "metadataOnlyCatalogImport": true,
+  "badSignatureRejected": true,
+  "oldCatalogPreserved": true,
+  "liveCatalogRefresh": true,
+  "sixCalculatorsUnchanged": true,
+  "separateDiscoveryAndCatalogEvents": true,
+  "evidence": true,
+  "copyExampleToComposer": true,
+  "sharedThemes": [
+    "materials-dark",
+    "codex-light"
+  ],
+  "narrowWidth": 850,
+  "providerCalls": 0,
+  "paymentCalls": 0,
+  "weightsDownloaded": 0
+}

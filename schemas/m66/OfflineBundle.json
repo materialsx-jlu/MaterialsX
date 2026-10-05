@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.6-v1"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "macos-arm64",
+        "windows-x64"
+      ]
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "files": {
+      "minItems": 1,
+      "maxItems": 100000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.\\-/+@# ()]+$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "bytes",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "expandedRuntimeBytes": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "coreWeightsBytes": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "scientificQuality": {
+      "type": "string",
+      "const": "needs_review"
+    },
+    "signedRelease": {
+      "type": "boolean",
+      "const": false
+    }
+  },
+  "required": [
+    "version",
+    "platform",
+    "createdAt",
+    "files",
+    "expandedRuntimeBytes",
+    "coreWeightsBytes",
+    "scientificQuality",
+    "signedRelease"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/OfflineBundle.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

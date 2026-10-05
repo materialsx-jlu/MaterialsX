@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "nacl-rocksalt",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "Na",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "Na",
+      "position": [
+        0.0,
+        2.82,
+        2.82
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a3",
+      "element": "Na",
+      "position": [
+        2.82,
+        0.0,
+        2.82
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a4",
+      "element": "Na",
+      "position": [
+        2.82,
+        2.82,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a5",
+      "element": "Cl",
+      "position": [
+        2.82,
+        2.82,
+        2.82
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a6",
+      "element": "Cl",
+      "position": [
+        2.82,
+        0.0,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a7",
+      "element": "Cl",
+      "position": [
+        0.0,
+        2.82,
+        0.0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a8",
+      "element": "Cl",
+      "position": [
+        0.0,
+        0.0,
+        2.82
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": [
+    [
+      5.64,
+      0,
+      0
+    ],
+    [
+      0,
+      5.64,
+      0
+    ],
+    [
+      0,
+      0,
+      5.64
+    ]
+  ],
+  "pbc": [
+    true,
+    true,
+    true
+  ],
+  "charge": null,
+  "spinMultiplicity": null,
+  "source": {
+    "artifactId": "sample-nacl-rocksalt",
+    "sha256": "8c6d410fa4038801b2552122582c6ce4643a4c8d345578a50003e4f2269f8dd4",
+    "format": "cif",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

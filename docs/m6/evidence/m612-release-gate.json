@@ -1,0 +1,36 @@
+{
+  "stage": "M6.12",
+  "checkedAt": "2026-10-02T13:47:36.199Z",
+  "engineeringPassed": true,
+  "formalReleaseReady": false,
+  "checks": [
+    {
+      "id": "macos-real-calculators",
+      "passed": true
+    },
+    {
+      "id": "bilingual-shared-theme-desktop",
+      "passed": true
+    },
+    {
+      "id": "macos-current-offline-engineering-bundle",
+      "passed": true
+    },
+    {
+      "id": "windows-actual-runtime-and-installation",
+      "passed": false
+    },
+    {
+      "id": "developer-id-notarization-and-windows-signature",
+      "passed": false,
+      "reason": "Formal signing identities and actual installer evidence are pending."
+    },
+    {
+      "id": "public-signed-catalog-feed",
+      "passed": false,
+      "reason": "Public signed catalog feed has not been deployed."
+    }
+  ],
+  "scientificQuality": "needs_review",
+  "note": "Local evidence is engineering provenance, not an independent certification. Windows hardware, formal signatures and public deployment remain release gates."
+}

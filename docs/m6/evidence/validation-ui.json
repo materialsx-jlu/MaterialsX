@@ -1,0 +1,23 @@
+{
+  "stage": "M6.6",
+  "passed": true,
+  "actualDesktop": true,
+  "extensionOfflineImport": true,
+  "disablePreservesFiles": true,
+  "realEvaluationCpuPrediction": true,
+  "syntheticReportBlocked": true,
+  "reportExport": true,
+  "sharedThemes": true,
+  "actualStaticAtoms": 2000,
+  "firstFrameMs": 261,
+  "rotationRafFps": 119.47806948592991,
+  "rotationPixelsChanged": true,
+  "sceneRenderCalls": 103,
+  "sceneRenderFps": 54.02570154733805,
+  "staticThirtyFpsTargetMet": true,
+  "performanceScope": "Native 2000-atom rotation with real WebGL clearColor calls (one per scene render in pinned 3Dmol renderer), canvas pixel change and rAF cadence; not GPU presentation latency or simultaneous visible composer latency",
+  "scientificQuality": "needs_review",
+  "independentDftHoldoutAvailable": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

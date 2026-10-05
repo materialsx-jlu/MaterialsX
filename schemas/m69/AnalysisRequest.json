@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "locale": {
+      "type": "string",
+      "enum": [
+        "zh",
+        "en"
+      ]
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "inorganic-crystals",
+        "molecules",
+        "polymers",
+        "surfaces",
+        "interfaces",
+        "unknown"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "production",
+        "exploratory"
+      ]
+    },
+    "task": {
+      "type": "string",
+      "enum": [
+        "singlepoint",
+        "relaxation"
+      ]
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "optimizer": {
+          "type": "string",
+          "const": "FIRE"
+        },
+        "cellMode": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        },
+        "cellConstraint": {
+          "type": "string",
+          "enum": [
+            "none",
+            "hydrostatic",
+            "full"
+          ]
+        },
+        "externalPressureGPa": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": -10,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "fmaxEvPerAngstrom": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 0.2
+        }
+      },
+      "required": [
+        "optimizer",
+        "cellMode",
+        "cellConstraint",
+        "externalPressureGPa",
+        "maxSteps",
+        "fmaxEvPerAngstrom"
+      ],
+      "additionalProperties": false
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxAtoms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxWallSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "maxMemoryMiB": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 8192
+        },
+        "maxOutputMiB": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "threads": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "maxAtoms",
+        "maxSteps",
+        "maxWallSeconds",
+        "maxMemoryMiB",
+        "maxOutputMiB",
+        "threads"
+      ],
+      "additionalProperties": false
+    },
+    "maxDownloadBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 536870912
+    }
+  },
+  "required": [
+    "projectId",
+    "structureId",
+    "prompt",
+    "locale",
+    "domain",
+    "mode",
+    "task",
+    "budget",
+    "maxDownloadBytes"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m69/AnalysisRequest.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

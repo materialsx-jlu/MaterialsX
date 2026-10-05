@@ -33,6 +33,7 @@ export interface WorkflowInput {
   signal: AbortSignal;
   onProgress?: (text: string) => void;
 }
+export class WorkflowInterruptedError extends Error { constructor(message:string){super(message);this.name="WorkflowInterruptedError"} }
 export type JsonModelCall = (prompt: string, label: string) => Promise<unknown>;
 const hash = (value: string) => createHash("sha256").update(value).digest("hex");
 const normalizeQuote = (text: string) => text.replace(/\u00ad/g, "").replace(/\s+/g, " ").trim();
@@ -171,7 +172,7 @@ export async function extractPageWithRetry(page: SourcePage, samples: string[], 
       }
       return validatePageExtraction(raw, page);
     } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") throw error;
+      if (error instanceof WorkflowInterruptedError || (error instanceof Error && error.name === "AbortError")) throw error;
       correction = `\n上次结果未通过机器检查：${error instanceof Error ? error.message : String(error)}。已保存 ${accepted.size} 条通过检查的事实；本次只返回修正后的失败候选和遗漏事实，不要重复已正确输出的事实。返回相同 JSON 结构；不确定的事实放入 gaps。`;
       if (attempt === 2) {
         if (accepted.size) return { facts: [...accepted.values()], notes: lastNotes, gaps: [...gaps, `该页部分候选事实仍需复核：${error instanceof Error ? error.message : String(error)}`] };
@@ -376,9 +377,11 @@ export async function runRpsmeWorkflow(input: WorkflowInput, modelCall?: JsonMod
   const runId = `${new Date().toISOString().replace(/[:.]/g, "-")}-${randomUUID().slice(0, 8)}`;
   const directory = join(input.projectPath, "materials-output", `rpsme-${runId}`);
   await mkdir(directory, { recursive: true });
-  const cacheDirectory = join(input.projectPath, "materials-output", ".rpsme-cache", hash(JSON.stringify([WORKFLOW_VERSION, input.modelId, (documentSet.documents as Row[]).map((doc) => doc.sha256)])));
+  const cacheDirectory = join(input.projectPath, "materials-output", ".rpsme-cache", hash(JSON.stringify([WORKFLOW_VERSION, input.endpoint, input.modelId, (documentSet.documents as Row[]).map((doc) => doc.sha256)])));
   await mkdir(cacheDirectory, { recursive: true });
-  const invoke = modelCall ?? await createJsonModel(input, directory);
+  const rawInvoke = modelCall ?? await createJsonModel(input, directory);
+  let callIndex=0;
+  const invoke:JsonModelCall=async(prompt,label)=>{const call=++callIndex;const result=await rawInvoke(prompt,label);if(modelCall)await atomicJson(join(directory,`platform-call-${String(call).padStart(4,"0")}.json`),{label,result});return result};
   const state: Row = { workflowVersion: WORKFLOW_VERSION, model: input.modelId, source: input.pdfPath, manifest: input.manifestPath, status: "extracting", totalPages: pages.length, completedPages: 0, outputDirectory: directory };
   const saveState = () => atomicJson(join(directory, "run-state.json"), state);
   await saveState();
@@ -415,7 +418,9 @@ export async function runRpsmeWorkflow(input: WorkflowInput, modelCall?: JsonMod
     }
     if (!extracted.some((item) => item.extraction.facts.length)) throw new Error("所有页面均未提取到本论文实验事实；已保留逐页检查结果，不能生成虚构实验。");
     let metadata: Row = {};
-    for (let attempt = 0; attempt < 2; attempt++) {
+    const metadataCache=join(cacheDirectory,"metadata.json");
+    let metadataCached=false;try{const saved=JSON.parse(await readFile(metadataCache,"utf8"));if(saved&&typeof saved==="object"&&!Array.isArray(saved)&&(saved.title===undefined||typeof saved.title==="string"&&normalizeQuote(pages[0]!.text).includes(normalizeQuote(restoreSourceQuote(saved.title,pages[0]!.text))))&&(saved.doi===null||saved.doi===undefined||typeof saved.doi==="string"&&pages[0]!.text.includes(saved.doi))){metadata=saved;metadataCached=true}}catch{}
+    for (let attempt = 0; attempt < 2 && !metadataCached; attempt++) {
       try {
         const candidate = await invoke(`仅从以下首页抄录标题与 DOI，返回 {"title":"...","doi":null或原文DOI}。不要改写标题，不要把引用文献的 DOI 当作本文 DOI。\n${pages[0]!.text}`, "论文元数据");
         if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) throw new Error("元数据不是对象");
@@ -424,9 +429,11 @@ export async function runRpsmeWorkflow(input: WorkflowInput, modelCall?: JsonMod
           delete metadata.title;
           gaps.push("模型标题未在首页逐字定位，使用原文件名。");
         }
+        await atomicJson(metadataCache,metadata);
         break;
       } catch (error) {
         input.signal.throwIfAborted();
+        if(error instanceof WorkflowInterruptedError)throw error;
         if (attempt === 1) gaps.push(`论文元数据抽取失败，保留源文件名和哈希：${error instanceof Error ? error.message : String(error)}`);
       }
     }

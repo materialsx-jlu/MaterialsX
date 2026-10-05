@@ -1,0 +1,19 @@
+{
+  "version": "m6.6-v1",
+  "entries": [
+    {
+      "potentialId": "chgnet-r2scan",
+      "family": "chgnet",
+      "bytes": 4872387,
+      "sha256": "8eba3db0f35a2788bb3ae22885ad340591e27996f213c6643af522a633b50dad",
+      "url": "https://raw.githubusercontent.com/CederGroupHub/chgnet/b9a6c15860237297a5a5169660e83b2e61a78e76/chgnet/pretrained/r2scan/chgnet_r2scan_transfer_learning_e15f36s161m23.pth.tar",
+      "sourceRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+      "environmentProfileId": "chgnet-0.3.0-cpu-v1",
+      "license": "BSD-3-Clause-LBNL",
+      "licenseSha256": "a06789a2624485a9de5903d3d4cceeec6127a36042dd7364999ff994587a4a41",
+      "readmeSha256": "3e05b1f0dde58cd2e69f5ada2cf03ca959f884d03ebab44b4f1cf21dc1c4c3df",
+      "reviewedAt": "2026-10-02",
+      "functional": "r2SCAN"
+    }
+  ]
+}

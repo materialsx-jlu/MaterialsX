@@ -1,0 +1,23 @@
+[
+  {
+    "manifestSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "checks": {
+      "license": false,
+      "source": false,
+      "secret_scan": false,
+      "example_rights": false,
+      "skills_bundle": false,
+      "models_catalog": false,
+      "protocol_compatibility": false,
+      "database_compatibility": false,
+      "macos_installation": false,
+      "macos_signature": false,
+      "macos_notarization": false,
+      "windows_installation": false,
+      "windows_signature": false
+    },
+    "evidenceRefs": [
+      "replace-with-reviewed-evidence-id"
+    ]
+  }
+]

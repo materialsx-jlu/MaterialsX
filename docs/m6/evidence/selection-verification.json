@@ -1,0 +1,55 @@
+{
+  "stage": "M6.4",
+  "date": "2026-10-02",
+  "platform": "darwin-arm64",
+  "passed": true,
+  "scientificQuality": "needs_review",
+  "checks": {
+    "typescriptAndVue": "passed",
+    "typescriptTests": {
+      "total": 114,
+      "passed": 113,
+      "skipped": 1,
+      "failed": 0,
+      "skip": "existing opt-in PostgreSQL test; dedicated M64 real PostgreSQL desktop test passed"
+    },
+    "goTests": "passed",
+    "fullBuild": "passed; existing 3Dmol eval and bundle-size warnings",
+    "contractsM60ThroughM64": "passed",
+    "pythonAtomisticTests": 22,
+    "pythonSampleTests": 9,
+    "curatedSkillAcceptance": {
+      "passed": 9,
+      "total": 9
+    },
+    "newSkillFormatValidation": 7,
+    "realM61Regression": "passed",
+    "realM63DesktopRegression": "passed",
+    "realM64CPUAndPiGatewayContract": "passed",
+    "actualM64Desktop": "passed",
+    "actualM64PKCEPostgresGatewayDesktop": "passed"
+  },
+  "defaultSkills": 91,
+  "categories": 13,
+  "newTaskSkills": 7,
+  "originalCuratedFilesUnchanged": 75,
+  "frozenM60FilesUnchanged": 43,
+  "providerTestMode": "synthetic Responses; real Pi SDK, identity, PostgreSQL gateway, consent UI and local CPU inference",
+  "realProviderCalls": 0,
+  "paymentCalls": 0,
+  "existingAccountDatabasesModified": false,
+  "installerBuilt": false,
+  "releasePublished": false,
+  "limits": [
+    "formal-domain DFT validation unavailable; production blocked",
+    "CPU inorganic bulk exploration only",
+    "MD skill planning-only; executor M6.5",
+    "Windows real-machine and complete installer validation pending",
+    "real-provider multistep scientific reasoning not covered"
+  ],
+  "receipts": [
+    "selection-runtime.json",
+    "selection-ui.json",
+    "selection-cloud-ui.json"
+  ]
+}

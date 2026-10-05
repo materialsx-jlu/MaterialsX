@@ -1,0 +1,40 @@
+process.env.MATERIALSX_DISCOVERY_AUTOSYNC='0';
+const {app,BrowserWindow,dialog,shell}=require('electron');
+const {mkdtempSync,mkdirSync,writeFileSync,rmSync}=require('node:fs');
+const {tmpdir}=require('node:os');const {resolve,join}=require('node:path');const {pathToFileURL}=require('node:url');const assert=require('node:assert/strict');
+const fixture=mkdtempSync(join(tmpdir(),'materialsx-m61-ui-'));const project=join(fixture,'project');mkdirSync(project);app.setPath('userData',fixture);
+delete process.env.MATERIALSX_RENDERER_URL;process.env.MATERIALSX_IDENTITY_URL='http://127.0.0.1:1';
+dialog.showOpenDialog=async(_win,options)=>({canceled:false,filePaths:[options.properties.includes('openDirectory')?project:resolve('samples/atomistic/nacl-rocksalt.cif')]});
+let revealed=0;shell.showItemInFolder=()=>{revealed++};const pause=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{let code=1;try{
+ await import(pathToFileURL(resolve('dist/apps/desktop/main/index.js')).href);let win;
+ for(let i=0;i<200;i++){win=BrowserWindow.getAllWindows()[0];if(win&&!win.webContents.isLoadingMainFrame())break;await pause(100)}assert(win);
+ const js=code=>win.webContents.executeJavaScript(code);
+ async function until(condition){for(let i=0;i<1200;i++){if(await js(condition))return;await pause(100)}throw Error('UI timed out: '+condition)}
+ const click=label=>js(`Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes(${JSON.stringify(label)}))?.click()`);
+ await until(`!!document.querySelector('.empty-project')`);
+ // Drive the real native-picker IPC then reload bootstrap; avoid a click racing the initial bootstrap.
+ await js(`window.materialsx.chooseProjectFolder()`);await js(`location.reload()`);await until(`!!document.querySelector('.primary-nav')`);
+ await until(`!document.querySelector('.new-task-button').disabled`);await click('模型目录');
+ await until(`document.body.innerText.includes('机器学习势')`);await click('机器学习势');
+ await until(`!!document.querySelector('[data-testid="atomistic-run-panel"]') && document.body.innerText.includes('隔离环境已安装')`);
+ await click('导入结构文件');await until(`document.querySelector('.structure-summary')?.innerText.includes('8 个原子')`);
+ assert((await js(`document.querySelector('.structure-summary').innerText`)).includes('PBC T T T'));
+ await js(`(()=>{const s=document.querySelector('[data-testid=\"science-mode\"]');s.value='exploratory';s.dispatchEvent(new Event('change',{bubbles:true}))})()`);await click('运行单点计算');await until(`document.querySelector('.run-card')?.innerText.includes('已完成 · 需科学复核')`);
+ assert((await js(`document.querySelector('.run-card').innerText`)).includes('eV'));
+ await click('查看输出文件');for(let i=0;i<100&&revealed===0;i++)await pause(20);assert.equal(revealed,1);
+ const dir=resolve('runtime/m6/ui');mkdirSync(dir,{recursive:true});
+ const shot=async file=>{await js(`new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))`);await pause(200);writeFileSync(join(dir,file),(await win.webContents.capturePage()).toPNG())};
+ await shot('runtime-dark.png');
+ const b=await js('window.materialsx.bootstrap()');assert.equal(b.skills.length,91);assert.equal(b.models.length,100);assert.equal(b.potentialRegistry.potentials.length,16);
+ const projectId=b.projects[0].id;
+ const jobs=await js(`window.materialsx.listAtomisticRuns(${JSON.stringify(projectId)})`);assert.equal(jobs[0].result.atomCount,8);assert.equal(jobs[0].artifacts.length,4);
+ await js(`(async()=>{try{await window.materialsx.startAtomisticRun({projectId:${JSON.stringify(projectId)},structureId:${JSON.stringify(jobs[0].structure.id)},potentialId:'chgnet-0.3.0',code:'arbitrary'});return false}catch{return true}})()`).then(value=>assert(value));
+ await js(`document.querySelector('.atomistic-run-panel select[aria-label=\"计算势函数\"]').value='mace-mp-0b3-medium';document.querySelector('.atomistic-run-panel select[aria-label=\"计算势函数\"]').dispatchEvent(new Event('change',{bubbles:true}))`);
+ await click('运行单点计算');await until(`document.querySelectorAll('.run-card').length===2`);await click('取消');await until(`document.querySelector('.run-card')?.innerText.includes('已取消')`);
+ await js(`Array.from(document.querySelectorAll('.sidebar-footer button')).find(b=>b.textContent.includes('设置')).click()`);await until(`!!document.querySelector('.theme-options')`);
+ await js(`document.querySelector('.theme-option:has(.theme-preview.codex-light)').click()`);await until(`document.documentElement.dataset.theme==='codex-light'`);await js(`document.querySelector('button[aria-label="关闭设置"]').click()`);await pause(350);await shot('runtime-light.png');
+ await js(`Array.from(document.querySelectorAll('[aria-label="模型介绍语言"] button')).find(b=>b.textContent.includes('English')).click()`);await until(`document.querySelector('.atomistic-run-panel')?.innerText.includes('Atomic structure · Local computation')`);
+ const receipt={stage:'M6.1',platform:process.platform,electron:process.versions.electron,actualDesktop:true,isolatedUserData:true,formats:'CIF via native picker',realSinglepoint:'CHGNet 0.3.0',diskArtifacts:true,cancelledMaceJob:true,strictIpc:true,sharedThemes:true,bilingual:true,defaultSkills:91,oldCatalogCount:100,modelCalls:0,paymentCalls:0};
+ writeFileSync(join(dir,'runtime-acceptance.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));code=0;
+ }catch(error){console.error(error.stack)}finally{for(const win of BrowserWindow.getAllWindows())win.destroy();app.quit();await pause(2000);rmSync(fixture,{recursive:true,force:true});app.exit(code)}})();

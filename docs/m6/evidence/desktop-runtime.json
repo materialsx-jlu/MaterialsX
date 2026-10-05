@@ -1,0 +1,243 @@
+{
+  "version": "m6.1-v1",
+  "platform": "darwin-arm64",
+  "checks": [
+    "four real formats imported",
+    "ownership, strict input, molecule and partial occupancy gates",
+    "both core checkpoints: actual single point, disk artifacts, canonical units, three perturbed numerical probes each",
+    "one heavy job at a time; queued cancellation and running child cancellation have no successful artifacts",
+    "real workers enforce low memory and wall-time budgets without successful artifacts",
+    "persisted terminal jobs survive restart",
+    "missing persisted output invalidates a previously completed job instead of claiming success"
+  ],
+  "runs": [
+    {
+      "potentialId": "chgnet-0.3.0",
+      "result": {
+        "schemaVersion": "m6.0-v1",
+        "runId": "4473c5f5-d74b-4eb0-9a40-f123725c7010",
+        "planId": "4473c5f5-d74b-4eb0-9a40-f123725c7010",
+        "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+        "potentialId": "chgnet-0.3.0",
+        "potentialSha256": "d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1",
+        "atomCount": 8,
+        "energyEv": -42.4974365234375,
+        "forcesEvPerAngstrom": [
+          [
+            3.976747393608093e-7,
+            -1.0244548320770264e-7,
+            -0.0000025015324354171753
+          ],
+          [
+            -0.0000012848759070038795,
+            -0.0000010400544852018356,
+            0.0000014380784705281258
+          ],
+          [
+            -0.000001312466338276863,
+            0.0000021489104256033897,
+            -0.0000016310950741171837
+          ],
+          [
+            -0.000002560787834227085,
+            -0.0000027653295546770096,
+            -0.0000021578744053840637
+          ],
+          [
+            0.0000024550827220082283,
+            -9.495997801423073e-7,
+            -7.878988981246948e-7
+          ],
+          [
+            -0.0000011406373232603073,
+            1.969747245311737e-7,
+            0.0000036391429603099823
+          ],
+          [
+            0.0000016735866665840149,
+            8.502975106239319e-7,
+            0.0000017667189240455627
+          ],
+          [
+            0.0000018086284399032593,
+            0.0000016689300537109375,
+            2.207234501838684e-7
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            -0.010601412504911423,
+            -0.010601412504911423,
+            -0.010601410642266273,
+            -3.0140856921434533e-8,
+            -5.795616431214512e-9,
+            -2.8639021820708876e-8
+          ]
+        },
+        "stopReason": "singlepoint",
+        "completedSteps": 1,
+        "quality": "needs_review",
+        "validationEvidenceIds": []
+      },
+      "artifacts": [
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "db4aeb97-1920-4b3c-b4d2-c22508e1db9f",
+          "projectId": "fixture-project",
+          "runId": "4473c5f5-d74b-4eb0-9a40-f123725c7010",
+          "type": "atomic_structure",
+          "sha256": "6503feb2635299c40035a1c52c248dd4d7b4fd372a1b1af483e0785fd0f20c64",
+          "bytes": 1844,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "structure.json"
+        },
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "50a4bd8b-e00c-4970-95d4-c2d721b0c786",
+          "projectId": "fixture-project",
+          "runId": "4473c5f5-d74b-4eb0-9a40-f123725c7010",
+          "type": "atomistic_result",
+          "sha256": "1e6ea0bd77194475cded73c8e6cd268129c6f1c554497a62fb2e2d0cd89be9e5",
+          "bytes": 1645,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "result.json"
+        },
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "67af7bb2-b4c1-4d92-8510-bd9601de9f8c",
+          "projectId": "fixture-project",
+          "runId": "4473c5f5-d74b-4eb0-9a40-f123725c7010",
+          "type": "validation_report",
+          "sha256": "5c72e60b32fdca32f20b26837c5c309fe2b9418a3ceafeadc77d9c73bef798ad",
+          "bytes": 349,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "validation.json"
+        }
+      ]
+    },
+    {
+      "potentialId": "mace-mp-0b3-medium",
+      "result": {
+        "schemaVersion": "m6.0-v1",
+        "runId": "4c6d428a-ca7a-4bf2-abaa-690453388627",
+        "planId": "4c6d428a-ca7a-4bf2-abaa-690453388627",
+        "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+        "potentialId": "mace-mp-0b3-medium",
+        "potentialSha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+        "atomCount": 8,
+        "energyEv": -43.04722037793425,
+        "forcesEvPerAngstrom": [
+          [
+            4.846220584345885e-16,
+            4.7865695654282973e-17,
+            -3.5561831257524545e-16
+          ],
+          [
+            6.662803514749689e-16,
+            -1.8295911660692887e-17,
+            2.8941421741784934e-16
+          ],
+          [
+            -5.306695295866082e-16,
+            -8.557404459520745e-17,
+            3.6120873002712384e-16
+          ],
+          [
+            -6.193390544300159e-16,
+            -2.1706584575224916e-16,
+            -3.71678057255187e-17
+          ],
+          [
+            5.359567092433695e-16,
+            8.766452190903107e-17,
+            -1.6839692617773294e-16
+          ],
+          [
+            -2.8709673527416157e-16,
+            2.654126918244515e-16,
+            -1.481020167615199e-16
+          ],
+          [
+            8.998878031629687e-17,
+            -2.680147770384167e-16,
+            -5.0090140368830305e-17
+          ],
+          [
+            -3.1104030437883413e-16,
+            1.0636200825863114e-16,
+            1.3791051634015616e-16
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            -0.011817994562235977,
+            -0.011817994562235966,
+            -0.011817994562235866,
+            -7.747070324414233e-19,
+            -8.8335925800682e-18,
+            1.6182368970385655e-17
+          ]
+        },
+        "stopReason": "singlepoint",
+        "completedSteps": 1,
+        "quality": "needs_review",
+        "validationEvidenceIds": []
+      },
+      "artifacts": [
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "38337c06-6010-4488-84e7-43ec01f6a423",
+          "projectId": "fixture-project",
+          "runId": "4c6d428a-ca7a-4bf2-abaa-690453388627",
+          "type": "atomic_structure",
+          "sha256": "6503feb2635299c40035a1c52c248dd4d7b4fd372a1b1af483e0785fd0f20c64",
+          "bytes": 1844,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "structure.json"
+        },
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "9a749ab3-1c8a-4c5c-90f2-66cd60e4cab7",
+          "projectId": "fixture-project",
+          "runId": "4c6d428a-ca7a-4bf2-abaa-690453388627",
+          "type": "atomistic_result",
+          "sha256": "c0daadbf874b912afae784a01587b30e13957109c5096240f7ce62522fadd9f0",
+          "bytes": 1644,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "result.json"
+        },
+        {
+          "schemaVersion": "m6.0-v1",
+          "id": "daf8f30e-ce7d-43e0-a9d8-586247f8905a",
+          "projectId": "fixture-project",
+          "runId": "4c6d428a-ca7a-4bf2-abaa-690453388627",
+          "type": "validation_report",
+          "sha256": "eb90afa1ceda1e741506874709de18d36c956b768d0aa6f01d44bb6a65155ae1",
+          "bytes": 348,
+          "structureId": "65a205d4-4e28-4ab2-9727-1c5a82c72a25",
+          "frames": null,
+          "partial": false,
+          "file": "validation.json"
+        }
+      ]
+    }
+  ],
+  "modelCalls": 0,
+  "paymentCalls": 0
+}

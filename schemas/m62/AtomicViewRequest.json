@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "import"
+        },
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "structureId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        }
+      },
+      "required": [
+        "kind",
+        "projectId",
+        "structureId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "artifact"
+        },
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "artifactId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        }
+      },
+      "required": [
+        "kind",
+        "projectId",
+        "runId",
+        "artifactId"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$id": "https://materialsx.local/schemas/m6.2-v1/AtomicViewRequest.json",
+  "x-runtime-refinements": "Project ownership, realpath/symlink checks, SHA256 verification, force/atom counts, display limits and static-only config checks are mandatory."
+}

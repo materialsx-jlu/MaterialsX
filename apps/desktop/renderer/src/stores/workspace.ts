@@ -1,5 +1,6 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
+import type { PotentialRegistry } from "../../../../../packages/contracts/src/atomistic.js";
 import type {
   ConnectionSummary,
   ConversationRecord,
@@ -27,6 +28,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const messages = ref<MessageRecord[]>([]);
   const skills = ref<SkillSummary[]>([]);
   const models = ref<ResearchModelSummary[]>([]);
+  const potentialCatalog = ref<import("../../../../../packages/contracts/src/potential-hub.js").PotentialCatalog | null>(null);
+  const potentialRegistry = ref<PotentialRegistry | null>(null);
   const connections = ref<ConnectionSummary[]>([]);
   const runs = ref<RunRecord[]>([]);
   const settings = ref<ModelSettings>({
@@ -63,6 +66,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     settings.value = data.settings;
     skills.value = data.skills;
     models.value = data.models;
+    potentialCatalog.value = data.potentialCatalog ?? null;
+    potentialRegistry.value = data.potentialRegistry ?? null;
     connections.value = data.connections;
     runs.value = data.runs;
     if (!activeProjectId.value && projects.value[0]) activeProjectId.value = projects.value[0].id;
@@ -103,17 +108,21 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     ];
   }
 
+  const activeStreams = new Map<string,string>();
   function handleMessageStream(event: MessageStreamEvent): void {
     if (event.type === "start") {
+      activeStreams.set(event.conversationId,event.streamId);
       streamSequences.set(event.streamId, event.sequence);
       pendingDeltas.delete(event.streamId);
       if (event.conversationId === activeConversationId.value) ensureStreamMessage(event);
       return;
     }
+    if(activeStreams.get(event.conversationId)!==event.streamId)return;
     const lastSequence = streamSequences.get(event.streamId) ?? -1;
     if (event.sequence <= lastSequence) return;
     streamSequences.set(event.streamId, event.sequence);
     if (event.conversationId !== activeConversationId.value) return;
+    if (event.type === "phase") return;
     ensureStreamMessage(event);
     if (event.type === "delta" && event.delta) {
       pendingDeltas.set(event.streamId, (pendingDeltas.get(event.streamId) ?? "") + event.delta);
@@ -133,6 +142,10 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     }
   }
 
+  async function refreshSkills(): Promise<void> {
+    skills.value = (await window.materialsx.bootstrap()).skills;
+  }
+
   async function initialize(): Promise<void> {
     loading.value = true;
     error.value = "";
@@ -142,9 +155,10 @@ export const useWorkspaceStore = defineStore("workspace", () => {
         streamSubscribed = true;
       }
       applyBootstrap(await window.materialsx.bootstrap());
-      await loadSubscription();
       const first = projectConversations.value[0];
       if (first) await selectConversation(first.id);
+      // Restore local context before optional network work can delay and overwrite user navigation.
+      await loadSubscription();
     } catch (cause) {
       error.value = cause instanceof Error ? cause.message : String(cause);
     } finally {
@@ -212,7 +226,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     sending.value = true;
     error.value = "";
     const conversationId = activeConversationId.value;
-    const streamId = `stream:${conversationId}`;
+    const streamToken = crypto.randomUUID();
+    const streamId = `stream:${conversationId}:${streamToken}`;
     const optimisticUserId = `client:${crypto.randomUUID()}`;
     const createdAt = new Date().toISOString();
     messages.value = [
@@ -225,6 +240,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
         projectId: activeProjectId.value,
         conversationId,
         content,
+        streamToken,
       });
       sending.value = false;
       const currentProject = activeProjectId.value;
@@ -284,6 +300,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     messages,
     skills,
     models,
+    potentialRegistry,
+    potentialCatalog,
     connections,
     runs,
     settings,
@@ -299,6 +317,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     activeConversation,
     readyConnectionCount,
     initialize,
+    refreshSkills,
     loadSubscription,
     activateDevelopmentPlan,
     chooseProject,

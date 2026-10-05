@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "m6-inorganic-screening-v1",
+  "frozenAt": "2026-10-01",
+  "scope": "Core inorganic-crystal CPU screening; not molecules, polymers, interfaces, phase stability or universal accuracy",
+  "geometrySampleSetId": "m6-geometry-v1",
+  "defaults": {
+    "maxAtoms": 256,
+    "maxSteps": 200,
+    "maxWallSeconds": 600,
+    "maxMemoryMiB": 4096,
+    "maxOutputMiB": 64,
+    "threads": 4,
+    "concurrentHeavyJobs": 1,
+    "optimizer": "FIRE",
+    "cellMode": "fixed",
+    "fmaxEvPerAngstrom": 0.05,
+    "mdTimestepFs": 0.5,
+    "mdSteps": 200,
+    "mdSampleEvery": 10,
+    "mdTemperatureK": 300,
+    "seed": 20261001,
+    "mdStatus": "parameters subject to per-structure eligibility and numerical validation in M6.5"
+  },
+  "limits": {
+    "maxAtoms": 2000,
+    "relaxationMaxSteps": 500,
+    "mdMaxSteps": 2000,
+    "maxWallSeconds": 1800,
+    "maxMemoryMiB": 8192,
+    "maxOutputMiB": 256,
+    "threads": 8
+  },
+  "interface": {
+    "energyUnit": "eV-total",
+    "forcesUnit": "eV/angstrom",
+    "stressUnit": "eV/angstrom^3",
+    "stressSign": "positive-tension",
+    "stressOrder": [
+      "xx",
+      "yy",
+      "zz",
+      "yz",
+      "xz",
+      "xy"
+    ],
+    "allFiniteRequired": true,
+    "forceShape": "N x 3",
+    "energyPerAtomConversion": "multiply by N once",
+    "gpaToEvPerAngstromCubed": 0.006241509074460762,
+    "unitConstantBasis": "SI exact elementary charge 1.602176634e-19 C; adapter must declare any ASE CODATA conversion difference"
+  },
+  "numerical": {
+    "finiteDifferenceStepAngstrom": 0.001,
+    "gradientMaxAbsErrorEvPerAngstrom": {
+      "float64": 0.005,
+      "float32": 0.02
+    },
+    "translationRotationEnergyToleranceEvPerAtom": {
+      "float64": 1e-05,
+      "float32": 0.001
+    },
+    "forceCovarianceToleranceEvPerAngstrom": {
+      "float64": 0.0001,
+      "float32": 0.005
+    },
+    "minimumProbeStructures": 3,
+    "cpuRequired": true,
+    "gpuRequiresSeparateReceipt": true
+  },
+  "execution": {
+    "maxForceDefinition": "max_i(norm(F_i))",
+    "convergenceRequiresActualFmax": true,
+    "maxStepsIsNotConverged": true,
+    "nveProbeDurationFs": 1000,
+    "nveMaxAbsDriftMevPerAtomPerPs": 1,
+    "nveSlopeRequiresUnthermostattedTrajectory": true,
+    "nvtTemperatureRelativeTolerance": 0.2,
+    "nvtScope": "engineering smoke only; not thermodynamic validation"
+  },
+  "domainQuality": {
+    "status": "blocked-reference-data-missing",
+    "references": [],
+    "requiredSettings": [
+      "DFT code and version",
+      "functional and +U parameters",
+      "pseudopotential hashes",
+      "cutoff and k-point mesh",
+      "spin and charge",
+      "matching energy reference and correction policy",
+      "force labels and convergence settings",
+      "source license",
+      "model training overlap audit"
+    ],
+    "minimumStructuresPerCore": 50,
+    "minimumPerDomain": {
+      "bulk": 20,
+      "multi-element": 10,
+      "defect": 10,
+      "surface": 10
+    },
+    "energyMaeMaxEvPerAtom": 0.05,
+    "forceRmseMaxEvPerAngstrom": 0.2,
+    "application": "Targets predeclared for this screening policy; must pass independently per core checkpoint and per matched domain. No offsets fitted to the held-out set. Unknown overlap or missing matched references cannot pass.",
+    "prohibitedClaims": [
+      "universal accuracy",
+      "polymer validation from crystal tests",
+      "synthetic fixtures are DFT held-out samples",
+      "model agreement implies accuracy"
+    ]
+  }
+}

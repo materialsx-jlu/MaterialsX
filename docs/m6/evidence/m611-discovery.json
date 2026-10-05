@@ -1,0 +1,127 @@
+{
+  "stage": "M6.11",
+  "capturedAt": "2026-10-02T12:31:03.527Z",
+  "actualPublicMetadataCollection": true,
+  "sourceCount": 12,
+  "leadCount": 273,
+  "leadKinds": {
+    "code": 141,
+    "checkpoint": 33,
+    "paper": 28,
+    "repository": 71
+  },
+  "approvedForExecution": 0,
+  "sources": [
+    {
+      "id": "sevennet",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/MDIL-SNU/SevenNet/releases",
+      "count": 27,
+      "lastSuccess": "2026-10-02T12:28:39.343Z",
+      "error": null
+    },
+    {
+      "id": "mace-foundations",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/ACEsuit/mace-foundations/releases",
+      "count": 24,
+      "lastSuccess": "2026-10-02T12:28:42.053Z",
+      "error": null
+    },
+    {
+      "id": "chgnet",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/CederGroupHub/chgnet/releases",
+      "count": 19,
+      "lastSuccess": "2026-10-02T12:28:42.947Z",
+      "error": null
+    },
+    {
+      "id": "matgl",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/materialyzeai/matgl/releases",
+      "count": 30,
+      "lastSuccess": "2026-10-02T12:29:37.714Z",
+      "error": null
+    },
+    {
+      "id": "matgl-models",
+      "kind": "huggingface",
+      "url": "https://huggingface.co/api/models?author=materialyze&limit=30&sort=lastModified&direction=-1&full=true",
+      "count": 20,
+      "lastSuccess": "2026-10-02T12:31:03.527Z",
+      "error": null
+    },
+    {
+      "id": "nequip",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/mir-group/nequip/releases",
+      "count": 30,
+      "lastSuccess": "2026-10-02T12:28:46.791Z",
+      "error": null
+    },
+    {
+      "id": "gpumd",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/brucefan1983/GPUMD/releases",
+      "count": 30,
+      "lastSuccess": "2026-10-02T12:28:47.854Z",
+      "error": null
+    },
+    {
+      "id": "gap",
+      "kind": "github_commits",
+      "url": "https://api.github.com/repos/libAtoms/GAP/commits",
+      "count": 3,
+      "lastSuccess": "2026-10-02T12:28:49.737Z",
+      "error": null
+    },
+    {
+      "id": "schnetpack",
+      "kind": "github_release",
+      "url": "https://api.github.com/repos/atomistic-machine-learning/schnetpack/releases",
+      "count": 11,
+      "lastSuccess": "2026-10-02T12:28:51.507Z",
+      "error": null
+    },
+    {
+      "id": "arxiv-mlip",
+      "kind": "arxiv",
+      "url": "https://export.arxiv.org/api/query?search_query=ti%3A%22interatomic+potential%22+OR+ti%3A%22machine+learning+potential%22&sortBy=lastUpdatedDate&sortOrder=descending&start=0&max_results=30",
+      "count": 28,
+      "lastSuccess": "2026-10-02T12:28:52.490Z",
+      "error": null
+    },
+    {
+      "id": "openkim",
+      "kind": "openkim",
+      "url": "https://query.openkim.org/api",
+      "count": 50,
+      "lastSuccess": "2026-10-02T12:28:53.854Z",
+      "error": null
+    },
+    {
+      "id": "nist-ipr",
+      "kind": "nist",
+      "url": "https://www.ctcms.nist.gov/potentials/",
+      "count": 1,
+      "lastSuccess": "2026-10-02T12:29:39.355Z",
+      "error": null
+    }
+  ],
+  "weightsDownloaded": 0,
+  "providerCalls": 0,
+  "paymentCalls": 0,
+  "notes": [
+    "Bounded discovery windows, not a worldwide complete inventory.",
+    "NIST IPR captured its index only; individual entries not yet discovered.",
+    "Repository license observations are not weight or training-data license approval.",
+    "Detailed snapshots and unreviewed source excerpts remain in ignored local runtime storage."
+  ],
+  "repeatedRealSourceSync": {
+    "sourceId": "matgl-models",
+    "changes": 0,
+    "leadCount": 273,
+    "capturedAt": "2026-10-02T12:51:48.682Z"
+  }
+}

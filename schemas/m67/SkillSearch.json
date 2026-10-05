@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "limit": {
+      "default": 8,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20
+    }
+  },
+  "required": [
+    "query",
+    "limit"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.7-v1/SkillSearch.json",
+  "x-runtime-refinements": "Resolve evidence/related/coverage IDs, deduplicate weight configurations, validate live identity and task eligibility separately. Catalog lookup never grants execution permission. Skill content contracts do not write or execute code."
+}

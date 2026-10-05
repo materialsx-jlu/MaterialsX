@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "status": "targets-frozen-lock-resolution-pending-M6.1",
+  "profiles": [
+    {
+      "id": "mace-mp-0b3-medium-cpu-v1",
+      "potentialId": "mace-mp-0b3-medium",
+      "sourceRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+      "python": "3.12.10",
+      "torch": "2.8.0",
+      "ase": "3.26.0",
+      "numpy": "2.2.6",
+      "platforms": [
+        "macos-arm64",
+        "windows-x64"
+      ],
+      "deviceBaseline": "cpu",
+      "dtypeBaseline": "float64",
+      "dependencyLock": null,
+      "platformReceipts": [],
+      "isolation": "separate from PDF runtime; one environment per family; CPU only by default",
+      "pending": [
+        "resolve transitive wheel hashes per platform",
+        "verify CHGNet graph converter native/fallback support",
+        "test PyTorch checkpoint loader using only pinned official weights",
+        "collect runtime licenses, sizes and RSS"
+      ]
+    },
+    {
+      "id": "chgnet-0.3.0-cpu-v1",
+      "potentialId": "chgnet-0.3.0",
+      "sourceRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+      "python": "3.12.10",
+      "torch": "2.8.0",
+      "ase": "3.26.0",
+      "numpy": "2.2.6",
+      "platforms": [
+        "macos-arm64",
+        "windows-x64"
+      ],
+      "deviceBaseline": "cpu",
+      "dtypeBaseline": "float32",
+      "dependencyLock": null,
+      "platformReceipts": [],
+      "isolation": "separate from PDF runtime; one environment per family; CPU only by default",
+      "pending": [
+        "resolve transitive wheel hashes per platform",
+        "verify CHGNet graph converter native/fallback support",
+        "test PyTorch checkpoint loader using only pinned official weights",
+        "collect runtime licenses, sizes and RSS"
+      ]
+    }
+  ],
+  "packagingBudget": {
+    "coreWeightsMaxMiB": 128,
+    "totalExpandedRuntimeMaxMiB": 6144,
+    "minimumFreeDiskMiB": 8192,
+    "measurementStatus": "planning-cap-not-measured"
+  }
+}

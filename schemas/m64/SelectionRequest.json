@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "inorganic-crystals",
+        "molecules",
+        "polymers",
+        "surfaces",
+        "interfaces",
+        "unknown"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "production",
+        "exploratory"
+      ]
+    },
+    "task": {
+      "type": "string",
+      "enum": [
+        "singlepoint",
+        "relaxation",
+        "md"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxAtoms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxWallSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "maxMemoryMiB": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 8192
+        },
+        "maxOutputMiB": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "threads": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "maxAtoms",
+        "maxSteps",
+        "maxWallSeconds",
+        "maxMemoryMiB",
+        "maxOutputMiB",
+        "threads"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "projectId",
+    "structureId",
+    "domain",
+    "mode",
+    "task"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.4-v1/SelectionRequest.json",
+  "x-runtime-refinements": "Real checkpoint/structure/dependency identities, project ownership, hard exclusions, authorized scope and citations must be checked in the local runtime."
+}

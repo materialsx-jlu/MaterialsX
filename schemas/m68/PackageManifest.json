@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.8-v1"
+    },
+    "entries": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "potentialId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9.-]{0,95}$"
+          },
+          "family": {
+            "type": "string",
+            "enum": [
+              "mace",
+              "chgnet"
+            ]
+          },
+          "adapter": {
+            "type": "string",
+            "enum": [
+              "mace-ase",
+              "chgnet-ase"
+            ]
+          },
+          "basePotentialId": {
+            "type": "string",
+            "enum": [
+              "mace-mp-0b3-medium",
+              "chgnet-0.3.0"
+            ]
+          },
+          "environmentProfileId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "dependencyLockSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sourceRevision": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
+          },
+          "url": {
+            "type": "string",
+            "format": "starts_with",
+            "pattern": "^https:\\/\\/.*"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 2147483648
+          },
+          "license": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "notices": {
+            "minItems": 1,
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^docs\\/m6\\/licenses\\/[a-zA-Z0-9.-]+$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "elements": {
+            "minItems": 1,
+            "maxItems": 118,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z][a-z]?$"
+            }
+          },
+          "loadedMemoryMiB": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 16384
+          },
+          "dtype": {
+            "type": "string",
+            "enum": [
+              "float64",
+              "float32"
+            ]
+          }
+        },
+        "required": [
+          "potentialId",
+          "family",
+          "adapter",
+          "basePotentialId",
+          "environmentProfileId",
+          "dependencyLockSha256",
+          "sourceRevision",
+          "url",
+          "sha256",
+          "bytes",
+          "license",
+          "notices",
+          "reviewedAt",
+          "elements",
+          "loadedMemoryMiB",
+          "dtype"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m68/PackageManifest.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

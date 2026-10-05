@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.11-v1"
+    },
+    "sources": {
+      "minItems": 1,
+      "maxItems": 30,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+          },
+          "label": {
+            "type": "object",
+            "properties": {
+              "zh": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "zh",
+              "en"
+            ],
+            "additionalProperties": false
+          },
+          "family": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "github_release",
+              "github_commits",
+              "arxiv",
+              "openkim",
+              "nist",
+              "huggingface"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "intervalHours": {
+            "type": "integer",
+            "minimum": 24,
+            "maximum": 168
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "relatedCatalogIds": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "family",
+          "kind",
+          "url",
+          "intervalHours",
+          "enabled",
+          "relatedCatalogIds"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m611/DiscoverySources.json",
+  "x-runtime-refinements": "Ed25519 signature, canonical payload digest, sequence, lifetime, pinned execution identities, sticky withdrawals, key rotation and immutable execution boundaries are checked by the client."
+}

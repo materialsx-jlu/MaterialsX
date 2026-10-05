@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-01",
+  "scope": "Actual local merchant configuration; offline only, no payment or refund",
+  "adapter": "wechat-native-official-sdk",
+  "source": "weixin-runtime-yaml",
+  "checks": [
+    {
+      "code": "source_config_readable_and_unambiguous",
+      "ok": true
+    },
+    {
+      "code": "merchant_id_present",
+      "ok": true
+    },
+    {
+      "code": "app_id_present",
+      "ok": true
+    },
+    {
+      "code": "merchant_certificate_serial_present",
+      "ok": true
+    },
+    {
+      "code": "api_v3_key_32_bytes",
+      "ok": true
+    },
+    {
+      "code": "wechat_public_key_id_present",
+      "ok": true
+    },
+    {
+      "code": "private_rsa_key_valid_and_private_permissions",
+      "ok": true
+    },
+    {
+      "code": "platform_rsa_public_key_valid",
+      "ok": true
+    },
+    {
+      "code": "official_sdk_initialized_offline",
+      "ok": true
+    },
+    {
+      "code": "materialsx_independent_https_origin_configured",
+      "ok": false
+    }
+  ],
+  "warnings": [
+    "native_activation_app_binding_and_public_callback_unverified",
+    "formal_metering_prices_and_refund_terms_pending",
+    "source_sidecar_business_auth_signing_or_replay_protection_disabled_or_placeholder",
+    "source_sidecar_api_error_sanitization_disabled"
+  ],
+  "offlineConfigReady": false,
+  "merchantConfigReady": true,
+  "formalSalesEnabled": false,
+  "realPaymentVerified": false,
+  "verification": {
+    "goTestAllPackages": "passed; PostgreSQL-dependent tests require dedicated fixture and were not newly claimed",
+    "paymentRaceTests": "passed",
+    "goVetPaymentsAndPreflight": "passed",
+    "merchantOnlyCommand": "passed",
+    "publicSecretCandidateScan": "passed within script scope",
+    "gitDiffWhitespace": "passed",
+    "realPaymentOrRefundRequests": 0
+  }
+}

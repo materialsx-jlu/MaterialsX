@@ -1,0 +1,2558 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "releaseId": "m6-0-candidates-20261001-v1",
+  "reviewedAt": "2026-10-01",
+  "potentials": [
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-mp-0b3-medium",
+      "name": "MACE-MP-0b3 medium",
+      "family": "MACE",
+      "checkpoint": "mace-mp-0b3-medium.model",
+      "role": "core-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0b3/mace-mp-0b3-medium.model",
+        "revision": "release:mace_mp_0b3/asset:213936922",
+        "sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+        "bytes": 79472952,
+        "verification": "download-hashed"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "permitted-with-notices"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": "mace-mp-0b3-medium-cpu-v1",
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "基于 MPTrj 的无机晶体势核心候选，使用官方 medium 权重。",
+        "en": "Core candidate for inorganic crystals trained on MPTrj using the official medium checkpoint."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MP-0b3 medium 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MP-0b3 medium, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MP-0b3 medium 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MP-0b3 medium; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-mp-0b2-small",
+      "name": "MACE-MP-0b2 small",
+      "family": "MACE",
+      "checkpoint": "mace-small-density-agnesi-stress.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0b2/mace-small-density-agnesi-stress.model",
+        "revision": "release:mace_mp_0b2/mace-small-density-agnesi-stress.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "较小的无机材料候选，独立于 0b3 medium。",
+        "en": "Smaller inorganic candidate, distinct from 0b3 medium."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MP-0b2 small 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MP-0b2 small, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MP-0b2 small 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MP-0b2 small; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-mpa-0-medium",
+      "name": "MACE-MPA-0 medium",
+      "family": "MACE",
+      "checkpoint": "mace-mpa-0-medium.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mpa_0/mace-mpa-0-medium.model",
+        "revision": "release:mace_mpa_0/mace-mpa-0-medium.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj+sAlex",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "扩展晶体训练集的候选。",
+        "en": "Candidate with an expanded crystal training set."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MPA-0 medium 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MPA-0 medium, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MPA-0 medium 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MPA-0 medium; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-omat-0-medium",
+      "name": "MACE-OMAT-0 medium",
+      "family": "MACE",
+      "checkpoint": "mace-omat-0-medium.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_omat_0/mace-omat-0-medium.model",
+        "revision": "release:mace_omat_0/mace-omat-0-medium.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "ASL",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U (VASP 54)",
+        "dataset": "OMat",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "OMat 无机材料候选，许可需独立审核。",
+        "en": "OMat inorganic candidate with separate license review."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-OMAT-0 medium 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-OMAT-0 medium, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-OMAT-0 medium 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-OMAT-0 medium; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "ASL 按上游名称登记，具体权重许可文本与再分发条件待逐份审核。",
+          "en": "ASL is the upstream label; exact checkpoint terms and redistribution require review."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-matpes-pbe-0",
+      "name": "MACE-MATPES-PBE-0",
+      "family": "MACE",
+      "checkpoint": "MACE-matpes-pbe-omat-ft.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_matpes_0/MACE-matpes-pbe-omat-ft.model",
+        "revision": "release:mace_matpes_0/MACE-matpes-pbe-omat-ft.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "ASL",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE",
+        "dataset": "MatPES-PBE",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "PBE 理论层级候选，不混用 PBE+U 能量。",
+        "en": "PBE candidate; do not mix total energies with PBE+U."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MATPES-PBE-0 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MATPES-PBE-0, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MATPES-PBE-0 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MATPES-PBE-0; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "ASL 按上游名称登记，具体权重许可文本与再分发条件待逐份审核。",
+          "en": "ASL is the upstream label; exact checkpoint terms and redistribution require review."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-matpes-r2scan-0",
+      "name": "MACE-MATPES-r2SCAN-0",
+      "family": "MACE",
+      "checkpoint": "MACE-matpes-r2scan-omat-ft.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_matpes_0/MACE-matpes-r2scan-omat-ft.model",
+        "revision": "release:mace_matpes_0/MACE-matpes-r2scan-omat-ft.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "ASL",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "r2SCAN",
+        "dataset": "MatPES-r2SCAN",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "r2SCAN 层级候选，独立评测。",
+        "en": "r2SCAN candidate requiring separate benchmarks."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MATPES-r2SCAN-0 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MATPES-r2SCAN-0, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MATPES-r2SCAN-0 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MATPES-r2SCAN-0; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "ASL 按上游名称登记，具体权重许可文本与再分发条件待逐份审核。",
+          "en": "ASL is the upstream label; exact checkpoint terms and redistribution require review."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-omol-0-xl",
+      "name": "MACE-OMOL-0 extra-large",
+      "family": "MACE",
+      "checkpoint": "MACE-omol-0-extra-large-1024.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_omol_0/MACE-omol-0-extra-large-1024.model",
+        "revision": "release:mace_omol_0/MACE-omol-0-extra-large-1024.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "ASL",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "unknown",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "molecule"
+        ],
+        "domains": [
+          "molecules"
+        ],
+        "heads": [],
+        "chargeInput": "required",
+        "spinInput": "required",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "wB97M-V/def2-TZVPD",
+        "dataset": "OMol25",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "带电荷与自旋输入的分子候选，非晶体核心包。",
+        "en": "Molecular candidate with charge and spin inputs; outside the crystal core."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-OMOL-0 extra-large 获得授权、安装并验证后，检查用户分子的电荷与自旋，再做能量和力试算。",
+          "en": "After authorization, installation and validation of MACE-OMOL-0 extra-large, check charge and spin of a supplied molecule before an energy/force probe."
+        },
+        {
+          "zh": "列出 MACE-OMOL-0 extra-large 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-OMOL-0 extra-large; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "ASL 按上游名称登记，具体权重许可文本与再分发条件待逐份审核。",
+          "en": "ASL is the upstream label; exact checkpoint terms and redistribution require review."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mace-mh-1",
+      "name": "MACE-MH-1",
+      "family": "MACE",
+      "checkpoint": "mace-mh-1.model",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mace-foundations-README-md",
+        "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+        "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+        "path": "README.md",
+        "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+      },
+      "evidence": [
+        {
+          "id": "mace-LICENSE-md",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "LICENSE.md",
+          "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+        },
+        {
+          "id": "mace-mace-calculators-foundations_models-py",
+          "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+          "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+          "path": "mace/calculators/foundations_models.py",
+          "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2401.00096",
+      "weights": {
+        "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mh_1/mace-mh-1.model",
+        "revision": "release:mace_mh_1/mace-mh-1.model",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mace-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "ASL",
+          "evidenceIds": [
+            "mace-foundations-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk",
+          "slab",
+          "molecule"
+        ],
+        "domains": [
+          "inorganic-crystals",
+          "molecules",
+          "surfaces"
+        ],
+        "heads": [],
+        "chargeInput": "unknown",
+        "spinInput": "unknown",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "headPolicy": "required"
+      },
+      "energyReference": {
+        "functional": "PBE/r2SCAN/wB97M-VV10 (head-specific)",
+        "dataset": "OMAT/OMOL/OC20/MATPES",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mace-ase",
+        "profileId": null,
+        "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "多训练域候选，运行前须固定 head。",
+        "en": "Multidomain candidate; select and verify the head before use."
+      },
+      "examples": [
+        {
+          "zh": "在 MACE-MH-1 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MACE-MH-1, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MACE-MH-1 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MACE-MH-1; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "ASL 按上游名称登记，具体权重许可文本与再分发条件待逐份审核。",
+          "en": "ASL is the upstream label; exact checkpoint terms and redistribution require review."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mace-mp-0",
+        "discovery/mace-mpa-0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "chgnet-0.3.0",
+      "name": "CHGNet 0.3.0",
+      "family": "CHGNet",
+      "checkpoint": "chgnet_0.3.0_e29f68s314m37.pth.tar",
+      "role": "core-candidate",
+      "source": {
+        "id": "chgnet-README-md",
+        "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/README.md",
+        "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "path": "README.md",
+        "sha256": "3e05b1f0dde58cd2e69f5ada2cf03ca959f884d03ebab44b4f1cf21dc1c4c3df"
+      },
+      "evidence": [
+        {
+          "id": "chgnet-LICENSE",
+          "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/LICENSE",
+          "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+          "path": "LICENSE",
+          "sha256": "a06789a2624485a9de5903d3d4cceeec6127a36042dd7364999ff994587a4a41"
+        }
+      ],
+      "citation": "https://doi.org/10.1038/s42256-023-00716-3",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/CederGroupHub/chgnet/b9a6c15860237297a5a5169660e83b2e61a78e76/chgnet/pretrained/0.3.0/chgnet_0.3.0_e29f68s314m37.pth.tar",
+        "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "sha256": "d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1",
+        "bytes": 4863221,
+        "verification": "download-hashed"
+      },
+      "licenses": {
+        "code": {
+          "expression": "BSD-3-Clause-LBNL",
+          "evidenceIds": [
+            "chgnet-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "BSD-3-Clause-LBNL",
+          "evidenceIds": [
+            "chgnet-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "permitted-with-notices"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "eV/atom",
+          "forces": "eV/angstrom",
+          "stress": "GPa",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "chgnet-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "chgnet-ase",
+        "profileId": "chgnet-0.3.0-cpu-v1",
+        "codeRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "无机晶体核心候选；原生能量按每原子给出，应力单位为 GPa。",
+        "en": "Inorganic core candidate; native energy is per atom and stress is in GPa."
+      },
+      "examples": [
+        {
+          "zh": "在 CHGNet 0.3.0 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating CHGNet 0.3.0, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 CHGNet 0.3.0 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for CHGNet 0.3.0; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/chgnet-0.3.0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "chgnet-r2scan",
+      "name": "CHGNet r2scan",
+      "family": "CHGNet",
+      "checkpoint": "chgnet_r2scan_transfer_learning_e15f36s161m23.pth.tar",
+      "role": "extension-candidate",
+      "source": {
+        "id": "chgnet-README-md",
+        "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/README.md",
+        "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "path": "README.md",
+        "sha256": "3e05b1f0dde58cd2e69f5ada2cf03ca959f884d03ebab44b4f1cf21dc1c4c3df"
+      },
+      "evidence": [
+        {
+          "id": "chgnet-LICENSE",
+          "url": "https://github.com/CederGroupHub/chgnet/blob/b9a6c15860237297a5a5169660e83b2e61a78e76/LICENSE",
+          "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+          "path": "LICENSE",
+          "sha256": "a06789a2624485a9de5903d3d4cceeec6127a36042dd7364999ff994587a4a41"
+        }
+      ],
+      "citation": "https://doi.org/10.1038/s42256-023-00716-3",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/CederGroupHub/chgnet/b9a6c15860237297a5a5169660e83b2e61a78e76/chgnet/pretrained/r2scan/chgnet_r2scan_transfer_learning_e15f36s161m23.pth.tar",
+        "revision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "BSD-3-Clause-LBNL",
+          "evidenceIds": [
+            "chgnet-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "BSD-3-Clause-LBNL",
+          "evidenceIds": [
+            "chgnet-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "eV/atom",
+          "forces": "eV/angstrom",
+          "stress": "GPa",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "chgnet-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "r2SCAN",
+        "dataset": "MP-R2SCAN",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "chgnet-ase",
+        "profileId": null,
+        "codeRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "r2SCAN 迁移模型，不能当作 0.3.0 的同一能量基准。",
+        "en": "r2SCAN transfer model with a different energy reference from 0.3.0."
+      },
+      "examples": [
+        {
+          "zh": "在 CHGNet r2scan 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating CHGNet r2scan, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 CHGNet r2scan 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for CHGNet r2scan; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "无机晶体训练域不能证明孤立分子或聚合物适用。",
+          "en": "Inorganic crystal training does not establish applicability to isolated molecules or polymers."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/chgnet-0.3.0"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mattersim-v1-0-0-1m",
+      "name": "MatterSim v1.0.0 1M",
+      "family": "MatterSim",
+      "checkpoint": "MatterSim-v1.0.0-1M.pth",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mattersim-README-md",
+        "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/README.md",
+        "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "path": "README.md",
+        "sha256": "b222a569a01bc94712f2385661cb3d6294ec8bedff7aa8ec93b902f4a1005d95"
+      },
+      "evidence": [
+        {
+          "id": "mattersim-LICENSE-txt",
+          "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/LICENSE.txt",
+          "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+          "path": "LICENSE.txt",
+          "sha256": "fd532481d828e13a0b13ccb598e02338a3617740675a862ee6bdc1541b68e93d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2405.04967",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/microsoft/mattersim/aedf510ec536cf24163edad4570eaceafdb7cb2b/pretrained_models/MatterSim-v1.0.0-1M.pth",
+        "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mattersim-LICENSE-txt"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "unknown",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "eV",
+          "forces": "eV/angstrom",
+          "stress": "eV/angstrom^3",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mattersim-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE (confirm checkpoint settings)",
+        "dataset": "MatterSim generated data",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mattersim-ase",
+        "profileId": null,
+        "codeRevision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "unsupported",
+            "evidenceId": "mattersim-README-md"
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "材料体系扩展候选；Apple Silicon 使用 CPU，禁用 MPS。",
+        "en": "Materials extension candidate; use CPU on Apple Silicon and disable MPS."
+      },
+      "examples": [
+        {
+          "zh": "在 MatterSim v1.0.0 1M 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MatterSim v1.0.0 1M, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MatterSim v1.0.0 1M 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MatterSim v1.0.0 1M; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "官方提示 Apple Silicon MPS 数值不稳定；本产品禁用该组合。",
+          "en": "Upstream warns of Apple Silicon MPS instability; this combination is disabled."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mattersim-v1-5m"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "mattersim-v1-0-0-5m",
+      "name": "MatterSim v1.0.0 5M",
+      "family": "MatterSim",
+      "checkpoint": "MatterSim-v1.0.0-5M.pth",
+      "role": "extension-candidate",
+      "source": {
+        "id": "mattersim-README-md",
+        "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/README.md",
+        "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "path": "README.md",
+        "sha256": "b222a569a01bc94712f2385661cb3d6294ec8bedff7aa8ec93b902f4a1005d95"
+      },
+      "evidence": [
+        {
+          "id": "mattersim-LICENSE-txt",
+          "url": "https://github.com/microsoft/mattersim/blob/aedf510ec536cf24163edad4570eaceafdb7cb2b/LICENSE.txt",
+          "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+          "path": "LICENSE.txt",
+          "sha256": "fd532481d828e13a0b13ccb598e02338a3617740675a862ee6bdc1541b68e93d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2405.04967",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/microsoft/mattersim/aedf510ec536cf24163edad4570eaceafdb7cb2b/pretrained_models/MatterSim-v1.0.0-5M.pth",
+        "revision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "mattersim-LICENSE-txt"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "unknown",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "eV",
+          "forces": "eV/angstrom",
+          "stress": "eV/angstrom^3",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "mattersim-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE (confirm checkpoint settings)",
+        "dataset": "MatterSim generated data",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "mattersim-ase",
+        "profileId": null,
+        "codeRevision": "aedf510ec536cf24163edad4570eaceafdb7cb2b",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "unsupported",
+            "evidenceId": "mattersim-README-md"
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "材料体系扩展候选；Apple Silicon 使用 CPU，禁用 MPS。",
+        "en": "Materials extension candidate; use CPU on Apple Silicon and disable MPS."
+      },
+      "examples": [
+        {
+          "zh": "在 MatterSim v1.0.0 5M 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MatterSim v1.0.0 5M, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MatterSim v1.0.0 5M 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MatterSim v1.0.0 5M; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "官方提示 Apple Silicon MPS 数值不稳定；本产品禁用该组合。",
+          "en": "Upstream warns of Apple Silicon MPS instability; this combination is disabled."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/mattersim-v1-5m"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "orb-v3-conservative-inf-omat",
+      "name": "ORB v3 conservative inf OMat",
+      "family": "ORB",
+      "checkpoint": "orb-v3-conservative-inf-omat-20250404.ckpt",
+      "role": "extension-candidate",
+      "source": {
+        "id": "orb-models-README-md",
+        "url": "https://github.com/orbital-materials/orb-models/blob/1794f852543600d1611d2a3728a95142574f5dc2/README.md",
+        "revision": "1794f852543600d1611d2a3728a95142574f5dc2",
+        "path": "README.md",
+        "sha256": "6ee1f8fcda191b3d4a4d1716256af566c85d279a56352d5722439e9c28210938"
+      },
+      "evidence": [
+        {
+          "id": "orb-models-LICENSE",
+          "url": "https://github.com/orbital-materials/orb-models/blob/1794f852543600d1611d2a3728a95142574f5dc2/LICENSE",
+          "revision": "1794f852543600d1611d2a3728a95142574f5dc2",
+          "path": "LICENSE",
+          "sha256": "ae89c659da81fa5cf80f03e1fe25fc7c6fac7db0b66d80592562537a614e0dbb"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2504.06231",
+      "weights": {
+        "url": "https://orbitalmaterials-public-models.s3.us-west-1.amazonaws.com/forcefields/orb-v3/orb-v3-conservative-inf-omat-20250404.ckpt",
+        "revision": "1794f852543600d1611d2a3728a95142574f5dc2",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "Apache-2.0",
+          "evidenceIds": [
+            "orb-models-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "Apache-2.0",
+          "evidenceIds": [
+            "orb-models-README-md"
+          ],
+          "status": "documented"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "orb-models-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U (OMat-specific settings)",
+        "dataset": "OMat24",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "orb-ase",
+        "profileId": null,
+        "codeRevision": "1794f852543600d1611d2a3728a95142574f5dc2",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "保守型 ORB 材料候选，与 direct-force 版本分开。",
+        "en": "Conservative ORB materials candidate, separate from direct-force versions."
+      },
+      "examples": [
+        {
+          "zh": "在 ORB v3 conservative inf OMat 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating ORB v3 conservative inf OMat, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 ORB v3 conservative inf OMat 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for ORB v3 conservative inf OMat; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/orb-v2",
+        "discovery/orb-v2-mptrj",
+        "discovery/orb-v3"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "sevennet-0-11jul2024",
+      "name": "SevenNet-0 11July2024",
+      "family": "SevenNet",
+      "checkpoint": "checkpoint_sevennet_0.pth",
+      "role": "extension-candidate",
+      "source": {
+        "id": "SevenNet-sevenn-pretrained_potentials-SevenNet_0__11Jul2024-README-md",
+        "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+        "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "path": "sevenn/pretrained_potentials/SevenNet_0__11Jul2024/README.md",
+        "sha256": "54507f3eefc41adad601f2eda860b85bde43faafcb2d91d7a694c0b7bda69ac3"
+      },
+      "evidence": [
+        {
+          "id": "SevenNet-LICENSE",
+          "url": "https://github.com/MDIL-SNU/SevenNet/blob/8d9905cc4f4b7ca93be02b37a263785add53c759/LICENSE",
+          "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+          "path": "LICENSE",
+          "sha256": "bfcac52925669ea0c2b895e0dd80fbbe9245398b851d734483bed3ce0bc165ed"
+        }
+      ],
+      "citation": "https://doi.org/10.1021/acs.jctc.4c00190",
+      "weights": {
+        "url": "https://raw.githubusercontent.com/MDIL-SNU/SevenNet/8d9905cc4f4b7ca93be02b37a263785add53c759/sevenn/pretrained_potentials/SevenNet_0__11Jul2024/checkpoint_sevennet_0.pth",
+        "revision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "sha256": null,
+        "bytes": null,
+        "verification": "unverified"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "SevenNet-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "unknown",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "SevenNet-sevenn-pretrained_potentials-SevenNet_0__11Jul2024-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE+U",
+        "dataset": "MPTrj",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "sevennet-ase",
+        "profileId": null,
+        "codeRevision": "8d9905cc4f4b7ca93be02b37a263785add53c759",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "MPTrj 候选；官方该版未拆分验证集，须补独立保留集。",
+        "en": "MPTrj candidate; this release lacks an upstream validation split and needs independent references."
+      },
+      "examples": [
+        {
+          "zh": "在 SevenNet-0 11July2024 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating SevenNet-0 11July2024, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 SevenNet-0 11July2024 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for SevenNet-0 11July2024; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        }
+      ],
+      "relatedCatalogIds": [
+        "discovery/sevennet-0",
+        "discovery/sevennet-l3i5",
+        "discovery/sevennet-mf-ompa",
+        "discovery/sevennet-omni-i12"
+      ]
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "matgl-tensornet-matpes-pbe-2025-2",
+      "name": "MatGL TensorNet PES MatPES PBE 2025.2",
+      "family": "MatGL",
+      "checkpoint": "TensorNet-PES-MatPES-PBE-2025.2",
+      "role": "extension-candidate",
+      "source": {
+        "id": "matgl-README-md",
+        "url": "https://github.com/materialyzeai/matgl/blob/8def32f2d1c33fa6b7ec72655306ee4ea02a303b/README.md",
+        "revision": "8def32f2d1c33fa6b7ec72655306ee4ea02a303b",
+        "path": "README.md",
+        "sha256": "2d302b6087d83ae391fae091b3955ae1cc9870d04548a89e0ee77c58f81c6188"
+      },
+      "evidence": [
+        {
+          "id": "matgl-LICENSE",
+          "url": "https://github.com/materialyzeai/matgl/blob/8def32f2d1c33fa6b7ec72655306ee4ea02a303b/LICENSE",
+          "revision": "8def32f2d1c33fa6b7ec72655306ee4ea02a303b",
+          "path": "LICENSE",
+          "sha256": "a1f95e08d7efe8e911aed04b891d51b90ba46291585f43939134806670ee2a38"
+        }
+      ],
+      "citation": "https://github.com/materialyzeai/matgl",
+      "weights": {
+        "url": "https://huggingface.co/materialyze/TensorNet-PES-MatPES-PBE-2025.2/resolve/7ac2b90400a87eca7f44c1e7956dca6b1c85e418/state.pt",
+        "revision": "7ac2b90400a87eca7f44c1e7956dca6b1c85e418",
+        "sha256": "b9efa8c708014dd6c37e348f65dc1d8ae5c7bd5c7290de4d9f210e16c7fc3766",
+        "bytes": 3402824,
+        "verification": "publisher-digest"
+      },
+      "licenses": {
+        "code": {
+          "expression": "BSD-3-Clause",
+          "evidenceIds": [
+            "matgl-LICENSE"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "review-required"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "yes",
+        "elements": null,
+        "periodicity": [
+          "bulk"
+        ],
+        "domains": [
+          "inorganic-crystals"
+        ],
+        "heads": [],
+        "chargeInput": "unsupported",
+        "spinInput": "unsupported",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "GPa",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "matgl-README-md"
+        ],
+        "headPolicy": "single"
+      },
+      "energyReference": {
+        "functional": "PBE",
+        "dataset": "MatPES-PBE",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "matgl-ase",
+        "profileId": null,
+        "codeRevision": "8def32f2d1c33fa6b7ec72655306ee4ea02a303b",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "势能 TensorNet 候选；采用官方当前修正权重来源，不是性质预测器。",
+        "en": "TensorNet potential candidate using the corrected official source, not a property predictor."
+      },
+      "examples": [
+        {
+          "zh": "在 MatGL TensorNet PES MatPES PBE 2025.2 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating MatGL TensorNet PES MatPES PBE 2025.2, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 MatGL TensorNet PES MatPES PBE 2025.2 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for MatGL TensorNet PES MatPES PBE 2025.2; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "state.pt 之外还需同 revision 的 model.json 与 model.pt；单文件不能加载完整模型。",
+          "en": "model.json and model.pt from the same revision are also required; state.pt alone is not a complete package."
+        }
+      ],
+      "relatedCatalogIds": []
+    },
+    {
+      "schemaVersion": "m6.0-v1",
+      "id": "uma-s-1p2p1",
+      "name": "UMA s-1p2p1",
+      "family": "UMA",
+      "checkpoint": "checkpoints/uma-s-1p2p1.pt",
+      "role": "extension-candidate",
+      "source": {
+        "id": "fairchem-README-md",
+        "url": "https://github.com/facebookresearch/fairchem/blob/c22fb1bedb2b4ca453376749f42999be1589856d/README.md",
+        "revision": "c22fb1bedb2b4ca453376749f42999be1589856d",
+        "path": "README.md",
+        "sha256": "d9a2065afcc918e8fd7dfec188df6bb7e22043564dc8f95ef932c4039ed316d1"
+      },
+      "evidence": [
+        {
+          "id": "fairchem-LICENSE-md",
+          "url": "https://github.com/facebookresearch/fairchem/blob/c22fb1bedb2b4ca453376749f42999be1589856d/LICENSE.md",
+          "revision": "c22fb1bedb2b4ca453376749f42999be1589856d",
+          "path": "LICENSE.md",
+          "sha256": "3e10827938aae9e591647722c830065a95b3af2721f0d7f02f373869b40fe81d"
+        }
+      ],
+      "citation": "https://arxiv.org/abs/2506.23971",
+      "weights": {
+        "url": "https://huggingface.co/facebook/UMA/resolve/f611b917d9c68566bbbeccbb0aa0f7cad1696cb2/checkpoints/uma-s-1p2p1.pt",
+        "revision": "f611b917d9c68566bbbeccbb0aa0f7cad1696cb2",
+        "sha256": "b2673b85037b075674c25f55c34ffe1ff1e15db924be977b10a184765df0d5ce",
+        "bytes": 2333393615,
+        "verification": "publisher-digest"
+      },
+      "licenses": {
+        "code": {
+          "expression": "MIT",
+          "evidenceIds": [
+            "fairchem-LICENSE-md"
+          ],
+          "status": "documented"
+        },
+        "weights": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "trainingData": {
+          "expression": "unknown",
+          "evidenceIds": [],
+          "status": "unknown"
+        },
+        "redistribution": "restricted"
+      },
+      "declared": {
+        "energy": "yes",
+        "forces": "yes",
+        "stress": "yes",
+        "conservative": "unknown",
+        "elements": null,
+        "periodicity": [
+          "bulk",
+          "slab",
+          "molecule"
+        ],
+        "domains": [
+          "inorganic-crystals",
+          "molecules",
+          "surfaces"
+        ],
+        "heads": [],
+        "chargeInput": "unknown",
+        "spinInput": "unknown",
+        "nativeUnits": {
+          "energy": "unknown",
+          "forces": "unknown",
+          "stress": "unknown",
+          "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+        },
+        "temperatureRangeK": null,
+        "pressureRangeGPa": null,
+        "evidenceIds": [
+          "fairchem-README-md"
+        ],
+        "headPolicy": "required"
+      },
+      "energyReference": {
+        "functional": "head-specific: OMat/OMol/OC",
+        "dataset": "head-specific",
+        "convention": "unknown: no cross-model total-energy comparison approved"
+      },
+      "environment": {
+        "adapter": "fairchem-ase",
+        "profileId": null,
+        "codeRevision": "c22fb1bedb2b4ca453376749f42999be1589856d",
+        "diskEstimateMiB": null,
+        "memoryEstimateMiB": null,
+        "matrix": [
+          {
+            "platform": "macos-arm64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "macos-arm64",
+            "device": "mps",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cpu",
+            "status": "not-tested",
+            "evidenceId": null
+          },
+          {
+            "platform": "windows-x64",
+            "device": "cuda",
+            "status": "not-tested",
+            "evidenceId": null
+          }
+        ]
+      },
+      "state": "catalogued",
+      "installation": "absent",
+      "runtimeEvidenceIds": [],
+      "taskEvidenceIds": [],
+      "description": {
+        "zh": "需授权的跨域候选，各 head 必须分别审核。",
+        "en": "Gated multidomain candidate; each task head requires separate review."
+      },
+      "examples": [
+        {
+          "zh": "在 UMA s-1p2p1 安装并验证后，对用户提供的适用结构做固定晶胞优化，报告单位、最大力和未收敛状态。",
+          "en": "After installing and validating UMA s-1p2p1, relax a compatible user-supplied structure at fixed cell and report units, maximum force and convergence."
+        },
+        {
+          "zh": "列出 UMA s-1p2p1 的来源、权重哈希、许可和平台验收状态；缺项保持待验证。",
+          "en": "List source, weight hash, licenses and platform validation for UMA s-1p2p1; keep missing evidence unverified."
+        }
+      ],
+      "limitations": [
+        {
+          "zh": "目录登记不代表已安装或已通过数值与领域验证。",
+          "en": "Cataloguing does not imply installation or numerical/domain validation."
+        },
+        {
+          "zh": "元素清单、资源占用和应力约定待固定运行时验证；无独立 DFT 保留集。",
+          "en": "Element lists, resource use and stress conventions await runtime verification; independent DFT references are absent."
+        },
+        {
+          "zh": "权重需 Hugging Face 访问授权和单独许可；不同任务 head 与能量基准不能混用。",
+          "en": "Weights need Hugging Face access and separate terms; task heads and energy references are distinct."
+        }
+      ],
+      "relatedCatalogIds": []
+    }
+  ]
+}

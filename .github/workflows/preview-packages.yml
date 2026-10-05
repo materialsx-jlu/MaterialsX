@@ -1,0 +1,53 @@
+name: Desktop preview packages
+on:
+  workflow_dispatch:
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            platform: mac
+            runtime: macos-arm64
+            target: --mac dmg --arm64
+          - os: windows-latest
+            platform: win
+            runtime: windows-x64
+            target: --win nsis --x64
+          - os: ubuntu-24.04
+            platform: linux
+            runtime: linux-x64
+            target: --linux AppImage tar.gz --x64
+    runs-on: ${{ matrix.os }}
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.18"
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - run: node --import tsx scripts/build-skill-python-runtime.ts ${{ matrix.runtime }}
+      - run: node --import tsx scripts/agent/ua6-runtime-lock.ts ${{ matrix.runtime }}
+      - run: node --import tsx scripts/release/preview-config.ts ${{ matrix.platform }} --core
+      - run: npx electron-builder ${{ matrix.target }} --config runtime/release-build/${{ matrix.platform }}/builder.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-preview-${{ matrix.runtime }}
+          path: |
+            release/dist/*/*.dmg
+            release/dist/*/*.exe
+            release/dist/*/*.AppImage
+            release/dist/*/*.tar.gz
+            runtime/release-build/${{ matrix.platform }}/release-support.json
+          if-no-files-found: error
+
+# Engineering artifacts only: no implicit Release upload, signing or scientific approval.
+# CI locks describe that job's generated runtime; the job does not certify a maintainer's installer.

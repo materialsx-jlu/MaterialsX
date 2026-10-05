@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "si-triclinic",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "Si",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "Si",
+      "position": [
+        2.75,
+        2.375,
+        2
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": [
+    [
+      4,
+      0,
+      0
+    ],
+    [
+      1,
+      4,
+      0
+    ],
+    [
+      0.5,
+      0.75,
+      4
+    ]
+  ],
+  "pbc": [
+    true,
+    true,
+    true
+  ],
+  "charge": null,
+  "spinMultiplicity": null,
+  "source": {
+    "artifactId": "sample-si-triclinic",
+    "sha256": "03fe72b2ae5f668807c1cecee0517b7a80b78c29676e56a9fa0fd70d6d7ddb61",
+    "format": "extxyz",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

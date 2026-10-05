@@ -1,7 +1,15 @@
+import {teamLink,type TeamLink} from "../../../packages/contracts/src/team-research.js";
+import {AgentWorkspaceStore} from './agent-workspace-store.js';
+import {SqlitePaperStore} from "./paper-store.js";
+import { ResearchStore } from "./research-store.js";
+import { AgentJournal } from "./agent-journal.js";
+import {researchGoalPlanSchema,type ResearchGoalPlan} from '../../../packages/contracts/src/research-goal.js';
 import { randomUUID } from "node:crypto";
+import { compatibilityProfileSchema, engineSessionRefSchema, type CompatibilityProfile, type EngineSessionRef } from "../../../packages/contracts/src/engine-selection.js";
 import { mkdirSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { DatabaseSync } from "node:sqlite";
+import {mcpConfigurationSchema,type McpConfiguration} from "../../../packages/contracts/src/agent-configuration.js";
 import type {
   ConversationRecord,
   MessageRecord,
@@ -38,6 +46,7 @@ function conversation(row: Row): ConversationRecord {
 
 function message(row: Row): MessageRecord {
   return {
+    ...(row.task_id ? { taskId: String(row.task_id) } : {}),
     id: String(row.id),
     conversationId: String(row.conversation_id),
     role: row.role as MessageRecord["role"],
@@ -59,13 +68,26 @@ function run(row: Row): RunRecord {
 
 export class WorkspaceStore {
   readonly #db: DatabaseSync;
+  readonly agentJournal: AgentJournal;
+  readonly agentWorkspace: AgentWorkspaceStore;
+  readonly research: ResearchStore;
+  readonly papers: SqlitePaperStore;
 
   constructor(databasePath: string) {
     mkdirSync(dirname(databasePath), { recursive: true });
     this.#db = new DatabaseSync(databasePath);
+    this.agentJournal = new AgentJournal(this.#db);
+    this.agentWorkspace = new AgentWorkspaceStore(this.#db);
+    this.research = new ResearchStore(this.#db);
+    this.papers = new SqlitePaperStore(this.#db);
     this.#db.exec(`
       PRAGMA journal_mode = WAL;
       PRAGMA foreign_keys = ON;
+      CREATE TABLE IF NOT EXISTS cloud_tasks (
+        task_id TEXT PRIMARY KEY, account_id TEXT NOT NULL, conversation_id TEXT NOT NULL, created_at TEXT NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS cloud_conversation_tasks ON cloud_tasks(account_id,conversation_id,created_at);
+
       CREATE TABLE IF NOT EXISTS projects (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
@@ -109,6 +131,7 @@ export class WorkspaceStore {
       VALUES (1, 'platform', 'materials-research', 'http://127.0.0.1:11434');
       UPDATE runs SET status = 'interrupted' WHERE status = 'running';
     `);
+    this.agentJournal.interrupted();
   }
 
   close(): void {
@@ -124,6 +147,64 @@ export class WorkspaceStore {
     return row ? project(row) : null;
   }
 
+  saveResearchPlan(plan:ResearchGoalPlan):void {
+    const parsed=researchGoalPlanSchema.parse(plan);
+    const run=this.#db.prepare("SELECT project_id FROM runs WHERE id=?").get(parsed.task.taskId);
+    const conversation=this.#db.prepare("SELECT project_id FROM conversations WHERE id=?").get(parsed.task.conversationId);
+    if(run?.project_id!==parsed.task.projectId||conversation?.project_id!==parsed.task.projectId)throw Error('研究计划与项目、对话或任务记录不匹配');
+    const previous=this.researchPlan(parsed.task.taskId);
+        if(previous&&(previous.goalId!==parsed.goalId||parsed.planRevision!==previous.planRevision+1))throw Error('研究计划版本冲突');
+    const owner=!this.#db.isTransaction;if(owner)this.#db.exec("BEGIN IMMEDIATE");
+    try{if(previous)this.research.history(previous);
+    this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(`research_plan:${parsed.task.taskId}`,JSON.stringify(parsed));
+    this.research.history(parsed);if(owner)this.#db.exec("COMMIT");
+    }catch(e){if(owner)this.#db.exec("ROLLBACK");throw e;}
+  }
+  researchPlan(taskId:string):ResearchGoalPlan|null {const row=this.#db.prepare("SELECT value FROM app_meta WHERE key=?").get(`research_plan:${taskId}`);return row?researchGoalPlanSchema.parse(JSON.parse(String(row.value))):null}
+  saveAgentReceipt(taskId:string,receipt:any):void {
+    const key=`agent_receipt:${taskId}:${receipt.id}`,text=JSON.stringify(receipt);
+    const old=this.#db.prepare("SELECT value FROM app_meta WHERE key=?").get(key);
+    if(old&&old.value!==text)throw Error("NATIVE_RECEIPT_CONFLICT");
+    this.#db.prepare("INSERT OR IGNORE INTO app_meta(key,value) VALUES(?,?)").run(key,text);
+  }
+  agentThread(key:string):string|null {const row=this.#db.prepare("SELECT value FROM app_meta WHERE key=?").get(`agent_thread:${key}`);return row?String(row.value):null}
+  saveAgentThread(key:string,id:string):void {this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(`agent_thread:${key}`,id)}
+  saveEngineSession(value: EngineSessionRef): void {
+    const record = engineSessionRefSchema.parse(value);
+    const run = this.listRuns().find((r) => r.id === record.task.taskId);
+    const conversation = this.listConversations().find((c) => c.id === record.task.conversationId);
+    if (run?.projectId !== record.task.projectId || conversation?.projectId !== record.task.projectId) throw Error("ENGINE_SESSION_SCOPE_MISMATCH");
+    const previous = this.engineSession(record.task.taskId);
+    if (previous && (JSON.stringify({ ...previous, nativeSessionId: null }) !== JSON.stringify({ ...record, nativeSessionId: null }) ||
+        (previous.nativeSessionId !== null && previous.nativeSessionId !== record.nativeSessionId)))
+      throw Error("ENGINE_SESSION_IMMUTABLE");
+    this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(`engine_session:${record.task.taskId}`, JSON.stringify(record));
+  }
+  engineSession(taskId: string): EngineSessionRef | null {
+    const row = this.#db.prepare("SELECT value FROM app_meta WHERE key=?").get(`engine_session:${taskId}`);
+    return row ? engineSessionRefSchema.parse(JSON.parse(String(row.value))) : null;
+  }
+  compatibilities():CompatibilityProfile[]{return this.#db.prepare("SELECT value FROM app_meta WHERE key LIKE 'compat-%'").all().map(r=>compatibilityProfileSchema.parse(JSON.parse(String(r.value))));}
+  teamLink(id:string):TeamLink{if(!this.getProject(id))throw Error('TEAM_LOCAL_PROJECT_NOT_FOUND');const r=this.#db.prepare('SELECT value FROM app_meta WHERE key=?').get('team_link:'+id);return r?teamLink.parse(JSON.parse(String(r.value))):{enabled:false,remoteProjectId:null,revision:1};}
+  saveTeamLink(id:string,value:TeamLink,expected:number){const v=teamLink.parse(value);if(this.teamLink(id).revision!==expected||v.revision!==expected+1)throw Error('TEAM_LINK_CONFLICT');this.#db.prepare('INSERT INTO app_meta VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value').run('team_link:'+id,JSON.stringify(v));return v;}
+  mcpConfiguration():McpConfiguration{const row=this.#db.prepare("SELECT value FROM app_meta WHERE key='mcp_configuration'").get();return row?mcpConfigurationSchema.parse(JSON.parse(String(row.value))):{id:'moos-local',enabled:true,directory:null,origin:'http://127.0.0.1:8080',revision:1};}
+  saveMcpConfiguration(value:McpConfiguration,expected:number){const v=mcpConfigurationSchema.parse(value);if(this.mcpConfiguration().revision!==expected||v.revision!==expected+1)throw Error('MCP_REVISION_CONFLICT');this.#db.prepare("INSERT INTO app_meta(key,value) VALUES('mcp_configuration',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(JSON.stringify(v));return v;}
+  saveCompatibility(value: CompatibilityProfile): void {
+    const profile = compatibilityProfileSchema.parse(value);
+    this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(profile.id, JSON.stringify(profile));
+  }
+  compatibility(id: string): CompatibilityProfile | null {
+    const row = this.#db.prepare("SELECT value FROM app_meta WHERE key=?").get(id);
+    return row ? compatibilityProfileSchema.parse(JSON.parse(String(row.value))) : null;
+  }
+
+  saveCloudTask(accountId:string,conversationId:string,taskId:string):void {
+    this.#db.prepare("INSERT OR IGNORE INTO cloud_tasks(task_id,account_id,conversation_id,created_at) VALUES(?,?,?,?)").run(taskId,accountId,conversationId,new Date().toISOString());
+  }
+  latestCloudTask(accountId:string,conversationId:string):string|null {
+    const row=this.#db.prepare("SELECT task_id FROM cloud_tasks WHERE account_id=? AND conversation_id=? ORDER BY created_at DESC LIMIT 1").get(accountId,conversationId);
+    return row ? String(row.task_id) : null;
+  }
   createProject(path: string): ProjectRecord {
     const normalized = resolve(path);
     const existing = this.#db.prepare("SELECT * FROM projects WHERE path = ?").get(normalized) as Row | undefined;
@@ -162,7 +243,7 @@ export class WorkspaceStore {
 
   listMessages(conversationId: string): MessageRecord[] {
     return (
-      this.#db.prepare("SELECT * FROM messages WHERE conversation_id = ? ORDER BY created_at ASC").all(conversationId) as Row[]
+      this.#db.prepare("SELECT m.*, a.value AS task_id FROM messages m LEFT JOIN app_meta a ON a.key = 'message_task:' || m.id WHERE m.conversation_id = ? ORDER BY m.created_at ASC").all(conversationId) as Row[]
     ).map(message);
   }
 
@@ -171,18 +252,23 @@ export class WorkspaceStore {
     role: MessageRecord["role"],
     content: string,
     status: MessageRecord["status"],
+    taskId?: string,
   ): MessageRecord {
+    const session = taskId ? this.engineSession(taskId) : null;
+    if (session && (role !== "assistant" || session.task.conversationId !== conversationId)) throw Error("MESSAGE_ENGINE_SCOPE_MISMATCH");
     const record: MessageRecord = {
       id: randomUUID(),
       conversationId,
       role,
       content,
       status,
+      ...(session ? { taskId: session.task.taskId } : {}),
       createdAt: now(),
     };
     this.#db
       .prepare("INSERT INTO messages(id, conversation_id, role, content, status, created_at) VALUES (?, ?, ?, ?, ?, ?)")
       .run(record.id, record.conversationId, record.role, record.content, record.status, record.createdAt);
+    if (record.taskId) this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?)").run(`message_task:${record.id}`, record.taskId);
     this.#db.prepare("UPDATE conversations SET updated_at = ? WHERE id = ?").run(record.createdAt, conversationId);
     return record;
   }
@@ -236,9 +322,12 @@ export class WorkspaceStore {
   getSettings(): ModelSettings {
     const row = this.#db.prepare("SELECT * FROM settings WHERE id = 1").get() as Row;
     return {
+      ...(this.#db.prepare("SELECT value FROM app_meta WHERE key='agent_engine'").get()?{agentEngine:this.#db.prepare("SELECT value FROM app_meta WHERE key='agent_engine'").get()!.value==='codex'?'codex' as const:'pi' as const}:{}),
+      ...(this.#db.prepare("SELECT value FROM app_meta WHERE key='model_options'").get()?JSON.parse(String(this.#db.prepare("SELECT value FROM app_meta WHERE key='model_options'").get()!.value)):{}),
       mode: row.model_mode as ModelSettings["mode"],
       modelId: String(row.model_id),
       localEndpoint: String(row.local_endpoint),
+      ...(this.#db.prepare("SELECT value FROM app_meta WHERE key='cloud_max_credits'").get() ? {cloudMaxCredits:String(this.#db.prepare("SELECT value FROM app_meta WHERE key='cloud_max_credits'").get()!.value)} : {}),
     };
   }
 
@@ -246,6 +335,10 @@ export class WorkspaceStore {
     this.#db
       .prepare("UPDATE settings SET model_mode = ?, model_id = ?, local_endpoint = ? WHERE id = 1")
       .run(settings.mode, settings.modelId, settings.localEndpoint);
+    if(settings.cloudMaxCredits!==undefined)this.#db.prepare("INSERT INTO app_meta(key,value) VALUES('cloud_max_credits',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(settings.cloudMaxCredits);
+    if(settings.agentEngine)this.#db.prepare("INSERT INTO app_meta(key,value) VALUES('agent_engine',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(settings.agentEngine);
+    const options={localProtocol:settings.localProtocol,localContextBudget:settings.localContextBudget,localMaxOutputTokens:settings.localMaxOutputTokens,cloudWorkspaceTools:settings.cloudWorkspaceTools};
+    this.#db.prepare("INSERT INTO app_meta(key,value) VALUES('model_options',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(JSON.stringify(options));
     return this.getSettings();
   }
 

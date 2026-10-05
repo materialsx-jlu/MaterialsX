@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "m5.0-live-pi-v1",
+  "generatedAt": "2026-10-01T03:57:51.224Z",
+  "environment": "real-provider",
+  "provider": "rootflowai",
+  "model": "gpt-5.6-sol",
+  "sdkVersion": "0.99.1",
+  "protocol": "openai-responses",
+  "status": "pi_model_runtime_verified",
+  "requests": 2,
+  "httpStatuses": [
+    200,
+    200
+  ],
+  "toolDeltas": 5,
+  "textDeltas": 1,
+  "toolResultRoundtrip": true,
+  "rawUsage": [
+    {
+      "input_tokens": 4447,
+      "output_tokens": 19,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    {
+      "input_tokens": 4497,
+      "output_tokens": 5,
+      "input_tokens_details": {
+        "cached_tokens": 0
+      },
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    }
+  ],
+  "budgetPolicy": "waived-for-diagnostic-test",
+  "unverified": [
+    "procurement_price",
+    "provider_log_reconciliation",
+    "context_window",
+    "model_origin",
+    "upstream_cancellation",
+    "commercial_data_terms",
+    "production_gateway",
+    "full_scientific_workflow"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "stage": "M6.11",
+  "passed": true,
+  "platform": "macos-arm64",
+  "realSevenNetSinglePoint": true,
+  "energyEv": -43.083207994846816,
+  "withdrawalDuringActualFIRE": true,
+  "activeFrozenRunPreserved": true,
+  "newDownloadsAndImportsBlocked": true,
+  "newSelectionBlocked": true,
+  "sharedEnvironmentUnaffectedBySiblingWithdrawal": true,
+  "completedSteps": 66,
+  "stopReason": "converged",
+  "oldReportAnd3DPreserved": true,
+  "signedRollbackAndRestartPreserveWithdrawal": true,
+  "scientificQuality": "needs_review",
+  "supplierCalls": 0,
+  "paymentCalls": 0
+}

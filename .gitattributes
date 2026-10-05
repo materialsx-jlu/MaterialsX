@@ -1,0 +1,14 @@
+# Frozen M6 contract/sample hashes must be identical on macOS and Windows checkouts.
+models/potentials/** text eol=lf
+samples/atomistic/** text eol=lf
+schemas/m6/** text eol=lf
+docs/m6/** text=auto eol=lf
+packages/contracts/src/atomistic.ts text eol=lf
+packages/atomistic/src/registry.ts text eol=lf
+scripts/generate-m6-samples.py text eol=lf
+
+# Official numeric reference downloads must retain their original byte hashes.
+methods/references/*.dat -text
+experiments/*.mjs text eol=lf
+methods/**/*.json text eol=lf
+package-lock.json text eol=lf

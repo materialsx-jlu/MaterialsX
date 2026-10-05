@@ -1,0 +1,19 @@
+{
+  "stage": "M6.5",
+  "passed": true,
+  "actualDesktop": true,
+  "realPKCEIdentity": true,
+  "realPostgresGateway": true,
+  "syntheticProvider": true,
+  "nativeDenyNoDispatch": true,
+  "nativeApproveExactSummary": true,
+  "localConsentReceipt": true,
+  "scopeClearedOnLogout": true,
+  "actualLocalMD": true,
+  "approvedMDOptionsFrozen": true,
+  "requests": 4,
+  "usageRecorded": true,
+  "scientificQuality": "needs_review",
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

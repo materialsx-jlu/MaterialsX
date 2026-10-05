@@ -1,0 +1,48 @@
+{
+  "stage": "M6.14",
+  "passed": true,
+  "platform": "macos-arm64",
+  "typecheck": true,
+  "build": true,
+  "tests": {
+    "total": 165,
+    "passed": 164,
+    "skipped": 1,
+    "failed": 0
+  },
+  "teamSkillAcceptance": {
+    "passed": 11,
+    "total": 11
+  },
+  "catalog": {
+    "resources": 175,
+    "checkpoints": 22,
+    "calculatorInterfaces": 8,
+    "defaultSkills": 93
+  },
+  "historicalContractsChecked": [
+    "M6.8",
+    "M6.10",
+    "M6.11",
+    "M6.12",
+    "M6.13"
+  ],
+  "nativeColdDownload": "m614-native-cpu.json",
+  "nativeCachedRerun": "m614-native-cpu-cached.json",
+  "nativeNumericalConsistency": "m614-native-consistency.json",
+  "nativeElectronUI": "m614-ui.json",
+  "isolatedOfflineResources": "m614-offline-resources.json",
+  "regressions": [
+    "ANI-2x molecular SP/FIRE/automatic analysis",
+    "Six crystalline CPU interfaces",
+    "SevenNet FIRE",
+    "CHGNet bounded MD",
+    "Offline checkpoints/receipts/restart"
+  ],
+  "fullInstallerTested": false,
+  "independentDFTAccuracyValidated": false,
+  "windowsNativeTested": false,
+  "gpuTested": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

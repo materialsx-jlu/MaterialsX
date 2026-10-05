@@ -1,0 +1,57 @@
+name: M6.6 model packages and offline application
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ["atomistic/**", "packages/atomistic/**", "packages/contracts/src/atomistic*", "apps/desktop/**", "scripts/m66*", "scripts/build-atomistic-runtime.ts", "models/potentials/extensions-m66.json", "schemas/m66/**", "package.json", "package-lock.json", ".github/workflows/m66.yml"]
+jobs:
+  offline:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.30"
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+      - run: npm ci
+      - run: npm run m6:runtime
+      - run: npm run m6:packages:bundle
+      - run: npm run check
+      - run: npm test
+      - run: npm run m6:audit
+      - run: npm run m66:contracts:check
+      - run: npm run m6:validation:test
+      - run: npm run m6:ui:validation
+      - run: npm run m6:offline:manifest
+      - run: npm run runtime:skills:mac
+        if: runner.os == 'macOS'
+      - run: npm run runtime:skills:win
+        if: runner.os == 'Windows'
+      - run: npm run build
+      - name: Build unsigned unpacked application on its actual target OS
+        shell: pwsh
+        run: |
+          if ($IsWindows) { npx electron-builder --dir --win --x64 --config.directories.output=runtime/m6/m66-package-dist }
+          else { npx electron-builder --dir --mac --arm64 --config.directories.output=runtime/m6/m66-package-dist }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - run: npm run m6:offline:test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m66-evidence-${{ matrix.os }}
+          path: |
+            runtime/m6/acceptance/m66/**
+            runtime/m6/ui/m66/**
+            runtime/m6/offline-bundle-manifest.json
+            runtime/m6/m66-package-dist/builder-effective-config.yaml

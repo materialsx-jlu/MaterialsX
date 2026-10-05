@@ -1,0 +1,7 @@
+5
+Team-authored synthetic geometry; not DFT reference
+C 0 0 0
+H 0.629 0.629 0.629
+H 0.629 -0.629 -0.629
+H -0.629 0.629 -0.629
+H -0.629 -0.629 0.629

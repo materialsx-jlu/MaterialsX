@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "potentialId": {
+      "type": "string",
+      "enum": [
+        "mace-mp-0b3-medium",
+        "chgnet-0.3.0",
+        "chgnet-r2scan"
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "dependencyLockSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "elements": {
+      "minItems": 1,
+      "maxItems": 118,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][a-z]?$"
+      }
+    },
+    "loadedMemoryMiB": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "device": {
+      "type": "string",
+      "const": "cpu"
+    },
+    "adapter": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    }
+  },
+  "required": [
+    "potentialId",
+    "sha256",
+    "dependencyLockSha256",
+    "elements",
+    "loadedMemoryMiB",
+    "device",
+    "adapter"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.4-v1/CapabilityReceipt.json",
+  "x-runtime-refinements": "Real checkpoint/structure/dependency identities, project ownership, hard exclusions, authorized scope and citations must be checked in the local runtime."
+}

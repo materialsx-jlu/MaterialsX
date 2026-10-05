@@ -82,5 +82,19 @@
   "labarchive-integration": "安全读取和整理 LabArchives 电子实验记录与库存信息。",
   "lamindb": "用 LaminDB 跟踪科研数据、模型和结果的版本与谱系。",
   "pufferlib": "规划并行强化学习环境与训练评估流程。",
-  "polars-bio": "用 Polars Bio 处理大规模基因组区间与生物信息数据。"
+  "polars-bio": "用 Polars Bio 处理大规模基因组区间与生物信息数据。",
+  "materials-atomic-structure-inspect": "检查已导入或内置原子结构的元素、晶胞、周期边界和阻断项，保留原始文件；检查不等于模拟。",
+  "materials-mlip-selection": "支持晶体及 ANI-2x 中性单重态非周期分子的受控探索计算、真实文件与 3D；检查元素、电荷、自旋、边界和长程需求，保留科学复核。",
+  "materials-mlip-singlepoint": "支持晶体及 ANI-2x 中性单重态非周期分子的受控探索计算、真实文件与 3D；检查元素、电荷、自旋、边界和长程需求，保留科学复核。",
+  "materials-mlip-relaxation": "支持晶体及 ANI-2x 中性单重态非周期分子的受控探索计算、真实文件与 3D；检查元素、电荷、自旋、边界和长程需求，保留科学复核。",
+  "materials-mlip-md": "用已核验核心势执行受限、固定晶胞 NVE/NVT 短程分子动力学，生成真实轨迹、温度/能量诊断及双语报告。支持本地 3D 播放和轨迹导出；仅限无机三维周期晶体探索试算，需科学复核。",
+  "materials-mlip-comparison": "比较同一不可变结构上两个兼容势的真实单点力差异，保留版本和证据；禁止未对齐基准的总能量比较，模型一致不等于准确。",
+  "materials-atomic-3d-view": "打开本机原子三维预览，支持非正交晶胞、推断键、测距和图像导出；分子可预览，不代表当前核心势可进行分子计算。",
+  "materials-skill-creator": "创建或更新中英文研究工作流 Skill，支持项目文件、计划、MOOS 数据和材料计算工具；先预览审阅，再保存安装。",
+  "materials-potential-discovery": "发现机器学习势官方发布与论文线索，读取证据，区分待审核元数据、已适配模型及撤回状态。",
+  "materials-research-workbench": "用项目输入和 MOOS 证据比较材料条件、整理配方工艺与模拟缺项，生成表格、概览图和报告。",
+  "materials-tensile-analysis": "分析项目中已导入并配置的工程应力—应变或力—位移 CSV/XLSX。保留原始值、拟合区间与剔除理由，生成真实曲线、统计、报告和可复算文件。",
+  "materials-next-experiment": "根据已保存研究条件安排下一轮实验：假设、对照、独立重复、区组随机化与预算检查。绑定真实反馈，在固定验证通过后推荐优化候选，输出方案、候选表与复算文件。",
+  "materials-method-packages": "查找有版本、许可与参考复现记录的方法包，使用现有工具分析选定材料观测并交付真实 JSON 和报告。",
+  "materials-long-compute": "运行已批准的长期本地计算，退出后继续，核对真实回执和结果再恢复研究。"
 }
