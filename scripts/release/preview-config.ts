@@ -17,7 +17,11 @@ const config = {
  ...pkg.build, extends:null, publish:null,
  directories:{output, buildResources:'assets/brand'},
  extraResources:resources,
- mac:{...pkg.build.mac, identity:null, icon:'assets/brand/materialsx-logo-1024.png',
+ // Seal the renamed Electron bundle without claiming a trusted certificate or notarization.
+ // Runtime manifests bind upstream bytes; do not re-sign their embedded executables.
+ mac:{...pkg.build.mac, identity:'-', hardenedRuntime:false,
+  signIgnore:['/Contents/Resources/(agent-runtime|python-runtime|atomistic-runtime|native-engines|model-packages)(/|$)'],
+  icon:'assets/brand/materialsx-logo-1024.png',
   ...(!fullMac?{extraResources:[{from:'runtime/skill-python/macos-arm64',to:'python-runtime'}]}:{})},
  win:{...pkg.build.win, signAndEditExecutable:false,
   extraResources:[{from:'runtime/skill-python/windows-x64',to:'python-runtime'}]},

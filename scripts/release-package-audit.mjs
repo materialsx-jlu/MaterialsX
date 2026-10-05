@@ -37,7 +37,7 @@ export async function auditProductionPackage(resources) {
     findings = [],
     hashes = [];
   for (const path of names) {
-    const p = path.replace(/^\//, "");
+    const p = path.replaceAll("\\", "/").replace(/^\/+/, "");
     if (p.startsWith("node_modules/")) continue;
     if (!productionPath(p)) {
       findings.push(p + ":forbidden-build-content");

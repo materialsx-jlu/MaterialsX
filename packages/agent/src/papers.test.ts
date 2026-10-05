@@ -33,7 +33,7 @@ test('Queries preserve original, translate known materials terms, enforce calend
 });
 test('Shared source queue keeps one connection and interval, queued cancellation consumes no request',async()=>{
  const queue=new SerialSourceQueue(30),starts:number[]=[],cancel=new AbortController();let active=0,max=0;
- const job=()=>queue.run(async()=>{starts.push(Date.now());max=Math.max(max,++active);await new Promise(r=>setTimeout(r,10));active--;});
+ const job=()=>queue.run(async()=>{starts.push(performance.now());max=Math.max(max,++active);await new Promise(r=>setTimeout(r,10));active--;});
  const first=job(),cancelled=queue.run(async()=>{throw Error('SHOULD_NOT_RUN');},cancel.signal);cancel.abort();await assert.rejects(cancelled);await Promise.all([first,job(),job()]);
  assert.equal(max,1);for(let i=1;i<starts.length;i++)assert(starts[i]!-starts[i-1]!>=27);
 });

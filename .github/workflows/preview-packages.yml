@@ -46,6 +46,9 @@ jobs:
       - run: node --import tsx scripts/agent/ua6-runtime-lock.ts ${{ matrix.runtime }}
       - run: node --import tsx scripts/release/preview-config.ts ${{ matrix.platform }} --core
       - run: npx electron-builder ${{ matrix.target }} --config runtime/release-build/${{ matrix.platform }}/builder.json
+      - name: macOS ad-hoc resource seal
+        if: matrix.platform == 'mac'
+        run: codesign --verify --deep --strict release/dist/${{ steps.version.outputs.value }}/mac-arm64/MaterialsX.app
       - name: Linux display dependencies
         if: matrix.platform == 'linux'
         run: sudo apt-get update -qq && sudo apt-get install -y libgtk-3-0t64 libnss3 libasound2t64 libgbm1 xvfb
