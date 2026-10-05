@@ -1,6 +1,6 @@
 import { listPackage, extractFile, uncache } from "@electron/asar";
 import { lstat, readdir, readFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { join, relative, sep } from "node:path";
 import { createHash } from "node:crypto";
 const patterns = [
   /\bsk-[A-Za-z0-9_-]{24,}/,
@@ -44,7 +44,7 @@ export async function auditProductionPackage(resources) {
       continue;
     }
     if (/\.(?:[cm]?js|json|md|html|css)$/.test(p)) {
-      const bytes = extractFile(asar, p);
+      const bytes = extractFile(asar, p.replaceAll("/", sep));
       if (checkPublicText(bytes.toString("utf8")))
         findings.push(p + ":credential-pattern");
       hashes.push([p, createHash("sha256").update(bytes).digest("hex")]);

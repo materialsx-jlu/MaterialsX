@@ -38,6 +38,7 @@ jobs:
         with:
           version: "0.9.18"
       - run: npm ci
+      - run: node --import tsx --test packages/release-readiness/src/qualification/qualification.test.ts
       - id: version
         run: node -e "require('fs').appendFileSync(process.env.GITHUB_OUTPUT, 'value=' + require('./package.json').version + '\n')"
       - run: npm run check

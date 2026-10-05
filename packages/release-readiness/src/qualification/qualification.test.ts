@@ -217,6 +217,8 @@ test("actual ASAR audit rejects development harnesses and secrets, preserves val
     await mkdir(source);
     await mkdir(resources);
     await writeFile(join(source, "index.js"), 'console.log("safe")');
+    await mkdir(join(source, "dist/apps/desktop/main"), { recursive: true });
+    await writeFile(join(source, "dist/apps/desktop/main/index.js"), 'console.log("nested")');
     await createPackage(source, join(resources, "app.asar"));
     assert((await auditProductionPackage(resources)).passed);
     await mkdir(join(source, "tests"));
