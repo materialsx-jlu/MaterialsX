@@ -16,9 +16,19 @@
 
 ## 界面
 
-![MaterialsX 研究工作台](docs/images/workbench.png)
+以下截图使用示例项目与本地测试数据，不包含真实账户或订单。
 
-![MaterialsX 原子结构查看器](docs/m6/images/viewer-dark.png)
+| 项目化研究任务 | 科研 Skills |
+| --- | --- |
+| [![研究任务与研究上下文](docs/images/readme/workbench-030.png)](docs/images/readme/workbench-030.png) | [![材料研究 Skills](docs/images/readme/skills-030.png)](docs/images/readme/skills-030.png) |
+
+| 材料模型目录：来源与适用范围 | 研究数据与交付：项目输入、MOOS 数据和产物 |
+| --- | --- |
+| [![材料模型目录](docs/images/readme/model-catalog-030.png)](docs/images/readme/model-catalog-030.png) | [![研究数据与交付](docs/images/readme/research-delivery-030.png)](docs/images/readme/research-delivery-030.png) |
+
+| 原子计算：结果与分项能量 | 3D 结构查看器：晶胞、键连与测量 |
+| --- | --- |
+| [![原子计算结果](docs/m6/screenshots/m615/components-zh.png)](docs/m6/screenshots/m615/components-zh.png) | [![原子结构 3D 查看器](docs/m6/screenshots/m615/native-3d-zh.png)](docs/m6/screenshots/m615/native-3d-zh.png) |
 
 ## 快速开始
 
