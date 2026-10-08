@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "m6.0-v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "atomic_structure",
+        "atomic_trajectory",
+        "atomistic_result",
+        "validation_report",
+        "plot",
+        "image"
+      ]
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "bytes": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 268435456
+    },
+    "structureId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "frames": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 2001
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "projectId",
+    "runId",
+    "type",
+    "relativePath",
+    "sha256",
+    "bytes",
+    "structureId",
+    "frames",
+    "partial"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.0-v1/AtomisticArtifact.json",
+  "x-contract-version": "m6.0-v1",
+  "x-runtime-refinements": "packages/contracts/src/atomistic.ts refinements are mandatory; JSON Schema alone is insufficient. Authorization, realpath, file hash and resource checks belong to the local executor."
+}

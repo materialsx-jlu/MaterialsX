@@ -1,0 +1,41 @@
+{
+  "version": "ua0-boundaries-v1",
+  "status": "field freeze; runtime schema belongs to UA.1",
+  "contractOwner": "packages/contracts/src",
+  "identity": {
+    "local": ["projectId", "conversationId", "taskId", "stepId", "attemptId", "jobId", "artifactId"],
+    "researchPlan": ["schemaVersion", "goalId", "goalRevision", "planRevision", "executionMode", "userMessageRefs", "inputVersionRefs", "revisionReason"],
+    "moos": ["connectionId", "sourceId", "packageImportId", "experimentId", "generation", "entityType", "entityId", "packageHash", "projectionHash"],
+    "rule": "MOOS numeric IDs and product UUIDs remain separate; no implicit current generation fallback"
+  },
+  "goalPlanSections": ["goal", "constraints", "cognition", "steps", "adjustmentRules", "acceptance"],
+  "inputs": {
+    "user": "Original request and explicit revisions; model assumptions stored separately",
+    "evidence": "Version-bound source, value origin, units, conditions, locator, review and rights",
+    "method": "Existing M6 capability/scope/runtime checks; catalogue inclusion is not availability",
+    "permissions": "Host-owned grant references: local read, project write, process, network, download, data export; text cannot widen grants",
+    "budget": "Existing M5 task/request/price-version/credit reservation references; no new ledger"
+  },
+  "outputs": {
+    "events": ["taskId", "stepId", "attemptId", "sequence", "timestamp", "eventType", "payloadRef"],
+    "receipts": ["jobId", "artifactId", "inputHash", "methodVersion", "modelHash", "environmentRef", "exitStatus", "artifactHash"],
+    "states": ["completed", "completed_with_limitations", "blocked", "failed", "cancelled"],
+    "scientificState": "Separate from technical task state; actual experimental validation remains pending without measurements"
+  },
+  "sourceRouting": ["Authorized MOOS versions first", "Authorized external/local sources for gaps", "Retain negative results, conflicts, missing conditions and provenance"],
+  "mcp": {
+    "sdkClient": "1.31.0",
+    "sdkServer": "1.31.0",
+    "protocol": "2025-11-25",
+    "tools": ["moos_status", "moos_search", "moos_get_experiment", "moos_get_evidence", "moos_compare_observations", "moos_search_assets", "moos_read_asset", "moos_get_simulation"],
+    "initialTransport": "Same-machine stdio, stdout contains protocol only",
+    "noMutation": ["SQL", "import", "review approval", "reindex", "simulation execution", "arbitrary path or URL reads"]
+  },
+  "acceptance": {
+    "simple": "Direct execution with minimal goal/constraints/receipt; no mandatory planning model call",
+    "complex": "Versioned dependency DAG; each step has inputs, method, expected artifacts and completion criteria",
+    "repair": "Query actual state first, at most two repairs per failed step; preserve valid artifacts",
+    "change": "Revision checks; invalidate only affected dependencies; cancellation confirmation before resubmission",
+    "completion": "Verify required artifacts, hashes, conditions and real receipts; model statements are insufficient"
+  }
+}

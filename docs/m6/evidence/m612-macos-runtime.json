@@ -1,0 +1,69 @@
+{
+  "stage": "M6.12",
+  "passed": true,
+  "platform": "macos-arm64",
+  "actualRuntime": true,
+  "oldM66Importer": true,
+  "offlineCollectionRoundTrip": true,
+  "checkpoints": [
+    {
+      "potentialId": "mace-mp-0b3-medium",
+      "task": "singlepoint",
+      "energyEv": -43.04722037793425,
+      "artifacts": 4,
+      "runId": "02b87cde-94d2-4bd6-bc84-04f533b484e4"
+    },
+    {
+      "potentialId": "chgnet-0.3.0",
+      "task": "singlepoint",
+      "energyEv": -42.4974365234375,
+      "artifacts": 4,
+      "runId": "7949ffb9-f646-4800-8080-71f7df3b15ad"
+    },
+    {
+      "potentialId": "chgnet-r2scan",
+      "task": "singlepoint",
+      "energyEv": -69.86658477783203,
+      "artifacts": 4,
+      "runId": "2b370a35-c613-4fe4-89e8-995ee2fea6f7"
+    },
+    {
+      "potentialId": "mace-mp-0b2-small",
+      "task": "singlepoint",
+      "energyEv": -43.23861945037482,
+      "artifacts": 4,
+      "runId": "89596cca-0966-4ccf-b7af-0440e1732bd1"
+    },
+    {
+      "potentialId": "mace-mpa-0-medium",
+      "task": "singlepoint",
+      "energyEv": -43.299058508501645,
+      "artifacts": 4,
+      "runId": "206dbe17-e00d-4d14-853b-4cc68db50258"
+    },
+    {
+      "potentialId": "sevennet-0-11jul2024",
+      "task": "singlepoint",
+      "energyEv": -43.20663871558327,
+      "artifacts": 4,
+      "runId": "1fc58449-7a4a-48dd-be75-1ff2ef21fa06"
+    }
+  ],
+  "sevenNetRelaxation": {
+    "stopReason": "converged",
+    "steps": 0
+  },
+  "chgnetMD": {
+    "steps": 4,
+    "seed": 20261002,
+    "verdict": "insufficient_duration"
+  },
+  "receiptAfterUninstall": true,
+  "receiptAfterRestart": true,
+  "real3DAfterUninstall": true,
+  "tamperedReceiptRejected": true,
+  "scientificQuality": "needs_review",
+  "weightsDownloaded": 0,
+  "supplierCalls": 0,
+  "paymentCalls": 0
+}

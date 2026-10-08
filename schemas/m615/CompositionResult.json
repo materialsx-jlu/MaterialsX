@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.15-v1"
+    },
+    "profileSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "baseline": {
+      "type": "object",
+      "properties": {
+        "energyEv": {
+          "type": "number"
+        },
+        "forcesEvPerAngstrom": {
+          "minItems": 1,
+          "maxItems": 128,
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "stress": {
+          "minItems": 6,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "energyEv",
+        "forcesEvPerAngstrom",
+        "stress"
+      ],
+      "additionalProperties": false
+    },
+    "correction": {
+      "type": "object",
+      "properties": {
+        "energyEv": {
+          "type": "number"
+        },
+        "forcesEvPerAngstrom": {
+          "minItems": 1,
+          "maxItems": 128,
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "stress": {
+          "minItems": 6,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "energyEv",
+        "forcesEvPerAngstrom",
+        "stress"
+      ],
+      "additionalProperties": false
+    },
+    "total": {
+      "type": "object",
+      "properties": {
+        "energyEv": {
+          "type": "number"
+        },
+        "forcesEvPerAngstrom": {
+          "minItems": 1,
+          "maxItems": 128,
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "stress": {
+          "minItems": 6,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "energyEv",
+        "forcesEvPerAngstrom",
+        "stress"
+      ],
+      "additionalProperties": false
+    },
+    "units": {
+      "type": "object",
+      "properties": {
+        "energy": {
+          "type": "string",
+          "const": "eV"
+        },
+        "forces": {
+          "type": "string",
+          "const": "eV/angstrom"
+        },
+        "stress": {
+          "type": "string",
+          "const": "eV/angstrom^3"
+        }
+      },
+      "required": [
+        "energy",
+        "forces",
+        "stress"
+      ],
+      "additionalProperties": false
+    },
+    "stressOrder": {
+      "type": "string",
+      "const": "xx,yy,zz,yz,xz,xy"
+    },
+    "stressSign": {
+      "type": "string",
+      "const": "positive-tension"
+    },
+    "quality": {
+      "type": "string",
+      "const": "needs_review"
+    }
+  },
+  "required": [
+    "version",
+    "profileSha256",
+    "baseline",
+    "correction",
+    "total",
+    "units",
+    "stressOrder",
+    "stressSign",
+    "quality"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m615/CompositionResult.json",
+  "x-runtime-refinements": "Fixed MACE+PBE-D3(BJ) two-body sum, no ATM/electrostatics; pinned shared baseline, sources, native engine and profile; CPU pure Si fixed-cell screening; component sums and real result files verified."
+}

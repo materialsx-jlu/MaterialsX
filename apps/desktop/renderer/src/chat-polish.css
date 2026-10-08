@@ -1,0 +1,35 @@
+/* A single reading axis keeps messages, run receipts, references, and the composer aligned. */
+.conversation-pane .message-list{padding:12px 0 30px;scroll-padding-bottom:30px;scrollbar-gutter:stable}
+.conversation-pane .message{width:100%;max-width:920px;grid-template-columns:32px minmax(0,1fr);gap:14px;padding:24px 14px}
+.conversation-pane .message-avatar{width:32px;height:32px;border-radius:10px;font-size:12px}
+.conversation-pane .message-body{width:100%;min-width:0}
+.conversation-pane .user-content,.conversation-pane .markdown-content{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+.conversation-pane .message-meta{height:auto;min-height:30px;gap:9px}
+.conversation-pane .message-meta strong{font-size:13px;font-weight:650}
+.conversation-pane .message-meta>span{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.conversation-pane .message.user .message-body{padding:11px 15px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2)}
+.conversation-pane .message-body .user-content{margin:6px 0 0;color:var(--text);font-size:14px;line-height:1.78;overflow-wrap:anywhere}
+.conversation-pane .message-body .thinking-placeholder{font-size:14px}
+.conversation-pane .markdown-content{max-width:100%;margin-top:8px;color:var(--text);font-size:14px;line-height:1.8;letter-spacing:.004em}
+.conversation-pane .markdown-content h1{font-size:21px}
+.conversation-pane .markdown-content h2{font-size:18px}
+.conversation-pane .markdown-content h3{font-size:16px}
+.conversation-pane .markdown-content h4{font-size:14px}
+.conversation-pane .markdown-content p{margin:.62em 0}
+.conversation-pane .markdown-content li{margin:.34em 0}
+.conversation-pane .markdown-content pre,.conversation-pane .markdown-content table,.conversation-pane .markdown-content .katex-display{max-width:100%}
+.conversation-pane .markdown-content table{font-size:13px}
+.conversation-pane .markdown-content pre code{font-size:12px}
+.conversation-pane .markdown-content img,.conversation-pane .markdown-content video,.conversation-pane .markdown-content svg,.conversation-pane .markdown-content canvas{max-width:100%;height:auto}
+.conversation-pane .composer-wrap{min-width:0;padding:12px 24px 16px;border-top:1px solid var(--line-soft);background:var(--bg)}
+.conversation-pane .composer-inner{width:100%;max-width:892px;min-width:0;margin:0 auto}
+.conversation-pane .composer-inner>*{min-width:0;max-width:100%}
+.conversation-pane .composer-inner .cloud-run-panel{width:100%;max-width:none}
+.conversation-pane .composer{width:100%;max-width:none;padding:13px 14px 10px;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.conversation-pane .composer textarea{display:block;min-height:58px;max-height:180px;padding:3px 4px;color:var(--text);font-size:14px;line-height:1.65;overflow-wrap:anywhere}
+.conversation-pane .composer-toolbar{margin-top:8px}
+.conversation-pane .composer-hint{max-width:none;margin:8px auto 0;color:var(--muted);font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.conversation-pane .composer-attachments{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.conversation-pane .skill-mention-header{gap:10px}
+.conversation-pane .skill-mention-header small{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:720px){.conversation-pane .message{padding:18px 14px;gap:10px}.conversation-pane .composer-wrap{padding:10px 14px 13px}.conversation-pane .message.user .message-body{padding:10px 12px}.conversation-pane .message-copy span{display:none}.conversation-pane .message-copy{min-width:30px;padding:0 6px}}

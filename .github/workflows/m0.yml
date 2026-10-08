@@ -27,9 +27,26 @@ jobs:
       - run: uv sync --project python --frozen
       - run: uv run --project python python scripts/check-public-secrets.py
       - run: npm run check
+      - run: node --import tsx --test scripts/check-source-size.test.ts
+      - run: npm run ua0:gold
       - run: npm run test
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.7"
+          cache: false
+      - run: npm run control-plane:test
+      - run: npm run m5:contracts:check
+      - run: npm run m6:contracts:check
+      - run: npm run m68:contracts:check
+      - run: npm run m610:contracts:check
+      - run: npm run m611:contracts:check
+      - run: npm run m67:contracts:check
+      - run: npm run m67:audit
+      - run: npm run m64:contracts:check
+      - run: npm run m6:audit
+      - run: npm run m5:pi
       - run: npm run build
-      - run: uv run --project python pytest
+      - run: uv run --project python --frozen pytest python/tests
       - run: npm run m0:pi
       - run: npm run skills:audit
       - run: npm run m0:preflight
@@ -38,3 +55,42 @@ jobs:
         with:
           name: m0-preflight-${{ matrix.os }}
           path: artifacts/m0/preflight.json
+
+  identity-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: mx_fixture_owner
+          POSTGRES_PASSWORD: synthetic-ci-postgres-only
+          POSTGRES_DB: mx_identity_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U mx_fixture_owner -d mx_identity_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      MATERIALSX_IDENTITY_TEST_DATABASE_URL: postgres://mx_fixture_owner:synthetic-ci-postgres-only@127.0.0.1:5432/mx_identity_test?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.7"
+          cache-dependency-path: services/control-plane/go.sum
+      - run: npm ci
+      - name: PostgreSQL 16 backup tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-16
+          echo "MATERIALSX_POSTGRES_BIN=/usr/lib/postgresql/16/bin" >> "$GITHUB_ENV"
+      - run: npm run m5:identity:test
+      - run: npm run m5:identity:live
+      - run: npm run m5:gateway:live
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project python
+      - run: npm run m5:metering:live

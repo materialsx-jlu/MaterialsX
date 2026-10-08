@@ -1,0 +1,51 @@
+name: M6.11 public metadata discovery
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m611-public-discovery
+  cancel-in-progress: false
+
+jobs:
+  collect-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run m611:contracts:check
+      - uses: actions/cache/restore@v4
+        with:
+          path: runtime/m6/discovery-publisher/potential-discovery
+          key: m611-drafts-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            m611-drafts-${{ github.ref_name }}-
+      # Fixed public sources only. Daily official feeds; seven-day paper cadence
+      # is enforced by the persisted collector state. No weights or credentials.
+      - run: npm run m611:sync
+      - name: Check source failures
+        run: node --input-type=module -e "import fs from 'node:fs';const r=JSON.parse(fs.readFileSync('runtime/m6/acceptance/m611/live-sources.json'));const bad=r.status.sources.filter(s=>s.error);if(bad.length){console.error(bad.map(s=>({id:s.id,error:s.error})));process.exitCode=1;}"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: runtime/m6/discovery-publisher/potential-discovery
+          key: m611-drafts-${{ github.ref_name }}-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m611-unreviewed-public-metadata-${{ github.run_id }}
+          path: |
+            runtime/m6/acceptance/m611/live-sources.json
+            runtime/m6/discovery-publisher/potential-discovery
+          retention-days: 7
+      # Intentionally no automatic review/signing/publishing of source material.

@@ -1,0 +1,252 @@
+{
+  "version": "m6.14-v1",
+  "entry": {
+    "potentialId": "nep-si-2022-nep4-3body",
+    "family": "nep",
+    "adapter": "nep-cpu",
+    "basePotentialId": "chgnet-0.3.0",
+    "environmentProfileId": "nep-cpu-1.4-shared-chgnet-v1",
+    "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+    "sourceRevision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+    "url": "https://raw.githubusercontent.com/brucefan1983/GPUMD/87c1cf22401ac8c791adda0879e0af704dd5f981/potentials/nep/Si_2022_NEP4_3body.txt",
+    "sha256": "ad5c2c273a95684d2b19b5b26295b2914e6412a2fe2c377e09ece399b7fa22ca",
+    "bytes": 50446,
+    "license": "GPL-3.0-only",
+    "notices": [
+      {
+        "path": "docs/m6/licenses/nep-cpu-LICENSE.txt",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      },
+      {
+        "path": "docs/m6/licenses/gpumd-LICENCE.txt",
+        "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+      },
+      {
+        "path": "docs/m6/licenses/nep-si-README.md",
+        "sha256": "68083047b683b108efc556ba94adf21098bbf94131cdf4373a70ba43c3ea277c"
+      }
+    ],
+    "reviewedAt": "2026-10-02T00:00:00.000Z",
+    "elements": [
+      "Si"
+    ],
+    "loadedMemoryMiB": 900,
+    "dtype": "float64",
+    "platforms": [
+      {
+        "platform": "macos-arm64",
+        "device": "cpu",
+        "status": "verified",
+        "evidenceId": "m614-native-cpu"
+      },
+      {
+        "platform": "windows-x64",
+        "device": "cpu",
+        "status": "not-tested",
+        "evidenceId": null
+      }
+    ]
+  },
+  "potential": {
+    "schemaVersion": "m6.0-v1",
+    "id": "nep-si-2022-nep4-3body",
+    "name": "NEP Si 2022 · NEP4 3-body · CPU",
+    "family": "NEP",
+    "checkpoint": "Si_2022_NEP4_3body.txt",
+    "role": "extension-candidate",
+    "source": {
+      "id": "nep-cpu-source",
+      "url": "https://github.com/brucefan1983/NEP_CPU/blob/43b2ee64dd03e7e880cd343582b0de31b715c222/LICENSE",
+      "revision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "path": "vendor/nep-cpu/LICENSE"
+    },
+    "evidence": [
+      {
+        "id": "gpumd-si-license",
+        "url": "https://github.com/brucefan1983/GPUMD/blob/87c1cf22401ac8c791adda0879e0af704dd5f981/LICENCE",
+        "revision": "87c1cf22401ac8c791adda0879e0af704dd5f981",
+        "path": "docs/m6/licenses/gpumd-LICENCE.txt",
+        "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+      }
+    ],
+    "citation": "GPUMD 2022 doi:10.1063/5.0106617; silicon dataset Bartok 2018 doi:10.1103/PhysRevX.8.041048. Tutorial artifact; independent accuracy not validated.",
+    "weights": {
+      "url": "https://raw.githubusercontent.com/brucefan1983/GPUMD/87c1cf22401ac8c791adda0879e0af704dd5f981/potentials/nep/Si_2022_NEP4_3body.txt",
+      "revision": "87c1cf22401ac8c791adda0879e0af704dd5f981",
+      "sha256": "ad5c2c273a95684d2b19b5b26295b2914e6412a2fe2c377e09ece399b7fa22ca",
+      "bytes": 50446,
+      "verification": "download-hashed"
+    },
+    "licenses": {
+      "code": {
+        "expression": "GPL-3.0-or-later",
+        "evidenceIds": [
+          "nep-cpu-source"
+        ],
+        "status": "documented"
+      },
+      "weights": {
+        "expression": "GPL-3.0-only",
+        "evidenceIds": [
+          "gpumd-si-license"
+        ],
+        "status": "documented"
+      },
+      "trainingData": {
+        "expression": "not redistributed; dataset license independently reviewed before training",
+        "evidenceIds": [],
+        "status": "unknown"
+      },
+      "redistribution": "permitted-with-notices"
+    },
+    "declared": {
+      "energy": "yes",
+      "forces": "yes",
+      "stress": "yes",
+      "conservative": "yes",
+      "elements": [
+        "Si"
+      ],
+      "periodicity": [
+        "bulk"
+      ],
+      "domains": [
+        "inorganic-crystals"
+      ],
+      "headPolicy": "single",
+      "heads": [],
+      "chargeInput": "unsupported",
+      "spinInput": "unsupported",
+      "nativeUnits": {
+        "energy": "eV",
+        "forces": "eV/angstrom",
+        "stress": "eV/angstrom^3",
+        "stressConvention": "NEP virial tensor -> ASE stress = -sym(sum atomic virial)/volume; positive tension; xx,yy,zz,yz,xz,xy"
+      },
+      "temperatureRangeK": null,
+      "pressureRangeGPa": null,
+      "evidenceIds": [
+        "nep-cpu-source"
+      ]
+    },
+    "energyReference": {
+      "functional": "GAP silicon reference dataset; matched theory not independently audited",
+      "dataset": "GPUMD tutorial Si_2022_NEP4_3body artifact; README refers to older NEP3 filename",
+      "convention": "NEP atomic energy sum; not aligned with other potentials"
+    },
+    "environment": {
+      "adapter": "nep-cpu",
+      "profileId": "nep-cpu-1.4-shared-chgnet-v1",
+      "codeRevision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+      "diskEstimateMiB": 4,
+      "memoryEstimateMiB": 900,
+      "matrix": [
+        {
+          "platform": "macos-arm64",
+          "device": "cpu",
+          "status": "verified",
+          "evidenceId": "m614-native-cpu"
+        },
+        {
+          "platform": "windows-x64",
+          "device": "cpu",
+          "status": "not-tested",
+          "evidenceId": null
+        }
+      ]
+    },
+    "state": "audited",
+    "installation": "absent",
+    "runtimeEvidenceIds": [
+      "m614-native-cpu"
+    ],
+    "taskEvidenceIds": [],
+    "description": {
+      "zh": "纯硅专用 NEP4 三体示例权重，经固定 NEP_CPU 1.4 原生 C++ 引擎进行 CPU 单点与固定晶胞 FIRE；未知独立 DFT 误差。",
+      "en": "Pure-silicon NEP4 3-body tutorial checkpoint evaluated by pinned native NEP_CPU 1.4 C++ for CPU single points and fixed-cell FIRE; independent DFT error unknown."
+    },
+    "examples": [
+      {
+        "zh": "对内置 si-diamond 用硅专用 NEP 做探索单点，输出能量、逐原子力和拉伸为正的应力，展示 3D。",
+        "en": "Run an exploratory Si NEP single point on bundled si-diamond; return energy, per-atom forces and positive-tension stress with 3D."
+      },
+      {
+        "zh": "对扰动的纯硅周期结构用此 NEP 固定晶胞 FIRE，最多100步，fmax 0.05 eV/Å；报告真实收敛状态及前后对比。",
+        "en": "Use this NEP for fixed-cell FIRE on a perturbed pure-Si periodic structure, up to 100 steps at fmax 0.05 eV/Å; report actual convergence and before/after comparison."
+      }
+    ],
+    "limitations": [
+      {
+        "zh": "仅纯硅三维周期探索；最多256原子，晶胞最小奇异值≥4 Å，体积/原子≥5 Å³。不开放其他元素、显式电荷/自旋、变胞、MD、GPU、长程或额外D3。",
+        "en": "Pure Si 3D periodic screening only: <=256 atoms, minimum cell singular value >=4 Å and volume/atom >=5 Å³. Other elements, charge/spin, variable cell, MD, GPU, long-range and added D3 are not approved."
+      },
+      {
+        "zh": "来源为 GPUMD 示例权重；README 旧 NEP3 名称与本文件 NEP4 头不同，记录具体文件身份。无独立 DFT 精度或训练重叠验证。",
+        "en": "GPUMD tutorial artifact: historical README uses NEP3 names while this pinned file has a NEP4 header. Exact file identity is recorded. No independent DFT accuracy or training-overlap validation."
+      }
+    ],
+    "relatedCatalogIds": [
+      "hub-nep"
+    ]
+  },
+  "engine": {
+    "name": "NEP_CPU",
+    "version": "1.4",
+    "revision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+    "dependencyEnvironment": "chgnet",
+    "sources": [
+      {
+        "path": "vendor/nep-cpu/LICENSE",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      },
+      {
+        "path": "vendor/nep-cpu/dftd3para.h",
+        "sha256": "490d4ef0a012b716f0811fbb4ce9782c2b6dd6190b4a349f5422aa7b8fdac10a"
+      },
+      {
+        "path": "vendor/nep-cpu/ewald_nep.cpp",
+        "sha256": "d8d2f3fb07d46c4f4a5c646d779c090463249cc2dc93c8a2a5de6a5eee043519"
+      },
+      {
+        "path": "vendor/nep-cpu/ewald_nep.h",
+        "sha256": "96b4bcdd5306c2cdb0c01a913ef47cf0485af50383a0a49c33b89bab5b906f76"
+      },
+      {
+        "path": "vendor/nep-cpu/neighbor_nep.cpp",
+        "sha256": "423db8587719b9f22cb8dbb57d67ee44994551b391872eba813c3d1d0e3a3c58"
+      },
+      {
+        "path": "vendor/nep-cpu/neighbor_nep.h",
+        "sha256": "0e9881ddff221ef2ad7b1a6f70beb38bece48e3a1de0895d88cb07f0ed72462c"
+      },
+      {
+        "path": "vendor/nep-cpu/nep.cpp",
+        "sha256": "3d43b9db0bce3fd4f9de63637bde3d3682a00f950d3070879655a6ead75d60df"
+      },
+      {
+        "path": "vendor/nep-cpu/nep.h",
+        "sha256": "b33c0d666b0532bcfc423ab8d101574b0d85cd1d65c1f1a303292a9d276b4e26"
+      },
+      {
+        "path": "vendor/nep-cpu/nep_utilities.h",
+        "sha256": "1e3abeca42f41d7f9873eb7f47859c58fe225a432cbd7e7842654563230c25a4"
+      },
+      {
+        "path": "atomistic/nep_runner.cpp",
+        "sha256": "d0a831431585cecdf7f704c8de6873c70d6352f0d288efa0e14f4732343d11e7"
+      }
+    ],
+    "weightRevision": "87c1cf22401ac8c791adda0879e0af704dd5f981",
+    "header": "nep4 1 Si",
+    "maxAtoms": 256,
+    "minimumCellSingularValueAngstrom": 4,
+    "minimumVolumePerAtomAngstrom3": 5,
+    "longRange": "absent",
+    "dispersion": "not-added",
+    "tasks": [
+      "singlepoint",
+      "relaxation"
+    ]
+  }
+}

@@ -20,6 +20,12 @@ afterEach(() => {
 });
 
 describe("WorkspaceStore", () => {
+  it("defaults to Codex without overwriting an explicit saved engine",()=>{
+    const {database}=temporaryDatabase();const store=new WorkspaceStore(database);
+    assert.equal(store.getSettings().agentEngine,"codex");
+    store.saveSettings({...store.getSettings(),agentEngine:"pi"});store.close();
+    const restored=new WorkspaceStore(database);assert.equal(restored.getSettings().agentEngine,"pi");restored.close();
+  });
   it("restores a project, conversation, messages, run, and model settings after restart", () => {
     const { directory, database } = temporaryDatabase();
     const first = new WorkspaceStore(database);
@@ -37,6 +43,7 @@ describe("WorkspaceStore", () => {
     assert.equal(restored.listMessages(conversation.id)[0]?.content, "分析这组拉伸实验数据");
     assert.equal(restored.listRuns()[0]?.status, "waiting_model");
     assert.deepEqual(restored.getSettings(), {
+      agentEngine: "codex",
       mode: "local",
       modelId: "qwen-local",
       localEndpoint: "http://127.0.0.1:11434",
@@ -96,4 +103,13 @@ describe("WorkspaceStore", () => {
     assert.doesNotMatch(JSON.stringify(store.getSupportSummary()), /private|unpublished/);
     store.close();
   });
+});
+
+it("restores cloud task pointers by account without copying credentials or scientific content",()=>{
+ const {database}=temporaryDatabase();const first=new WorkspaceStore(database);
+ first.saveCloudTask("account-A","conversation","task-fixture");first.close();
+ const restarted=new WorkspaceStore(database);
+ assert.equal(restarted.latestCloudTask("account-A","conversation"),"task-fixture");
+ assert.equal(restarted.latestCloudTask("account-B","conversation"),null);
+ restarted.close();
 });

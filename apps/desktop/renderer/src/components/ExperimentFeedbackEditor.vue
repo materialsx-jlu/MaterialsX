@@ -1,0 +1,26 @@
+<script setup lang="ts">
+import {computed,ref,watch} from 'vue';
+import type {ResearchStudy,NextExperimentDesign,ExperimentFeedback,FeedbackInput} from '../../../../../packages/contracts/src/next-experiment.js';
+import type {ExperimentRun} from '../../../../../packages/contracts/src/experiments.js';
+import type {ResearchSnapshot} from '../../../../../packages/contracts/src/research-project.js';
+const props=defineProps<{study:ResearchStudy;designs:NextExperimentDesign[];feedback:ExperimentFeedback[];runs:ExperimentRun[];snapshots:ResearchSnapshot[];revision:number;locale:'zh'|'en';busy:boolean}>(),emit=defineEmits<{save:[input:FeedbackInput]}>();
+const t=(zh:string,en:string)=>props.locale==='zh'?zh:en,designId=ref(''),plannedRunId=ref(''),outcome=ref<FeedbackInput['outcome']>('measured'),notes=ref(''),reviewed=ref(false),sourceIndex=ref(''),actual=ref<Record<string,number>>({});
+const available=computed(()=>props.designs.filter(d=>d.studyId===props.study.id&&d.result.status==='planned')),design=computed(()=>available.value.find(d=>d.id===designId.value)),row=computed(()=>design.value?.result.schedule.find(r=>r.id===plannedRunId.value));
+const current=computed(()=>props.feedback.find(f=>f.input.designId===designId.value&&f.input.plannedRunId===plannedRunId.value&&!props.feedback.some(n=>n.input.supersedes===f.id)));
+const sources=computed(()=>props.study.input.response.metric==='reported'?props.snapshots.flatMap(s=>(s.data.observations as any[]??[]).filter(o=>o.property===props.study.input.response.property).map(o=>({label:s.title+' · '+o.id+' · '+o.value+' '+o.unit,source:{kind:'reported' as const,snapshotId:s.id,observationId:String(o.id)}}))):props.runs.filter(r=>r.status==='completed').flatMap(r=>(r.result.curves as any[]??[]).map(c=>({label:r.createdAt+' · '+c.specimenId+' · '+(props.study.input.response.metric==='fitSlopeMPa'?c.fit.slopeMPa:c.observedPeakStressMPa)+' MPa',source:{kind:'ua8' as const,runId:r.id,specimenId:String(c.specimenId)}}))));
+watch(()=>props.study.id,()=>{designId.value='';plannedRunId.value='';sourceIndex.value='';},{immediate:true});watch(designId,()=>plannedRunId.value='');
+watch(row,r=>{actual.value=r?{...r.factors}:{};reviewed.value=false;notes.value='';sourceIndex.value='';});
+function submit(){emit('save',{expectedProjectRevision:props.revision,designId:designId.value,plannedRunId:plannedRunId.value,outcome:outcome.value,actualFactors:{...actual.value},reviewed:reviewed.value,notes:notes.value,supersedes:current.value?.id??null,source:sourceIndex.value===''?null:JSON.parse(JSON.stringify(sources.value[Number(sourceIndex.value)]!.source))});}
+</script>
+<template>
+<form class="feedback-form" @submit.prevent="submit">
+  <p class="field-help">{{t('测量值取自真实数据源。人工确认只是数据核对；仍需科研复核。修改反馈将保留上一条记录。','Measurements come from real sources. Human review confirms data entry, not scientific validity. Corrections preserve the previous record.')}}</p>
+  <div class="two"><label>{{t('实验方案','Design')}}<select v-model="designId" required><option value="">{{t('选择方案','Select a design')}}</option><option v-for="d in available" :key="d.id" :value="d.id">{{d.createdAt}} · {{d.request.method}}</option></select></label><label>{{t('实验单元','Planned unit')}}<select v-model="plannedRunId" required><option value="">{{t('选择单元','Select a unit')}}</option><option v-for="r in design?.result.schedule" :key="r.id" :value="r.id">{{r.id}} · {{r.block}} · {{r.role}} · {{JSON.stringify(r.factors)}}</option></select></label></div>
+  <div v-if="row" class="two"><label v-for="f in study.input.factors" :key="f.key">{{f.label}} · {{f.unit}}<input v-model.number="actual[f.key]" type="number" step="any" required/></label><label>{{t('实际结果','Outcome')}}<select v-model="outcome"><option value="measured">{{t('已测量','Measured')}}</option><option value="failed">{{t('失败','Failed')}}</option><option value="deviated">{{t('偏离条件','Deviated')}}</option></select></label><label>{{t('关联测量来源','Measurement source')}}<select v-model="sourceIndex" :required="outcome==='measured'"><option value="">{{t('无测量值 / 选择来源','No measurement / select a source')}}</option><option v-for="(s,i) in sources" :key="i" :value="String(i)">{{s.label}}</option></select></label></div>
+  <label>{{t('记录说明（失败原因、偏离或确认依据）','Notes (failure, deviation or review basis)')}}<textarea v-model="notes" required/></label><label class="check"><input v-model="reviewed" type="checkbox"/>{{t('我已核对来源、变量、单位和测量条件','I checked the source, factors, unit and conditions')}}</label>
+  <p v-if="current" class="field-help">{{t('将新增更正记录，替代','Adds a correction superseding')}} {{current.id.slice(0,8)}}</p><button class="primary-button" :disabled="busy||!row">{{current?t('保存更正','Save correction'):t('登记结果','Record outcome')}}</button>
+</form>
+</template>
+<style scoped>
+.feedback-form{display:grid;gap:14px}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}label{display:grid;gap:7px;font-size:13px}input,select,textarea{box-sizing:border-box;width:100%;min-width:0;padding:9px;border:1px solid var(--line);border-radius:7px;color:var(--text);background:var(--panel);font:inherit}.check{display:flex;align-items:center}.check input{width:auto}@media(max-width:650px){.two{grid-template-columns:1fr}}
+</style>

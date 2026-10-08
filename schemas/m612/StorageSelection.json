@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "ids": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(package|partial|quarantine):[a-zA-Z0-9_.:-]+$"
+      }
+    },
+    "inventorySha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "ids",
+    "inventorySha256"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m612/StorageSelection.json",
+  "x-runtime-refinements": "Signed history, frozen checkpoint identities, notices, safe paths, in-use guards, disk capacity, preview hash and reproduction hashes are checked at runtime."
+}

@@ -1,0 +1,23 @@
+{
+  "stage": "M6.15",
+  "passed": true,
+  "nativeElectron": true,
+  "platform": "macos-arm64",
+  "defaultSkills": 93,
+  "bilingualUI": true,
+  "globalThemes": [
+    "materials-dark",
+    "codex-light"
+  ],
+  "nativeCompiledEngine": true,
+  "componentTable": true,
+  "sharedBaseline": true,
+  "dispersionSelection": true,
+  "pureSiliconSinglepoint": true,
+  "pureSiliconFIRE": true,
+  "positiveTensionStress": true,
+  "actual3DAndComparison": true,
+  "longRangeExclusion": true,
+  "modelAPICalls": 0,
+  "paymentCalls": 0
+}

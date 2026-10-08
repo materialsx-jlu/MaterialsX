@@ -1,0 +1,38 @@
+{
+  "version": "m6.15-v1",
+  "id": "mace-mp-0b3-medium-d3-bj-pbe-si",
+  "operator": "sum",
+  "baseline": {
+    "id": "mace-mp-0b3-medium",
+    "weightSha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+    "reference": "PBE+U; pure Si has no Hubbard U",
+    "dispersion": "not-added"
+  },
+  "correction": {
+    "kind": "d3-bj-two-body",
+    "functional": "pbe",
+    "s6": 1,
+    "s8": 0.7875,
+    "a1": 0.4289,
+    "a2Bohr": 4.4407,
+    "potentialCutoffAngstrom": 10,
+    "coordinationCutoffAngstrom": 5,
+    "atm": false,
+    "electrostatics": false
+  },
+  "scope": {
+    "elements": [
+      "Si"
+    ],
+    "maxAtoms": 128,
+    "minimumCellSingularValueAngstrom": 4,
+    "minimumVolumePerAtomAngstrom3": 5,
+    "minimumDistanceAngstrom": 2.3,
+    "tasks": [
+      "singlepoint",
+      "relaxation"
+    ],
+    "cell": "fixed",
+    "mode": "exploratory"
+  }
+}

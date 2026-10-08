@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "potentialId": {
+      "type": "string",
+      "const": "chgnet-r2scan"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "absent",
+        "downloading",
+        "paused",
+        "installed",
+        "disabled",
+        "failed"
+      ]
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "totalBytes": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 200
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtimeReady": {
+      "type": "boolean"
+    },
+    "quality": {
+      "type": "string",
+      "const": "needs_review"
+    }
+  },
+  "required": [
+    "potentialId",
+    "state",
+    "bytes",
+    "totalBytes",
+    "sha256",
+    "error",
+    "runtimeReady",
+    "quality"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/PackageStatus.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

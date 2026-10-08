@@ -1,0 +1,28 @@
+{
+  "stage": "M6.6",
+  "passed": true,
+  "platform": "darwin-arm64",
+  "checks": [
+    "Actual pinned r2SCAN import, license/hash verification and shared existing portable CHGNet runtime",
+    "Three actual capability receipts; real r2SCAN energy/forces; production remains blocked",
+    "Real r2SCAN NVE/true frames with offline-enforced worker",
+    "Actual r2SCAN three perturbed finite-difference/invariance probes; not DFT accuracy",
+    "Disable/re-enable changes new-job eligibility, keeps actual historical results",
+    "Real CPU prediction/evaluator pipeline; explicitly synthetic demo remains blocked, records all reference/quota limitations and bilingual files",
+    "Actual active CPU evaluation cancellation does not publish a successful report",
+    "Restore recomputes real prediction provenance and frozen metrics; modified scientific report rejected"
+  ],
+  "extension": {
+    "potentialId": "chgnet-r2scan",
+    "bytes": 4872387,
+    "sha256": "8eba3db0f35a2788bb3ae22885ad340591e27996f213c6643af522a633b50dad",
+    "energyEv": -69.86658477783203,
+    "realTrajectoryFrames": 5
+  },
+  "scientificQuality": "needs_review",
+  "independentDftHoldoutAvailable": false,
+  "productionApproved": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0,
+  "newLargePythonEnvironments": false
+}

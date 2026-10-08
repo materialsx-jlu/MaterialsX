@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialId": {
+      "type": "string",
+      "enum": [
+        "mace-mp-0b3-medium",
+        "chgnet-0.3.0",
+        "chgnet-r2scan"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxAtoms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxWallSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "maxMemoryMiB": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 8192
+        },
+        "maxOutputMiB": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "threads": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "maxAtoms",
+        "maxSteps",
+        "maxWallSeconds",
+        "maxMemoryMiB",
+        "maxOutputMiB",
+        "threads"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "projectId",
+    "structureId",
+    "potentialId"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.1-v1/StartLocalAtomisticRun.json",
+  "x-runtime-refinements": "Zod cross-field checks and main-process project ownership/identity checks are mandatory."
+}

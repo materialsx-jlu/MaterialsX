@@ -638,5 +638,145 @@
       "zh": "为生物材料细胞相容性研究整理表达差异区间并记录数据来源。",
       "en": "Organize differential genomic intervals for a biomaterial cytocompatibility study with source provenance."
     }
+  ],
+  "materials-atomic-structure-inspect": [
+    {
+      "zh": "检查内置 si-diamond 样本的晶胞、元素和原子重叠。",
+      "en": "Inspect the bundled si-diamond sample for its cell, elements and overlapping atoms."
+    },
+    {
+      "zh": "检查用户提供的 CIF 是否存在部分占据；保留原文件。",
+      "en": "Check a user-supplied CIF for partial occupancy and preserve the source file."
+    }
+  ],
+  "materials-mlip-selection": [
+    {
+      "zh": "对本项目已导入的纯硅周期结构使用 MACE-MP-0b3 + PBE-D3(BJ) 组合势进行筛选，要求显式色散，展示基线、D3 修正和总能量、力与应力及 3D，保留需科学复核标记。",
+      "en": "Use the audited MACE-MP-0b3 + PBE-D3(BJ) profile for imported periodic pure Si to select a compatible potential. Require explicit dispersion; show baseline, D3 correction, total energy/forces/stress and 3D with needs_review."
+    },
+    {
+      "zh": "为中性单重态、非周期的 ethanol-neutral 样本选择适用势，说明 ANI-2x 元素覆盖和无显式长程静电的限制；不要把目录收录当作可运行。",
+      "en": "Select a compatible potential for neutral singlet, nonperiodic ethanol-neutral; explain ANI-2x element coverage and absent explicit long-range electrostatics. Catalog inclusion is not execution approval."
+    }
+  ],
+  "materials-mlip-singlepoint": [
+    {
+      "zh": "对本项目已导入的纯硅周期结构使用 MACE-MP-0b3 + PBE-D3(BJ) 组合势进行单点计算，要求显式色散，展示基线、D3 修正和总能量、力与应力及 3D，保留需科学复核标记。",
+      "en": "Use the audited MACE-MP-0b3 + PBE-D3(BJ) profile for imported periodic pure Si to run a single point. Require explicit dispersion; show baseline, D3 correction, total energy/forces/stress and 3D with needs_review."
+    },
+    {
+      "zh": "用已安装的 ANI-2x 对 ethanol-neutral 做探索单点，报告总能量、逐原子力和 stress=null；使用真实文件，不宣称 DFT 精度。",
+      "en": "Run an exploratory single point on ethanol-neutral using installed ANI-2x; report total energy, per-atom forces and stress=null from actual files without claiming DFT accuracy."
+    }
+  ],
+  "materials-mlip-relaxation": [
+    {
+      "zh": "对本项目已导入的纯硅周期结构使用 MACE-MP-0b3 + PBE-D3(BJ) 组合势进行固定晶胞 FIRE 优化，要求显式色散，展示基线、D3 修正和总能量、力与应力及 3D，保留需科学复核标记。",
+      "en": "Use the audited MACE-MP-0b3 + PBE-D3(BJ) profile for imported periodic pure Si to run fixed-cell FIRE. Require explicit dispersion; show baseline, D3 correction, total energy/forces/stress and 3D with needs_review."
+    },
+    {
+      "zh": "用 ANI-2x 优化已明确电荷0、自旋多重度1的孤立水分子，确认非周期显示盒；FIRE 最多100步，fmax 0.05 eV/Å，报告真实收敛状态和优化前后3D。",
+      "en": "Relax isolated water explicitly declared charge 0 / multiplicity 1 with ANI-2x and a confirmed nonperiodic display box; FIRE up to 100 steps, fmax 0.05 eV/Å. Report actual convergence and before/after 3D."
+    }
+  ],
+  "materials-mlip-md": [
+    {
+      "zh": "对本项目已导入的 si-diamond 用 CHGNet 做探索 NVE：300 K 初始化，200 步，0.5 fs，每 10 步采样，种子 20261001；查询到终态，输出真实轨迹与能量漂移，明确 100 fs 不足以通过 1000 fs 漂移诊断。",
+      "en": "Run exploratory CHGNet NVE on this project’s imported si-diamond: initialize at 300 K, 200 steps, 0.5 fs, sample every 10 steps, seed 20261001. Query to terminal and return real frames/drift; state that 100 fs is insufficient for the 1000 fs drift diagnostic."
+    },
+    {
+      "zh": "对本项目已导入的周期晶体用 MACE 做探索 NVT：300 K，200 步，0.5 fs，Langevin 摩擦系数 0.01 fs^-1，每 10 步采样，种子 20261001。保留真实速度和时间，给出温度诊断；不推断扩散或长期稳定性。",
+      "en": "Run exploratory MACE NVT on this project’s imported periodic crystal: 300 K, 200 steps, 0.5 fs, Langevin friction 0.01 fs^-1, sample every 10 steps, seed 20261001. Preserve actual velocities/time and report temperature diagnostics without diffusion or long-term stability claims."
+    }
+  ],
+  "materials-mlip-comparison": [
+    {
+      "zh": "对内置 si-diamond 比较两个已验收势的力，先检查能量基准是否兼容。",
+      "en": "Compare forces from two validated potentials on bundled si-diamond after checking energy-reference compatibility."
+    },
+    {
+      "zh": "比较用户结构的同理论层级模型结果，保留版本；模型一致不等于准确。",
+      "en": "Compare same-theory model results for a supplied structure and preserve versions; agreement does not prove accuracy."
+    }
+  ],
+  "materials-atomic-3d-view": [
+    {
+      "zh": "打开内置 si-triclinic，显示非正交晶胞并测量原子距离。",
+      "en": "Open bundled si-triclinic with its nonorthogonal cell and measure an atomic distance."
+    },
+    {
+      "zh": "预览内置 water 分子；显示推断键的来源，不把预览当作模拟。",
+      "en": "Preview bundled water, identify inferred bonds, and do not describe the preview as simulation."
+    }
+  ],
+  "materials-skill-creator": [
+    {
+      "zh": "@materials-skill-creator 创建一个无机晶体固定晶胞弛豫的中英文 Skill，包含输入检查、真实报告与精度限制，先让我预览。",
+      "en": "@materials-skill-creator Draft a bilingual Skill for fixed-cell inorganic crystal relaxation, with input checks, real reports and accuracy limitations. Show a preview first."
+    },
+    {
+      "zh": "创建一个项目资料整理 Skill：读取指定文本，保留原始单位和出处，生成中英文摘要与缺项清单；先显示预览，不自动覆盖文件或执行脚本。",
+      "en": "Create a project review Skill: read the selected texts, preserve original units and sources, and produce bilingual summaries and missing-input lists. Preview it without overwriting files or running scripts."
+    }
+  ],
+  "materials-potential-discovery": [
+    {
+      "zh": "@materials-potential-discovery 查看 SevenNet 最近官方发布与待审核权重，读取来源证据，列出已接入 MaterialsX 的模型。",
+      "en": "@materials-potential-discovery Discover recent official SevenNet releases, read source evidence and list models actually supported by MaterialsX."
+    },
+    {
+      "zh": "@materials-potential-discovery 搜索机器学习原子间势新论文，区分仅论文与公开模型仓库，列出待审核事项。",
+      "en": "@materials-potential-discovery Search new interatomic-potential papers, distinguish paper-only leads from model repositories and list pending review items."
+    }
+  ],
+  "materials-research-workbench": [
+    {
+      "zh": "@materials-research-workbench 比较 MOOS 中已审核的辐射制冷膜太阳反射率，保留原单位、厚度、测试条件与证据，输出真实表格、概览图和中文报告。",
+      "en": "@materials-research-workbench Compare reviewed MOOS solar-reflectance observations, preserve original units, thickness, test conditions and evidence; generate a real table, overview and English report."
+    },
+    {
+      "zh": "@materials-research-workbench 整理选定论文报告的模拟方法和缺项；缺输入文件时先列清单，不执行模拟。",
+      "en": "@materials-research-workbench Document reported simulation methods and missing inputs for selected papers; list missing files before any simulation."
+    }
+  ],
+  "materials-tensile-analysis": [
+    {
+      "zh": "@materials-tensile-analysis 分析本项目已配置的应力—应变试样，按保存区间计算拟合斜率，生成曲线、数据表、中文报告与复算包。不声明独立重复。",
+      "en": "@materials-tensile-analysis Analyze the configured tensile specimen using its saved fit interval. Produce a curve, data table, report and replay bundle. Do not declare independent replicates."
+    },
+    {
+      "zh": "@materials-tensile-analysis 比较本项目相同条件下的三个已配置试样。它们是独立重复；汇总拟合斜率的均值、样本标准差，保留每条曲线与剔除原因。",
+      "en": "@materials-tensile-analysis Compare three configured specimens under identical conditions. They are independent replicates; summarize fitted slope mean and sample SD, preserving each curve and exclusions."
+    }
+  ],
+  "materials-next-experiment": [
+    {
+      "zh": "@materials-next-experiment 根据当前研究条件生成全因子实验方案，包含对照、独立制备、批次内随机顺序和费用检查，输出候选表与报告。",
+      "en": "@materials-next-experiment Generate a full factorial design from the saved study, including controls, independent preparations, randomized block order and cost checks. Deliver candidates and a report."
+    },
+    {
+      "zh": "@materials-next-experiment 根据已核对反馈推荐下一轮 4 个候选。通过验证才启用贝叶斯优化；数据不足时说明原因并使用 DOE。",
+      "en": "@materials-next-experiment Recommend four next candidates from reviewed feedback. Enable Bayesian optimization only after the validation gate passes; otherwise explain the gaps and use DOE."
+    }
+  ],
+  "materials-method-packages": [
+    {
+      "zh": "@materials-method-packages 汇总已选来源的均值；未确认独立制样时不要计算标准误，输出 JSON 和报告。",
+      "en": "@materials-method-packages Summarize selected values; no standard error without confirmed independent specimens. Write JSON and a report."
+    },
+    {
+      "zh": "@materials-method-packages 对已选成对观测进行线性拟合，报告斜率、残差和输入范围，不作范围外预测。",
+      "en": "@materials-method-packages Fit selected paired observations; report slope, residuals and training domain without extrapolation."
+    }
+  ],
+  "materials-long-compute": [
+    {
+      "zh": "@materials-long-compute 使用已批准的 NIST Norris 配置做后台参考计算，等待时暂停模型，恢复前查询原任务并读取真实结果。",
+      "en": "@materials-long-compute Run the approved NIST Norris configuration in the background, pause while waiting, and query the original job before reading real results."
+    },
+    {
+      "zh": "@materials-long-compute 查询原长期计算任务，完成后核对输入和产物哈希并解释结果；不重复提交待核对任务。",
+      "en": "@materials-long-compute Query the existing long-running job. Verify input and output hashes and explain results after completion; never resubmit an unconfirmed job."
+    }
   ]
 }

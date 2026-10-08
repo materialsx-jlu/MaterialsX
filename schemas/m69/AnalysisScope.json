@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "conversationId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "maxDownloadBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 536870912
+    },
+    "maxSteps": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 500
+    },
+    "permission": {
+      "type": "string",
+      "enum": [
+        "singlepoint",
+        "relaxation"
+      ]
+    }
+  },
+  "required": [
+    "projectId",
+    "conversationId",
+    "structureId",
+    "maxDownloadBytes",
+    "maxSteps",
+    "permission"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m69/AnalysisScope.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

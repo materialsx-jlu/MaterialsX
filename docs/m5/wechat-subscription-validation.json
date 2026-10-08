@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "m5-wechat-subscription-pilot-v1",
+  "account": "developer@materialsx.local",
+  "formalSalesEnabled": false,
+  "generatedAt": "2026-10-01T12:52:20.039Z",
+  "grantsVerified": 2,
+  "ledgerVerified": true,
+  "paidModelUsageEnabled": false,
+  "payments": [
+    {
+      "amountFen": "100",
+      "credits": "1000",
+      "kind": "subscription",
+      "notificationVerified": true,
+      "queryVerified": true,
+      "state": "paid"
+    },
+    {
+      "amountFen": "1",
+      "credits": "10",
+      "kind": "pack",
+      "notificationVerified": false,
+      "queryVerified": true,
+      "state": "paid"
+    }
+  ],
+  "subscriptionPeriods": [
+    {
+      "endsAt": "2026-11-01T12:45:58Z",
+      "startsAt": "2026-10-01T12:45:58Z",
+      "state": "active"
+    }
+  ],
+  "verifiedCashInFen": "101",
+  "wallet": {
+    "unit": "test-credit",
+    "purchased": {
+      "unit": "paid-credit",
+      "availableCredits": "1010",
+      "heldCredits": "0",
+      "consumedCredits": "0",
+      "refundFrozenCredits": "0",
+      "returnedCredits": "0"
+    },
+    "availableCredits": "0",
+    "heldCredits": "0",
+    "consumedCredits": "0",
+    "refundFrozenCredits": "0",
+    "returnedCredits": "0",
+    "pendingRequests": 0,
+    "dailyLimit": null,
+    "monthlyLimit": null
+  },
+  "operations": {
+    "adminMFA": true,
+    "protectedFinance": true,
+    "cashInFen": "101",
+    "cashRefundedFen": "0",
+    "netCashFen": "101",
+    "syntheticInFen": "0",
+    "ledgerVerified": true,
+    "realRefundExecuted": false,
+    "generatedAt": "2026-10-01T12:48:35.721Z"
+  },
+  "cleanup": {
+    "tunnelClosed": true,
+    "callbackClosed": true,
+    "paymentModeRestored": "disabled",
+    "cloudGenerationEnabled": false,
+    "recordsPreservedAfterRestart": true
+  },
+  "acceptance": {
+    "realDesktopWalletAndSubscriptionVisible": true,
+    "privateScreenshotSaved": true,
+    "postgresRaceSuite": true,
+    "concurrentReplayAndOnePurchaseCap": true,
+    "paidCreditsExcludedFromTestReservations": true,
+    "restrictedRuntimeCannotChangeDenomination": true,
+    "typescriptVueChecks": true,
+    "desktopAdminBuild": true,
+    "contractArtifactMatched": true,
+    "defaultServicePKCEAndMFA": true
+  }
+}

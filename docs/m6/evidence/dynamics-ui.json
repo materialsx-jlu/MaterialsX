@@ -1,0 +1,43 @@
+{
+  "stage": "M6.5",
+  "passed": true,
+  "platform": "darwin",
+  "electron": "44.5.0",
+  "actualDesktop": true,
+  "realCHGNetAndMACETrajectories": true,
+  "optionsAndNVTControls": true,
+  "lazyFrames": true,
+  "oneCanvas": true,
+  "playPauseScrubPhysicalTime": true,
+  "nonmultipleFinalStep": true,
+  "registeredArchiveExport": true,
+  "selectedFramePNG": true,
+  "standaloneRealStepCurve": true,
+  "currentFrameCoordinateVelocityTable": true,
+  "webglRetry": true,
+  "inputDispatchMs": [
+    0.09999990463256836,
+    0.20000004768371582,
+    0.2999999523162842,
+    0.19999980926513672,
+    0.20000004768371582
+  ],
+  "inputDispatchP95Ms": 0.2999999523162842,
+  "twoModelCurves": true,
+  "webglFailureKeepsExport": true,
+  "sharedThemes": true,
+  "scopeMDOptionsFrozen": true,
+  "closeDisposesFrame": true,
+  "firstFrameMs": [
+    148,
+    112,
+    56,
+    113,
+    112
+  ],
+  "firstFrameP95Ms": 148,
+  "benchmarkScope": "Input dispatch only, not visible-frame latency. 8-atom Si, 10 real frames, five drawer opens; not a 2000-atom throughput benchmark",
+  "scientificQuality": "needs_review",
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

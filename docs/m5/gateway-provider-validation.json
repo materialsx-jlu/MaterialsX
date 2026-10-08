@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "m5.2-validation-v1",
+  "generatedAt": "2026-10-01T09:05:02.582Z",
+  "environment": "real-rootflowai",
+  "model": "gpt-5.6-sol",
+  "protocol": "responses",
+  "identity": "real-PKCE-PG",
+  "toolRoundtrip": true,
+  "requests": [
+    {
+      "execution": "completed",
+      "settlement": "not_billed",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 4598,
+        "outputTokens": 23,
+        "cachedInputTokens": 0,
+        "uncachedInputTokens": 4598,
+        "reasoningTokens": 0
+      },
+      "terminalReceived": true
+    },
+    {
+      "execution": "completed",
+      "settlement": "not_billed",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 4675,
+        "outputTokens": 26,
+        "cachedInputTokens": 0,
+        "uncachedInputTokens": 4675,
+        "reasoningTokens": 0
+      },
+      "terminalReceived": true
+    }
+  ],
+  "deltaCount": 20,
+  "taskState": "completed",
+  "scientificQuality": "not_evaluated",
+  "unverified": [
+    "procurement_price",
+    "upstream_cancellation",
+    "production_TLS",
+    "Windows_UI",
+    "full_PDF_workflow"
+  ]
+}

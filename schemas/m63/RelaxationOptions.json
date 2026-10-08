@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "optimizer": {
+      "type": "string",
+      "const": "FIRE"
+    },
+    "cellMode": {
+      "type": "string",
+      "enum": [
+        "fixed",
+        "variable"
+      ]
+    },
+    "cellConstraint": {
+      "type": "string",
+      "enum": [
+        "none",
+        "hydrostatic",
+        "full"
+      ]
+    },
+    "externalPressureGPa": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": -10,
+          "maximum": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "maxSteps": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 500
+    },
+    "fmaxEvPerAngstrom": {
+      "type": "number",
+      "minimum": 0.001,
+      "maximum": 0.2
+    }
+  },
+  "required": [
+    "optimizer",
+    "cellMode",
+    "cellConstraint",
+    "externalPressureGPa",
+    "maxSteps",
+    "fmaxEvPerAngstrom"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.3-v1/RelaxationOptions.json",
+  "x-runtime-refinements": "Project ownership, actual file hashes, atom mapping, convergence and history continuity require runtime validation."
+}

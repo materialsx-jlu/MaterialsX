@@ -1,0 +1,34 @@
+{
+  "tag_name": "v0.13.1.cp",
+  "name": "v0.13.1-checkpoint",
+  "body": "Release for model checkpoint (SevenNet-nano)",
+  "html_url": "https://github.com/MDIL-SNU/SevenNet/releases/tag/v0.13.1.cp",
+  "published_at": "2026-07-22T08:12:08Z",
+  "revision": "f38f3e7417be1127f8eee93d80be1b6415fa546d",
+  "assets": [
+    {
+      "name": "checkpoint_7net_nano_4.5.pth",
+      "size": 458194,
+      "digest": "sha256:91701b8949d95f51b7652492b5da9228c1a48a9af63840046ca9709b9653c63d",
+      "browser_download_url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_4.5.pth"
+    },
+    {
+      "name": "checkpoint_7net_nano_5.0.pth",
+      "size": 458194,
+      "digest": "sha256:2d13ff210e8201380646e254ad3587b4e03b13b335c7a54c7a84117d339081d0",
+      "browser_download_url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_5.0.pth"
+    },
+    {
+      "name": "checkpoint_7net_nano_5.5.pth",
+      "size": 458194,
+      "digest": "sha256:17ad9486f2484c17ab3154798c9284e587823661cc16440944034c9d15af4f3e",
+      "browser_download_url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_5.5.pth"
+    },
+    {
+      "name": "checkpoint_7net_nano_6.0.pth",
+      "size": 458194,
+      "digest": "sha256:f53132f0847aaeba40be9e2e92440ac17d169366b92c8f23edfafbd92e166b39",
+      "browser_download_url": "https://github.com/MDIL-SNU/SevenNet/releases/download/v0.13.1.cp/checkpoint_7net_nano_6.0.pth"
+    }
+  ]
+}

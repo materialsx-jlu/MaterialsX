@@ -2,6 +2,7 @@ import type { ReleaseCheck, ReleaseReadiness } from "../../contracts/src/desktop
 
 export interface ReleaseReadinessInput {
   version: string;
+  target?: ReleaseReadiness["target"];
   platform: string;
   packaged: boolean;
   signed: boolean;
@@ -28,6 +29,8 @@ function check(
 }
 
 export function createReleaseReadiness(input: ReleaseReadinessInput): ReleaseReadiness {
+  const target = input.target ?? "v1";
+  const formalOnly = (passed: boolean): ReleaseCheck["status"] => passed ? "pass" : target === "v1" ? "blocked" : "warning";
   const runtimeComplete = input.runtimeTotal > 0 && input.runtimeReady === input.runtimeTotal;
   const checks: ReleaseCheck[] = [
     check(
@@ -88,29 +91,29 @@ export function createReleaseReadiness(input: ReleaseReadinessInput): ReleaseRea
       "code-signing",
       "delivery",
       "代码签名与公证",
-      input.signed ? "pass" : "blocked",
-      input.signed ? "当前发行包已检测到签名。" : "尚无可验证的正式签名或 macOS 公证证据。",
+      formalOnly(input.signed),
+      input.signed ? "当前发行包已检测到签名。" : target === "v1" ? "尚无可验证的正式签名或 macOS 公证证据。" : "尚无可验证的正式签名或 macOS 公证证据；0.2 预览版需明确标注未签名。",
       input.signed ? undefined : "配置受保护的签名证书，并在 CI 中保存公证/签名验证记录。",
     ),
     check(
       "macos-install",
       "delivery",
       "macOS arm64 全新安装验证",
-      input.macOSInstallEvidence ? "pass" : "blocked",
+      formalOnly(input.macOSInstallEvidence),
       input.macOSInstallEvidence ? "已找到 M4 安装验证证据。" : "尚未记录全新机器安装与升级回退证据。",
     ),
     check(
       "windows-install",
       "delivery",
       "Windows x64 全新安装验证",
-      input.windowsInstallEvidence ? "pass" : "blocked",
+      formalOnly(input.windowsInstallEvidence),
       input.windowsInstallEvidence ? "已找到 M4 安装验证证据。" : "尚未记录 Windows 签名安装与升级回退证据。",
     ),
     check(
       "science-holdout",
       "science",
       "三领域保留集评测",
-      input.scienceEvaluationEvidence ? "pass" : "blocked",
+      formalOnly(input.scienceEvaluationEvidence),
       input.scienceEvaluationEvidence ? "已找到固定模型与环境的评测报告。" : "尚无三领域保留集发布报告。",
       input.scienceEvaluationEvidence ? undefined : "完成文献、计算材料和复合材料保留集并由领域专家签收。",
     ),
@@ -118,7 +121,7 @@ export function createReleaseReadiness(input: ReleaseReadinessInput): ReleaseRea
       "update-rollback",
       "operations",
       "更新与回退演练",
-      input.updateRollbackEvidence ? "pass" : "blocked",
+      formalOnly(input.updateRollbackEvidence),
       input.updateRollbackEvidence ? "已找到更新、数据库迁移和回退证据。" : "尚未完成升级失败与数据库回退演练。",
     ),
   ];
@@ -127,7 +130,7 @@ export function createReleaseReadiness(input: ReleaseReadinessInput): ReleaseRea
     generatedAt: new Date().toISOString(),
     version: input.version,
     platform: input.platform,
-    target: "v1",
+    target,
     passed: checks.filter((item) => item.status === "pass").length,
     warnings: checks.filter((item) => item.status === "warning").length,
     blocked: checks.filter((item) => item.status === "blocked").length,

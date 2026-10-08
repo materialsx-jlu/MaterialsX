@@ -1,0 +1,32 @@
+name: M6.12 distribution contracts and compatibility
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['packages/atomistic/**', 'packages/contracts/**', 'packages/pi-adapter/**', 'apps/desktop/**', 'schemas/m612/**', 'scripts/m612*', 'package.json', '.github/workflows/m612.yml']
+permissions:
+  contents: read
+jobs:
+  compatibility:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run m612:verify
+      - run: npm run build
+      # Contract tests are not Windows scientific/runtime/installer evidence.
+      # Actual locked CPU runtimes and installer checks remain explicit release gates.
+      - run: npm run m612:release-gate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m612-compatibility-${{ matrix.os }}
+          path: runtime/m6/acceptance/m612/release-gate.json

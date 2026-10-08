@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "m5.1-v1",
+  "date": "2026-10-01",
+  "environment": "local-postgresql-synthetic-fixture",
+  "productionDeployed": false,
+  "paidModelCalls": 0,
+  "platform": "macos-arm64",
+  "node": "24.7.0",
+  "go": "1.25.7",
+  "postgresqlMajor": 16,
+  "electron": "44.5.0",
+  "verification": {
+    "typescriptVue": "passed",
+    "desktopBuild": "passed",
+    "nodeOffline": { "passed": 67, "skippedRealService": 1 },
+    "goNamedTests": 35,
+    "goRaceAndActualPostgres": "passed",
+    "pkceCsrfOwnerAndRoleBoundaries": "passed",
+    "concurrentRefreshReplayRevokesSession": "passed",
+    "mfaExpiryReplayAndDeploymentRecovery": "passed",
+    "restrictedPostgresRole": "passed",
+    "backupRestoreAndInvalidateRestoredSessions": "passed",
+    "mainProcessClientRealIdentityService": "passed",
+    "macosSafeStorageEncryption": "passed",
+    "actualElectronAccountSettingsLoginAndLogout": "passed",
+    "goWindowsX64CrossCompile": "passed",
+    "goLinuxX64CrossCompile": "passed",
+    "contractDrift": "passed",
+    "publicCandidateSecretScan": "passed"
+  },
+  "notVerified": ["production_https_tls_deployment", "windows_os_credential_storage", "production_real_accounts", "production_gateway_billing_payments", "full_admin_web_ui"],
+  "notes": "Metadata-only acceptance summary. Reproduction commands and fixture/production boundaries are in identity.md and identity-execution-report.md. No passwords, MFA secrets, tokens, DSNs or model API keys are included."
+}

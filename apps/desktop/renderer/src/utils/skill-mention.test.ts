@@ -23,3 +23,9 @@ test("replaces only the active mention and preserves following text", () => {
     caret: 12,
   });
 });
+test('typed picker mentions support spaces; quoted/code examples and emails stay inert',()=>{
+ assert.equal(findSkillMention('读取 @file:"硅 sample',18)?.query,'file:"硅 sample');
+ for(const value of ['`@pym','"@pym','```text\n@pym','user@pym'])assert.equal(findSkillMention(value,value.length),null);
+ const value='读取 @paper:arxiv',mention=findSkillMention(value,value.length)!;
+ assert.equal(applySkillMention(value,mention,'paper:"arxiv:2601.12345v2"').value,'读取 @paper:"arxiv:2601.12345v2" ');
+});

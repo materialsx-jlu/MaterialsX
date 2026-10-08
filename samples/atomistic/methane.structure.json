@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "methane",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "C",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "H",
+      "position": [
+        0.629,
+        0.629,
+        0.629
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a3",
+      "element": "H",
+      "position": [
+        0.629,
+        -0.629,
+        -0.629
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a4",
+      "element": "H",
+      "position": [
+        -0.629,
+        0.629,
+        -0.629
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a5",
+      "element": "H",
+      "position": [
+        -0.629,
+        -0.629,
+        0.629
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": null,
+  "pbc": [
+    false,
+    false,
+    false
+  ],
+  "charge": 0,
+  "spinMultiplicity": 1,
+  "source": {
+    "artifactId": "sample-methane",
+    "sha256": "c7a5de08bdd73737d2eb967acda36b7f53c9267d0ae37cc2f588bbc39fc257e8",
+    "format": "xyz",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

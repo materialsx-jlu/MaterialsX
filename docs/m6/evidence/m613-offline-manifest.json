@@ -1,0 +1,14 @@
+{
+  "stage": "M6.13",
+  "manifestGenerated": true,
+  "version": "m6.13-v1",
+  "files": 121840,
+  "expandedRuntimeMiB": 3235.369896888733,
+  "coreWeightsMiB": 80.42924213409424,
+  "molecularEnvironmentIncluded": true,
+  "molecularWeightIncluded": true,
+  "molecularContractsIncluded": true,
+  "fullInstallerBuilt": false,
+  "packagedBinaryAcceptancePerformed": false,
+  "signedRelease": false
+}

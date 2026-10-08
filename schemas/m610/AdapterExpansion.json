@@ -1,0 +1,2042 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.10-v1"
+    },
+    "entries": {
+      "minItems": 1,
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "potentialId": {
+            "type": "string",
+            "const": "sevennet-0-11jul2024"
+          },
+          "family": {
+            "type": "string",
+            "const": "sevennet"
+          },
+          "adapter": {
+            "type": "string",
+            "const": "sevennet-ase"
+          },
+          "basePotentialId": {
+            "type": "string",
+            "const": "sevennet-0-11jul2024"
+          },
+          "environmentProfileId": {
+            "type": "string",
+            "const": "sevennet-0.13.0-cpu-v1"
+          },
+          "dependencyLockSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sourceRevision": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
+          },
+          "url": {
+            "type": "string",
+            "format": "starts_with",
+            "pattern": "^https:\\/\\/.*"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 2147483648
+          },
+          "license": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "notices": {
+            "minItems": 1,
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "pattern": "^docs\\/m6\\/licenses\\/[a-zA-Z0-9.-]+$"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "elements": {
+            "minItems": 1,
+            "maxItems": 118,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z][a-z]?$"
+            }
+          },
+          "loadedMemoryMiB": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 16384
+          },
+          "dtype": {
+            "type": "string",
+            "const": "float32"
+          },
+          "platforms": {
+            "minItems": 1,
+            "maxItems": 6,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "platform": {
+                  "type": "string",
+                  "enum": [
+                    "macos-arm64",
+                    "windows-x64"
+                  ]
+                },
+                "device": {
+                  "type": "string",
+                  "enum": [
+                    "cpu",
+                    "cuda",
+                    "mps"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "verified",
+                    "not-tested",
+                    "unsupported"
+                  ]
+                },
+                "evidenceId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "platform",
+                "device",
+                "status",
+                "evidenceId"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "potentialId",
+          "family",
+          "adapter",
+          "basePotentialId",
+          "environmentProfileId",
+          "dependencyLockSha256",
+          "sourceRevision",
+          "url",
+          "sha256",
+          "bytes",
+          "license",
+          "notices",
+          "reviewedAt",
+          "elements",
+          "loadedMemoryMiB",
+          "dtype",
+          "platforms"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "potentials": {
+      "minItems": 1,
+      "maxItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "string",
+            "const": "m6.0-v1"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "family": {
+            "type": "string",
+            "enum": [
+              "MACE",
+              "CHGNet",
+              "MatterSim",
+              "ORB",
+              "SevenNet",
+              "MatGL",
+              "UMA"
+            ]
+          },
+          "checkpoint": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "core-candidate",
+              "extension-candidate"
+            ]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "revision",
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          },
+          "evidence": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "revision": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "id",
+                "url",
+                "revision",
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "citation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "weights": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "revision": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "bytes": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "verification": {
+                "type": "string",
+                "enum": [
+                  "download-hashed",
+                  "publisher-digest",
+                  "unverified"
+                ]
+              }
+            },
+            "required": [
+              "url",
+              "revision",
+              "sha256",
+              "bytes",
+              "verification"
+            ],
+            "additionalProperties": false
+          },
+          "licenses": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "evidenceIds": {
+                    "maxItems": 20,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "documented",
+                      "unknown"
+                    ]
+                  }
+                },
+                "required": [
+                  "expression",
+                  "evidenceIds",
+                  "status"
+                ],
+                "additionalProperties": false
+              },
+              "weights": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "evidenceIds": {
+                    "maxItems": 20,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "documented",
+                      "unknown"
+                    ]
+                  }
+                },
+                "required": [
+                  "expression",
+                  "evidenceIds",
+                  "status"
+                ],
+                "additionalProperties": false
+              },
+              "trainingData": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "evidenceIds": {
+                    "maxItems": 20,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "documented",
+                      "unknown"
+                    ]
+                  }
+                },
+                "required": [
+                  "expression",
+                  "evidenceIds",
+                  "status"
+                ],
+                "additionalProperties": false
+              },
+              "redistribution": {
+                "type": "string",
+                "enum": [
+                  "permitted-with-notices",
+                  "review-required",
+                  "restricted",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "weights",
+              "trainingData",
+              "redistribution"
+            ],
+            "additionalProperties": false
+          },
+          "declared": {
+            "type": "object",
+            "properties": {
+              "energy": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "forces": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "stress": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "conservative": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "elements": {
+                "anyOf": [
+                  {
+                    "minItems": 1,
+                    "maxItems": 118,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "periodicity": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "bulk",
+                    "slab",
+                    "molecule"
+                  ]
+                }
+              },
+              "domains": {
+                "minItems": 1,
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "headPolicy": {
+                "type": "string",
+                "enum": [
+                  "single",
+                  "required",
+                  "unknown"
+                ]
+              },
+              "heads": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "chargeInput": {
+                "type": "string",
+                "enum": [
+                  "required",
+                  "unsupported",
+                  "unknown"
+                ]
+              },
+              "spinInput": {
+                "type": "string",
+                "enum": [
+                  "required",
+                  "unsupported",
+                  "unknown"
+                ]
+              },
+              "nativeUnits": {
+                "type": "object",
+                "properties": {
+                  "energy": {
+                    "type": "string",
+                    "enum": [
+                      "eV",
+                      "eV/atom",
+                      "unknown"
+                    ]
+                  },
+                  "forces": {
+                    "type": "string",
+                    "enum": [
+                      "eV/angstrom",
+                      "unknown"
+                    ]
+                  },
+                  "stress": {
+                    "type": "string",
+                    "enum": [
+                      "eV/angstrom^3",
+                      "GPa",
+                      "unknown"
+                    ]
+                  },
+                  "stressConvention": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  }
+                },
+                "required": [
+                  "energy",
+                  "forces",
+                  "stress",
+                  "stressConvention"
+                ],
+                "additionalProperties": false
+              },
+              "temperatureRangeK": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "pressureRangeGPa": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "evidenceIds": {
+                "minItems": 1,
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                }
+              }
+            },
+            "required": [
+              "energy",
+              "forces",
+              "stress",
+              "conservative",
+              "elements",
+              "periodicity",
+              "domains",
+              "headPolicy",
+              "heads",
+              "chargeInput",
+              "spinInput",
+              "nativeUnits",
+              "temperatureRangeK",
+              "pressureRangeGPa",
+              "evidenceIds"
+            ],
+            "additionalProperties": false
+          },
+          "energyReference": {
+            "type": "object",
+            "properties": {
+              "functional": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "dataset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "convention": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "functional",
+              "dataset",
+              "convention"
+            ],
+            "additionalProperties": false
+          },
+          "environment": {
+            "type": "object",
+            "properties": {
+              "adapter": {
+                "type": "string",
+                "enum": [
+                  "mace-ase",
+                  "chgnet-ase",
+                  "mattersim-ase",
+                  "orb-ase",
+                  "sevennet-ase",
+                  "matgl-ase",
+                  "fairchem-ase"
+                ]
+              },
+              "profileId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "codeRevision": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{40}$"
+              },
+              "diskEstimateMiB": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "memoryEstimateMiB": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "matrix": {
+                "minItems": 1,
+                "maxItems": 6,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "platform": {
+                      "type": "string",
+                      "enum": [
+                        "macos-arm64",
+                        "windows-x64"
+                      ]
+                    },
+                    "device": {
+                      "type": "string",
+                      "enum": [
+                        "cpu",
+                        "cuda",
+                        "mps"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "not-tested",
+                        "unsupported",
+                        "verified"
+                      ]
+                    },
+                    "evidenceId": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "platform",
+                    "device",
+                    "status",
+                    "evidenceId"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "adapter",
+              "profileId",
+              "codeRevision",
+              "diskEstimateMiB",
+              "memoryEstimateMiB",
+              "matrix"
+            ],
+            "additionalProperties": false
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "catalogued",
+              "audited",
+              "packaged",
+              "installed",
+              "runtime_verified",
+              "task_validated",
+              "failed",
+              "unsupported",
+              "disabled"
+            ]
+          },
+          "installation": {
+            "type": "string",
+            "enum": [
+              "absent",
+              "bundled",
+              "user-installed"
+            ]
+          },
+          "runtimeEvidenceIds": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            }
+          },
+          "taskEvidenceIds": {
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "zh": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "zh",
+              "en"
+            ],
+            "additionalProperties": false
+          },
+          "examples": {
+            "minItems": 1,
+            "maxItems": 2,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zh": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "required": [
+                "zh",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "limitations": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zh": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "required": [
+                "zh",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "relatedCatalogIds": {
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "id",
+          "name",
+          "family",
+          "checkpoint",
+          "role",
+          "source",
+          "evidence",
+          "citation",
+          "weights",
+          "licenses",
+          "declared",
+          "energyReference",
+          "environment",
+          "state",
+          "installation",
+          "runtimeEvidenceIds",
+          "taskEvidenceIds",
+          "description",
+          "examples",
+          "limitations",
+          "relatedCatalogIds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "candidates": {
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "aliases": {
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          },
+          "entityType": {
+            "type": "string",
+            "enum": [
+              "checkpoint",
+              "family",
+              "architecture",
+              "training_framework",
+              "descriptor",
+              "engine",
+              "workflow",
+              "property_model",
+              "commercial_service",
+              "classical_forcefield",
+              "repository",
+              "interop"
+            ]
+          },
+          "family": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "materials",
+              "molecules",
+              "catalysis",
+              "specialized",
+              "physics",
+              "resources",
+              "properties"
+            ]
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "zh": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "zh",
+              "en"
+            ],
+            "additionalProperties": false
+          },
+          "examples": {
+            "minItems": 1,
+            "maxItems": 2,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zh": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "required": [
+                "zh",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "limitations": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "zh": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "en": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "required": [
+                "zh",
+                "en"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sources": {
+            "minItems": 1,
+            "maxItems": 25,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "revision": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sha256": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pinned",
+                    "documented",
+                    "candidate"
+                  ]
+                },
+                "note": {
+                  "type": "object",
+                  "properties": {
+                    "zh": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "en": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    }
+                  },
+                  "required": [
+                    "zh",
+                    "en"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "url",
+                "revision",
+                "sha256",
+                "status",
+                "note"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "fieldEvidence": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "minItems": 1,
+              "maxItems": 25,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "energy": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "forces": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "stress": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "forceRelation": {
+                "type": "string",
+                "enum": [
+                  "energy_gradient",
+                  "direct_force",
+                  "other",
+                  "unknown"
+                ]
+              },
+              "elements": {
+                "anyOf": [
+                  {
+                    "minItems": 1,
+                    "maxItems": 118,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "H",
+                        "He",
+                        "Li",
+                        "Be",
+                        "B",
+                        "C",
+                        "N",
+                        "O",
+                        "F",
+                        "Ne",
+                        "Na",
+                        "Mg",
+                        "Al",
+                        "Si",
+                        "P",
+                        "S",
+                        "Cl",
+                        "Ar",
+                        "K",
+                        "Ca",
+                        "Sc",
+                        "Ti",
+                        "V",
+                        "Cr",
+                        "Mn",
+                        "Fe",
+                        "Co",
+                        "Ni",
+                        "Cu",
+                        "Zn",
+                        "Ga",
+                        "Ge",
+                        "As",
+                        "Se",
+                        "Br",
+                        "Kr",
+                        "Rb",
+                        "Sr",
+                        "Y",
+                        "Zr",
+                        "Nb",
+                        "Mo",
+                        "Tc",
+                        "Ru",
+                        "Rh",
+                        "Pd",
+                        "Ag",
+                        "Cd",
+                        "In",
+                        "Sn",
+                        "Sb",
+                        "Te",
+                        "I",
+                        "Xe",
+                        "Cs",
+                        "Ba",
+                        "La",
+                        "Ce",
+                        "Pr",
+                        "Nd",
+                        "Pm",
+                        "Sm",
+                        "Eu",
+                        "Gd",
+                        "Tb",
+                        "Dy",
+                        "Ho",
+                        "Er",
+                        "Tm",
+                        "Yb",
+                        "Lu",
+                        "Hf",
+                        "Ta",
+                        "W",
+                        "Re",
+                        "Os",
+                        "Ir",
+                        "Pt",
+                        "Au",
+                        "Hg",
+                        "Tl",
+                        "Pb",
+                        "Bi",
+                        "Po",
+                        "At",
+                        "Rn",
+                        "Fr",
+                        "Ra",
+                        "Ac",
+                        "Th",
+                        "Pa",
+                        "U",
+                        "Np",
+                        "Pu",
+                        "Am",
+                        "Cm",
+                        "Bk",
+                        "Cf",
+                        "Es",
+                        "Fm",
+                        "Md",
+                        "No",
+                        "Lr",
+                        "Rf",
+                        "Db",
+                        "Sg",
+                        "Bh",
+                        "Hs",
+                        "Mt",
+                        "Ds",
+                        "Rg",
+                        "Cn",
+                        "Nh",
+                        "Fl",
+                        "Mc",
+                        "Lv",
+                        "Ts",
+                        "Og"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "periodicity": {
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "bulk",
+                    "slab",
+                    "molecule"
+                  ]
+                }
+              },
+              "domains": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "heads": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "dataset": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "functional": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "energyReference": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "dataset",
+                    "functional",
+                    "energyReference"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "headPolicy": {
+                "type": "string",
+                "enum": [
+                  "single",
+                  "required",
+                  "unknown"
+                ]
+              },
+              "charge": {
+                "type": "string",
+                "enum": [
+                  "required",
+                  "unsupported",
+                  "optional",
+                  "unknown"
+                ]
+              },
+              "spin": {
+                "type": "object",
+                "properties": {
+                  "input": {
+                    "type": "string",
+                    "enum": [
+                      "required",
+                      "unsupported",
+                      "optional",
+                      "unknown"
+                    ]
+                  },
+                  "semantics": {
+                    "type": "string",
+                    "enum": [
+                      "multiplicity",
+                      "per_atom",
+                      "model_specific",
+                      "unknown"
+                    ]
+                  }
+                },
+                "required": [
+                  "input",
+                  "semantics"
+                ],
+                "additionalProperties": false
+              },
+              "electricField": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown"
+                ]
+              },
+              "particleSemantics": {
+                "type": "string",
+                "enum": [
+                  "all_atom",
+                  "coarse_grained",
+                  "virtual_sites",
+                  "unknown"
+                ]
+              },
+              "cutoffAngstrom": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "longRange": {
+                "maxItems": 4,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "electrostatics",
+                    "dispersion",
+                    "repulsion",
+                    "unknown"
+                  ]
+                }
+              },
+              "compositionRole": {
+                "type": "string",
+                "enum": [
+                  "standalone",
+                  "baseline",
+                  "correction",
+                  "composite",
+                  "unknown"
+                ]
+              },
+              "requiredComponents": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "functional": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "dataset": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "units": {
+                "type": "object",
+                "properties": {
+                  "energy": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "forces": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "stress": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "energy",
+                  "forces",
+                  "stress"
+                ],
+                "additionalProperties": false
+              },
+              "temperatureK": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "pressureGPa": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "tasks": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              }
+            },
+            "required": [
+              "energy",
+              "forces",
+              "stress",
+              "forceRelation",
+              "elements",
+              "periodicity",
+              "domains",
+              "heads",
+              "headPolicy",
+              "charge",
+              "spin",
+              "electricField",
+              "particleSemantics",
+              "cutoffAngstrom",
+              "longRange",
+              "compositionRole",
+              "requiredComponents",
+              "functional",
+              "dataset",
+              "units",
+              "temperatureK",
+              "pressureGPa",
+              "tasks"
+            ],
+            "additionalProperties": false
+          },
+          "asset": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "revision": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "bytes": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "url",
+              "revision",
+              "sha256",
+              "bytes"
+            ],
+            "additionalProperties": false
+          },
+          "licenses": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "weights": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "trainingData": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "redistribution": {
+                "type": "string",
+                "enum": [
+                  "permitted-with-notices",
+                  "review-required",
+                  "restricted",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "weights",
+              "trainingData",
+              "redistribution"
+            ],
+            "additionalProperties": false
+          },
+          "execution": {
+            "type": "object",
+            "properties": {
+              "legacyId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "adapter": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "profileId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "diskEstimateMiB": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "memoryEstimateMiB": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "platforms": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "platform": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "device": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "not-tested",
+                        "unsupported",
+                        "verified"
+                      ]
+                    },
+                    "evidenceId": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "platform",
+                    "device",
+                    "status",
+                    "evidenceId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "legacy_candidate",
+                  "needs_review",
+                  "awaiting_adapter",
+                  "not_a_potential",
+                  "commercial"
+                ]
+              },
+              "blockers": {
+                "minItems": 1,
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                }
+              },
+              "runtimeEvidenceIds": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                }
+              },
+              "taskEvidenceIds": {
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                }
+              }
+            },
+            "required": [
+              "legacyId",
+              "adapter",
+              "profileId",
+              "diskEstimateMiB",
+              "memoryEstimateMiB",
+              "platforms",
+              "state",
+              "blockers",
+              "runtimeEvidenceIds",
+              "taskEvidenceIds"
+            ],
+            "additionalProperties": false
+          },
+          "maintenance": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived",
+              "discontinued",
+              "unknown"
+            ]
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "gated",
+              "commercial",
+              "unknown"
+            ]
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "nextStage": {
+            "type": "string",
+            "enum": [
+              "M6.8",
+              "M6.10",
+              "M6.11",
+              "M6.13",
+              "M6.14",
+              "M6.15"
+            ]
+          },
+          "relatedIds": {
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "aliases",
+          "entityType",
+          "family",
+          "category",
+          "description",
+          "examples",
+          "limitations",
+          "sources",
+          "fieldEvidence",
+          "capabilities",
+          "asset",
+          "licenses",
+          "execution",
+          "maintenance",
+          "access",
+          "reviewedAt",
+          "nextStage",
+          "relatedIds"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "entries",
+    "potentials",
+    "candidates"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m610/AdapterExpansion.json",
+  "x-runtime-refinements": "Only the application-reviewed SevenNet ID, exact weight, pinned code, notices and environment lock are executable. Backend approval, actual capabilities, task/domain gates and real result hashes are checked locally. Public candidates are metadata only."
+}

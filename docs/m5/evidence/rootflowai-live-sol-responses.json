@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "m5.0-v1",
+  "generatedAt": "2026-10-01T03:51:07Z",
+  "environment": "real-provider",
+  "provider": "rootflowai",
+  "model": "gpt-5.6-sol",
+  "protocol": "responses",
+  "status": "core_protocol_verified",
+  "protocolDecision": "responses_candidate_verified_not_production_enabled",
+  "budgetFen": "0",
+  "budgetPolicy": "waived-for-diagnostic-test",
+  "reservedUpperFen": "0",
+  "generationCalls": 6,
+  "checks": [
+    {
+      "id": "test_authorization",
+      "status": "passed",
+      "reason": "monetary_cap_waived_price_remains_unverified"
+    },
+    {
+      "id": "models",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": false,
+        "completed": false,
+        "usage": {
+          "source": "responses",
+          "inputTokens": null,
+          "outputTokens": null,
+          "cachedInputTokens": null,
+          "uncachedInputTokens": null,
+          "reasoningTokens": null
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "id": "non_stream_text_input_estimate",
+      "status": "warning",
+      "reason": "provider_input_exceeds_local_estimate_reconciliation_required"
+    },
+    {
+      "id": "non_stream_text",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": true,
+        "completed": true,
+        "usage": {
+          "source": "responses",
+          "inputTokens": 4397,
+          "outputTokens": 9,
+          "cachedInputTokens": 4224,
+          "uncachedInputTokens": 173,
+          "reasoningTokens": 0
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "id": "stream_text_input_estimate",
+      "status": "warning",
+      "reason": "provider_input_exceeds_local_estimate_reconciliation_required"
+    },
+    {
+      "id": "stream_text",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": true,
+        "completed": true,
+        "usage": {
+          "source": "responses",
+          "inputTokens": 4395,
+          "outputTokens": 9,
+          "cachedInputTokens": 4224,
+          "uncachedInputTokens": 171,
+          "reasoningTokens": 0
+        },
+        "eventCount": 13
+      }
+    },
+    {
+      "id": "stream_tool_call",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": false,
+        "completed": true,
+        "usage": {
+          "source": "responses",
+          "inputTokens": 4450,
+          "outputTokens": 19,
+          "cachedInputTokens": 0,
+          "uncachedInputTokens": 4450,
+          "reasoningTokens": 0
+        },
+        "eventCount": 11
+      }
+    },
+    {
+      "id": "tool_result_roundtrip",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": true,
+        "completed": true,
+        "usage": {
+          "source": "responses",
+          "inputTokens": 4446,
+          "outputTokens": 16,
+          "cachedInputTokens": 4224,
+          "uncachedInputTokens": 222,
+          "reasoningTokens": 0
+        },
+        "eventCount": 20
+      }
+    },
+    {
+      "id": "structured_output",
+      "status": "passed",
+      "result": {
+        "httpStatus": 200,
+        "textSeen": true,
+        "completed": true,
+        "usage": {
+          "source": "responses",
+          "inputTokens": 4424,
+          "outputTokens": 12,
+          "cachedInputTokens": 0,
+          "uncachedInputTokens": 4424,
+          "reasoningTokens": 0
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "id": "local_abort_observation",
+      "status": "failed",
+      "reason": "request_cancelled_or_timed_out",
+      "result": {
+        "httpStatus": 0,
+        "textSeen": false,
+        "completed": false,
+        "usage": {
+          "source": "responses",
+          "inputTokens": null,
+          "outputTokens": null,
+          "cachedInputTokens": null,
+          "uncachedInputTokens": null,
+          "reasoningTokens": null
+        },
+        "eventCount": 0
+      }
+    }
+  ],
+  "unverified": [
+    "account_price_and_group",
+    "model_origin",
+    "context_window",
+    "cache_write_billing",
+    "upstream_cancellation",
+    "provider_log_reconciliation",
+    "commercial_data_terms",
+    "live_pi_agent"
+  ]
+}

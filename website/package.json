@@ -1,0 +1,13 @@
+{
+  "name": "materialsx-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs",
+    "dev": "npm run build && npm run preview",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

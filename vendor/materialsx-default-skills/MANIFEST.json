@@ -2,15 +2,53 @@
   "schemaVersion": 1,
   "source": "MaterialsX curated local Skill snapshots",
   "versions": {
-    "materials-literature-rpsme-json": "1.7.1",
-    "materials-xyz-extraction": "2.0.0"
+    "materials-literature-rpsme-json": "1.7.1+UA.6.0",
+    "materials-xyz-extraction": "2.0.0",
+    "materials-skill-creator": "UA.5.0",
+    "materials-potential-discovery": "6.11.0",
+    "materials-research-workbench": "UA.7.0",
+    "materials-tensile-analysis": "UA.8.0",
+    "materials-next-experiment": "UA.9.0",
+    "materials-method-packages": "UA.10.0",
+    "materials-long-compute": "UA.11.0",
+    "materials-atomic-structure-inspect": "6.4.0",
+    "materials-mlip-selection": "6.15.0",
+    "materials-mlip-singlepoint": "6.15.0",
+    "materials-mlip-relaxation": "6.15.0",
+    "materials-mlip-md": "6.5.0",
+    "materials-mlip-comparison": "6.4.0",
+    "materials-atomic-3d-view": "6.4.0"
   },
-  "generatedAt": "2026-09-30T15:35:23.504Z",
+  "generatedAt": "2026-10-05T18:50:40.548Z",
   "skills": [
     "materials-literature-rpsme-json",
-    "materials-xyz-extraction"
+    "materials-xyz-extraction",
+    "materials-atomic-structure-inspect",
+    "materials-mlip-selection",
+    "materials-mlip-singlepoint",
+    "materials-mlip-relaxation",
+    "materials-mlip-md",
+    "materials-mlip-comparison",
+    "materials-atomic-3d-view",
+    "materials-skill-creator",
+    "materials-potential-discovery",
+    "materials-research-workbench",
+    "materials-tensile-analysis",
+    "materials-next-experiment",
+    "materials-method-packages",
+    "materials-long-compute"
   ],
   "files": [
+    {
+      "path": "skills/materials-atomic-3d-view/SKILL.md",
+      "bytes": 6270,
+      "sha256": "e77dcef1ba1ebe792000af1d39a2686806e36b24771b98aa778c83213a143dd1"
+    },
+    {
+      "path": "skills/materials-atomic-structure-inspect/SKILL.md",
+      "bytes": 6123,
+      "sha256": "b04a699e41d339957bec6234953e2bd4437de61d72914449a8b944eb24c9140a"
+    },
     {
       "path": "skills/materials-literature-rpsme-json/INSTALLATION.md",
       "bytes": 3318,
@@ -18,8 +56,8 @@
     },
     {
       "path": "skills/materials-literature-rpsme-json/SKILL.md",
-      "bytes": 19328,
-      "sha256": "f04aa78b5a05cad11d59d656c477cd5b616ab11c70cfb455b664512a40e60bd2"
+      "bytes": 20353,
+      "sha256": "8960c1f391d48f595eb81804be84f19e3625c0396a03a32f34f8c3ff771de19c"
     },
     {
       "path": "skills/materials-literature-rpsme-json/agents/openai.yaml",
@@ -285,6 +323,66 @@
       "path": "skills/materials-literature-rpsme-json/scripts/validate_research_opportunities.py",
       "bytes": 10713,
       "sha256": "ee406f06edb81736465f30b51ec216e3b74409fc614bd1a3f0b7313fa5a1d69b"
+    },
+    {
+      "path": "skills/materials-long-compute/SKILL.md",
+      "bytes": 2375,
+      "sha256": "92e252d55a4572592d1d2975ac6b17edd8c895b84792ec5576a78724762f2416"
+    },
+    {
+      "path": "skills/materials-method-packages/SKILL.md",
+      "bytes": 2011,
+      "sha256": "30f05df6b465fe90e6552f69129c1fccb49a70820b8be7f3a4a7ef3733215694"
+    },
+    {
+      "path": "skills/materials-mlip-comparison/SKILL.md",
+      "bytes": 2446,
+      "sha256": "2dc7af46ad283fbe8407b04a6afd168632cc61cc42bc1d57f739283fdf296359"
+    },
+    {
+      "path": "skills/materials-mlip-md/SKILL.md",
+      "bytes": 4915,
+      "sha256": "fe67f503e629c7f443fcd7b0800d3953704181f532e647a1aac2ea0f79726cee"
+    },
+    {
+      "path": "skills/materials-mlip-relaxation/SKILL.md",
+      "bytes": 8425,
+      "sha256": "dd0206da24b24b2180c216c6a4b2c86fc7a26b12642bf9c9eee1a7a7e75c2461"
+    },
+    {
+      "path": "skills/materials-mlip-selection/SKILL.md",
+      "bytes": 8332,
+      "sha256": "b6fadf50e740b92aed90cd1fac98a676419ce2170dd3b8dc301233b67bc42bff"
+    },
+    {
+      "path": "skills/materials-mlip-singlepoint/SKILL.md",
+      "bytes": 8366,
+      "sha256": "e111cdf1f9e84fde80b96b310331dff1043655e655fa762ff947dd51733f7507"
+    },
+    {
+      "path": "skills/materials-next-experiment/SKILL.md",
+      "bytes": 4171,
+      "sha256": "04160aa1ea32bfa9d7c2182f3284c2aac17e75f0a0003d433d935ab7e6e7ed51"
+    },
+    {
+      "path": "skills/materials-potential-discovery/SKILL.md",
+      "bytes": 2647,
+      "sha256": "d09d92ba43a837aa74a03eb8eab750a7bee5508c8e96d89f60de13cfec6abfb7"
+    },
+    {
+      "path": "skills/materials-research-workbench/SKILL.md",
+      "bytes": 7427,
+      "sha256": "5c2407acd5b86a7a15738dc2898d5574fe970c4943a7f6a82858243f68f6b9c2"
+    },
+    {
+      "path": "skills/materials-skill-creator/SKILL.md",
+      "bytes": 2577,
+      "sha256": "b88f5b0189864d1adc2a98fba108400fe223b920e880548868233d51c0ac9c91"
+    },
+    {
+      "path": "skills/materials-tensile-analysis/SKILL.md",
+      "bytes": 2855,
+      "sha256": "c6b7c7504a808c2bbe317f20ac77f63508c801781bf88d8dfc25e6936f6f18e3"
     },
     {
       "path": "skills/materials-xyz-extraction/SKILL.md",

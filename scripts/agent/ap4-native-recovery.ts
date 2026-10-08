@@ -1,0 +1,22 @@
+// Actual independent Codex + MCP, scripted protocol injection only; no model-intelligence claim.
+import assert from 'node:assert/strict';import {mkdtemp,mkdir,writeFile,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join,resolve} from 'node:path';import {randomUUID,createHash} from 'node:crypto';
+import {CodexEngine} from '../../packages/agent/src/codex-engine.js';import {HostMcp} from '../../packages/agent/src/host-mcp.js';import {TaskSupervisor} from '../../packages/agent/src/task-supervisor.js';import {directPlan} from '../../packages/agent/src/research-planning.js';import {composerResponse} from '../../fixtures/agent/composer-response.js';import {taskRefSchema,permissionGrantSchema} from '../../packages/contracts/src/agent.js';
+const root=await mkdtemp(join(tmpdir(),'mx-ap4-native-')),project=join(root,'project');await mkdir(project);
+const task=taskRefSchema.parse({taskId:randomUUID(),projectId:randomUUID(),conversationId:randomUUID()}),grant=permissionGrantSchema.parse({grantId:randomUUID(),projectId:task.projectId,conversationId:task.conversationId,permissions:['read','search'],approvedBy:'local-user',maxCredits:null,maxSeconds:60});
+const text='Actual frozen Si fixture',sha256=createHash('sha256').update(text).digest('hex'),results=new Map<string,unknown>(),context={task,grant,methods:new Map<string,readonly any[]>([['engine.execute',[]],['read_material_file',['read']]])};
+const control=new TaskSupervisor({context,engine:'codex',connectionId:'fixture',accountRef:'local',projectPath:project,persist:()=>{},savePlan:()=>{},saveResult:(h,v)=>{results.set(h,v);return h;},readResult:h=>results.get(h)});control.acceptPlan(directPlan('读取批准文本，失败时仅修正参数',context));
+const mcp=new HostMcp({files:[{id:'owned-si',name:'Si.txt',text,sha256}],skills:[]},undefined,{tools:[],permissions:grant.permissions,signal:new AbortController().signal},control);let rounds=0,threads=0;const start=Date.now(),notices:string[]=[];
+await mcp.start();const engine=new CodexEngine({home:join(root,'home'),maxOutput:512,contextWindow:131072,readOnlyWorkspace:true,localResponseRecovery:true,mcp:{url:mcp.url,token:mcp.token,tools:mcp.toolNames},mcpPermissions:mcp.permissionMap,directTools:mcp.toolDefinitions,onThread:()=>threads++,invoke:async payload=>{
+ rounds++;assert(rounds<=3);
+ if(rounds===3){assert(JSON.stringify(payload).includes(sha256));return composerResponse(rounds,null);}
+ if(rounds===2){assert.equal(control.snapshot().attempts.length,0);assert.equal(control.snapshot().recovery?.lastFault.kind,'arguments');assert.equal(control.snapshot().recovery?.lastFault.issues?.[0]?.path,'endLine');}
+ const response=await composerResponse(rounds,'unused'),args=JSON.stringify({fileId:'owned-si',endLine:rounds===1?'bad':200});
+ const events=(await response.text()).split('\n\n').filter(Boolean).map(b=>JSON.parse(b.slice(6)));
+ for(const e of events){if(e.item?.type==='function_call')e.item={...e.item,name:'read_material_file',arguments:e.type.endsWith('added')?'':args};if(e.type==='response.function_call_arguments.delta')e.delta=args;if(e.type==='response.function_call_arguments.done')e.arguments=args;if(e.response?.output)e.response.output=e.response.output.map((o:any)=>o.type==='function_call'?{...o,name:'read_material_file',arguments:args}:o);}
+ return new Response(events.map(e=>'data: '+JSON.stringify(e)+'\n\n').join(''),{headers:{'Content-Type':'text/event-stream'}});
+}});
+try{await engine.run({task,grant,projectPath:project,content:'读取已批准的文本，不写文件。',control,onEvent:e=>{if(e.type==='text')notices.push(e.delta);}});
+ const state=control.snapshot();assert.equal(rounds,3);assert.equal(threads,1);assert.equal(state.attempts.length,1);assert.equal(state.attempts[0]?.state,'completed');assert.equal(state.recovery?.total,1);assert(notices.some(s=>s.includes('工具参数需要修正')));assert.deepEqual(state.grant,grant);
+ const report={stage:'AP.4',passed:true,realCodexAppServer:true,realHostMcp:true,scriptedProvider:true,externalModelCalls:0,modelIntelligenceValidated:false,rounds,threads,actualReads:1,rejectedCallsExecuted:0,corrections:state.recovery?.total,elapsedMs:Date.now()-start};
+ await mkdir(resolve('runtime/agent/ap-4'),{recursive:true});await writeFile(resolve('runtime/agent/ap-4/native-recovery.json'),JSON.stringify(report,null,2)+'\n',{mode:0o600});console.log(JSON.stringify(report));
+}finally{await engine.dispose();await mcp.close();await rm(root,{recursive:true,force:true});}

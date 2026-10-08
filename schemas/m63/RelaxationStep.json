@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "step": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 500
+    },
+    "energyEv": {
+      "type": "number"
+    },
+    "objectiveEv": {
+      "type": "number"
+    },
+    "maxForceEvPerAngstrom": {
+      "type": "number",
+      "minimum": 0
+    },
+    "maxFilterForceEvPerAngstrom": {
+      "type": "number",
+      "minimum": 0
+    },
+    "volumeAngstrom3": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "minimumDistanceAngstrom": {
+      "type": "number",
+      "minimum": 0.4
+    },
+    "elapsedSeconds": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "step",
+    "energyEv",
+    "objectiveEv",
+    "maxForceEvPerAngstrom",
+    "maxFilterForceEvPerAngstrom",
+    "volumeAngstrom3",
+    "minimumDistanceAngstrom",
+    "elapsedSeconds"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.3-v1/RelaxationStep.json",
+  "x-runtime-refinements": "Project ownership, actual file hashes, atom mapping, convergence and history continuity require runtime validation."
+}

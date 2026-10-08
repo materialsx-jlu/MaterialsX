@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "m5.3b-validation-v1",
+  "generatedAt": "2026-10-01T13:12:17.953Z",
+  "environment": "loopback-real-rootflowai-existing-paid-account",
+  "model": "gpt-5.6-sol",
+  "protocol": "responses",
+  "priceVersion": "paid-sol-20261001-v1",
+  "precision": 10000,
+  "paidRequests": 2,
+  "requests": [
+    {
+      "execution": "completed",
+      "settlement": "settled",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 4600,
+        "outputTokens": 24,
+        "cachedInputTokens": 0,
+        "uncachedInputTokens": 4600,
+        "reasoningTokens": 0
+      },
+      "chargedCredits": "4.84",
+      "terminalReceived": true
+    },
+    {
+      "execution": "completed",
+      "settlement": "settled",
+      "usage": {
+        "source": "responses",
+        "inputTokens": 4680,
+        "outputTokens": 18,
+        "cachedInputTokens": 4480,
+        "uncachedInputTokens": 200,
+        "reasoningTokens": 0
+      },
+      "chargedCredits": "0.828",
+      "terminalReceived": true
+    }
+  ],
+  "beforeCredits": "1010",
+  "afterCredits": "1004.332",
+  "chargedCredits": "5.668",
+  "heldCredits": "0",
+  "historicalEntriesUnchanged": 2,
+  "walletBillLedgerAdminMatch": true,
+  "adminMFA": true,
+  "procurementCost": "unknown",
+  "streamDeltaCount": null,
+  "receiptVerification": "read-existing-no-new-generation-after-cross-grant-audit-fix",
+  "formalSalesEnabled": false,
+  "realRefundExecuted": false,
+  "newPaymentExecuted": false,
+  "productionInputBoundVerified": false
+}

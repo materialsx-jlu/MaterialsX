@@ -1,0 +1,537 @@
+{
+  "version": "m6.4-v1",
+  "date": "2026-10-02",
+  "status": "macos-selection-skills-scoped-platform-verified-windows-installer-pending",
+  "scientificQuality": "needs_review",
+  "historicalM60M61M62M63SnapshotsPreserved": true,
+  "files": [
+    {
+      "path": ".github/workflows/m0.yml",
+      "sha256": "7193f1a6917593e3170cf02e8a848b00a648e785191a7b1efc57b2afb58df05f"
+    },
+    {
+      "path": ".github/workflows/m61.yml",
+      "sha256": "2115cb2487e2016edd8837cf0dbfc622c44096e884730adca46d7e0fae8589d9"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "740e7c5da3e6253fac92e913cc9cbc3be3c9660362e0078fa823ee78c87c1d23"
+    },
+    {
+      "path": "README.md",
+      "sha256": "0e5de21efd8fb689a08c0003e74ece16099d7c1c6a4190a4974f2f69f7c27751"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES.md",
+      "sha256": "3d28f0f801314e91410cfb7f4b02506e7cfcf39170b00e33f835dc46946817b2"
+    },
+    {
+      "path": "apps/desktop/m62-ui-smoke.cjs",
+      "sha256": "be83c0234dd670dc641d7680902d957493707a89fcfbe2e4fa1fad2bb84a5943"
+    },
+    {
+      "path": "apps/desktop/m63-ui-smoke.cjs",
+      "sha256": "6bcce097a47d6d7df8fe4222c19a907a7e13aeb50cac49c83f87d30aeec507ce"
+    },
+    {
+      "path": "apps/desktop/m64-cloud-smoke.cjs",
+      "sha256": "f0d8bd14923a5302521d75756d0b302015fca14572486505141c429c2a6ccaf9"
+    },
+    {
+      "path": "apps/desktop/m64-ui-smoke.cjs",
+      "sha256": "52338ff0245095e477cd59c73d9ed50313050335558b723ac1bdd36f1b48c282"
+    },
+    {
+      "path": "apps/desktop/main/atomic-export.ts",
+      "sha256": "e268235d3a3c968af90239549f2aba7a060e1230120ce3f2147bae5ded85af1f"
+    },
+    {
+      "path": "apps/desktop/main/index.ts",
+      "sha256": "b3b514fc2ace7cbe22ea1253d37586a0462ad0c6308f967aa100a97484decee5"
+    },
+    {
+      "path": "apps/desktop/preload/index.ts",
+      "sha256": "ae576494ae0bb2a068ac65ed8768b94526e5e531b8f72d81349842995490c853"
+    },
+    {
+      "path": "apps/desktop/renderer/atomic-comparison.html",
+      "sha256": "a66ef892b0a2c5835128e502a21d6acbf5e861de4f8e2f28c9a88ff25d04899e"
+    },
+    {
+      "path": "apps/desktop/renderer/atomic-viewer.html",
+      "sha256": "86fbed685b000e69fe1225cc75f615382d656634e40a8987f8f7dab7bc3ac5be"
+    },
+    {
+      "path": "apps/desktop/renderer/src/App.vue",
+      "sha256": "90d97f45ad2d61d204429d0e09ec543c91be2319aae274a16c3a9abab8708b12"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.css",
+      "sha256": "9c9af19cd7aaf7f4b9ac83777a62c7b71a36da4e803df15e1986cbea0b531fee"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.ts",
+      "sha256": "004e0e310a8c6cccb51dc823b48b2e3cdb6d64145ebc1e9db42975f2bf4ad991"
+    },
+    {
+      "path": "apps/desktop/renderer/src/comparison-frame.css",
+      "sha256": "c10dade9fe130763f644ac6fda33aada70f8291a917ca72fb8c92e4242df0882"
+    },
+    {
+      "path": "apps/desktop/renderer/src/comparison-frame.ts",
+      "sha256": "1e67ba546cda118a7c407611be24b9d3aeb84bc7bc73c4c9246b0fb2e35f465d"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicArtifactCard.vue",
+      "sha256": "a21e1e0efb77435c9ceaf67453aae348caa8c09f47a0c2ec5761265d686ff982"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicComparisonDrawer.vue",
+      "sha256": "b5e83d390e646f70196d205d45943e4e5ee8a1affdfefc81877f50d813d10a9f"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicViewerDrawer.vue",
+      "sha256": "e06d1085cd3674a654a9ccb8554e4dce5b4fe0869f8ac7f9fefd3110156c7932"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticMessageArtifacts.vue",
+      "sha256": "282f2e6fc965f678cd50b0d96af33a0618624077bc04bebda09bf32898818b69"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticRunPanel.vue",
+      "sha256": "ad7407a6de067d9fb096e2133f7a14fd218975f0247fd7535ca62ba681138953"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/PotentialRegistryPanel.vue",
+      "sha256": "60d1232fe9d3bf5d12df0c5089da4d57293a20e9ed99057bcd49b689dd455835"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/SkillDetailsDrawer.vue",
+      "sha256": "6f7c915d53ef379deb3cc7617141844e4060824728ad49e2bfc920c3e621b0db"
+    },
+    {
+      "path": "apps/desktop/renderer/src/stores/workspace.ts",
+      "sha256": "29fee9d7ff3e2ea3b93e86b1ac549e8582ac8ce77e9f5d4ff6dd3a591488264a"
+    },
+    {
+      "path": "apps/desktop/renderer/src/utils/atomic-viewer.ts",
+      "sha256": "263d00fa412d19cc17e952863bfdbeef706f5c4ed67b18a3c69db2497d301edb"
+    },
+    {
+      "path": "apps/desktop/vite.config.ts",
+      "sha256": "15424062af2717ac1c0e926189ba13c0e6008d20ab94c40c6d19392d6e96fa58"
+    },
+    {
+      "path": "atomistic/relaxation.py",
+      "sha256": "b285feb91a7cbd96907916c367ed23a0851b2cc88e2929d69cdaaf2c65a88d7c"
+    },
+    {
+      "path": "atomistic/tests/test_relaxation.py",
+      "sha256": "ca3bc16800a4798d8444f0a0e4de2392a92e14fd4f52268889b09ab7b33b3062"
+    },
+    {
+      "path": "atomistic/tests/test_worker_resources.py",
+      "sha256": "d9ecd96713b931a172d2f57c37b3508359c7ed5117f59b2679cb28383a1ab5e8"
+    },
+    {
+      "path": "atomistic/worker.py",
+      "sha256": "6877a0a8ec0380ec554bb80842c979d39032b450cbb05275c868cfd89edbc365"
+    },
+    {
+      "path": "docs/BACKLOG.md",
+      "sha256": "3645153b63c82490fe86d33c228a37ea9d17d6a8e297fafca68586989e9a3548"
+    },
+    {
+      "path": "docs/DEVELOPMENT_PLAN.md",
+      "sha256": "fc71e9c4ee231345c53cb9c544972ab4b82e6e1fda629986876b0f801b7f4362"
+    },
+    {
+      "path": "docs/M6_ML_POTENTIALS_3D_DEVELOPMENT_PLAN.md",
+      "sha256": "f848a64c94967d93f3f085397dfbb904a7eaffe8a224fc8fc82ad34f9bc97faa"
+    },
+    {
+      "path": "docs/STATUS.md",
+      "sha256": "e5c4b2fa5ce914910614c710a460163f0a7fa53a725ec7efb3352689c39b1341"
+    },
+    {
+      "path": "docs/m6/evidence/selection-cloud-ui.json",
+      "sha256": "a30747113bde060aab2531f07831be9bb773bcb24b06198515e869c6d0afbf4e"
+    },
+    {
+      "path": "docs/m6/evidence/selection-runtime.json",
+      "sha256": "844aa00cec9ef9dabd011eefc429d70d30bcf63d661568fc232e78a874ef7483"
+    },
+    {
+      "path": "docs/m6/evidence/selection-ui.json",
+      "sha256": "4050c3b0ba4c074e3916e12ffde61ca33f6f18145ff0717b00d0d3a09e6b320d"
+    },
+    {
+      "path": "docs/m6/evidence/selection-verification.json",
+      "sha256": "c9a05cc4bc369607f6f17ed439163a11ebf386d4bef231a85efa89bf8ada59fa"
+    },
+    {
+      "path": "docs/m6/images/selection-exploratory-candidates.png",
+      "sha256": "82051b4713afbfdefd87ce73d78719c1f63f8244517f7e5d67f2d5267a75d8d2"
+    },
+    {
+      "path": "docs/m6/images/selection-platform-science.png",
+      "sha256": "a6b59cf7de389a7fa1a120045d21cbe97f9a06b6377c739383b41a8624f97f9f"
+    },
+    {
+      "path": "docs/m6/images/selection-skills-dark.png",
+      "sha256": "b0f3fe24df85fa80b3100d25f2af254079466f94eb77f72bceba90bb403c0b36"
+    },
+    {
+      "path": "docs/m6/images/viewer-artifacts.png",
+      "sha256": "29c303e2ea4cc2f17d9ae5a144e231e8f383a9eab18f95a9d8d2febb1be1ab86"
+    },
+    {
+      "path": "docs/m6/images/viewer-chat-artifact.png",
+      "sha256": "391db24e222525a35707a0a273cd37588734839d920f9c203b053fb8f7f93a2a"
+    },
+    {
+      "path": "docs/m6/images/viewer-dark.png",
+      "sha256": "2442bf9a08b2ba02bd9911fc38d3dd77a921c89348a88c609b6bcd7789e41e2d"
+    },
+    {
+      "path": "docs/m6/images/viewer-forces.png",
+      "sha256": "9e8082a9115f34461d21c71a613c62e824996b605890d60ad945af25baff8d80"
+    },
+    {
+      "path": "docs/m6/images/viewer-light.png",
+      "sha256": "318b18a4ee5d12cf6bdeda26da64e00946c6ffbebe4516c3ef8430303310998b"
+    },
+    {
+      "path": "docs/m6/images/viewer-molecule.png",
+      "sha256": "708168e9442c3d1fbb271fedd697146ec24eacb3b006b33b0c9f2c745005db26"
+    },
+    {
+      "path": "docs/m6/relaxation-acceptance.md",
+      "sha256": "0bfd96250c1fd76c77aa80d58f51a682a12fb2c4677fc384334a1607a562e7a4"
+    },
+    {
+      "path": "docs/m6/relaxation.md",
+      "sha256": "95f1a6e45d214510bb0594084059ee1d8813efede57bedf44b2908e70f5fa4f7"
+    },
+    {
+      "path": "docs/m6/selection-acceptance.md",
+      "sha256": "eae6fa0eae197518cef0c8d810bc4f0b4ec216c9176a7a7b0b4f9ac5ffa19b61"
+    },
+    {
+      "path": "docs/m6/selection.md",
+      "sha256": "d4ebe2b97692e911768cfc060127c63302468b5fe1916bdb30de2fa83bac3e0a"
+    },
+    {
+      "path": "docs/m6/viewer-acceptance.md",
+      "sha256": "dce89def271bcdbbcc795bfe26b1d65d39fdf66e02e9ed403c70dce72a3919c3"
+    },
+    {
+      "path": "docs/m6/viewer.md",
+      "sha256": "ddb7846eca5ab58c0ce7bacfb36f39af92bc72270623e2cc12600ec481657aea"
+    },
+    {
+      "path": "docs/third-party/3DMOL_LICENSE.txt",
+      "sha256": "4c6eaaed856f3f28a3b1a98e74f4a8a71618de7d51ea4155c29f6f793bcef861"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "076ab2f331f33269f8340f45df8e29ee65bcead874cdd92eeb2f1282fcd102a9"
+    },
+    {
+      "path": "package.json",
+      "sha256": "51f46a643c6d657536150e3068f4f5407b0de2e3e3de67247cdd4bca528198cb"
+    },
+    {
+      "path": "packages/atomistic/src/artifact-io.ts",
+      "sha256": "8c59eee1cf788ebb411ad65a1524cafedb8756ce6de6adbb7eb82342ed68e5f8"
+    },
+    {
+      "path": "packages/atomistic/src/process.ts",
+      "sha256": "101932f013a9901e686040de69785c406a831e9418cdeac50352ca4656390542"
+    },
+    {
+      "path": "packages/atomistic/src/registry.test.ts",
+      "sha256": "19550b29e4503ad6f13323f2fe9e978db781d26be23bc65c749fdb07717a5722"
+    },
+    {
+      "path": "packages/atomistic/src/registry.ts",
+      "sha256": "93c4ad1d2d447099e8197228ac9627d7890d9fa9d6552c0fb0cb2598c149f267"
+    },
+    {
+      "path": "packages/atomistic/src/relaxation.test.ts",
+      "sha256": "7f104e65e60859ef73f60ae547e2b5a62f484867d17624761726da6eec6e5864"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.test.ts",
+      "sha256": "97141665a619c25724f951ca91d47201e89402817ccc67cc30150d30ce41a0ec"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.ts",
+      "sha256": "4f54da38db05d12325dabe3693632c1a9201a1678c1567372b5447a889ecf441"
+    },
+    {
+      "path": "packages/atomistic/src/selection.test.ts",
+      "sha256": "519eda082c780ffb41495bdb4beb8cf33df3fa5edbc1f37870ca685c721b5b1a"
+    },
+    {
+      "path": "packages/atomistic/src/selection.ts",
+      "sha256": "f7b7f240e3e6835d6017e1794d263ac740e21e8553999aaa1becfdd9f9eaeb4a"
+    },
+    {
+      "path": "packages/atomistic/src/viewer-geometry.ts",
+      "sha256": "34fd8731bea8636809e2b9a8a53203b8eb353fade65d9aae23161779aa012018"
+    },
+    {
+      "path": "packages/atomistic/src/viewer.test.ts",
+      "sha256": "ecbc937c2acd8eaa00f74c3e278998259cfcff7681da6457aacf2eeffb6f42ca"
+    },
+    {
+      "path": "packages/contracts/src/atomic-viewer.ts",
+      "sha256": "51eb22f8f9e97f0d13ecc7c0ec38f337d958d1479bdfe33e3e401e625d22bce6"
+    },
+    {
+      "path": "packages/contracts/src/atomistic-relaxation.ts",
+      "sha256": "c361a3c203c73bbecaafe0d501362e3435bf61fcee6b3d784172780654099a46"
+    },
+    {
+      "path": "packages/contracts/src/atomistic-selection.ts",
+      "sha256": "327426ca75b3784160d6f2ec9116aaee639746de8e33453d8959d3154bd6884d"
+    },
+    {
+      "path": "packages/contracts/src/desktop.ts",
+      "sha256": "2ec6a50023cebdcd2ff5a7c97a1c9d61a5055dd2fd37de23ce2885c2fcdd2370"
+    },
+    {
+      "path": "packages/pi-adapter/src/atomistic-tools.test.ts",
+      "sha256": "667090070d9906d5f228f50b903a780f32687030967298e949decb6d0de4a8f7"
+    },
+    {
+      "path": "packages/pi-adapter/src/atomistic-tools.ts",
+      "sha256": "72b9c8bfe3e2242ff868180cd000702a881913ef76e607c0b1ee2f6ae63ac73c"
+    },
+    {
+      "path": "packages/pi-adapter/src/platform-session.test.ts",
+      "sha256": "421fe4749392785f075e6f9e569ee913f311d06d91c32c48dc21a95785dc2b39"
+    },
+    {
+      "path": "packages/pi-adapter/src/platform-session.ts",
+      "sha256": "a5fd2a9dcd2608016afc031ea209b295e6fee82b098c9073fc2731c5be10443a"
+    },
+    {
+      "path": "packages/pi-adapter/src/science-bridge.ts",
+      "sha256": "bb27e1863faab31f660f7033504906ce981de2102fc7b1fd9f4eef380ffcbff5"
+    },
+    {
+      "path": "schemas/.gitattributes",
+      "sha256": "5c0ccd4346d40a9a257042b8a485544d843749688aee93ed1bcf52679a9a2441"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameCommand.json",
+      "sha256": "237e0247d07dca870b29e31ef274c3adb1848d93646a6cd042785d64efa48ead"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameEvent.json",
+      "sha256": "177e472cd9a8027f5f1cec8858c46fb667921c1646c31a49832dfc45afd77b58"
+    },
+    {
+      "path": "schemas/m62/AtomicPngExport.json",
+      "sha256": "e1a01b55700f07d30bf3d22f955828cf1dfd8806a2c1dc38150dc31a43ea5301"
+    },
+    {
+      "path": "schemas/m62/AtomicViewPayload.json",
+      "sha256": "2f4b24b269a7d01f98c6afe14204d9efadb3112b34059992d50f4a485008fdb3"
+    },
+    {
+      "path": "schemas/m62/AtomicViewRequest.json",
+      "sha256": "87625fc2b210283f493487b0458faf0165d35761dc0a7a2379e1fed7505f3630"
+    },
+    {
+      "path": "schemas/m62/StaticAtomicScene.json",
+      "sha256": "4a54fddc20ac5404329c6f80daa3de2bf5827ee5cb06eec5ed72e12d31399636"
+    },
+    {
+      "path": "schemas/m63/ComparisonCommand.json",
+      "sha256": "fd0f8270fdd57348d0132f1a2a603e938c5ea88a20c213fd0a19debdaff54b40"
+    },
+    {
+      "path": "schemas/m63/ComparisonEvent.json",
+      "sha256": "e2b0ef3f6321b3341b88ffee18e1dd6ba66f49ca2447603124536e2f0ac29a42"
+    },
+    {
+      "path": "schemas/m63/ComparisonScene.json",
+      "sha256": "8b47a259faaae6aa46a7adad09ec2473e2fcb0c3a79323baf8ee9ef18963153a"
+    },
+    {
+      "path": "schemas/m63/RelaxationCheckpoint.json",
+      "sha256": "501ab99f4d764f84a1a2c555c53da9841674dda0be3016d338234838a5852c84"
+    },
+    {
+      "path": "schemas/m63/RelaxationComparison.json",
+      "sha256": "d24360d37a1997fd8dfd4a4f8834e5a33efcc401ce14dd820a71afa0010d9c55"
+    },
+    {
+      "path": "schemas/m63/RelaxationHistory.json",
+      "sha256": "db2a46314dfe6a2247f31b6c5770e1e61b68eb663a5a5bd646aab05efddd5def"
+    },
+    {
+      "path": "schemas/m63/RelaxationOptions.json",
+      "sha256": "fc2c15eae802109ed5506b31436946aabaf9f0a248e9975b252bbfd926b0d422"
+    },
+    {
+      "path": "schemas/m63/RelaxationStep.json",
+      "sha256": "7b123c959425d65061b0db48048f3fe58f5c83a6c23903b68a16b626321c42b9"
+    },
+    {
+      "path": "schemas/m63/RelaxationSummary.json",
+      "sha256": "d567716f1d76ae5aacbfa1ac3eaf07c74a31ca351839dd1e46ad8d8db79329db"
+    },
+    {
+      "path": "schemas/m63/ScientificSnapshot.json",
+      "sha256": "73a9280de483111449adb9b8d3dc13cd25bb3cb640a88910c916a5a1ffcb69e8"
+    },
+    {
+      "path": "schemas/m63/StartRelaxation.json",
+      "sha256": "33259b2d7b4ccfe5e5964b198680c365a81d8d38b170d872d11b213deb96581f"
+    },
+    {
+      "path": "schemas/m64/CapabilityReceipt.json",
+      "sha256": "c0acefe2ba8ffa0555902390e387a49ac4c0ddc6a565bf662f65e5066c0674e1"
+    },
+    {
+      "path": "schemas/m64/ScientificScope.json",
+      "sha256": "7e8e4894f2c4fc1909550661474c8f92a193b1c7d19cd83efbb551952b6046b4"
+    },
+    {
+      "path": "schemas/m64/SelectedRun.json",
+      "sha256": "c544ac6f877591eb17b7833cc1a60dcadb227527dc77236e4513fd071b38887c"
+    },
+    {
+      "path": "schemas/m64/SelectionAssessment.json",
+      "sha256": "7a4df1c5c8ea03121719eee92c6fbcef6faa7a0941efe83483e95a8aa9c1f11e"
+    },
+    {
+      "path": "schemas/m64/SelectionProposal.json",
+      "sha256": "9f4ec2caca4aca275917769a24efe4d2fbd30d4ce5f5f6127e310d53c5c1d5c8"
+    },
+    {
+      "path": "schemas/m64/SelectionRequest.json",
+      "sha256": "67c0d23c37d185656f99c2fb34714652deb2e8c70a47d9d58758ace29980a3ad"
+    },
+    {
+      "path": "scripts/accept-materialsx-skills.ts",
+      "sha256": "58db2588731b05275cf3e77793e88437700db856629992044934bb23b35bc25f"
+    },
+    {
+      "path": "scripts/generate-materialsx-skill-manifest.ts",
+      "sha256": "5a4ec16248e8cb1d1d2b57ed3c8d4366da832b11fe71b7aed8e65a21cb393370"
+    },
+    {
+      "path": "scripts/m62-contracts.ts",
+      "sha256": "1d0e1aeba2a5ec6d911b9bd691ff248b6a391978ea1602bfed6cafb3e59d3299"
+    },
+    {
+      "path": "scripts/m63-contracts.ts",
+      "sha256": "f09f717843414d5d540964adcce5619085bfd79ccddb4f72d6bdcd81edf0b74c"
+    },
+    {
+      "path": "scripts/m63-runtime-test.ts",
+      "sha256": "cfdf2a7ad1930f6492e276085a4c4baafc6735386f7c31b8e224925c15997018"
+    },
+    {
+      "path": "scripts/m64-cloud-test.ts",
+      "sha256": "71d03b258f74ed36c760fc36723087fe3e2a7cfb63f424d0d573a39babb1474b"
+    },
+    {
+      "path": "scripts/m64-contracts.ts",
+      "sha256": "58533834fdcce1654e744071eb382000c306735eb05562d03e94269ef8c85c95"
+    },
+    {
+      "path": "scripts/m64-runtime-test.ts",
+      "sha256": "2998d5b5f438c469bcb3db8d31c980488771ddafbb23ebe3d622ca26be84f1b4"
+    },
+    {
+      "path": "scripts/verify-packaged-skills.ts",
+      "sha256": "c37a1abc837cb87589a8a9ee368aa592d4600963c3e6286348eb7b36b5f07af0"
+    },
+    {
+      "path": "services/control-plane/cmd/sciencecheck/main.go",
+      "sha256": "7faa4e62498dbe8c6b98165d9f122c9f12531fa99520e5a2a1b0e1e56fb01604"
+    },
+    {
+      "path": "services/control-plane/internal/gateway/science-parameters.json",
+      "sha256": "6c8085f49c50bf7afc436ca5b1bd4ed6a620e215b960d2c32050e633c31fadf7"
+    },
+    {
+      "path": "services/control-plane/internal/gateway/science_validation_test.go",
+      "sha256": "5b2520c1743efe84d2b22d99ee6e14288b7ec576764c704723110f0cf72ce316"
+    },
+    {
+      "path": "services/control-plane/internal/gateway/testfixture/main.go",
+      "sha256": "5614b7c3ba6a1394ddd778efd856f8db32a99cf3fe35050fd76c1bd8100f094f"
+    },
+    {
+      "path": "services/control-plane/internal/gateway/testfixture/science_test.go",
+      "sha256": "d5831c92ac4457c1b3daa333fccb4cb0d1beb69d899e5c888f93a6b557f7e9ed"
+    },
+    {
+      "path": "services/control-plane/internal/gateway/validation.go",
+      "sha256": "60ba500034a68a306f2b3aae75d1954f6f25f67f0616216f289892608f9021fb"
+    },
+    {
+      "path": "skills/atomistic-m64.json",
+      "sha256": "f92d7bd96363a1fe27d64973736dda2294df434bbba8016bf82244f3b1c6fa68"
+    },
+    {
+      "path": "skills/categories.json",
+      "sha256": "9c1a0c5c535e420b2892aae9fcbd5b9c4174bff0bb67999d05c88ec51fed994f"
+    },
+    {
+      "path": "skills/descriptions.en.json",
+      "sha256": "0a6bca22c99fc0512bf74ca169e9483f75f12a842d4eb413f06b0377a9ebdd09"
+    },
+    {
+      "path": "skills/descriptions.zh.json",
+      "sha256": "634f92afdd5b339402f7817cc4ee6c987512f7618bff26a8d300fdd6878c79ea"
+    },
+    {
+      "path": "skills/examples.json",
+      "sha256": "d758f67995e3bf72075eca6dd5f59ffb86f58a868f0b4f7a6849387ec5a95f5f"
+    },
+    {
+      "path": "skills/materialsx-default.json",
+      "sha256": "bd54453481916d8ac9eef953f6daaf0b1decdee43ec5ae9eb78273d15256b3b7"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/MANIFEST.json",
+      "sha256": "b9677e66d95689e5ea44b02b82b79d06d6f0ffd053985e5f651da92c0d31d07c"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-atomic-3d-view/SKILL.md",
+      "sha256": "a3379e1d117bce4a2e0245e20cdae6960bc0bc8c00081b5a304ba36fc834012d"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-atomic-structure-inspect/SKILL.md",
+      "sha256": "40b8510df8fba1030e5b815b683f5cbb4f35221a494ee932c4e4cbd74dc9373e"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-mlip-comparison/SKILL.md",
+      "sha256": "2dc7af46ad283fbe8407b04a6afd168632cc61cc42bc1d57f739283fdf296359"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-mlip-md/SKILL.md",
+      "sha256": "ac27abc7418aa90f07db91ef8344d2cf62874283d3e0486273a6ffb33361b19e"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-mlip-relaxation/SKILL.md",
+      "sha256": "cd49e331a7bbf0305575c0479a3f8f64c6be6051db3d7bc6d78e44c2f482c0de"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-mlip-selection/SKILL.md",
+      "sha256": "2d5366179c7423093b72e785d6bea084fe541d93d5610db427cbcee27e60c998"
+    },
+    {
+      "path": "vendor/materialsx-default-skills/skills/materials-mlip-singlepoint/SKILL.md",
+      "sha256": "6ec0cec80249280e0b96df4b9817bc0684577ca43977f0d129fcd6ffcc648e1b"
+    }
+  ]
+}

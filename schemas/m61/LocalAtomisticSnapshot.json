@@ -1,0 +1,906 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "job": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "m6.0-v1"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "planId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "queued",
+            "validating",
+            "loading_model",
+            "running",
+            "cancelling",
+            "completed",
+            "failed",
+            "cancelled",
+            "interrupted"
+          ]
+        },
+        "quality": {
+          "type": "string",
+          "enum": [
+            "unreviewed",
+            "passed",
+            "needs_review",
+            "invalid"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+        },
+        "finishedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resultArtifactId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "projectId",
+        "planId",
+        "status",
+        "quality",
+        "createdAt",
+        "finishedAt",
+        "resultArtifactId",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "m6.0-v1"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "projectId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "structureId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "structureSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "potentialId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "potentialSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "environmentProfileId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "device": {
+          "type": "string",
+          "enum": [
+            "cpu",
+            "cuda",
+            "mps"
+          ]
+        },
+        "dtype": {
+          "type": "string",
+          "enum": [
+            "float32",
+            "float64"
+          ]
+        },
+        "head": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "task": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "singlepoint"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "relaxation"
+                },
+                "optimizer": {
+                  "type": "string",
+                  "const": "FIRE"
+                },
+                "cellMode": {
+                  "type": "string",
+                  "enum": [
+                    "fixed",
+                    "variable"
+                  ]
+                },
+                "maxSteps": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 500
+                },
+                "fmaxEvPerAngstrom": {
+                  "type": "number",
+                  "minimum": 0.001,
+                  "maximum": 0.2
+                },
+                "externalPressureGPa": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": -10,
+                      "maximum": 10
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "optimizer",
+                "cellMode",
+                "maxSteps",
+                "fmaxEvPerAngstrom",
+                "externalPressureGPa"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "md"
+                },
+                "ensemble": {
+                  "type": "string",
+                  "enum": [
+                    "nve",
+                    "nvt"
+                  ]
+                },
+                "steps": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "timestepFs": {
+                  "type": "number",
+                  "minimum": 0.01,
+                  "maximum": 1
+                },
+                "temperatureK": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 1000
+                },
+                "sampleEvery": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                }
+              },
+              "required": [
+                "kind",
+                "ensemble",
+                "steps",
+                "timestepFs",
+                "temperatureK",
+                "sampleEvery",
+                "seed"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "maxAtoms": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxSteps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "maxWallSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1800
+            },
+            "maxMemoryMiB": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 8192
+            },
+            "maxOutputMiB": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "threads": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            }
+          },
+          "required": [
+            "maxAtoms",
+            "maxSteps",
+            "maxWallSeconds",
+            "maxMemoryMiB",
+            "maxOutputMiB",
+            "threads"
+          ],
+          "additionalProperties": false
+        },
+        "qualityPolicyId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "selectionEvidenceIds": {
+          "minItems": 1,
+          "maxItems": 20,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "projectId",
+        "structureId",
+        "structureSha256",
+        "potentialId",
+        "potentialSha256",
+        "environmentProfileId",
+        "device",
+        "dtype",
+        "head",
+        "task",
+        "budget",
+        "qualityPolicyId",
+        "selectionEvidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "structure": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "m6.0-v1"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "coordinateUnit": {
+          "type": "string",
+          "const": "angstrom"
+        },
+        "atoms": {
+          "minItems": 1,
+          "maxItems": 2000,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "element": {
+                "type": "string"
+              },
+              "position": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "occupancy": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "id",
+              "element",
+              "position",
+              "occupancy"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "cell": {
+          "anyOf": [
+            {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pbc": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "charge": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spinMultiplicity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "artifactId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "cif",
+                "xyz",
+                "extxyz",
+                "poscar"
+              ]
+            },
+            "provenance": {
+              "type": "string",
+              "enum": [
+                "user-file",
+                "team-synthetic",
+                "literature-reconstructed",
+                "hypothesis"
+              ]
+            },
+            "license": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "transformations": {
+              "maxItems": 100,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            }
+          },
+          "required": [
+            "artifactId",
+            "sha256",
+            "format",
+            "provenance",
+            "license",
+            "transformations"
+          ],
+          "additionalProperties": false
+        },
+        "issues": {
+          "maxItems": 100,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "warning",
+                  "blocking"
+                ]
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "code",
+              "severity",
+              "detail"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "coordinateUnit",
+        "atoms",
+        "cell",
+        "pbc",
+        "charge",
+        "spinMultiplicity",
+        "source",
+        "issues"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "schemaVersion": {
+              "type": "string",
+              "const": "m6.0-v1"
+            },
+            "runId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "planId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "structureId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "potentialId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "potentialSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "atomCount": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "energyEv": {
+              "type": "number"
+            },
+            "forcesEvPerAngstrom": {
+              "minItems": 1,
+              "maxItems": 2000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "stress": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "unit": {
+                      "type": "string",
+                      "const": "eV/angstrom^3"
+                    },
+                    "sign": {
+                      "type": "string",
+                      "const": "positive-tension"
+                    },
+                    "order": {
+                      "type": "string",
+                      "const": "xx,yy,zz,yz,xz,xy"
+                    },
+                    "values": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 6,
+                      "maxItems": 6
+                    }
+                  },
+                  "required": [
+                    "unit",
+                    "sign",
+                    "order",
+                    "values"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "stopReason": {
+              "type": "string",
+              "enum": [
+                "singlepoint",
+                "converged",
+                "max_steps",
+                "cancelled",
+                "failed"
+              ]
+            },
+            "completedSteps": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2000
+            },
+            "quality": {
+              "type": "string",
+              "enum": [
+                "unreviewed",
+                "passed",
+                "needs_review",
+                "invalid"
+              ]
+            },
+            "validationEvidenceIds": {
+              "maxItems": 20,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              }
+            }
+          },
+          "required": [
+            "schemaVersion",
+            "runId",
+            "planId",
+            "structureId",
+            "potentialId",
+            "potentialSha256",
+            "atomCount",
+            "energyEv",
+            "forcesEvPerAngstrom",
+            "stress",
+            "stopReason",
+            "completedSteps",
+            "quality",
+            "validationEvidenceIds"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifacts": {
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "string",
+            "const": "m6.0-v1"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "projectId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "runId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "atomic_structure",
+              "atomic_trajectory",
+              "atomistic_result",
+              "validation_report",
+              "plot",
+              "image"
+            ]
+          },
+          "relativePath": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 268435456
+          },
+          "structureId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "frames": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 2001
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "partial": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "id",
+          "projectId",
+          "runId",
+          "type",
+          "relativePath",
+          "sha256",
+          "bytes",
+          "structureId",
+          "frames",
+          "partial"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "outputDirectory": {
+      "type": "string",
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "job",
+    "plan",
+    "structure",
+    "result",
+    "artifacts",
+    "outputDirectory"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.1-v1/LocalAtomisticSnapshot.json",
+  "x-runtime-refinements": "Zod cross-field checks and main-process project ownership/identity checks are mandatory."
+}

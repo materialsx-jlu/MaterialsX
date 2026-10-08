@@ -1,0 +1,49 @@
+{
+  "stage": "M6.14",
+  "passed": true,
+  "elements": [
+    "Si"
+  ],
+  "adapter": {
+    "nativeEnergy": "eV-total",
+    "nativeStress": "eV atomic virial tensor",
+    "stressFactor": -1.0,
+    "graphConverter": "nep-cpu-native",
+    "elementTypeMap": {
+      "Si": 0
+    },
+    "engine": {
+      "version": "m6.14-v1",
+      "platform": "macos-arm64",
+      "sourceRevision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+      "sourceSha256": "3eff42dbfdf852b9f5d5d0cec3ed558fd59a923e7e8f06c120334ea52da25030",
+      "binary": "nep-runner",
+      "binarySha256": "ef2b3e59eff4dd0c843a1436af5fb0d621fa49c800c958f0fa9b9141bddef927",
+      "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+      "compiler": "Apple clang version 17.0.0 (clang-1700.0.13.5)",
+      "createdAt": "2026-10-02T14:47:08.717Z",
+      "scientificQuality": "needs_review"
+    },
+    "longRange": "absent",
+    "dispersion": "not-added",
+    "aseStress": "positive-tension-xx,yy,zz,yz,xz,xy"
+  },
+  "energyEv": -36.962151215597096,
+  "forceDerivativeErrorsEvPerAngstrom": [
+    1.1310752334736662e-10,
+    2.430451395696309e-10,
+    6.436928212671944e-10
+  ],
+  "stressDerivativeErrorsEvPerAngstrom3": [
+    2.6035300651483517e-11,
+    2.780273060387639e-11,
+    2.0870454670030014e-11,
+    2.6293949656475135e-12,
+    1.0383187365459179e-14,
+    2.8124213027891365e-12
+  ],
+  "rotationEnergyDeltaEv": 0.0,
+  "nativeBinaryTamperRejected": true,
+  "nativeSourceTamperRejected": true,
+  "independentDFTAccuracyValidated": false
+}

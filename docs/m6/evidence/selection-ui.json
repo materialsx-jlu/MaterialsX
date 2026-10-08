@@ -1,0 +1,22 @@
+{
+  "stage": "M6.4",
+  "passed": true,
+  "platform": "darwin",
+  "electron": "44.5.0",
+  "actualDesktop": true,
+  "defaultSkills": 91,
+  "newTaskSkills": 7,
+  "bilingualIntroductionsAndExamples": true,
+  "mdClearlyPlanningOnly": true,
+  "examplesCopyToComposer": true,
+  "mentionPicker": true,
+  "potentialDirectoryJump": true,
+  "productionBlocked": true,
+  "realExploratorySinglepoint": true,
+  "selectionArtifact": true,
+  "platformScopeSelectAndClear": true,
+  "foreignScopeRejected": true,
+  "sharedThemes": true,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

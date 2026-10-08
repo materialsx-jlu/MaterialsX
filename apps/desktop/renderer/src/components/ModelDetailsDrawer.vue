@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ExamplePrompts from "./ExamplePrompts.vue";
 import { computed } from "vue";
 import { Atom, ExternalLink, Languages, MessageSquareText } from "@lucide/vue";
 import { ElDrawer } from "element-plus";
@@ -40,15 +41,7 @@ const visible = computed({
       </section>
       <section class="skill-detail-section skill-examples-section">
         <div class="skill-detail-section-title"><MessageSquareText :size="16" /><strong>{{ locale === 'zh' ? '使用示例' : 'Example prompts' }}</strong><span>{{ model.examples.length }}</span></div>
-        <div class="skill-example-list">
-          <article v-for="(example, index) in model.examples" :key="`${model.id}-${index}`" class="skill-example-card">
-            <div class="skill-example-number">{{ String(index + 1).padStart(2, '0') }}</div>
-            <p :lang="locale === 'zh' ? 'zh-CN' : 'en'">{{ example[locale] }}</p>
-            <button class="skill-example-copy" @click="emit('use-example', example[locale])">
-              {{ locale === 'zh' ? '填入输入框' : 'Use in chat' }}
-            </button>
-          </article>
-        </div>
+        <ExamplePrompts :examples="model.examples" :locale="locale" @use="emit('use-example',$event)"/>
       </section>
       <section class="skill-detail-section skill-detail-meta">
         <div><span>{{ locale === 'zh' ? '收录来源' : 'Source' }}</span><strong>{{ model.benchmark }}</strong></div>

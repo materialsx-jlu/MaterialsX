@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "m6.7-v1"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "description": {
+      "type": "object",
+      "properties": {
+        "zh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "zh",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "instructions": {
+      "type": "object",
+      "properties": {
+        "zh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "zh",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "examples": {
+      "minItems": 1,
+      "maxItems": 2,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "zh": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "en": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        "required": [
+          "zh",
+          "en"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "potentialIds": {
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+      }
+    },
+    "requiredTools": {
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "potential_search",
+          "skill_search",
+          "materials_science",
+          "inspect_atomic_structure",
+          "get_atomistic_job"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "name",
+    "description",
+    "instructions",
+    "examples",
+    "potentialIds",
+    "requiredTools"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.7-v1/UserSkillDraft.json",
+  "x-runtime-refinements": "Resolve evidence/related/coverage IDs, deduplicate weight configurations, validate live identity and task eligibility separately. Catalog lookup never grants execution permission. Skill content contracts do not write or execute code."
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "water",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "O",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "H",
+      "position": [
+        0.9572,
+        0,
+        0
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a3",
+      "element": "H",
+      "position": [
+        -0.23999,
+        0.92663,
+        0
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": null,
+  "pbc": [
+    false,
+    false,
+    false
+  ],
+  "charge": 0,
+  "spinMultiplicity": 1,
+  "source": {
+    "artifactId": "sample-water",
+    "sha256": "afa454f2cfa4890d99d747af96874876a318c54fc05b2f4ae219ba4c1f12828c",
+    "format": "xyz",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

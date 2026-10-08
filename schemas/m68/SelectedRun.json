@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "proposal": {
+      "type": "object",
+      "properties": {
+        "assessmentId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "selectedPotentialId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9.-]{0,95}$"
+        },
+        "evidenceIds": {
+          "minItems": 1,
+          "maxItems": 20,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          }
+        }
+      },
+      "required": [
+        "assessmentId",
+        "selectedPotentialId",
+        "evidenceIds"
+      ],
+      "additionalProperties": false
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "optimizer": {
+          "type": "string",
+          "const": "FIRE"
+        },
+        "cellMode": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        },
+        "cellConstraint": {
+          "type": "string",
+          "enum": [
+            "none",
+            "hydrostatic",
+            "full"
+          ]
+        },
+        "externalPressureGPa": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": -10,
+              "maximum": 10
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "fmaxEvPerAngstrom": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 0.2
+        }
+      },
+      "required": [
+        "optimizer",
+        "cellMode",
+        "cellConstraint",
+        "externalPressureGPa",
+        "maxSteps",
+        "fmaxEvPerAngstrom"
+      ],
+      "additionalProperties": false
+    },
+    "mdOptions": {
+      "type": "object",
+      "properties": {
+        "ensemble": {
+          "type": "string",
+          "enum": [
+            "nve",
+            "nvt"
+          ]
+        },
+        "steps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "timestepFs": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 1
+        },
+        "temperatureK": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "sampleEvery": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "frictionInverseFs": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 0.1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "ensemble",
+        "steps",
+        "timestepFs",
+        "temperatureK",
+        "sampleEvery",
+        "seed",
+        "frictionInverseFs"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "projectId",
+    "proposal"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m68/SelectedRun.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

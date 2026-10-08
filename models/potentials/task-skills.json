@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "status": "names-and-examples-frozen-not-enabled-until-M6.4",
+  "category": {
+    "id": "atomistic-mlip",
+    "zh": "原子模拟与机器学习势",
+    "en": "Atomistic Simulation & ML Potentials"
+  },
+  "migration": "Keep existing structure-simulation skills in place; these seven new names belong only to atomistic-mlip. No existing skill duplicated.",
+  "skills": [
+    {
+      "name": "materials-atomic-structure-inspect",
+      "title": {
+        "zh": "检查原子结构",
+        "en": "Inspect atomic structure"
+      },
+      "examples": [
+        {
+          "zh": "检查内置 si-diamond 样本的晶胞、元素和原子重叠。",
+          "en": "Inspect the bundled si-diamond sample for its cell, elements and overlapping atoms."
+        },
+        {
+          "zh": "检查用户提供的 CIF 是否存在部分占据；保留原文件。",
+          "en": "Check a user-supplied CIF for partial occupancy and preserve the source file."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-mlip-selection",
+      "title": {
+        "zh": "选择机器学习势",
+        "en": "Select an ML potential"
+      },
+      "examples": [
+        {
+          "zh": "为内置 nacl-rocksalt 样本筛选已安装且适用的势，说明排除理由。",
+          "en": "Filter installed, compatible potentials for the bundled nacl-rocksalt sample and explain exclusions."
+        },
+        {
+          "zh": "为用户晶体选择势；没有验证候选时明确拒绝正式计算。",
+          "en": "Choose a potential for a user crystal; refuse production calculation when no validated candidate exists."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-mlip-singlepoint",
+      "title": {
+        "zh": "计算单点能量与力",
+        "en": "Compute energy and forces"
+      },
+      "examples": [
+        {
+          "zh": "在 CHGNet 0.3.0 安装验收后，对内置 si-diamond 做单点，输出总能量和逐原子力。",
+          "en": "After installation and validation of CHGNet 0.3.0, compute total energy and per-atom forces for bundled si-diamond."
+        },
+        {
+          "zh": "检查用户结构的电荷、自旋与模型兼容性，再进行受限试算。",
+          "en": "Check charge, spin and model compatibility for a supplied structure before a bounded probe."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-mlip-relaxation",
+      "title": {
+        "zh": "优化原子结构",
+        "en": "Relax atomic structure"
+      },
+      "examples": [
+        {
+          "zh": "对内置 si-diamond 固定晶胞优化；最大 200 步，fmax 0.05 eV/Å，报告是否收敛。",
+          "en": "Relax bundled si-diamond at fixed cell for up to 200 steps with fmax 0.05 eV/Å and report convergence."
+        },
+        {
+          "zh": "对用户结构进行晶胞优化前，验证应力能力并确认外压。",
+          "en": "Before variable-cell relaxation of a supplied structure, verify stress support and confirm external pressure."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-mlip-md",
+      "title": {
+        "zh": "运行短程分子动力学",
+        "en": "Run short molecular dynamics"
+      },
+      "examples": [
+        {
+          "zh": "用已验证势对内置 si-diamond 做受限 NVE 演示，保存真实轨迹并检查能量漂移。",
+          "en": "Run a bounded NVE demonstration on bundled si-diamond with a verified potential; preserve real frames and check energy drift."
+        },
+        {
+          "zh": "运行用户体系的 NVT 短程示例，先核实时间步和温度；不推断扩散系数。",
+          "en": "Run a short NVT example for a supplied system after checking timestep and temperature; do not infer a diffusion coefficient."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-mlip-comparison",
+      "title": {
+        "zh": "比较兼容的势",
+        "en": "Compare compatible potentials"
+      },
+      "examples": [
+        {
+          "zh": "对内置 si-diamond 比较两个已验收势的力，先检查能量基准是否兼容。",
+          "en": "Compare forces from two validated potentials on bundled si-diamond after checking energy-reference compatibility."
+        },
+        {
+          "zh": "比较用户结构的同理论层级模型结果，保留版本；模型一致不等于准确。",
+          "en": "Compare same-theory model results for a supplied structure and preserve versions; agreement does not prove accuracy."
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "materials-atomic-3d-view",
+      "title": {
+        "zh": "查看原子三维结构",
+        "en": "View atomic structures in 3D"
+      },
+      "examples": [
+        {
+          "zh": "打开内置 si-triclinic，显示非正交晶胞并测量原子距离。",
+          "en": "Open bundled si-triclinic with its nonorthogonal cell and measure an atomic distance."
+        },
+        {
+          "zh": "预览内置 water 分子；显示推断键的来源，不把预览当作模拟。",
+          "en": "Preview bundled water, identify inferred bonds, and do not describe the preview as simulation."
+        }
+      ],
+      "enabled": false
+    }
+  ]
+}

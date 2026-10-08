@@ -1,0 +1,32 @@
+{
+  "stage": "M6.11",
+  "typecheck": true,
+  "unitTests": {
+    "total": 153,
+    "passed": 152,
+    "failed": 0,
+    "existingSkipped": 1
+  },
+  "schemas": [
+    "M6.11",
+    "M6.8/M6.9",
+    "M6.10"
+  ],
+  "frozenM67CatalogAudit": true,
+  "nativeM67UIRegression": true,
+  "teamSkillsAcceptance": {
+    "passed": 11,
+    "total": 11
+  },
+  "workflowYamlParsed": true,
+  "workflowExecutedRemotely": false,
+  "liveMetadataRepeatedSyncChanges": 0,
+  "realCPURuntimeAndNativeUI": true,
+  "signaturesAndPublisherCLI": true,
+  "discoveryAndCatalogNotificationsSeparated": true,
+  "weightsDownloadedThisStage": 0,
+  "modelProviderCalls": 0,
+  "paymentCalls": 0,
+  "publicFeedDeployed": false,
+  "windowsValidated": false
+}

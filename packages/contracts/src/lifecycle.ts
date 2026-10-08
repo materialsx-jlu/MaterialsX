@@ -1,0 +1,17 @@
+import {z} from 'zod';
+const id=z.string().regex(/^[A-Za-z0-9_.:-]{1,128}$/),version=z.string().regex(/^[1-9][0-9]*$/),sha=z.string().regex(/^[a-f0-9]{64}$/);
+export const newTicketSchema=z.strictObject({subject:z.string().min(1).max(160),category:z.enum(['account','payment','usage','research','other']),body:z.string().min(1).max(8000),referenceId:id.or(z.literal(''))});
+export const ticketReplySchema=z.strictObject({body:z.string().min(1).max(8000),state:z.enum(['open','waiting_user','resolved','closed']),expectedVersion:version});
+export const attachmentInputSchema=z.strictObject({name:z.string().min(1).max(80),text:z.string().min(1).max(32768),consentVersion:z.literal('support-text-v1')});
+export const attachmentSchema=z.strictObject({id,name:z.string(),sha256:sha,consentVersion:z.literal('support-text-v1')});
+export const ticketSchema=z.strictObject({id,accountId:id,subject:z.string(),category:newTicketSchema.shape.category,referenceId:id.or(z.literal('')),state:ticketReplySchema.shape.state,version,createdAt:z.iso.datetime(),events:z.array(z.strictObject({id:z.string(),actorId:id,body:z.string(),state:ticketReplySchema.shape.state,createdAt:z.iso.datetime()})).max(200),attachments:z.array(attachmentSchema).max(10)});
+export const ticketsSchema=z.strictObject({items:z.array(ticketSchema).max(50),nextCursor:id.nullable()});
+export type Ticket=z.infer<typeof ticketSchema>;
+export const statementLineSchema=z.strictObject({requestId:id,routeVersionId:id,sourceRef:z.string().min(1).max(160),sourceSha256:sha,costMicrofen:z.string().regex(/^(0|[1-9][0-9]{0,14})$/),reason:z.string().min(1).max(256)});
+export const statementInputSchema=z.strictObject({lines:z.array(statementLineSchema).min(1).max(100)});
+export const costsSchema=z.strictObject({actualMicrofen:z.string().regex(/^[0-9]+$/),statementRequests:z.number().int().nonnegative(),unknownRequests:z.number().int().nonnegative(),items:z.array(statementLineSchema).max(100)});
+export const alertSchema=z.strictObject({id,kind:z.string(),targetId:id,state:z.enum(['open','acknowledged']),createdAt:z.iso.datetime()});
+export const alertsSchema=z.strictObject({items:z.array(alertSchema).max(100)});
+export const readinessSchema=z.strictObject({ready:z.boolean(),missing:z.array(z.string()),refundRule:z.literal('unused-full-v1'),workerHealthy:z.boolean()});
+export const enrollmentsSchema=z.strictObject({items:z.array(z.strictObject({accountId:id,state:z.enum(['active','revoked']),version,reason:z.string()})).max(100)});
+export const lifecycleSchemas={Ticket:ticketSchema,Tickets:ticketsSchema,NewTicket:newTicketSchema,TicketReply:ticketReplySchema,AttachmentInput:attachmentInputSchema,Attachment:attachmentSchema,StatementInput:statementInputSchema,ProcurementCosts:costsSchema,Alerts:alertsSchema,BetaReadiness:readinessSchema,BetaEnrollments:enrollmentsSchema};

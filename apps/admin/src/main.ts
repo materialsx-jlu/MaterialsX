@@ -1,0 +1,13 @@
+import {createApp} from 'vue';
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
+import 'element-plus/theme-chalk/dark/css-vars.css';
+import './style.css';
+import App from './App.vue';
+import brandLogo from '../../../website/public/images/materialsx-icon.png';
+const favicon = document.createElement('link');
+favicon.rel = 'icon';
+favicon.type = 'image/png';
+favicon.href = brandLogo;
+document.head.append(favicon);
+createApp(App).use(ElementPlus).mount('#app');

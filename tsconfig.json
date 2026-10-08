@@ -4,6 +4,8 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "esModuleInterop": true,
@@ -12,15 +14,24 @@
     "resolveJsonModule": true,
     "outDir": "dist",
     "rootDir": ".",
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "allowJs": true
   },
   "include": [
     "apps/desktop/main/**/*.ts",
+    "apps/desktop/codex-package-smoke.ts",
     "apps/desktop/preload/**/*.ts",
     "packages/**/*.ts",
     "scripts/**/*.ts",
     "spikes/**/*.ts",
-    "tests/**/*.ts"
+    "tests/**/*.ts",
+    "experiments/**/*.mjs"
   ],
-  "exclude": ["dist", "node_modules", "vendor"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "vendor"
+  ]
 }

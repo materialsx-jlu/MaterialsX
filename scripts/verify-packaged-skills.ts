@@ -6,14 +6,26 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 const root = process.cwd();
-const candidates = [
+const packageVersion = (JSON.parse(await readFile(resolve(root, "package.json"), "utf8")) as { version: string }).version;
+const releaseRoot = resolve(root, "release/dist", packageVersion);
+const hostPlatform = process.platform === "win32" ? "Windows x64" : process.platform === "linux" ? "Linux x64" : "macOS arm64";
+const resourceArg = process.argv.indexOf("--resources");
+if (resourceArg >= 0 && !process.argv[resourceArg + 1]) throw new Error("--resources requires a local Resources directory");
+const candidates = resourceArg >= 0 ? [{
+  platform: hostPlatform,
+  resources: resolve(process.argv[resourceArg + 1]!),
+}] : [
   {
     platform: "macOS arm64",
-    resources: resolve(root, "release/dist/mac-arm64/MaterialsX.app/Contents/Resources"),
+    resources: resolve(releaseRoot, "mac-arm64/MaterialsX.app/Contents/Resources"),
   },
   {
     platform: "Windows x64",
-    resources: resolve(root, "release/dist/win-unpacked/resources"),
+    resources: resolve(releaseRoot, "win-unpacked/resources"),
+  },
+  {
+    platform: "Linux x64",
+    resources: resolve(releaseRoot, "linux-unpacked/resources"),
   },
 ];
 
@@ -25,6 +37,7 @@ for (const candidate of candidates) {
     continue;
   }
   let skillCount = 0;
+  const skillNames: string[] = [];
   const catalogs: Array<[string, string]> = [
     ["vendor/kdense-scientific-agent-skills", "skills/kdense-initial.json"],
     ["vendor/materialsx-default-skills", "skills/materialsx-default.json"],
@@ -43,9 +56,10 @@ for (const candidate of candidates) {
       manifest.skills.map((skill) => access(resolve(candidate.resources, vendor, "skills", skill, "SKILL.md"))),
     );
     skillCount += manifest.skills.length;
+    skillNames.push(...manifest.skills);
   }
-  if (skillCount !== 84) {
-    throw new Error(`${candidate.platform} package contains ${skillCount} Skills instead of 84`);
+  if (new Set(skillNames).size !== skillCount || skillCount < 84) {
+    throw new Error(`${candidate.platform} package has duplicate Skills or fewer than 84 accepted Skills`);
   }
   await Promise.all([
     access(resolve(candidate.resources, "skills/descriptions.zh.json")),
@@ -62,12 +76,18 @@ for (const candidate of candidates) {
   const chineseNames = Object.keys(JSON.parse(descriptionsZh) as Record<string, unknown>);
   const exampleNames = Object.keys(JSON.parse(examples) as Record<string, unknown>);
   const englishNames = Object.keys(JSON.parse(descriptionsEn) as Record<string, unknown>);
-  if (chineseNames.length !== skillCount || exampleNames.length !== skillCount || englishNames.some((name) => !chineseNames.includes(name))) {
+  const expectedNames = new Set(skillNames);
+  if (chineseNames.length !== skillCount || exampleNames.length !== skillCount
+    || chineseNames.some((name) => !expectedNames.has(name))
+    || exampleNames.some((name) => !expectedNames.has(name))
+    || englishNames.some((name) => !expectedNames.has(name))) {
     throw new Error(`${candidate.platform} package has incomplete Skill descriptions or examples`);
   }
   const categoryEntries = JSON.parse(categories) as Array<{ id: string; skills: string[] }>;
   const categorized = categoryEntries.flatMap((entry) => entry.skills);
-  if (categoryEntries.length !== 12 || categorized.length !== skillCount || new Set(categorized).size !== skillCount) {
+  if (new Set(categoryEntries.map((entry) => entry.id)).size !== categoryEntries.length
+    || categorized.length !== skillCount || new Set(categorized).size !== skillCount
+    || categorized.some((name) => !expectedNames.has(name))) {
     throw new Error(`${candidate.platform} package has incomplete or duplicate Skill categories`);
   }
   const modelCatalog = JSON.parse(
@@ -100,12 +120,13 @@ for (const candidate of candidates) {
     const { stdout } = await execFileAsync(
       python,
       [
+        "-B",
         resolve(
           candidate.resources,
           "vendor/materialsx-default-skills/skills/materials-literature-rpsme-json/scripts/check_environment.py",
         ),
       ],
-      { timeout: 30_000 },
+      { timeout: 30_000, env: { ...process.env, PYTHONDONTWRITEBYTECODE: "1" } },
     );
     const environment = JSON.parse(stdout) as { ready?: boolean };
     if (!environment.ready) throw new Error(`${candidate.platform} packaged Skill Python runtime is not ready`);

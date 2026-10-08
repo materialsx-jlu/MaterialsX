@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    }
+  },
+  "required": [
+    "projectId",
+    "runId"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.1-v1/GetLocalAtomisticRun.json",
+  "x-runtime-refinements": "Zod cross-field checks and main-process project ownership/identity checks are mandatory."
+}

@@ -1,3 +1,4 @@
+process.env.MATERIALSX_DISCOVERY_AUTOSYNC='0';
 const { app, BrowserWindow } = require("electron");
 
 if (!process.argv.includes("--m0-smoke")) {

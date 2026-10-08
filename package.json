@@ -2,7 +2,7 @@
   "name": "materialsx",
   "productName": "MaterialsX",
   "description": "面向材料研究与研发工程师的本地 AI 工作台",
-  "version": "0.0.1",
+  "version": "0.3.0-preview.1",
   "author": "吉林大学 AI-DAOS 团队",
   "license": "AGPL-3.0-only",
   "private": true,
@@ -12,31 +12,37 @@
     "node": ">=22.19.0"
   },
   "scripts": {
-    "build": "npm run build:core && npm run build:desktop",
-    "build:core": "tsc -p tsconfig.json",
+    "build": "npm run build:core && npm run build:desktop && npm run build:admin",
+    "build:core": "tsc -p tsconfig.json && tsx scripts/copy-scientific-modules.ts",
     "build:desktop:main": "node scripts/build-desktop.mjs",
-    "build:desktop": "npm run build:desktop:main && vite build --config apps/desktop/vite.config.ts",
-    "check": "npm run check:core && npm run check:desktop",
+    "build:desktop": "npm run build:desktop:main && vite build --config apps/desktop/vite.config.ts && tsx scripts/agent/build-identity.ts --seal",
+    "check": "npm run source:size && npm run check:core && npm run check:desktop && npm run check:admin",
     "check:core": "tsc -p tsconfig.json --noEmit",
     "check:desktop": "vue-tsc -p apps/desktop/renderer/tsconfig.json --noEmit",
-    "test": "node --import tsx --test packages/**/*.test.ts apps/**/*.test.ts",
+    "test": "node --import tsx --test packages/**/*.test.ts apps/**/*.test.ts experiments/*.test.ts",
     "dev": "npm run build:desktop:main && concurrently -k -s first \"npm:dev:renderer\" \"npm:dev:electron\"",
     "dev:renderer": "vite --config apps/desktop/vite.config.ts",
-    "dev:electron": "wait-on tcp:127.0.0.1:5173 && cross-env MATERIALSX_RENDERER_URL=http://127.0.0.1:5173 electron dist/apps/desktop/main/index.js",
-    "desktop:start": "npm run build:desktop && electron dist/apps/desktop/main/index.js",
-    "package:dir": "npm run runtime:skills:mac && npm run build && electron-builder --dir --mac --arm64",
+    "dev:electron": "wait-on tcp:127.0.0.1:5173 && cross-env MATERIALSX_RENDERER_URL=http://127.0.0.1:5173 node scripts/start-desktop.mjs",
+    "desktop:start": "npm run build:desktop && node scripts/start-desktop.mjs",
+    "skills:supervisor:local": "tsx scripts/install-supervisor-skills-local.ts",
+    "package:dir": "npm run m6:runtime && npm run m610:runtime && npm run m613:runtime && npm run m614:runtime && npm run m615:runtime && npm run m612:packages:bundle && npm run m615:offline:manifest && npm run runtime:skills:mac && npm run build && electron-builder --dir --mac --arm64",
     "runtime:skills:mac": "tsx scripts/build-skill-python-runtime.ts macos-arm64",
     "runtime:skills:win": "tsx scripts/build-skill-python-runtime.ts windows-x64",
-    "package:mac": "npm run runtime:skills:mac && npm run build && electron-builder --mac dmg --arm64",
-    "package:win": "npm run runtime:skills:win && npm run build && electron-builder --win nsis --x64",
+    "package:mac": "npm run m6:runtime && npm run m610:runtime && npm run m613:runtime && npm run m614:runtime && npm run m615:runtime && npm run m612:packages:bundle && npm run m615:offline:manifest && npm run runtime:skills:mac && npm run build && electron-builder --mac dmg --arm64",
+    "package:win": "npm run m6:runtime && npm run m610:runtime && npm run m613:runtime && npm run m614:runtime && npm run m615:runtime && npm run m612:packages:bundle && npm run m615:offline:manifest && npm run runtime:skills:win && npm run build && electron-builder --win nsis --x64",
     "control-plane:dev": "cross-env MATERIALSX_DEV_MODE=1 MATERIALSX_CONTROL_DATA=../../runtime/m3-control-plane go -C services/control-plane run ./cmd/server",
     "control-plane:test": "go -C services/control-plane test ./...",
+    "m5:probe": "go -C services/control-plane run ./cmd/m5probe --output ../../runtime/m5/rootflowai-probe.json",
+    "m5:pi": "tsx scripts/m5-pi-probe.ts",
+    "m5:contracts": "tsx scripts/m5-contracts.ts",
+    "m5:contracts:check": "tsx scripts/m5-contracts.ts --check",
+    "m5:verify": "npm run check && npm run test && npm run control-plane:test && npm run m5:contracts:check && npm run m5:pi && npm run m5:probe",
     "m0:preflight": "tsx scripts/m0-preflight.ts",
     "m0:pi": "tsx spikes/pi-sdk/smoke.ts",
     "m0:electron": "electron apps/desktop/m0-smoke.cjs --m0-smoke",
     "m0:lammps": "bash spikes/solvers/run-lammps.sh",
     "m0:qe": "bash spikes/solvers/run-qe.sh",
-    "lmstudio:probe": "tsx scripts/lmstudio-pi-probe.ts",
+    "lmstudio:probe": "tsx scripts/agent/ua0-lmstudio.ts",
     "skills:sync": "tsx scripts/sync-kdense-skills.ts",
     "skills:audit": "tsx scripts/audit-kdense-skills.ts",
     "skills:manifest:materialsx": "tsx scripts/generate-materialsx-skill-manifest.ts",
@@ -44,26 +50,240 @@
     "skills:accept:materialsx": "tsx scripts/accept-materialsx-skills.ts",
     "skills:accept": "npm run skills:accept:kdense && npm run skills:accept:materialsx",
     "skills:verify-bundle": "tsx scripts/verify-packaged-skills.ts",
-    "m4:readiness": "tsx scripts/m4-release-readiness.ts",
-    "m4:release-gate": "tsx scripts/m4-release-readiness.ts --strict",
-    "verify": "npm run check && npm run test && npm run build && npm run control-plane:test && uv run --project python pytest && npm run skills:audit && npm run skills:accept && npm run m0:pi && npm run m0:preflight && npm run m4:readiness"
+    "m4:readiness": "npm run ua14:report",
+    "m4:release-gate": "npm run ua14:release-gate",
+    "verify": "npm run check && npm run test && npm run build && npm run control-plane:test && uv run --project python --frozen pytest python/tests && npm run skills:audit && npm run skills:accept && npm run m0:pi && npm run m0:preflight && npm run m4:readiness",
+    "identity:dev": "go -C services/control-plane run ./cmd/identity",
+    "identity:local": "node scripts/local-identity.mjs",
+    "identity:local:check": "tsx scripts/local-identity-check.ts",
+    "identity:local:form-check": "electron apps/desktop/login-form-smoke.cjs",
+    "identity:ctl": "go -C services/control-plane run ./cmd/identityctl",
+    "m5:identity:test": "tsx scripts/m5-identity-test.ts",
+    "m5:identity:live": "tsx scripts/m5-identity-live.ts",
+    "m5:gateway:live": "tsx scripts/m5-gateway-live.ts",
+    "m5:identity:storage": "electron apps/desktop/m51-storage-smoke.cjs",
+    "billing:worker": "go -C services/control-plane run ./cmd/worker",
+    "m5:metering:live": "tsx scripts/m5-gateway-live.ts --metered",
+    "m5:payments:live": "tsx scripts/m5-payments-live.ts",
+    "m5:payments:preflight": "go -C services/control-plane run ./cmd/wechatcheck",
+    "m5:payments:one-fen": "go -C services/control-plane run ./cmd/wechatprobe",
+    "build:admin": "vite build --config apps/admin/vite.config.ts",
+    "check:admin": "vue-tsc -p apps/admin/tsconfig.json --noEmit",
+    "m5:workspace:live": "tsx scripts/m5-workspace-live.ts",
+    "m5:payments:db-check": "node scripts/local-payment-db-check.mjs",
+    "m5:payments:pilot-client": "tsx scripts/wechat-pilot-client.ts",
+    "m5:payments:pilot-operation": "node scripts/wechat-pilot-operation.mjs",
+    "m5:paid:live": "tsx scripts/m53b-paid-live.ts",
+    "m5:paid:admin-check": "tsx scripts/m53b-admin-check.ts",
+    "m5:beta:test": "node scripts/m56-test.mjs",
+    "m5:beta:race": "node scripts/m56-test.mjs --race",
+    "m5:backup": "node scripts/m5-backup.mjs",
+    "m6:contracts": "tsx scripts/m6-contracts.ts",
+    "m6:contracts:check": "tsx scripts/m6-contracts.ts --check",
+    "m6:audit": "tsx scripts/m6-audit.ts",
+    "m6:source-check": "tsx scripts/m6-source-check.ts",
+    "m6:verify": "npm run m6:contracts:check && npm run m6:audit && node --import tsx --test packages/atomistic/src/*.test.ts && uv run --project python --frozen pytest python/tests/test_atomistic_samples.py",
+    "m6:ui": "npm run build:desktop && electron apps/desktop/m60-ui-smoke.cjs",
+    "m6:runtime:dev": "tsx scripts/build-atomistic-runtime.ts --development",
+    "m6:runtime": "tsx scripts/build-atomistic-runtime.ts",
+    "m6:runtime:test": "tsx scripts/m61-runtime-test.ts",
+    "m6:ui:runtime": "npm run build:desktop && electron apps/desktop/m61-ui-smoke.cjs",
+    "m61:contracts": "tsx scripts/m61-contracts.ts",
+    "m61:contracts:check": "tsx scripts/m61-contracts.ts --check",
+    "m61:verify": "npm run check && npm run test && npm run m6:verify && npm run m61:contracts:check && npm run m6:runtime:test",
+    "m6:runtime:portability": "tsx scripts/m61-portability-check.ts",
+    "m62:contracts": "tsx scripts/m62-contracts.ts",
+    "m62:contracts:check": "tsx scripts/m62-contracts.ts --check",
+    "m6:ui:viewer": "npm run build:desktop && electron apps/desktop/m62-ui-smoke.cjs",
+    "m62:verify": "npm run check && npm run test && npm run m6:contracts:check && npm run m6:audit && npm run m61:contracts:check && npm run m62:contracts:check && npm run m6:ui:viewer",
+    "m63:contracts": "tsx scripts/m63-contracts.ts",
+    "m63:contracts:check": "tsx scripts/m63-contracts.ts --check",
+    "m6:relaxation:test": "tsx scripts/m63-runtime-test.ts",
+    "m6:ui:relaxation": "npm run build:desktop && electron apps/desktop/m63-ui-smoke.cjs",
+    "m64:contracts": "tsx scripts/m64-contracts.ts",
+    "m64:contracts:check": "tsx scripts/m64-contracts.ts --check",
+    "m6:selection:test": "tsx scripts/m64-runtime-test.ts",
+    "m6:ui:selection": "npm run build:desktop && electron apps/desktop/m64-ui-smoke.cjs",
+    "m64:verify": "npm run check && npm test && npm run control-plane:test && npm run m64:contracts:check && npm run m6:selection:test && npm run m6:ui:selection && npm run m6:cloud:selection",
+    "m6:cloud:selection": "npm run build:desktop && tsx scripts/m64-cloud-test.ts",
+    "m65:contracts": "tsx scripts/m65-contracts.ts",
+    "m65:contracts:check": "tsx scripts/m65-contracts.ts --check",
+    "m6:md:test": "tsx scripts/m65-runtime-test.ts",
+    "m6:ui:md": "npm run build:desktop && electron apps/desktop/m65-ui-smoke.cjs",
+    "m6:cloud:md": "npm run build:desktop && tsx scripts/m64-cloud-test.ts --md",
+    "m65:verify": "npm run check && npm test && npm run control-plane:test && npm run m6:audit && npm run m65:contracts:check && npm run m6:md:test && npm run m6:ui:md && npm run m6:cloud:md",
+    "m66:contracts": "tsx scripts/m66-contracts.ts",
+    "m66:contracts:check": "tsx scripts/m66-contracts.ts --check",
+    "m6:packages:bundle": "tsx scripts/m66-prepare-packages.ts",
+    "m6:offline:manifest": "tsx scripts/m66-offline-manifest.ts",
+    "m6:validation:test": "tsx scripts/m66-runtime-test.ts",
+    "m6:ui:validation": "npm run build:desktop && electron apps/desktop/m66-ui-smoke.cjs",
+    "m6:offline:test": "tsx scripts/m66-offline-test.ts",
+    "m66:verify": "npm run check && npm test && npm run control-plane:test && npm run m6:audit && npm run m66:contracts:check && npm run m6:validation:test && npm run m6:ui:validation",
+    "m67:contracts": "tsx scripts/m67-contracts.ts",
+    "m67:contracts:check": "tsx scripts/m67-contracts.ts --check",
+    "m67:audit": "tsx scripts/m67-catalog-audit.ts",
+    "m6:ui:catalog": "npm run build:desktop && electron apps/desktop/m67-ui-smoke.cjs",
+    "m67:verify": "npm run check && npm test && npm run m6:audit && npm run m67:contracts:check && npm run m67:audit && npm run m6:ui:catalog",
+    "m68:contracts": "tsx scripts/m68-contracts.ts",
+    "m68:contracts:check": "tsx scripts/m68-contracts.ts --check",
+    "m6:mounts:test": "tsx scripts/m68-runtime-test.ts",
+    "m6:ui:automation": "npm run build:desktop && electron apps/desktop/m69-ui-smoke.cjs",
+    "m68:verify": "npm run check && npm test && npm run m6:audit && npm run m68:contracts:check && npm run m6:mounts:test && npm run m6:ui:automation",
+    "m69:verify": "npm run m68:verify && npm run m6:pi:automation:test && npm run control-plane:test",
+    "m6:pi:automation:test": "tsx scripts/m69-pi-flow-test.ts",
+    "m610:runtime:dev": "tsx scripts/build-sevennet-runtime.ts --development",
+    "m610:runtime": "tsx scripts/build-sevennet-runtime.ts",
+    "m610:contracts": "tsx scripts/m610-contracts.ts",
+    "m610:contracts:check": "tsx scripts/m610-contracts.ts --check",
+    "m610:runtime:test": "tsx scripts/m610-runtime-test.ts",
+    "m610:ui": "npm run build:desktop && electron apps/desktop/m610-ui-smoke.cjs",
+    "m610:verify": "npm run check && npm test && npm run m610:contracts:check && npm run m68:contracts:check && npm run m67:audit && npm run m610:runtime:test && npm run m610:ui && npm run m610:pi:test",
+    "m610:pi:test": "tsx scripts/m69-pi-flow-test.ts --sevennet",
+    "m610:portability:test": "tsx scripts/m610-portability-test.ts",
+    "m611:contracts": "tsx scripts/m611-contracts.ts",
+    "m611:contracts:check": "tsx scripts/m611-contracts.ts --check",
+    "m611:sync": "tsx scripts/m611-sync.ts",
+    "m611:publisher": "tsx scripts/m611-publisher.ts",
+    "m611:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/m611-ui-smoke.cjs",
+    "m611:runtime:test": "tsx scripts/m611-runtime-test.ts",
+    "m611:verify": "npm run check && npm test && npm run m611:contracts:check && npm run m68:contracts:check && npm run m610:contracts:check && npm run m67:audit",
+    "m611:publisher:test": "tsx scripts/m611-publisher-test.ts",
+    "m612:contracts": "tsx scripts/m612-contracts.ts",
+    "m612:contracts:check": "tsx scripts/m612-contracts.ts --check",
+    "m612:runtime:test": "tsx scripts/m612-runtime-test.ts",
+    "m612:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/m612-ui-smoke.cjs",
+    "m612:offline:manifest": "tsx scripts/m66-offline-manifest.ts --m612",
+    "m612:verify": "npm run check && npm test && npm run m612:contracts:check && npm run m611:contracts:check && npm run m68:contracts:check && npm run m610:contracts:check && npm run m67:audit",
+    "m612:release-gate": "tsx scripts/m612-release-gate.ts",
+    "m612:packages:bundle": "tsx scripts/m612-prepare-packages.ts",
+    "m612:package:mac": "npm run build && tsx scripts/m612-package-mac.ts",
+    "m612:offline:test": "tsx scripts/m612-offline-test.ts",
+    "m613:contracts": "tsx scripts/m613-contracts.ts",
+    "m613:contracts:check": "tsx scripts/m613-contracts.ts --check",
+    "m613:runtime": "tsx scripts/build-ani-runtime.ts",
+    "m613:runtime:test": "tsx scripts/m613-runtime-test.ts",
+    "m613:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/m613-ui-smoke.cjs",
+    "m613:verify": "npm run check && npm test && npm run m613:contracts:check && npm run m68:contracts:check && npm run m613:runtime:test && npm run m613:ui",
+    "m613:offline:manifest": "tsx scripts/m66-offline-manifest.ts --m613",
+    "m614:runtime": "tsx scripts/build-nep-native.ts",
+    "m614:contracts": "tsx scripts/m614-contracts.ts",
+    "m614:contracts:check": "tsx scripts/m614-contracts.ts --check",
+    "m614:runtime:test": "tsx scripts/m614-runtime-test.ts",
+    "m614:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/m614-ui-smoke.cjs",
+    "m614:offline:manifest": "tsx scripts/m66-offline-manifest.ts --m614",
+    "m614:verify": "npm run check && npm test && npm run m614:contracts:check && npm run m613:contracts:check && npm run m68:contracts:check && npm run m614:runtime:test && npm run m614:ui",
+    "m614:offline:test": "tsx scripts/m614-offline-test.ts",
+    "m615:runtime": "tsx scripts/build-d3-native.ts",
+    "m615:contracts": "tsx scripts/m615-contracts.ts",
+    "m615:contracts:check": "tsx scripts/m615-contracts.ts --check",
+    "m615:runtime:test": "tsx scripts/m615-runtime-test.ts",
+    "m615:ui": "npm run build:desktop && electron apps/desktop/m615-ui-smoke.cjs",
+    "m615:offline:manifest": "tsx scripts/m66-offline-manifest.ts --m615",
+    "m615:offline:test": "tsx scripts/m615-offline-test.ts",
+    "m615:verify": "npm run check && npm test && npm run m615:contracts:check && npm run m615:runtime:test && npm run m615:ui",
+    "source:size": "tsx scripts/check-source-size.ts",
+    "ua0:gold": "tsx scripts/agent/ua0-gold.ts",
+    "ua0:moos": "tsx scripts/agent/ua0-moos.ts",
+    "ua0:codex": "tsx scripts/agent/ua0-codex.ts",
+    "ua0:inventory": "tsx scripts/agent/ua0-inventory.ts",
+    "ua0:verify": "npm run check && node --import tsx --test scripts/check-source-size.test.ts && npm run ua0:gold && npm test && npm run m0:pi",
+    "ua0:ui": "npm run build:desktop && electron apps/desktop/ua0-ui-smoke.cjs",
+    "ua1:native": "tsx scripts/agent/ua1-native.ts",
+    "ua1:goals": "tsx scripts/agent/ua1-goals.ts",
+    "ua1:goals:replay": "tsx scripts/agent/ua1-goal-replay.ts",
+    "ua1:verify": "npm run check && npm test && npm run ua1:native && npm run ua1:pi && go -C services/control-plane test ./...",
+    "ua1:pi": "tsx scripts/agent/ua1-pi-local.ts",
+    "ua1:local-codex": "tsx scripts/agent/ua1-local-codex.ts",
+    "ua1:ui": "npm run build:desktop && electron apps/desktop/ua0-ui-smoke.cjs --ua1",
+    "ua2:moos": "tsx scripts/agent/ua2-moos.ts",
+    "ua1:codex:package": "node scripts/agent/ua1-codex-package.mjs",
+    "ua3:engines": "tsx scripts/agent/ua3-engines.ts",
+    "ua3:verify": "npm run check && npm test && npm run ua3:engines && npm run ua1:pi && npm run ua1:native",
+    "ua3:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua3-ui-smoke.cjs",
+    "ua4:moos": "tsx scripts/agent/ua4-moos.ts",
+    "ua4:goals": "tsx scripts/agent/ua4-goals.ts",
+    "ua4:agent-live": "tsx scripts/agent/ua4-agent-live.ts",
+    "ua4:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua4-ui-smoke.cjs",
+    "ua4:verify": "npm run check && npm test && npm run ua4:moos && npm run ua4:ui",
+    "ua5:goals": "tsx scripts/agent/ua5-goals.ts",
+    "ua5:local-live": "tsx scripts/agent/ua5-local-live.ts",
+    "ua5:platform-live": "tsx scripts/agent/ua5-platform-live.ts --provider",
+    "ua5:ui": "npm run build:desktop && electron apps/desktop/ua5-ui-smoke.cjs",
+    "ua5:verify": "npm run check && npm test && npm run ua3:engines && npm run ua1:pi && npm run ua1:native && npm run m5:beta:test && npm run m5:contracts:check && npm run skills:accept:materialsx && npm run ua5:ui",
+    "ua6:ui": "npm run build:desktop && electron apps/desktop/ua6-ui-smoke.cjs",
+    "ua6:live": "npm run build:core && electron apps/desktop/ua6-network-live.cjs",
+    "ua6:supplements": "npm run build:core && electron apps/desktop/ua6-network-live.cjs --supplements",
+    "ua6:agents": "tsx scripts/agent/ua6-agent-live.ts",
+    "ua6:runtime-lock": "tsx scripts/agent/ua6-runtime-lock.ts",
+    "ua6:verify": "npm run check && npm test && npm run ua3:engines && npm run ua1:pi && npm run ua1:native && npm run skills:accept:materialsx && npm run ua6:ui",
+    "ua7:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua7-ui-smoke.cjs",
+    "ua7:numeric": "tsx scripts/agent/ua7-numeric-reference.ts",
+    "ua7:m6-live": "tsx scripts/agent/ua7-m6-live.ts",
+    "ua7:verify": "npm run check && npm test && npm run ua7:numeric && npm run skills:accept:materialsx && npm run ua7:ui",
+    "ua:closure:verify": "npm run check && npm test && npm run ua3:engines && npm run ua1:pi && npm run ua1:native && npm run ua7:numeric && npm run skills:accept:materialsx",
+    "ua:closure:workflows": "tsx scripts/agent/ua-closure-workflows.ts",
+    "ua:closure:live": "npm run ua5:goals && npm run ua5:local-live && npm run ua6:agents && npm run ua:closure:workflows && npm run ua:closure:workflows -- --planned",
+    "ua8:numeric": "tsx scripts/agent/ua8-numeric-reference.ts",
+    "ua8:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua8-ui-smoke.cjs",
+    "ua8:verify": "npm run check && npm test && npm run ua8:numeric && npm run skills:accept:materialsx && npm run ua8:ui",
+    "ua9:numeric": "tsx scripts/agent/ua9-numeric-reference.ts",
+    "ua9:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua9-ui-smoke.cjs",
+    "ua9:verify": "npm run check && npm test && npm run ua9:numeric && npm run skills:accept:materialsx && npm run ua9:ui",
+    "ua10:reference": "tsx scripts/agent/ua10-method-reference.ts",
+    "ua10:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua10-ui-smoke.cjs",
+    "ua10:verify": "npm run check && npm test && npm run ua10:reference && npm run skills:accept:materialsx && npm run ua10:ui",
+    "ua11:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua11-ui-smoke.cjs",
+    "ua11:verify": "npm run check && npm test && npm run skills:accept:materialsx && npm run ua11:ui",
+    "ua12:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua12-ui-smoke.cjs",
+    "ua12:local": "tsx scripts/ua12-local-smoke.ts",
+    "ua12:parent": "npm run build:core && electron dist/scripts/ua12-parent-smoke.js",
+    "ua12:verify": "npm run check && npm test && npm run skills:accept:materialsx && npm run ua12:ui",
+    "ua13:team": "tsx scripts/agent/ua13-server.ts",
+    "ua13:ui": "npm run build:core && npm run build:desktop && electron apps/desktop/ua13-ui-smoke.cjs",
+    "ua13:verify": "npm run check && npm test && npm run skills:accept:materialsx && npm run ua13:engines && npm run ua13:ui",
+    "ua13:moos": "tsx scripts/agent/ua13-moos-live.ts",
+    "ua13:engines": "tsx scripts/agent/ua13-engines.ts",
+    "ua14:verify": "tsx scripts/agent/ua14-technical.ts",
+    "ap0:baseline": "tsx scripts/agent/ap0-baseline.ts",
+    "ap0:identity": "tsx scripts/agent/build-identity.ts --inspect",
+    "ua14:benchmark": "tsx scripts/agent/ua14-evaluate.ts",
+    "ua14:report": "tsx scripts/agent/ua14-report.ts",
+    "ua14:release-gate": "tsx scripts/agent/ua14-report.ts --strict",
+    "ua14:migration": "tsx scripts/agent/ua14-migration.ts",
+    "ua14:package:smoke": "node scripts/agent/ua1-codex-package.mjs",
+    "runtime:skills:linux": "tsx scripts/build-skill-python-runtime.ts linux-x64",
+    "package:preview:mac": "npm run build && tsx scripts/release/preview-config.ts mac && electron-builder --mac dmg --arm64 --config runtime/release-build/mac/builder.json",
+    "package:preview:win": "npm run build && tsx scripts/release/preview-config.ts win && electron-builder --win nsis --x64 --config runtime/release-build/win/builder.json",
+    "package:preview:linux": "npm run build && tsx scripts/release/preview-config.ts linux && electron-builder --linux AppImage tar.gz --x64 --config runtime/release-build/linux/builder.json",
+    "release:source": "python3 scripts/release/source-snapshot.py",
+    "ap6:engineering": "tsx scripts/agent/ap6-batches.ts",
+    "ap6:live": "tsx scripts/agent/ap6-batches.ts --live",
+    "ap6:installed": "tsx scripts/agent/ap6-installed.ts"
   },
   "dependencies": {
     "@earendil-works/pi-coding-agent": "0.99.1",
     "@lucide/vue": "1.49.0",
     "@modelcontextprotocol/sdk": "1.31.0",
+    "@openai/codex": "0.160.0",
+    "@xmldom/xmldom": "0.8.15",
+    "3dmol": "2.5.5",
     "dompurify": "3.4.16",
     "element-plus": "2.14.6",
     "katex": "0.18.9",
     "markdown-it": "15.0.2",
     "markdown-it-texmath": "1.0.0",
     "pinia": "4.0.3",
+    "qrcode": "1.5.4",
+    "typebox": "1.3.27",
     "vue": "3.5.43",
+    "yaml": "2.9.0",
     "zod": "4.6.5"
   },
   "devDependencies": {
     "@types/markdown-it": "14.2.0",
     "@types/node": "26.6.3",
+    "@types/qrcode": "1.5.6",
     "@vitejs/plugin-vue": "6.0.9",
     "concurrently": "10.0.5",
     "cross-env": "10.1.0",
@@ -79,6 +299,7 @@
   "build": {
     "appId": "cn.edu.jlu.jamip.materialsx",
     "productName": "MaterialsX",
+    "icon": "assets/brand/materialsx-atom-depth-1024.png",
     "copyright": "© 2026 吉林大学 AI-DAOS 团队",
     "asar": true,
     "directories": {
@@ -86,11 +307,20 @@
     },
     "files": [
       "dist/**/*",
+      "!dist/apps/admin/**/*",
       "node_modules/**/*",
       "package.json",
       "LICENSE",
       "NOTICE",
-      "THIRD_PARTY_LICENSES.md"
+      "THIRD_PARTY_LICENSES.md",
+      "!node_modules/@openai/codex/**/*",
+      "!node_modules/@openai/codex-*/**/*",
+      "!dist/scripts/**/*",
+      "!dist/tests/**/*",
+      "!dist/fixtures/**/*",
+      "!dist/spikes/**/*",
+      "!dist/**/*.test.*",
+      "!dist/apps/desktop/*smoke*"
     ],
     "extraResources": [
       {
@@ -114,22 +344,139 @@
         "to": "docs",
         "filter": [
           "STATUS.md",
-          "m4/**/*"
+          "m4/**/*",
+          "m6/**/*",
+          "agent/ua-14.md",
+          "UNIFIED_AGENT_DEVELOPMENT_PLAN.md"
         ]
       },
       {
         "from": "release/evidence",
         "to": "release/evidence"
+      },
+      {
+        "from": "samples/atomistic",
+        "to": "samples/atomistic"
+      },
+      {
+        "from": "schemas/m6",
+        "to": "schemas/m6"
+      },
+      {
+        "from": "atomistic",
+        "to": "atomistic",
+        "filter": [
+          "*.py",
+          "environments/**/*.toml",
+          "environments/**/uv.lock",
+          "*.cpp"
+        ]
+      },
+      {
+        "from": "schemas/m61",
+        "to": "schemas/m61"
+      },
+      {
+        "from": "schemas/m62",
+        "to": "schemas/m62"
+      },
+      {
+        "from": "schemas/m63",
+        "to": "schemas/m63"
+      },
+      {
+        "from": "schemas/m64",
+        "to": "schemas/m64"
+      },
+      {
+        "from": "schemas/m65",
+        "to": "schemas/m65"
+      },
+      {
+        "from": "schemas/m66",
+        "to": "schemas/m66"
+      },
+      {
+        "from": "runtime/scientific-packages",
+        "to": "model-packages"
+      },
+      {
+        "from": "runtime/m6/offline-bundle-manifest.json",
+        "to": "offline-bundle-manifest.json"
+      },
+      {
+        "from": "schemas/m67",
+        "to": "schemas/m67"
+      },
+      {
+        "from": "schemas/m68",
+        "to": "schemas/m68"
+      },
+      {
+        "from": "schemas/m69",
+        "to": "schemas/m69"
+      },
+      {
+        "from": "schemas/m610",
+        "to": "schemas/m610"
+      },
+      {
+        "from": "schemas/m611",
+        "to": "schemas/m611"
+      },
+      {
+        "from": "schemas/m612",
+        "to": "schemas/m612"
+      },
+      {
+        "from": "schemas/m613",
+        "to": "schemas/m613"
+      },
+      {
+        "from": "schemas/m614",
+        "to": "schemas/m614"
+      },
+      {
+        "from": "schemas/m615",
+        "to": "schemas/m615"
+      },
+      {
+        "from": "experiments",
+        "to": "experiments",
+        "filter": [
+          "*.mjs"
+        ]
+      },
+      {
+        "from": "samples/experiments",
+        "to": "samples/experiments"
+      },
+      {
+        "from": "methods",
+        "to": "methods"
+      },
+      {
+        "from": "package-lock.json",
+        "to": "package-lock.json"
       }
     ],
     "artifactName": "MaterialsX-${version}-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.developer-tools",
       "hardenedRuntime": true,
+      "icon": "assets/brand/materialsx-atom-depth-1024.png",
       "extraResources": [
         {
           "from": "runtime/skill-python/macos-arm64",
           "to": "python-runtime"
+        },
+        {
+          "from": "runtime/atomistic/macos-arm64",
+          "to": "atomistic-runtime"
+        },
+        {
+          "from": "runtime/native-engines/macos-arm64",
+          "to": "native-engines"
         }
       ],
       "target": [
@@ -146,6 +493,14 @@
         {
           "from": "runtime/skill-python/windows-x64",
           "to": "python-runtime"
+        },
+        {
+          "from": "runtime/atomistic/windows-x64",
+          "to": "atomistic-runtime"
+        },
+        {
+          "from": "runtime/native-engines/windows-x64",
+          "to": "native-engines"
         }
       ],
       "target": [
@@ -161,6 +516,8 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "perMachine": false
-    }
+    },
+    "beforePack": "scripts/codex-before-pack.cjs",
+    "afterPack": "scripts/codex-after-pack.cjs"
   }
 }

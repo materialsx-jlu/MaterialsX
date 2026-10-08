@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "m6.0-v1"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "planId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "atomCount": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2000
+    },
+    "energyEv": {
+      "type": "number"
+    },
+    "forcesEvPerAngstrom": {
+      "minItems": 1,
+      "maxItems": 2000,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          }
+        ],
+        "items": false,
+        "minItems": 3,
+        "maxItems": 3
+      }
+    },
+    "stress": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "type": "string",
+              "const": "eV/angstrom^3"
+            },
+            "sign": {
+              "type": "string",
+              "const": "positive-tension"
+            },
+            "order": {
+              "type": "string",
+              "const": "xx,yy,zz,yz,xz,xy"
+            },
+            "values": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 6,
+              "maxItems": 6
+            }
+          },
+          "required": [
+            "unit",
+            "sign",
+            "order",
+            "values"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stopReason": {
+      "type": "string",
+      "enum": [
+        "singlepoint",
+        "converged",
+        "max_steps",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "completedSteps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2000
+    },
+    "quality": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "passed",
+        "needs_review",
+        "invalid"
+      ]
+    },
+    "validationEvidenceIds": {
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "planId",
+    "structureId",
+    "potentialId",
+    "potentialSha256",
+    "atomCount",
+    "energyEv",
+    "forcesEvPerAngstrom",
+    "stress",
+    "stopReason",
+    "completedSteps",
+    "quality",
+    "validationEvidenceIds"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.0-v1/AtomisticResult.json",
+  "x-contract-version": "m6.0-v1",
+  "x-runtime-refinements": "packages/contracts/src/atomistic.ts refinements are mandatory; JSON Schema alone is insufficient. Authorization, realpath, file hash and resource checks belong to the local executor."
+}

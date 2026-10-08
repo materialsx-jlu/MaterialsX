@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "potentialId": {
+      "type": "string",
+      "const": "ani-2x-ensemble"
+    },
+    "family": {
+      "type": "string",
+      "const": "ani"
+    },
+    "adapter": {
+      "type": "string",
+      "const": "torchani-ase"
+    },
+    "basePotentialId": {
+      "type": "string",
+      "const": "ani-2x-ensemble"
+    },
+    "environmentProfileId": {
+      "type": "string",
+      "const": "torchani-2.7.5-cpu-v1"
+    },
+    "dependencyLockSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sourceRevision": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "url": {
+      "type": "string",
+      "format": "starts_with",
+      "pattern": "^https:\\/\\/huggingface\\.co\\/roitberg-group\\/ani2x\\/resolve\\/.*"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "bytes": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 134217728
+    },
+    "license": {
+      "type": "string",
+      "const": "MIT"
+    },
+    "notices": {
+      "minItems": 2,
+      "maxItems": 8,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^docs\\/m6\\/licenses\\/[a-zA-Z0-9.-]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "reviewedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "elements": {
+      "minItems": 7,
+      "maxItems": 7,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "H",
+          "C",
+          "N",
+          "O",
+          "F",
+          "S",
+          "Cl"
+        ]
+      }
+    },
+    "loadedMemoryMiB": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "dtype": {
+      "type": "string",
+      "const": "float64"
+    },
+    "platforms": {
+      "minItems": 1,
+      "maxItems": 6,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "macos-arm64",
+              "windows-x64"
+            ]
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "cpu",
+              "cuda",
+              "mps"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "not-tested",
+              "unsupported"
+            ]
+          },
+          "evidenceId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "platform",
+          "device",
+          "status",
+          "evidenceId"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "potentialId",
+    "family",
+    "adapter",
+    "basePotentialId",
+    "environmentProfileId",
+    "dependencyLockSha256",
+    "sourceRevision",
+    "url",
+    "sha256",
+    "bytes",
+    "license",
+    "notices",
+    "reviewedAt",
+    "elements",
+    "loadedMemoryMiB",
+    "dtype",
+    "platforms"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m613/MolecularPackage.json",
+  "x-runtime-refinements": "Pinned ANI-2x eight-member weights and locked CPU runtime; explicit neutral singlet isolated boundary, charge/electron parity, no long-range term, no molecular stress; budgets, scientific quality and real files checked in worker and application."
+}

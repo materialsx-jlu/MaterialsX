@@ -1,0 +1,256 @@
+[
+  {
+    "schemaVersion": "ua10-method-v1",
+    "id": "source-summary",
+    "version": "1.0.1",
+    "name": {
+      "zh": "原值描述统计",
+      "en": "Source-value summary"
+    },
+    "description": {
+      "zh": "使用现有研究工具分析来源观测，保存方法版本和参考复现回执。",
+      "en": "Analyze source observations using existing research tools; retain method version and reference receipt."
+    },
+    "scope": [
+      {
+        "zh": "相同属性、原单位和测试条件的选定观测；最多 300 条。",
+        "en": "Selected matching-property, original-unit, same-condition observations; up to 300 rows."
+      }
+    ],
+    "limitations": [
+      {
+        "zh": "结论需要科研人员复核。参考复现不代表材料领域验证。",
+        "en": "Scientific interpretation requires review. Reference reproduction is not material-domain validation."
+      }
+    ],
+    "sources": [
+      {
+        "kind": "data",
+        "url": "https://www.itl.nist.gov/div898/strd/univ/data/PiDigits.dat",
+        "citation": "NIST/ITL Statistical Reference Datasets, PiDigits.dat (accessed 2026-10-06)",
+        "revision": "e9421a2f4c0a31c505099332b4d22e507e808953c3c57bddae9226f25587d7d2"
+      },
+      {
+        "kind": "code",
+        "url": "https://github.com/materialsx-jlu/MaterialsX",
+        "citation": "MaterialsX experiments/math.mjs; independent implementation, not NIST software",
+        "revision": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
+      },
+      {
+        "kind": "documentation",
+        "url": "https://www.itl.nist.gov/div898/strd/general/dataarchive.html",
+        "citation": "NIST StRD reference datasets",
+        "revision": "accessed-2026-10-06"
+      }
+    ],
+    "licenses": [
+      {
+        "component": "paper",
+        "status": "not-applicable",
+        "identifier": "No paper content bundled",
+        "basis": "Reference links only; no paper text copied",
+        "url": null
+      },
+      {
+        "component": "code",
+        "status": "reviewed",
+        "identifier": "AGPL-3.0",
+        "basis": "Team-owned canonical numerical implementation; LICENSE",
+        "url": "https://github.com/materialsx-jlu/MaterialsX"
+      },
+      {
+        "component": "data",
+        "status": "reviewed",
+        "identifier": "NIST non-SRD data notice",
+        "basis": "NIST employee datasets; attribution and AS IS notice preserved in methods/references/NOTICE.txt; numerical benchmark only",
+        "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications"
+      },
+      {
+        "component": "weights",
+        "status": "not-applicable",
+        "identifier": "No trained weights",
+        "basis": "Fixed CPU float64 algorithm; no trained model",
+        "url": null
+      }
+    ],
+    "execution": {
+      "backend": "summary-v1",
+      "tool": "research_method_run",
+      "methodId": "descriptive-summary",
+      "inputSchema": "6ee46b93690c31fc74434cb0634bb6c7c037859e67d3c77486305e3adc744634",
+      "outputSchema": "a16ce85df2c5c0b38ea029216e0ac6586adf271c4cf049f330e9d9653b3414c0",
+      "inputContract": "methods/contracts/research-method-input.schema.json",
+      "outputContract": "methods/contracts/research-method-output.schema.json",
+      "files": [
+        {
+          "path": "experiments/math.mjs",
+          "sha256": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
+        }
+      ],
+      "dependencyLock": "234a15495343f2e20f9c8c57d98332450cfa0df6feefab21dff3e8f072884832",
+      "runtime": "bundled-node",
+      "precision": "float64",
+      "maxSamples": 300,
+      "network": false,
+      "gpu": false,
+      "memoryMiB": 64
+    },
+    "reference": {
+      "id": "nist-pidigits",
+      "file": "PiDigits.dat",
+      "sha256": "e9421a2f4c0a31c505099332b4d22e507e808953c3c57bddae9226f25587d7d2",
+      "source": "https://www.itl.nist.gov/div898/strd/univ/data/PiDigits.dat",
+      "expected": {
+        "mean": 4.5348,
+        "sampleSd": 2.86733906028871
+      },
+      "absoluteTolerance": 1e-10,
+      "relativeTolerance": 1e-12,
+      "scope": {
+        "zh": "PiDigits 5000 个构造数值的均值与样本标准差；仅检验数值算法。",
+        "en": "Mean and sample SD of 5000 constructed PiDigits values; numerical algorithm only."
+      }
+    },
+    "skill": {
+      "name": "materials-method-packages",
+      "instructions": {
+        "zh": "先搜索方法包，再读取选定数据和证据，运行 research_methods 筛选及 research_method_run。不得直接执行候选包代码或把复现通过当作领域验证。",
+        "en": "Search packages, read selected observations and evidence, assess with research_methods, then run research_method_run. Never execute candidate code or treat reference reproduction as domain validation."
+      },
+      "examples": [
+        {
+          "zh": "@materials-method-packages 汇总已选来源的均值；未确认独立制样时不要计算标准误，输出 JSON 和报告。",
+          "en": "@materials-method-packages Summarize selected values; no standard error without confirmed independent specimens. Write JSON and a report."
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": "ua10-method-v1",
+    "id": "source-linear-fit",
+    "version": "1.0.1",
+    "name": {
+      "zh": "单变量线性拟合",
+      "en": "Single-predictor linear fit"
+    },
+    "description": {
+      "zh": "使用现有研究工具分析来源观测，保存方法版本和参考复现回执。",
+      "en": "Analyze source observations using existing research tools; retain method version and reference receipt."
+    },
+    "scope": [
+      {
+        "zh": "3–300 对有证据的观测，X 非常量；保持原单位、材料基准和测试条件。",
+        "en": "3–300 evidence-linked pairs with nonconstant X; preserve original units, material basis and conditions."
+      }
+    ],
+    "limitations": [
+      {
+        "zh": "结论需要科研人员复核。参考复现不代表材料领域验证。",
+        "en": "Scientific interpretation requires review. Reference reproduction is not material-domain validation."
+      }
+    ],
+    "sources": [
+      {
+        "kind": "data",
+        "url": "https://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Norris.dat",
+        "citation": "NIST/ITL Statistical Reference Datasets, Norris.dat (accessed 2026-10-06)",
+        "revision": "5ab6906c68a9c4b2eb1661c0cd7d2a09f5a469a6d4e05b6b691f190f5f7b944f"
+      },
+      {
+        "kind": "code",
+        "url": "https://github.com/materialsx-jlu/MaterialsX",
+        "citation": "MaterialsX experiments/math.mjs; independent implementation, not NIST software",
+        "revision": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
+      },
+      {
+        "kind": "documentation",
+        "url": "https://www.itl.nist.gov/div898/strd/general/dataarchive.html",
+        "citation": "NIST StRD reference datasets",
+        "revision": "accessed-2026-10-06"
+      }
+    ],
+    "licenses": [
+      {
+        "component": "paper",
+        "status": "not-applicable",
+        "identifier": "No paper content bundled",
+        "basis": "Reference links only; no paper text copied",
+        "url": null
+      },
+      {
+        "component": "code",
+        "status": "reviewed",
+        "identifier": "AGPL-3.0",
+        "basis": "Team-owned canonical numerical implementation; LICENSE",
+        "url": "https://github.com/materialsx-jlu/MaterialsX"
+      },
+      {
+        "component": "data",
+        "status": "reviewed",
+        "identifier": "NIST non-SRD data notice",
+        "basis": "NIST employee datasets; attribution and AS IS notice preserved in methods/references/NOTICE.txt; numerical benchmark only",
+        "url": "https://www.nist.gov/open/copyright-fair-use-and-licensing-statements-srd-data-software-and-technical-series-publications"
+      },
+      {
+        "component": "weights",
+        "status": "not-applicable",
+        "identifier": "No trained weights",
+        "basis": "Fixed CPU float64 algorithm; no trained model",
+        "url": null
+      }
+    ],
+    "execution": {
+      "backend": "ols-v1",
+      "tool": "research_method_run",
+      "methodId": "linear-fit",
+      "inputSchema": "6ee46b93690c31fc74434cb0634bb6c7c037859e67d3c77486305e3adc744634",
+      "outputSchema": "a16ce85df2c5c0b38ea029216e0ac6586adf271c4cf049f330e9d9653b3414c0",
+      "inputContract": "methods/contracts/research-method-input.schema.json",
+      "outputContract": "methods/contracts/research-method-output.schema.json",
+      "files": [
+        {
+          "path": "experiments/math.mjs",
+          "sha256": "83d036832259d160cd5dc7a050d80d1139a17251d612056d38746a6eed8b7020"
+        }
+      ],
+      "dependencyLock": "234a15495343f2e20f9c8c57d98332450cfa0df6feefab21dff3e8f072884832",
+      "runtime": "bundled-node",
+      "precision": "float64",
+      "maxSamples": 300,
+      "network": false,
+      "gpu": false,
+      "memoryMiB": 64
+    },
+    "reference": {
+      "id": "nist-norris",
+      "file": "Norris.dat",
+      "sha256": "5ab6906c68a9c4b2eb1661c0cd7d2a09f5a469a6d4e05b6b691f190f5f7b944f",
+      "source": "https://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Norris.dat",
+      "expected": {
+        "intercept": -0.262323073774029,
+        "slope": 1.00211681802045,
+        "residualSd": 0.884796396144373,
+        "rSquared": 0.999993745883712
+      },
+      "absoluteTolerance": 1e-10,
+      "relativeTolerance": 1e-12,
+      "scope": {
+        "zh": "NIST Norris 的 36 对臭氧仪校准值及四项认证回归统计量；不证明材料模型有效。",
+        "en": "36 NIST Norris ozone-monitor calibration pairs and four certified regression statistics; not material-model validity."
+      }
+    },
+    "skill": {
+      "name": "materials-method-packages",
+      "instructions": {
+        "zh": "先搜索方法包，再读取选定数据和证据，运行 research_methods 筛选及 research_method_run。不得直接执行候选包代码或把复现通过当作领域验证。",
+        "en": "Search packages, read selected observations and evidence, assess with research_methods, then run research_method_run. Never execute candidate code or treat reference reproduction as domain validation."
+      },
+      "examples": [
+        {
+          "zh": "@materials-method-packages 对已选成对观测进行线性拟合，报告斜率、残差和输入范围，不作范围外预测。",
+          "en": "@materials-method-packages Fit selected paired observations; report slope, residuals and training domain without extrapolation."
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "potentialId": {
+      "type": "string",
+      "const": "chgnet-r2scan"
+    }
+  },
+  "required": [
+    "potentialId"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/PackageRequest.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

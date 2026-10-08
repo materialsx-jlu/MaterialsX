@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.6-v1"
+    },
+    "platform": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "policySha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "rows": {
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "potentialId": {
+            "type": "string",
+            "enum": [
+              "mace-mp-0b3-medium",
+              "chgnet-0.3.0",
+              "chgnet-r2scan"
+            ]
+          },
+          "functional": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "installed": {
+            "type": "boolean"
+          },
+          "portable": {
+            "type": "boolean"
+          },
+          "domainStatus": {
+            "type": "string",
+            "enum": [
+              "blocked-reference-data-missing",
+              "failed",
+              "passed-screening"
+            ]
+          },
+          "productionApproved": {
+            "type": "boolean",
+            "const": false
+          },
+          "reportId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "devices": {
+            "type": "object",
+            "properties": {
+              "cpu": {
+                "type": "string",
+                "enum": [
+                  "available-unverified",
+                  "absent"
+                ]
+              },
+              "cuda": {
+                "type": "string",
+                "const": "unverified"
+              },
+              "mps": {
+                "type": "string",
+                "const": "unverified"
+              }
+            },
+            "required": [
+              "cpu",
+              "cuda",
+              "mps"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "potentialId",
+          "functional",
+          "installed",
+          "portable",
+          "domainStatus",
+          "productionApproved",
+          "reportId",
+          "devices"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "releaseGates": {
+      "minItems": 1,
+      "maxItems": 15,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "pending",
+              "failed"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "detail"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "platform",
+    "policySha256",
+    "rows",
+    "releaseGates"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/ScientificQualityMatrix.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

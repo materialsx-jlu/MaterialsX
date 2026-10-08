@@ -23,6 +23,8 @@ export function validateModelSelection(selection: ModelSelection): ModelSelectio
       throw new Error("Local model endpoints must use loopback.");
     }
     if (!['http:', 'https:'].includes(endpoint.protocol)) throw new Error("Unsupported local endpoint protocol.");
+    if (endpoint.username || endpoint.password || endpoint.search || endpoint.hash)
+      throw new Error("Local endpoint cannot contain credentials, query or fragment.");
   }
   return selection;
 }

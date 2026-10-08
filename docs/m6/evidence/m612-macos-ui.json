@@ -1,0 +1,31 @@
+{
+  "stage": "M6.12",
+  "passed": true,
+  "platform": "darwin-arm64",
+  "nativeElectron": true,
+  "defaultSkills": 93,
+  "bilingualUI": true,
+  "sharedThemes": [
+    "materials-dark",
+    "codex-light"
+  ],
+  "narrowWidth": 850,
+  "nativeCleanupConfirmation": true,
+  "cancelPreservesCache": true,
+  "protectedResourcesNotSelectable": true,
+  "offlineWeightRoundTrip": true,
+  "catalogBundleExportImport": true,
+  "actualSevenNetSinglepoint": true,
+  "actualResultReceiptButton": true,
+  "receiptInspection": true,
+  "skillMention": true,
+  "responsiveness": {
+    "maxFrameGapMs": 10.399999999997817,
+    "elapsedMs": 2360.0999999046326,
+    "frames": 283,
+    "backgroundThrottlingDisabledForMeasurement": true
+  },
+  "weightsDownloaded": 0,
+  "supplierCalls": 0,
+  "paymentCalls": 0
+}

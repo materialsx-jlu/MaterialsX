@@ -1,0 +1,583 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.6-v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "dft-heldout",
+        "synthetic-test"
+      ]
+    },
+    "units": {
+      "type": "object",
+      "properties": {
+        "energy": {
+          "type": "string",
+          "const": "eV-total"
+        },
+        "forces": {
+          "type": "string",
+          "const": "eV/angstrom"
+        },
+        "positions": {
+          "type": "string",
+          "const": "angstrom"
+        }
+      },
+      "required": [
+        "energy",
+        "forces",
+        "positions"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "citation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "licenseConfirmed": {
+          "type": "boolean"
+        },
+        "labelProvenanceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "citation",
+        "license",
+        "licenseConfirmed",
+        "labelProvenanceSha256"
+      ],
+      "additionalProperties": false
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "functional": {
+          "type": "string",
+          "enum": [
+            "PBE+U",
+            "r2SCAN"
+          ]
+        },
+        "hubbardU": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "pseudopotentialSha256": {
+          "minItems": 1,
+          "maxItems": 118,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "cutoffEv": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "kpointMesh": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "spin": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "charge": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "energyReference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "corrections": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "forceConvergenceEvPerAngstrom": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "electronicConvergenceEv": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "code",
+        "version",
+        "functional",
+        "hubbardU",
+        "pseudopotentialSha256",
+        "cutoffEv",
+        "kpointMesh",
+        "spin",
+        "charge",
+        "energyReference",
+        "corrections",
+        "forceConvergenceEvPerAngstrom",
+        "electronicConvergenceEv"
+      ],
+      "additionalProperties": false
+    },
+    "audits": {
+      "minItems": 1,
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "potentialId": {
+            "type": "string",
+            "enum": [
+              "mace-mp-0b3-medium",
+              "chgnet-0.3.0",
+              "chgnet-r2scan"
+            ]
+          },
+          "trainingOverlap": {
+            "type": "string",
+            "enum": [
+              "independent-reviewed",
+              "overlap",
+              "unknown"
+            ]
+          },
+          "reviewer": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "evidenceSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+          },
+          "matchedTheory": {
+            "type": "boolean"
+          },
+          "matchedEnergyReference": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "potentialId",
+          "trainingOverlap",
+          "reviewer",
+          "evidenceSha256",
+          "reviewedAt",
+          "matchedTheory",
+          "matchedEnergyReference"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "samples": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "bulk",
+              "multi-element",
+              "defect",
+              "surface"
+            ]
+          },
+          "structure": {
+            "type": "object",
+            "properties": {
+              "schemaVersion": {
+                "type": "string",
+                "const": "m6.0-v1"
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "coordinateUnit": {
+                "type": "string",
+                "const": "angstrom"
+              },
+              "atoms": {
+                "minItems": 1,
+                "maxItems": 2000,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "element": {
+                      "type": "string"
+                    },
+                    "position": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "occupancy": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "maximum": 1
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "element",
+                    "position",
+                    "occupancy"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "cell": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 3,
+                        "maxItems": 3
+                      },
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 3,
+                        "maxItems": 3
+                      },
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "items": false,
+                        "minItems": 3,
+                        "maxItems": 3
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 3,
+                    "maxItems": 3
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "pbc": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "charge": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "spinMultiplicity": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "artifactId": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "format": {
+                    "type": "string",
+                    "enum": [
+                      "cif",
+                      "xyz",
+                      "extxyz",
+                      "poscar"
+                    ]
+                  },
+                  "provenance": {
+                    "type": "string",
+                    "enum": [
+                      "user-file",
+                      "team-synthetic",
+                      "literature-reconstructed",
+                      "hypothesis"
+                    ]
+                  },
+                  "license": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "transformations": {
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    }
+                  }
+                },
+                "required": [
+                  "artifactId",
+                  "sha256",
+                  "format",
+                  "provenance",
+                  "license",
+                  "transformations"
+                ],
+                "additionalProperties": false
+              },
+              "issues": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "severity": {
+                      "type": "string",
+                      "enum": [
+                        "warning",
+                        "blocking"
+                      ]
+                    },
+                    "detail": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "severity",
+                    "detail"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "schemaVersion",
+              "id",
+              "coordinateUnit",
+              "atoms",
+              "cell",
+              "pbc",
+              "charge",
+              "spinMultiplicity",
+              "source",
+              "issues"
+            ],
+            "additionalProperties": false
+          },
+          "energyEv": {
+            "type": "number"
+          },
+          "forcesEvPerAngstrom": {
+            "minItems": 1,
+            "maxItems": 256,
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        "required": [
+          "id",
+          "domain",
+          "structure",
+          "energyEv",
+          "forcesEvPerAngstrom"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "title",
+    "kind",
+    "units",
+    "source",
+    "settings",
+    "audits",
+    "samples"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.6-v1/ScientificHoldout.json",
+  "x-runtime-refinements": "Actual identity, unit/atom mapping, reference provenance, matched theory/energy references, independent overlap review, per-domain quotas and project ownership must be verified; reports never grant production approval."
+}

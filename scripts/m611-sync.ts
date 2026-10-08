@@ -1,0 +1,14 @@
+import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {PotentialDiscoveryService} from '../packages/atomistic/src/potential-discovery.js';
+import {buildPotentialCatalog} from '../packages/atomistic/src/potential-hub.js';
+import {mountReviewedCatalog} from '../packages/atomistic/src/mounted-catalog.js';
+import {parsePotentialRegistry} from '../packages/atomistic/src/registry.js';
+const root=process.cwd(),args=process.argv.slice(2),arg=(name:string,fallback:string)=>{const i=args.indexOf('--'+name);return i<0?fallback:args[i+1]??fallback;};
+const json=(p:string)=>JSON.parse(readFileSync(p,'utf8'));const state=resolve(arg('state','runtime/m6/discovery-publisher'));
+const service=new PotentialDiscoveryService(root,state,()=>mountReviewedCatalog(root,buildPotentialCatalog(parsePotentialRegistry(json('models/potentials/registry.json')),json('models/potentials/catalog-m67.json'))));
+const sources=arg('sources','').split(',').filter(Boolean);const result=await service.sync(sources.length?sources:undefined,args.includes('--force'));
+const output=resolve(arg('output','runtime/m6/acceptance/m611/live-sources.json'));mkdirSync(resolve(output,'..'),{recursive:true});
+writeFileSync(output,JSON.stringify({stage:'M6.11',scope:'Actual public metadata; no weights downloaded, no provider/payment calls.',status:result,records:service.search({limit:50}).records},null,2)+'\n');
+console.log(JSON.stringify({stage:'M6.11',changes:result.changes,total:result.total,sources:result.sources.map(s=>({id:s.id,error:s.error??null,count:s.count??0,lastSuccess:s.lastSuccess??null})),output}));
+service.dispose();

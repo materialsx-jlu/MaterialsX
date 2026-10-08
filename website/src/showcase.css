@@ -1,0 +1,50 @@
+.research-tasks{background:#eef4f4}
+.research-tasks .section-head{max-width:790px}
+.research-tasks .section-description{max-width:750px}
+.task-showcase{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;min-width:0}
+.task-main{min-width:0;background:#fff;border:1px solid #d7e4e5;border-radius:20px;padding:30px;box-shadow:0 16px 42px rgba(16,38,48,.045)}
+.task-guide{display:flex;align-items:flex-start;gap:16px;background:#eaf7f8;border:1px solid #cae7e9;border-radius:13px;padding:19px 22px}
+.task-guide-icon{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:9px;background:#cdeef1;color:#076f7b;font-weight:800}
+.task-guide>div{min-width:0}.task-guide h3{font-size:17px;line-height:1.35;letter-spacing:-.025em}
+.task-guide p{font-size:14px;color:#49636a;line-height:1.7;margin-top:6px}
+.task-stage-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-top:30px}
+.task-stage-head h3{font-size:22px;letter-spacing:-.04em}
+.task-stage-head p{font-size:14px;color:var(--muted);margin-top:6px}
+.task-stage-head>span{font-size:12px;color:var(--cyan-dark);font-weight:700;white-space:nowrap}
+.task-stages{display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--line);padding:20px 0 12px;scrollbar-width:thin}
+.task-stage{flex:none;white-space:nowrap;border:1px solid #dce8e7;background:#f7faf9;color:#586e72;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:650}
+.task-stage.is-current{background:var(--ink);border-color:var(--ink);color:#fff}
+.task-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
+.task-card{min-width:0;min-height:173px;display:flex;gap:13px;background:#fff;border:1px solid #dce6e4;border-radius:12px;padding:20px 18px}
+.task-card:nth-child(3n+2){background:#f4faf9}.task-card:nth-child(3n+3){background:#f7f8f8}
+.task-card-number{color:#168998;font:700 11px 'IBM Plex Mono',monospace;letter-spacing:.08em;padding-top:5px;flex:none}
+.task-card>div{min-width:0}.task-card h4{margin:0;font-size:16px;line-height:1.4;letter-spacing:-.025em}
+.task-card p{font-size:13px;color:#405a60;line-height:1.6;margin-top:7px}
+.task-card small{display:block;color:#718589;font-size:11px;line-height:1.55;margin-top:12px}
+.task-card-arrow{margin-left:auto;color:#87a8aa;flex:none;font-size:17px}
+.task-foot{font-size:12px;line-height:1.7;color:var(--muted);margin-top:17px}
+.task-figure{min-width:0;margin:0;border:1px solid #cddddd;border-radius:20px;padding:9px;background:#e2ebeb;box-shadow:0 24px 56px rgba(16,38,48,.08);overflow:hidden}
+.task-figure img{width:100%;height:auto;border-radius:12px 12px 4px 4px;border:1px solid #ccd9d8;background:#fff}
+.task-figure figcaption,.story-figure figcaption{font:600 11px/1.5 'IBM Plex Mono',monospace;letter-spacing:.03em;color:#57767c;padding:11px 13px 3px}
+.task-flow{list-style:none;padding:0;margin:27px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.task-flow li{display:flex;gap:11px;align-items:center;color:#405d63;font-size:13px;font-weight:650;min-width:0}
+.task-flow li span{display:grid;place-items:center;flex:none;width:31px;height:31px;border:1px solid #a8ced1;border-radius:50%;color:#087a86;font:700 10px 'IBM Plex Mono',monospace}
+.task-flow li:not(:last-child)::after{content:'→';color:#8ab4b6;margin-left:auto;padding-right:13px}
+.task-next{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}.task-next a{display:inline-flex;align-items:center;gap:13px;padding:10px 14px;border:1px solid #bcd9db;border-radius:8px;background:#fff;color:#205861;font-size:12px;font-weight:700}.task-next a:hover{border-color:#168998;background:#e4f7f7}
+.capability-story{overflow:hidden}
+.story-potentials{background:#fff}.story-moos{background:#eaf1f0}.story-local{background:#fff}
+.story-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:62px;align-items:center}
+.story-moos .story-copy{order:2}.story-moos .story-figure{order:1}
+.story-number{display:block;color:#829a9e;font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.18em;margin-bottom:27px}
+.story-copy .section-head h2{font-size:clamp(31px,3.3vw,44px)}
+.story-copy .section-description{font-size:15px;line-height:1.8}
+.story-steps{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid #d2e0df}
+.story-steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:baseline;border-bottom:1px solid #d2e0df;padding:13px 0}
+.story-steps li span{color:#078391;font:600 11px 'IBM Plex Mono',monospace}.story-steps p{font-size:13px;color:#40575d;line-height:1.6}
+.story-note{display:flex;gap:10px;margin-top:22px;padding:15px;background:#e9f6f6;border:1px solid #c9e7e7;border-radius:10px;color:#42646b;font-size:12px;line-height:1.65}
+.story-moos .story-note{background:#fff}.story-note span{color:#087a86;font-size:16px;line-height:1;flex:none}
+.story-figure{margin:0;min-width:0;overflow:hidden;background:#e5eeee;border:1px solid #ccdcda;border-radius:18px;padding:9px;box-shadow:0 22px 48px rgba(16,38,48,.075)}
+.story-figure img{width:100%;height:auto;max-height:590px;object-fit:cover;object-position:top center;border:1px solid #c9d9d8;border-radius:10px 10px 4px 4px;background:#fff}
+@media(max-width:1080px){.story-grid{gap:30px}.task-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:820px){.task-main{padding:21px}.story-grid{grid-template-columns:1fr;gap:30px}.story-moos .story-copy,.story-moos .story-figure{order:initial}.story-copy .section-head{max-width:690px}.task-flow{grid-template-columns:repeat(2,1fr);row-gap:18px}.task-flow li:nth-child(2)::after{content:none}}
+@media(max-width:560px){.task-showcase{margin-top:30px}.task-main{padding:16px}.task-guide{padding:14px;gap:11px}.task-guide h3{font-size:15px}.task-guide p{font-size:12px}.task-stage-head{align-items:start}.task-stage-head>span{display:none}.task-cards{grid-template-columns:1fr}.task-card{min-height:0;padding:16px}.task-card small{margin-top:7px}.task-flow{grid-template-columns:1fr}.task-flow li::after{display:none}.story-figure{padding:5px}.story-figure img{max-height:340px}.story-copy .section-head h2{font-size:33px}}

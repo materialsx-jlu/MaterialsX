@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "rejected"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "note": {
+      "type": "object",
+      "properties": {
+        "zh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "zh",
+        "en"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "sha256",
+    "decision",
+    "reviewer",
+    "note"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m611/DiscoveryReview.json",
+  "x-runtime-refinements": "Ed25519 signature, canonical payload digest, sequence, lifetime, pinned execution identities, sticky withdrawals, key rotation and immutable execution boundaries are checked by the client."
+}

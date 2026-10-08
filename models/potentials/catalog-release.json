@@ -1,0 +1,56 @@
+{
+  "keyId": "materialsx-catalog-2026-bootstrap",
+  "payload": {
+    "version": "m6.11-v1",
+    "sequence": 1,
+    "issuedAt": "2026-10-02T12:20:53.716Z",
+    "expiresAt": "2026-12-31T12:20:53.716Z",
+    "action": "publish",
+    "rollbackOf": null,
+    "entries": [],
+    "withdrawals": [],
+    "reviews": [],
+    "executionPins": [
+      {
+        "id": "chgnet-0.3.0",
+        "weightSha256": "d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1",
+        "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+        "sourceRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76"
+      },
+      {
+        "id": "chgnet-r2scan",
+        "weightSha256": "8eba3db0f35a2788bb3ae22885ad340591e27996f213c6643af522a633b50dad",
+        "dependencyLockSha256": "fb4339d3b1df5a07f65ace77c49007092bc47b44ece8e28b40a18089cd0872ef",
+        "sourceRevision": "b9a6c15860237297a5a5169660e83b2e61a78e76"
+      },
+      {
+        "id": "mace-mp-0b2-small",
+        "weightSha256": "d5773bf9440e96d6eb8c598f84bd0e6369fcfa432f626a87f890e07da3c651c9",
+        "dependencyLockSha256": "941774c09a1341eab3a38a5d6de0d7673f6a1aa7e26fe30c3c7cf78b9f21e419",
+        "sourceRevision": "726ecec6f3f739786664cf35d6622465fc926170"
+      },
+      {
+        "id": "mace-mp-0b3-medium",
+        "weightSha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+        "dependencyLockSha256": "941774c09a1341eab3a38a5d6de0d7673f6a1aa7e26fe30c3c7cf78b9f21e419",
+        "sourceRevision": "726ecec6f3f739786664cf35d6622465fc926170"
+      },
+      {
+        "id": "mace-mpa-0-medium",
+        "weightSha256": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+        "dependencyLockSha256": "941774c09a1341eab3a38a5d6de0d7673f6a1aa7e26fe30c3c7cf78b9f21e419",
+        "sourceRevision": "726ecec6f3f739786664cf35d6622465fc926170"
+      },
+      {
+        "id": "sevennet-0-11jul2024",
+        "weightSha256": "7052cb42b7b3be42b40b97fa0d21077a48c54b5548948fc4dcf346629f813c36",
+        "dependencyLockSha256": "4bcc3e46cd3ab527eafca190051bc0f7f28c44deaf7ce0e29fb1e77c9ab30fb3",
+        "sourceRevision": "8d9905cc4f4b7ca93be02b37a263785add53c759"
+      }
+    ],
+    "nextKeys": [],
+    "retireKeyIds": []
+  },
+  "payloadSha256": "42251d15b614af4cade2d4d431fffc2947d266ecfc312a1cd1b2ddb80d0069f3",
+  "signature": "OwlmHxj0p4eoqL/j+XP55OXcfZonVxQ6iWV3VWty5i6eI00Mo2Cmgfx7g3D+khYE82S/bJVDTxPvwO2Zb5BoBw=="
+}

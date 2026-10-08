@@ -1,0 +1,25 @@
+{
+  "stage": "M6.10",
+  "passed": true,
+  "platform": "macos-arm64",
+  "device": "cpu",
+  "portable": true,
+  "modules": {
+    "torch": "lib/python3.12/site-packages/torch/__init__.py",
+    "sevenn": "lib/python3.12/site-packages/sevenn/__init__.py",
+    "ase": "lib/python3.12/site-packages/ase/__init__.py",
+    "e3nn": "lib/python3.12/site-packages/e3nn/__init__.py"
+  },
+  "dependencyLockSha256": "4bcc3e46cd3ab527eafca190051bc0f7f28c44deaf7ce0e29fb1e77c9ab30fb3",
+  "weightSha256": "7052cb42b7b3be42b40b97fa0d21077a48c54b5548948fc4dcf346629f813c36",
+  "checks": {
+    "forceDerivativeMaxErrorEvPerAngstrom": 0.0009351694843644509,
+    "stressDerivativeMaxErrorEvPerAngstrom3": 2.0456457156167382e-05,
+    "rotationEnergyErrorEv": 8.249282927863533e-07,
+    "rotationForceMaxErrorEvPerAngstrom": 3.4086406230926514e-07,
+    "rotationStressMaxErrorEvPerAngstrom3": 1.210719347000122e-08,
+    "permutationForceMaxErrorEvPerAngstrom": 5.364418029785156e-07
+  },
+  "scientificQuality": "needs_review",
+  "scope": "Relocated managed Python and independent site-packages load a real local checkpoint without network; derivative/rotation/permutation checks. Not a signed installer or independent DFT validation."
+}

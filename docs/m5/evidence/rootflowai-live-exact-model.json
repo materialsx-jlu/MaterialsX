@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "m5.0-live-v1",
+  "generatedAt": "2026-10-01T03:46:04.185Z",
+  "environment": "real-provider",
+  "provider": "rootflowai",
+  "baseUrl": "https://api.rootflowai.com/v1",
+  "requestedModel": "gpt-5.6",
+  "authorization": {
+    "moneyCap": "waived-by-user-for-this-test",
+    "priceConfirmed": false
+  },
+  "requests": 2,
+  "generationAttempts": 1,
+  "status": "blocked_model_unavailable",
+  "checks": [
+    {
+      "id": "authentication_and_models",
+      "status": "passed",
+      "httpStatus": 200,
+      "exactModelVisible": false,
+      "availableModelIds": [
+        "gpt-6-sol",
+        "gpt-6-astra",
+        "gpt-6-luna",
+        "gpt-5.5-openai-compact",
+        "codex-auto-review",
+        "gpt-5.5",
+        "gpt-6.1-sol",
+        "gpt-5.6-terra",
+        "gpt-5.6-luna",
+        "gpt-5.6-sol"
+      ]
+    },
+    {
+      "id": "non_stream_responses",
+      "status": "failed",
+      "httpStatus": 503,
+      "errorCode": "model_not_found",
+      "errorType": "new_api_error",
+      "reason": "No available channel for exact model gpt-5.6 under the credential group",
+      "usage": null
+    }
+  ],
+  "notExecuted": [
+    "stream_text",
+    "tool_call",
+    "tool_result_roundtrip",
+    "structured_output",
+    "live_pi"
+  ],
+  "unverified": [
+    "actual_supplier_charge",
+    "procurement_price",
+    "model_origin",
+    "upstream_cancellation",
+    "commercial_data_terms"
+  ]
+}

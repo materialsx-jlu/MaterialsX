@@ -1,0 +1,65 @@
+{
+  "source": "Go cmd/identity and cmd/identityctl imports for macOS arm64, Windows x64, Linux x64; standard library and dependency tests excluded",
+  "modules": [
+    {
+      "module": "github.com/jackc/pgpassfile",
+      "version": "v1.0.0",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "adb1663fda031df8f4344aa68f299fd87d80353e31339406742ded21dae65702"
+    },
+    {
+      "module": "github.com/jackc/pgservicefile",
+      "version": "v0.0.0-20240606120523-5a60cdf6a761",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "fc505773403fe869ed64cc2235cdd13988a427bb7e3a7e7004a3f4b27420f8fc"
+    },
+    {
+      "module": "github.com/jackc/pgx/v5",
+      "version": "v5.7.6",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "467f95e074fe23079a5623ed652619682692041b8551da27e3c2ddb9659a1507"
+    },
+    {
+      "module": "github.com/jackc/puddle/v2",
+      "version": "v2.2.2",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "2d50e98a4900b4d6457a38d39c1432fdc156fc2f7b365f2e33ec9344acbb0057"
+    },
+    {
+      "module": "github.com/wechatpay-apiv3/wechatpay-go",
+      "version": "v0.2.21",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "module": "golang.org/x/crypto",
+      "version": "v0.41.0",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "module": "golang.org/x/sync",
+      "version": "v0.16.0",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "module": "golang.org/x/sys",
+      "version": "v0.35.0",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "module": "golang.org/x/text",
+      "version": "v0.28.0",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad"
+    },
+    {
+      "module": "gopkg.in/yaml.v3",
+      "version": "v3.0.1",
+      "licenseFile": "LICENSE",
+      "licenseSha256": "d18f6323b71b0b768bb5e9616e36da390fbd39369a81807cca352de4e4e6aa0b"
+    }
+  ]
+}

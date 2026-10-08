@@ -2,10 +2,38 @@
   "source": "MaterialsX curated local Skill snapshots",
   "enabledSkills": [
     "materials-literature-rpsme-json",
-    "materials-xyz-extraction"
+    "materials-xyz-extraction",
+    "materials-atomic-structure-inspect",
+    "materials-mlip-selection",
+    "materials-mlip-singlepoint",
+    "materials-mlip-relaxation",
+    "materials-mlip-md",
+    "materials-mlip-comparison",
+    "materials-atomic-3d-view",
+    "materials-skill-creator",
+    "materials-potential-discovery",
+    "materials-research-workbench",
+    "materials-tensile-analysis",
+    "materials-next-experiment",
+    "materials-method-packages",
+    "materials-long-compute"
   ],
   "skills": [
     "materials-literature-rpsme-json",
-    "materials-xyz-extraction"
+    "materials-xyz-extraction",
+    "materials-atomic-structure-inspect",
+    "materials-mlip-selection",
+    "materials-mlip-singlepoint",
+    "materials-mlip-relaxation",
+    "materials-mlip-md",
+    "materials-mlip-comparison",
+    "materials-atomic-3d-view",
+    "materials-skill-creator",
+    "materials-potential-discovery",
+    "materials-research-workbench",
+    "materials-tensile-analysis",
+    "materials-next-experiment",
+    "materials-method-packages",
+    "materials-long-compute"
   ]
 }

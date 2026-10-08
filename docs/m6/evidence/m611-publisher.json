@@ -1,0 +1,13 @@
+{
+  "stage": "M6.11",
+  "passed": true,
+  "realPublisherCLI": true,
+  "staleReviewRejected": true,
+  "metadataOnlySignedPublish": true,
+  "signedKeyRotation": true,
+  "retiredKeyReplaced": true,
+  "forgedHistoricalRollbackRejected": true,
+  "signedRollback": true,
+  "isolatedState": true,
+  "remotePublished": false
+}

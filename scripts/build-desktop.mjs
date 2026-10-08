@@ -1,4 +1,6 @@
 import { build } from "esbuild";
+import { execFileSync } from "node:child_process";
+const stamp = execFileSync(process.execPath, ["--import", "tsx", "scripts/agent/build-identity.ts", "--prepare"], { encoding: "utf8" }).trim();
 
 await Promise.all([
   build({
@@ -11,6 +13,7 @@ await Promise.all([
     packages: "external",
     external: ["electron"],
     sourcemap: true,
+    define: { __MATERIALSX_BUILD_IDENTITY__: stamp },
   }),
   build({
     entryPoints: ["apps/desktop/preload/index.ts"],

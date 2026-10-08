@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.15-v1"
+    },
+    "id": {
+      "type": "string",
+      "const": "mace-mp-0b3-medium-d3-bj-pbe-si"
+    },
+    "operator": {
+      "type": "string",
+      "const": "sum"
+    },
+    "baseline": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "const": "mace-mp-0b3-medium"
+        },
+        "weightSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reference": {
+          "type": "string",
+          "const": "PBE+U; pure Si has no Hubbard U"
+        },
+        "dispersion": {
+          "type": "string",
+          "const": "not-added"
+        }
+      },
+      "required": [
+        "id",
+        "weightSha256",
+        "reference",
+        "dispersion"
+      ],
+      "additionalProperties": false
+    },
+    "correction": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "const": "d3-bj-two-body"
+        },
+        "functional": {
+          "type": "string",
+          "const": "pbe"
+        },
+        "s6": {
+          "type": "number",
+          "const": 1
+        },
+        "s8": {
+          "type": "number",
+          "const": 0.7875
+        },
+        "a1": {
+          "type": "number",
+          "const": 0.4289
+        },
+        "a2Bohr": {
+          "type": "number",
+          "const": 4.4407
+        },
+        "potentialCutoffAngstrom": {
+          "type": "number",
+          "const": 10
+        },
+        "coordinationCutoffAngstrom": {
+          "type": "number",
+          "const": 5
+        },
+        "atm": {
+          "type": "boolean",
+          "const": false
+        },
+        "electrostatics": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "required": [
+        "kind",
+        "functional",
+        "s6",
+        "s8",
+        "a1",
+        "a2Bohr",
+        "potentialCutoffAngstrom",
+        "coordinationCutoffAngstrom",
+        "atm",
+        "electrostatics"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "elements": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "const": "Si"
+            }
+          ],
+          "items": false,
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "maxAtoms": {
+          "type": "number",
+          "const": 128
+        },
+        "minimumCellSingularValueAngstrom": {
+          "type": "number",
+          "const": 4
+        },
+        "minimumVolumePerAtomAngstrom3": {
+          "type": "number",
+          "const": 5
+        },
+        "minimumDistanceAngstrom": {
+          "type": "number",
+          "const": 2.3
+        },
+        "tasks": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string",
+              "const": "singlepoint"
+            },
+            {
+              "type": "string",
+              "const": "relaxation"
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "cell": {
+          "type": "string",
+          "const": "fixed"
+        },
+        "mode": {
+          "type": "string",
+          "const": "exploratory"
+        }
+      },
+      "required": [
+        "elements",
+        "maxAtoms",
+        "minimumCellSingularValueAngstrom",
+        "minimumVolumePerAtomAngstrom3",
+        "minimumDistanceAngstrom",
+        "tasks",
+        "cell",
+        "mode"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "operator",
+    "baseline",
+    "correction",
+    "scope"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m615/CompositionProfile.json",
+  "x-runtime-refinements": "Fixed MACE+PBE-D3(BJ) two-body sum, no ATM/electrostatics; pinned shared baseline, sources, native engine and profile; CPU pure Si fixed-cell screening; component sums and real result files verified."
+}

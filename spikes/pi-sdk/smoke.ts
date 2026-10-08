@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { LATEST_PROTOCOL_VERSION } from "@modelcontextprotocol/sdk/types.js";
 import {
   createAgentSession,
   createMcpExtension,
@@ -135,11 +136,19 @@ try {
   }
 
   const client = new Client({ name: "materialsx-m0-verifier", version: "0.0.1" });
-  const transport = new StdioClientTransport({
+  class AuditedStdioTransport extends StdioClientTransport {
+    negotiatedProtocolVersion: string | undefined;
+    setProtocolVersion(version: string) { this.negotiatedProtocolVersion = version; }
+  }
+  const transport = new AuditedStdioTransport({
     command: serverCommand,
     args: serverArgs,
   });
   await client.connect(transport);
+  if (transport.negotiatedProtocolVersion !== LATEST_PROTOCOL_VERSION) throw Error("MCP protocol version mismatch");
+  const serverVersion = client.getServerVersion();
+  const tools = await client.listTools();
+  if (!tools.tools.some(tool => tool.name === "materials_ping" && tool.annotations?.readOnlyHint === true)) throw Error("MCP read-only capability missing");
   const result = (await client.callTool({ name: "materials_ping", arguments: { formula: "SiO2" } })) as {
     content: Array<{ type: string; text?: string }>;
   };
@@ -157,6 +166,8 @@ try {
       mcpToolRegistered: true,
       mcpToolCalled: true,
       mcpResult: text.text,
+      mcpProtocol: transport.negotiatedProtocolVersion,
+      mcpServer: serverVersion,
     })}\n`,
   );
 } finally {

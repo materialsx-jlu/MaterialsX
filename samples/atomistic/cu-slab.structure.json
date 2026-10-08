@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "m6.0-v1",
+  "id": "cu-slab",
+  "coordinateUnit": "angstrom",
+  "atoms": [
+    {
+      "id": "a1",
+      "element": "Cu",
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a2",
+      "element": "Cu",
+      "position": [
+        0,
+        1.805,
+        7.805
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a3",
+      "element": "Cu",
+      "position": [
+        1.805,
+        0,
+        7.805
+      ],
+      "occupancy": 1
+    },
+    {
+      "id": "a4",
+      "element": "Cu",
+      "position": [
+        1.805,
+        1.805,
+        6
+      ],
+      "occupancy": 1
+    }
+  ],
+  "cell": [
+    [
+      3.61,
+      0,
+      0
+    ],
+    [
+      0,
+      3.61,
+      0
+    ],
+    [
+      0,
+      0,
+      15
+    ]
+  ],
+  "pbc": [
+    true,
+    true,
+    false
+  ],
+  "charge": null,
+  "spinMultiplicity": null,
+  "source": {
+    "artifactId": "sample-cu-slab",
+    "sha256": "c5e614e47b66370f556f17898298b9a73dbb114c073b34a7c7cb9b07f59b2357",
+    "format": "extxyz",
+    "provenance": "team-synthetic",
+    "license": "AGPL-3.0-only",
+    "transformations": []
+  },
+  "issues": []
+}

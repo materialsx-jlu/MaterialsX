@@ -1,5 +1,17 @@
 [
   {
+    "id": "research-workbench",
+    "labelZh": "研究数据与证据",
+    "labelEn": "Research data & evidence",
+    "skills": [
+      "materials-research-workbench",
+      "materials-tensile-analysis",
+      "materials-next-experiment",
+      "materials-method-packages",
+      "materials-long-compute"
+    ]
+  },
+  {
     "id": "materials-extraction",
     "labelZh": "材料文献抽取",
     "labelEn": "Materials extraction",
@@ -165,6 +177,22 @@
     "skills": [
       "geopandas",
       "geomaster"
+    ]
+  },
+  {
+    "id": "atomistic-mlip",
+    "labelZh": "原子模拟与机器学习势",
+    "labelEn": "Atomistic Simulation & ML Potentials",
+    "skills": [
+      "materials-atomic-structure-inspect",
+      "materials-mlip-selection",
+      "materials-mlip-singlepoint",
+      "materials-mlip-relaxation",
+      "materials-mlip-md",
+      "materials-mlip-comparison",
+      "materials-atomic-3d-view",
+      "materials-skill-creator",
+      "materials-potential-discovery"
     ]
   }
 ]

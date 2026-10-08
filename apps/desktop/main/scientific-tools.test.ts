@@ -1,0 +1,62 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,rm,readFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';
+import {StreamableHTTPClientTransport} from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+import {WorkspaceStore} from './store.js';
+import {ResearchService} from './research-service.js';
+import {scientificFixture} from '../../../tests/fixtures/agent/ua7-source.js';
+import {HostMcp} from '../../../packages/agent/src/host-mcp.js';
+import {PiLocalSessionService} from '../../../packages/pi-adapter/src/local-session.js';
+import {TaskSupervisor} from '../../../packages/agent/src/task-supervisor.js';
+import {directPlan} from '../../../packages/agent/src/research-planning.js';
+import {supervisionStore} from './agent-supervision-store.js';
+import {methodInput,methodToolInput} from '../../../packages/contracts/src/research-methods.js';
+test('omitting the bound question preserves the same observation and atomic hard gates; explicit invalid questions never default',()=>{
+  const sample={id:'s',y:{snapshotId:randomUUID(),observationId:'y'}},q={task:'summarize',samples:[sample]};
+  assert(methodToolInput.safeParse(q).success);assert(!methodInput.safeParse(q).success);
+  for(const input of [{...q,question:''},{...q,question:42},{task:'summarize',samples:[]},
+    {task:'atomistic',samples:[sample]},{...q,samples:[sample,sample]},{...q,extra:true}])assert(!methodToolInput.safeParse(input).success);
+  assert.equal(methodToolInput.parse({...q,question:'Explicit question'}).question,'Explicit question');
+});
+test('UA7 actual MCP client and Pi host share quality/method contracts, grants and true file receipts',async()=>{
+  const temp=await mkdtemp(join(tmpdir(),'ua7-mcp-')),store=new WorkspaceStore(join(temp,'state.sqlite')),p=store.createProject(temp),c=store.createConversation(p.id),run=store.addRun(p.id,'UA7 synthetic','running');
+  const research=new ResearchService(store,{client:null}),source=store.research.saveSnapshot(scientificFixture(p.id)),project=store.research.project(p.id);
+  research.save({...project,revision:2,selected:[source.id]},1);research.begin(run.id,p.id,'Summarize original synthetic observations');
+  const pi=new PiLocalSessionService(process.cwd(),temp,(_path,id)=>research.tools(p.id,id)),client=new Client({name:'ua7-test',version:'1'});
+  let mcp:HostMcp|undefined;
+  try{
+    const task={taskId:run.id,projectId:p.id,conversationId:c.id} as any;
+    const grant={grantId:randomUUID(),projectId:p.id,conversationId:c.id,permissions:['read','science','patch'],approvedBy:'local-user',maxCredits:null,maxSeconds:120} as any;
+    const context={task,grant,methods:pi.toolCapabilities(temp,c.id)};
+    const supervisor=new TaskSupervisor({context,engine:'codex',connectionId:'fixture',accountRef:'local',projectPath:temp,...supervisionStore(store,run.id)});
+    supervisor.acceptPlan(directPlan('Summarize synthetic original source observations',context));
+    const denied=await pi.hostTools(temp,c.id,['read']);assert(!denied.some(t=>['research_methods','research_method_run','research_quality'].includes(t.name)));
+    assert(denied.some(t=>t.name==='method_package_search'));
+    const tools=await pi.hostTools(temp,c.id,grant.permissions),quality=tools.find(t=>t.name==='research_quality')!;
+    assert(!((quality.parameters as any).required??[]).includes('claims'));assert(!((quality.parameters as any).required??[]).includes('snapshotIds'));
+    mcp=new HostMcp({files:[],skills:[]},undefined,{tools,permissions:grant.permissions,signal:new AbortController().signal},supervisor);
+    await mcp.start();await client.connect(new StreamableHTTPClientTransport(new URL(mcp.url),{requestInit:{headers:{Authorization:'Bearer '+mcp.token}}}) as unknown as import('@modelcontextprotocol/sdk/shared/transport.js').Transport);
+    const call=async(name:string,args:Record<string,unknown>)=>{const raw=await client.callTool({name,arguments:args});assert(!raw.isError,JSON.stringify(raw.content));return JSON.parse((raw.content as Array<{text:string}>)[0]!.text);};
+    const packages=await call('method_package_search',{query:'原值'});assert.equal(packages.length,1);assert.equal(packages[0].domainValidated,false);assert.equal(packages[0].manifest.execution.tool,'research_method_run');
+    const checked=await call('research_quality',{});assert.equal(checked.scientificStatus,'needs_review');assert(checked.artifacts.length===2);
+    const listed=await call('research_methods',{action:'list'});assert.equal(listed.length,4);
+    assert.deepEqual(research.scientific.executionCandidates(p.id,run.id),[]);
+    const assessment=await call('research_methods',{action:'assess',input:{task:'summarize',samples:[{id:'s',y:{snapshotId:source.id,observationId:'y'}}]}});
+    assert.equal(assessment.request.question,'Summarize synthetic original source observations');
+    const hints=research.scientific.executionCandidates(p.id,run.id);assert.equal(hints.length,1);assert.equal(hints[0]!.arguments.assessmentId,assessment.id);assert.equal(hints[0]!.arguments.methodId,'descriptive-summary');assert.equal(JSON.parse(research.context(run.id)!.guidance).pendingMethodRuns[0].arguments.assessmentId,assessment.id);assert.equal(research.scientific.overview(p.id).analyses.length,0);assert.deepEqual(research.scientific.executionCandidates(store.createProject(join(temp,'other')).id,run.id),[]);
+    const result=await call('research_method_run',{reason:'One uniquely eligible source summary; no invented uncertainty'});
+    assert.deepEqual(research.scientific.executionCandidates(p.id,run.id),[]);assert.equal(result.result.mean,3);assert.equal(result.result.sampleSd,null);assert((await readFile(join(temp,result.artifacts[1].path),'utf8')).includes('needs_review'));
+    await research.scientific.verifyTaskArtifacts(run.id);
+    assert.equal(result.methodPackage.id,'source-summary');assert(result.referenceReceipt);
+    assert.equal(supervisor.snapshot().attempts.length,5);assert(supervisor.snapshot().attempts.every(a=>a.state==='completed'&&a.resultRef));
+    const wrong=await client.callTool({name:'research_method_run',arguments:{assessmentId:assessment.id,methodId:'linear-fit',reason:'Cannot switch to an excluded method'}});assert(wrong.isError);
+    await call('research_methods',{action:'assess',input:{task:'summarize',question:'Next owned assessment',samples:[{id:'s',y:{snapshotId:source.id,observationId:'y'}}]}});assert.equal(research.scientific.executionCandidates(p.id,run.id).length,1);
+    const unknown=await client.callTool({name:'research_method_run',arguments:{assessmentId:randomUUID(),reason:'Unknown explicit ID must never fall back'}});assert(unknown.isError);
+    await call('research_methods',{action:'assess',input:{task:'summarize',question:'Another owned assessment',samples:[{id:'s',y:{snapshotId:source.id,observationId:'y'}}]}});const ambiguous=await client.callTool({name:'research_method_run',arguments:{reason:'An ambiguous choice must not execute'}});assert(ambiguous.isError);assert.equal(research.scientific.overview(p.id).analyses.length,1);
+    store.research.saveSourceNotice({id:randomUUID(),projectId:p.id,snapshotId:source.id,kind:'access-denied',reason:'Synthetic permission withdrawal',replacementSnapshotId:null,at:new Date().toISOString(),origin:'user'});assert.deepEqual(research.scientific.executionCandidates(p.id,run.id),[]);
+  }finally{await client.close();await mcp?.close();pi.dispose();await research.close();store.close();await rm(temp,{recursive:true,force:true});}
+});

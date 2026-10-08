@@ -1,0 +1,51 @@
+{
+  "stage": "M6.15",
+  "passed": true,
+  "scope": "First audited pure-Si MACE-MP-0b3 + two-body PBE-D3(BJ) composition workflow; macOS arm64 CPU SP/fixed FIRE only",
+  "catalogResources": 176,
+  "trainedCheckpoints": 22,
+  "integratedCalculators": 9,
+  "defaultSkills": 93,
+  "tests": {
+    "total": 169,
+    "passed": 168,
+    "failed": 0,
+    "existingSkipped": 1
+  },
+  "typeCheck": true,
+  "build": true,
+  "frozenContractsChecked": [
+    "M6.0 audit",
+    "M6.7 audit",
+    "M6.8/M6.9",
+    "M6.10",
+    "M6.11",
+    "M6.12",
+    "M6.13",
+    "M6.14",
+    "M6.15"
+  ],
+  "regressions": [
+    "six prior crystal interfaces + FIRE/MD/receipts",
+    "ANI molecular SP/FIRE",
+    "native silicon NEP SP/FIRE"
+  ],
+  "teamSkills": {
+    "passed": 11,
+    "total": 11
+  },
+  "offlineFilesVerified": 121881,
+  "evidenceSha256": {
+    "m615-composed-cpu.json": "9f2aa8fd7b073d32fdcc45af8f0ddf93d6958e54ff274fa98cb8450d5321c023",
+    "m615-composition-consistency.json": "1491c793208fd10ec432e48e5f2e4967ece00337619e03588b53eeca3d83b268",
+    "m615-ui.json": "46e7611b1b01ac052b53d1dabd6922e52cd5a32642a046af018844e137b597fa",
+    "m615-offline-resources.json": "b2bd21b3a205d81d06143fb1f6f86d22bb7673514bf79d0b12ace5dc35832de9"
+  },
+  "independentDFTAccuracyValidated": false,
+  "fullInstallerTested": false,
+  "windowsOrGPUValidated": false,
+  "weightsDownloaded": 0,
+  "newPythonEnvironment": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0
+}

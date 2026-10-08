@@ -1,0 +1,20 @@
+{
+  "stage": "M6.13",
+  "passed": true,
+  "nativeElectron": true,
+  "platform": "macos-arm64",
+  "defaultSkills": 93,
+  "bilingualUI": true,
+  "globalThemes": [
+    "materials-dark",
+    "codex-light"
+  ],
+  "electronicStateAnnotation": true,
+  "realMolecularSinglepoint": true,
+  "realMolecularFIRE": true,
+  "nullStress": true,
+  "actual3DAndComparison": true,
+  "longRangeExclusion": true,
+  "modelAPICalls": 0,
+  "paymentCalls": 0
+}

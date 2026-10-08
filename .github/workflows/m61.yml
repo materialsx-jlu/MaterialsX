@@ -1,0 +1,88 @@
+name: M6 real CPU runtimes and local 3D
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ["atomistic/**", "packages/atomistic/**", "packages/contracts/src/atomistic*", "packages/contracts/src/atomic-viewer.ts", "apps/desktop/renderer/**", "apps/desktop/m62-ui-smoke.cjs", "apps/desktop/m63-ui-smoke.cjs", "scripts/m62*", "scripts/m63*", "scripts/m64*", "scripts/m65*", "apps/desktop/m65*.cjs", "schemas/m65/**", "apps/desktop/m64-ui-smoke.cjs", "apps/desktop/m64-cloud-smoke.cjs", "packages/pi-adapter/src/science-bridge*", "packages/pi-adapter/src/platform-session*", "skills/**", "vendor/materialsx-default-skills/**", "schemas/m64/**", "services/control-plane/internal/gateway/**", "services/control-plane/cmd/sciencecheck/**", "apps/desktop/main/**", "apps/desktop/preload/**", "packages/contracts/src/desktop.ts", "packages/pi-adapter/src/atomistic*", "schemas/m63/**", "package.json", "package-lock.json", "scripts/*atomistic*", "scripts/m61*", ".github/workflows/m61.yml"]
+jobs:
+  cpu:
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.7"
+          cache-dependency-path: services/control-plane/go.sum
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.30"
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
+      - run: npm ci
+      - name: Build standalone, isolated CPU environments from frozen source/wheel locks
+        run: npm run m6:runtime
+      - run: npm run check
+      - run: npm run m6:contracts:check
+      - run: npm run m6:audit
+      - run: npm run m61:contracts:check
+      - run: npm run m62:contracts:check
+      - run: npm run m63:contracts:check
+      - run: npm run m64:contracts:check
+      - run: npm run m65:contracts:check
+      - run: node --import tsx --test packages/atomistic/src/*.test.ts
+      - name: Two real checkpoint calculations, numerical probes, cancellation and persistence
+        run: npm run m6:runtime:test
+      - name: Real FIRE relaxations, explicit cell pressure, checkpoints and integrity
+        run: npm run m6:relaxation:test
+      - name: Real selection gates, scoped Pi streaming, Go wire validation and CPU inference
+        run: npm run m6:selection:test
+      - name: Real NVE/NVT, hashed lazy trajectories, drift, resource limits and recovery
+        run: npm run m6:md:test
+      - name: Real molecular trajectory playback, export, model curves and lifecycle
+        run: npm run m6:ui:md
+      - name: Real Skills/category/selection/consent-scope desktop
+        run: npm run m6:ui:selection
+      - name: Native science consent and real isolated identity/gateway database (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install postgresql@16
+          echo "MATERIALSX_POSTGRES_BIN=$(brew --prefix postgresql@16)/bin" >> "$GITHUB_ENV"
+          MATERIALSX_POSTGRES_BIN="$(brew --prefix postgresql@16)/bin" npm run m6:cloud:selection
+          MATERIALSX_POSTGRES_BIN="$(brew --prefix postgresql@16)/bin" npm run m6:cloud:md
+      - name: Relocated standalone Python and runtime footprint
+        run: npm run m6:runtime:portability
+      - name: Actual structure parsers
+        shell: pwsh
+        run: |
+          if ($IsWindows) { & "runtime/atomistic/windows-x64/chgnet/python.exe" -m pytest atomistic/tests -q }
+          else { & "runtime/atomistic/macos-arm64/chgnet/bin/python3.12" -m pytest atomistic/tests -q }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Actual local 3D desktop, measurements, exports and artifact force coloring
+        run: npm run m6:ui:viewer
+      - name: Actual relaxation desktop, synchronized comparison, displacement and final exports
+        run: npm run m6:ui:relaxation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m61-cpu-${{ matrix.os }}
+          path: |
+            runtime/m6/acceptance/*.json
+            runtime/m6/acceptance/m63/**
+            runtime/m6/acceptance/m64/**
+            runtime/m6/acceptance/m65/**
+            runtime/m6/ui/m65/**
+            runtime/m6/ui/m64/**
+            runtime/m6/ui/viewer-*.json
+            runtime/m6/ui/viewer-*.png
+            runtime/m6/ui/relaxation-*.json
+            runtime/m6/ui/relaxation-*.png
+            runtime/atomistic/**/RUNTIME.json
+            runtime/atomistic/**/licenses/dependencies/inventory.json

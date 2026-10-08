@@ -1,0 +1,103 @@
+{
+  "stage": "M6.6",
+  "date": "2026-10-02",
+  "platform": "darwin-arm64",
+  "engineeringPassed": true,
+  "fullScientificAndDualPlatformReleaseAccepted": false,
+  "scientificQuality": "needs_review",
+  "productionApproved": false,
+  "checks": {
+    "typescriptAndVue": "passed",
+    "typescriptTests": {
+      "total": 126,
+      "passed": 125,
+      "failed": 0,
+      "skipped": 1,
+      "skip": "existing opt-in PostgreSQL unit test; actual isolated PostgreSQL/PKCE/gateway/MD regression passed separately"
+    },
+    "goTests": "passed",
+    "fullBuild": "passed; existing 3Dmol eval/bundle-size warnings",
+    "contractsM60ThroughM66": "passed",
+    "pythonAtomisticTests": 34,
+    "pythonSampleTests": 9,
+    "curatedSkillAcceptance": {
+      "passed": 9,
+      "total": 9
+    },
+    "extensionPackageFaultTests": "passed; HTTP fixtures, exact bytes/hash, unsafe directory and pause/Range",
+    "realR2scanSinglepointMDNumericalProbes": "passed; not independent DFT accuracy",
+    "realHoldoutPredictionReportCancellationRestore": "passed; synthetic data blocked",
+    "actualElectronValidation": "passed",
+    "actualDualCoreMDRegression": "passed",
+    "actualPKCEPostgresGatewayMDRegression": "passed; synthetic supplier",
+    "actualUnpackedMacOfflinePackage": "passed; three real main/preload IPC calculations; core OS network denial",
+    "actualPackagedSkills": {
+      "skills": 91,
+      "models": 100,
+      "runtime": "pass"
+    },
+    "portableRuntimeReuse": "passed; no large environment rebuilt",
+    "publicSecretScan": "passed for current public candidates/Git index; no Git history scan"
+  },
+  "defaultSkills": 91,
+  "categories": 13,
+  "frozenM60FilesUnchanged": 43,
+  "originalCuratedFilesUnchanged": 75,
+  "offlineManifest": {
+    "filesVerified": 59524,
+    "sha256": "782da517a7f1eaad7b9db88b580b8c225c240a0ff898c69ddb680322642b765a",
+    "expandedRuntimeBytes": 1666682698,
+    "coreWeightsBytes": 84336173
+  },
+  "testedApplicationAsarSha256": "b605772f2e89c04d06e62a201abc5d84ec1f400c6cfee596213c569d3026f656",
+  "performance": {
+    "stage": "M6.6",
+    "passed": true,
+    "actualDesktop": true,
+    "extensionOfflineImport": true,
+    "disablePreservesFiles": true,
+    "realEvaluationCpuPrediction": true,
+    "syntheticReportBlocked": true,
+    "reportExport": true,
+    "sharedThemes": true,
+    "actualStaticAtoms": 2000,
+    "firstFrameMs": 261,
+    "rotationRafFps": 119.47806948592991,
+    "rotationPixelsChanged": true,
+    "sceneRenderCalls": 103,
+    "sceneRenderFps": 54.02570154733805,
+    "staticThirtyFpsTargetMet": true,
+    "performanceScope": "Native 2000-atom rotation with real WebGL clearColor calls (one per scene render in pinned 3Dmol renderer), canvas pixel change and rAF cadence; not GPU presentation latency or simultaneous visible composer latency",
+    "scientificQuality": "needs_review",
+    "independentDftHoldoutAvailable": false,
+    "realProviderCalls": 0,
+    "paymentCalls": 0
+  },
+  "newWeightBytes": 4872387,
+  "newLargePythonEnvironments": false,
+  "testApplicationApproxGiB": 2.5,
+  "signedRelease": false,
+  "fullInstallerTested": false,
+  "windowsActualMachineTested": false,
+  "ciConfigured": true,
+  "ciExecuted": false,
+  "realProviderCalls": 0,
+  "paymentCalls": 0,
+  "existingAccountDatabasesModified": false,
+  "releasePublished": false,
+  "limits": [
+    "Independent licensed, overlap-reviewed, theory/energy-reference-matched DFT holdout unavailable",
+    "No task/domain production approval, including relaxation, MD, surfaces, molecules and polymers",
+    "Windows actual offline new installation, DMG/NSIS installer low-space tests and signing/notarization pending",
+    "2000-atom scene-render cadence is not GPU presentation latency or simultaneous visible composer input latency",
+    "HTTP fault fixtures do not establish live upstream Range support; ENOSPC is injected, not a filled user disk"
+  ],
+  "receipts": [
+    "validation-runtime.json",
+    "validation-numerical.json",
+    "validation-ui.json",
+    "validation-offline-package.json",
+    "validation-md-regression.json",
+    "validation-md-cloud-regression.json"
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "m6.0-v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "structureSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "potentialId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "environmentProfileId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "device": {
+      "type": "string",
+      "enum": [
+        "cpu",
+        "cuda",
+        "mps"
+      ]
+    },
+    "dtype": {
+      "type": "string",
+      "enum": [
+        "float32",
+        "float64"
+      ]
+    },
+    "head": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "task": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "singlepoint"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "relaxation"
+            },
+            "optimizer": {
+              "type": "string",
+              "const": "FIRE"
+            },
+            "cellMode": {
+              "type": "string",
+              "enum": [
+                "fixed",
+                "variable"
+              ]
+            },
+            "maxSteps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500
+            },
+            "fmaxEvPerAngstrom": {
+              "type": "number",
+              "minimum": 0.001,
+              "maximum": 0.2
+            },
+            "externalPressureGPa": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": -10,
+                  "maximum": 10
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "optimizer",
+            "cellMode",
+            "maxSteps",
+            "fmaxEvPerAngstrom",
+            "externalPressureGPa"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "const": "md"
+            },
+            "ensemble": {
+              "type": "string",
+              "enum": [
+                "nve",
+                "nvt"
+              ]
+            },
+            "steps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "timestepFs": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 1
+            },
+            "temperatureK": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "sampleEvery": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          },
+          "required": [
+            "kind",
+            "ensemble",
+            "steps",
+            "timestepFs",
+            "temperatureK",
+            "sampleEvery",
+            "seed"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "maxAtoms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "maxWallSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1800
+        },
+        "maxMemoryMiB": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 8192
+        },
+        "maxOutputMiB": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        },
+        "threads": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        }
+      },
+      "required": [
+        "maxAtoms",
+        "maxSteps",
+        "maxWallSeconds",
+        "maxMemoryMiB",
+        "maxOutputMiB",
+        "threads"
+      ],
+      "additionalProperties": false
+    },
+    "qualityPolicyId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "selectionEvidenceIds": {
+      "minItems": 1,
+      "maxItems": 20,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "projectId",
+    "structureId",
+    "structureSha256",
+    "potentialId",
+    "potentialSha256",
+    "environmentProfileId",
+    "device",
+    "dtype",
+    "head",
+    "task",
+    "budget",
+    "qualityPolicyId",
+    "selectionEvidenceIds"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.0-v1/AtomisticPlan.json",
+  "x-contract-version": "m6.0-v1",
+  "x-runtime-refinements": "packages/contracts/src/atomistic.ts refinements are mandatory; JSON Schema alone is insufficient. Authorization, realpath, file hash and resource checks belong to the local executor."
+}

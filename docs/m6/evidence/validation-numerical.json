@@ -1,0 +1,325 @@
+{
+  "version": "m6.1-v1",
+  "createdAt": "2026-10-02T03:09:53Z",
+  "platform": "Darwin-arm64",
+  "potentialId": "chgnet-r2scan",
+  "weightSha256": "8eba3db0f35a2788bb3ae22885ad340591e27996f213c6643af522a633b50dad",
+  "device": "cpu",
+  "dtype": "float32",
+  "versions": {
+    "python": "3.12.10",
+    "torch": "2.8.0",
+    "numpy": "2.2.6",
+    "ase": "3.26.0",
+    "pymatgen": "2026.5.4",
+    "pymatgen-core": "2026.7.16",
+    "chgnet": "0.4.1",
+    "psutil": "7.0.0"
+  },
+  "elements": [
+    "H",
+    "He",
+    "Li",
+    "Be",
+    "B",
+    "C",
+    "N",
+    "O",
+    "F",
+    "Ne",
+    "Na",
+    "Mg",
+    "Al",
+    "Si",
+    "P",
+    "S",
+    "Cl",
+    "Ar",
+    "K",
+    "Ca",
+    "Sc",
+    "Ti",
+    "V",
+    "Cr",
+    "Mn",
+    "Fe",
+    "Co",
+    "Ni",
+    "Cu",
+    "Zn",
+    "Ga",
+    "Ge",
+    "As",
+    "Se",
+    "Br",
+    "Kr",
+    "Rb",
+    "Sr",
+    "Y",
+    "Zr",
+    "Nb",
+    "Mo",
+    "Tc",
+    "Ru",
+    "Rh",
+    "Pd",
+    "Ag",
+    "Cd",
+    "In",
+    "Sn",
+    "Sb",
+    "Te",
+    "I",
+    "Xe",
+    "Cs",
+    "Ba",
+    "La",
+    "Ce",
+    "Pr",
+    "Nd",
+    "Pm",
+    "Sm",
+    "Eu",
+    "Gd",
+    "Tb",
+    "Dy",
+    "Ho",
+    "Er",
+    "Tm",
+    "Yb",
+    "Lu",
+    "Hf",
+    "Ta",
+    "W",
+    "Re",
+    "Os",
+    "Ir",
+    "Pt",
+    "Au",
+    "Hg",
+    "Tl",
+    "Pb",
+    "Bi",
+    "Po",
+    "At",
+    "Rn",
+    "Fr",
+    "Ra",
+    "Ac",
+    "Th",
+    "Pa",
+    "U",
+    "Np",
+    "Pu"
+  ],
+  "adapter": {
+    "nativeEnergy": "eV/atom",
+    "nativeStress": "GPa",
+    "stressFactor": 0.006241509074460762,
+    "graphConverter": "legacy-python"
+  },
+  "policyId": "m6-inorganic-screening-v1",
+  "policySha256": "0fce9e8bfee064ab10f567433d27b0e9bcea000bf9ca3ed7671ff41ebfdb864b",
+  "tests": [
+    {
+      "source": "si-diamond.POSCAR",
+      "sourceSha256": "6e5be3cfe63c70a5567592d4ae6e207d5213ac57625faf864b57261bcce96812",
+      "atomCount": 8,
+      "metrics": {
+        "gradientMaxAbsErrorEvPerAngstrom": 0.0018901824951171875,
+        "translationEnergyErrorEvPerAtom": 0.0,
+        "rotationEnergyErrorEvPerAtom": 0.0,
+        "translationForceErrorEvPerAngstrom": 7.264316082000732e-06,
+        "rotationForceErrorEvPerAngstrom": 6.433282269166507e-06,
+        "stressFiniteDifferenceErrorEvPerAngstromCubed": 1.557824019788722e-06,
+        "maxForceEvPerAngstrom": 0.7462065181732447
+      },
+      "passed": true,
+      "result": {
+        "energyEv": -69.82841491699219,
+        "forcesEvPerAngstrom": [
+          [
+            -0.5519328117370605,
+            0.30035656690597534,
+            -0.4024677276611328
+          ],
+          [
+            -0.06895444542169571,
+            -0.04517718032002449,
+            0.052874162793159485
+          ],
+          [
+            0.06099381297826767,
+            0.04892103746533394,
+            0.05359495431184769
+          ],
+          [
+            0.06304535269737244,
+            -0.04172813147306442,
+            -0.06405018270015717
+          ],
+          [
+            0.14156371355056763,
+            0.05533095449209213,
+            0.12251794338226318
+          ],
+          [
+            0.1135137677192688,
+            -0.08563889563083649,
+            -0.02204291895031929
+          ],
+          [
+            0.21046419441699982,
+            -0.1902511715888977,
+            0.19960863888263702
+          ],
+          [
+            0.03130634129047394,
+            -0.04181322827935219,
+            0.0599650964140892
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            -0.003191195661202073,
+            -0.0032111629843711853,
+            -0.0032401832286268473,
+            -0.0026269592344760895,
+            0.0016047636745497584,
+            -0.001876400550827384
+          ]
+        }
+      }
+    },
+    {
+      "source": "nacl-rocksalt.cif",
+      "sourceSha256": "8c6d410fa4038801b2552122582c6ce4643a4c8d345578a50003e4f2269f8dd4",
+      "atomCount": 8,
+      "metrics": {
+        "gradientMaxAbsErrorEvPerAngstrom": 0.0016864687204360962,
+        "translationEnergyErrorEvPerAtom": 4.76837158203125e-07,
+        "rotationEnergyErrorEvPerAtom": 4.76837158203125e-07,
+        "translationForceErrorEvPerAngstrom": 1.4225952327251434e-06,
+        "rotationForceErrorEvPerAngstrom": 7.005489728040271e-07,
+        "stressFiniteDifferenceErrorEvPerAngstromCubed": 2.613497697292501e-06,
+        "maxForceEvPerAngstrom": 0.10385357450665621
+      },
+      "passed": true,
+      "result": {
+        "energyEv": -54.944664001464844,
+        "forcesEvPerAngstrom": [
+          [
+            -0.0741657167673111,
+            0.04053478315472603,
+            -0.0603485107421875
+          ],
+          [
+            -0.0032304199412465096,
+            -0.0040964726358652115,
+            0.005592925474047661
+          ],
+          [
+            0.007091686129570007,
+            0.0018198725301772356,
+            0.00552356755360961
+          ],
+          [
+            0.007143995724618435,
+            -0.004038288723677397,
+            -0.00252525694668293
+          ],
+          [
+            -0.002253243001177907,
+            0.001182379201054573,
+            -0.001748888986185193
+          ],
+          [
+            0.05382247269153595,
+            -0.003162818495184183,
+            0.0043796757236123085
+          ],
+          [
+            0.005894764326512814,
+            -0.02897249348461628,
+            0.0046681249514222145
+          ],
+          [
+            0.0056964680552482605,
+            -0.0032669547945261,
+            0.04445832967758179
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            0.0026817405596375465,
+            0.0028188724536448717,
+            0.0027425496373325586,
+            -1.7473164916737005e-05,
+            3.499835293041542e-05,
+            -2.409928129054606e-05
+          ]
+        }
+      }
+    },
+    {
+      "source": "cu-vacancy.POSCAR",
+      "sourceSha256": "85c46f47203f72d4afeb4f80f75a2a392c93c6181b84fa28dfa9ce170f10ce4e",
+      "atomCount": 3,
+      "metrics": {
+        "gradientMaxAbsErrorEvPerAngstrom": 0.0004104524850845337,
+        "translationEnergyErrorEvPerAtom": 0.0,
+        "rotationEnergyErrorEvPerAtom": 0.0,
+        "translationForceErrorEvPerAngstrom": 1.7434358596801758e-06,
+        "rotationForceErrorEvPerAngstrom": 9.70519668713754e-07,
+        "stressFiniteDifferenceErrorEvPerAngstromCubed": 2.0258171380682644e-06,
+        "maxForceEvPerAngstrom": 0.40459440753615944
+      },
+      "passed": true,
+      "result": {
+        "energyEv": -31.318477630615234,
+        "forcesEvPerAngstrom": [
+          [
+            -0.22180457413196564,
+            0.12152709066867828,
+            -0.3158014118671417
+          ],
+          [
+            0.015172615647315979,
+            -0.11439654231071472,
+            0.152618870139122
+          ],
+          [
+            0.20663194358348846,
+            -0.007130563259124756,
+            0.1631825566291809
+          ]
+        ],
+        "stress": {
+          "unit": "eV/angstrom^3",
+          "sign": "positive-tension",
+          "order": "xx,yy,zz,yz,xz,xy",
+          "values": [
+            0.0844719260931015,
+            0.08495613187551498,
+            0.08369452506303787,
+            0.0007511738804168999,
+            -0.0010229734471067786,
+            -0.00018458918202668428
+          ]
+        }
+      }
+    }
+  ],
+  "numericalPassed": true,
+  "scientificQuality": "needs_review",
+  "referenceLabels": 0,
+  "stressProbeToleranceEvPerAngstromCubed": 0.001,
+  "elapsedSeconds": 0.4418195830658078,
+  "rssMiB": 390.765625
+}

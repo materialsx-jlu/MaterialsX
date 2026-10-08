@@ -52,7 +52,8 @@ PATTERNS = {
 def forbidden(path):
     name = Path(path).name
     return ((name == ".env" or name.startswith(".env.")) and name != ".env.example"
-            or Path(path).suffix.lower() in {".p12", ".pfx", ".key", ".pem", ".sqlite", ".sqlite3", ".db"}
+            or Path(path).suffix.lower() in {".p12", ".pfx", ".key", ".pem", ".sqlite", ".sqlite3", ".db", ".dump", ".backup"}
+            or name == "platform-session.bin" or name.startswith("platform-session.bin.")
             or "materials-output" in Path(path).parts)
 
 

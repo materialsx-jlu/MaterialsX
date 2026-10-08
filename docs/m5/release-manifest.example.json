@@ -1,0 +1,24 @@
+{
+  "id": "0.0.1-beta.1",
+  "channel": "beta",
+  "tag": "v0.0.1-beta.1",
+  "commit": "0000000000000000000000000000000000000000",
+  "sourceUrl": "https://github.com/materialsx-jlu/MaterialsX/tree/0000000000000000000000000000000000000000",
+  "minimumProtocol": "m5.6-v1",
+  "databaseMigration": "010_email_serialization.sql",
+  "notesZh": "占位示例：替换成真实版本说明。未签名测试版不能作为 stable 发布。",
+  "notesEn": "Placeholder: replace with actual release notes. Unsigned test builds are not stable releases.",
+  "skillsSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "modelsSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "assets": [
+    {
+      "os": "macos",
+      "arch": "arm64",
+      "name": "MaterialsX-0.0.1-beta.1-mac-arm64.dmg",
+      "sizeBytes": "1",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "downloadUrl": "https://github.com/materialsx-jlu/MaterialsX/releases/download/v0.0.1-beta.1/MaterialsX-0.0.1-beta.1-mac-arm64.dmg",
+      "signature": "unsigned"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "m5.0-v1",
+  "generatedAt": "2026-10-01T03:37:59Z",
+  "environment": "no-network",
+  "provider": "rootflowai",
+  "model": "gpt-5.6",
+  "protocol": "responses",
+  "status": "blocked",
+  "protocolDecision": "pending_real_verification",
+  "budgetFen": "3000",
+  "reservedUpperFen": "0",
+  "generationCalls": 0,
+  "checks": [
+    {
+      "id": "credential",
+      "status": "blocked",
+      "reason": "server_credential_missing"
+    },
+    {
+      "id": "price",
+      "status": "blocked",
+      "reason": "account_specific_effective_price_unconfirmed"
+    }
+  ],
+  "unverified": [
+    "account_price_and_group",
+    "model_origin",
+    "context_window",
+    "cache_write_billing",
+    "upstream_cancellation",
+    "provider_log_reconciliation",
+    "commercial_data_terms",
+    "live_pi_agent"
+  ]
+}

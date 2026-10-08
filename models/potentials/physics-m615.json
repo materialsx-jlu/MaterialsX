@@ -1,0 +1,284 @@
+{
+  "version": "m6.15-v1",
+  "entry": {
+    "potentialId": "mace-mp-0b3-medium-d3-bj-pbe-si",
+    "family": "mace",
+    "adapter": "mace-ase",
+    "basePotentialId": "mace-mp-0b3-medium",
+    "environmentProfileId": "mace-mp0b3-d3bj-si-cpu-v1",
+    "dependencyLockSha256": "941774c09a1341eab3a38a5d6de0d7673f6a1aa7e26fe30c3c7cf78b9f21e419",
+    "sourceRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+    "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0b3/mace-mp-0b3-medium.model",
+    "sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+    "bytes": 79472952,
+    "license": "MIT",
+    "notices": [
+      {
+        "path": "docs/m6/licenses/mace-LICENSE.txt",
+        "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+      },
+      {
+        "path": "docs/m6/licenses/mace-foundations-LICENSE.txt",
+        "sha256": "31ea0ccf7bc19797081bff51c7eff3a3927c8cb6c1d7a726dec3d157b436da1c"
+      },
+      {
+        "path": "docs/m6/licenses/nep-cpu-LICENSE.txt",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      }
+    ],
+    "reviewedAt": "2026-10-02T00:00:00.000Z",
+    "elements": [
+      "Si"
+    ],
+    "loadedMemoryMiB": 1200,
+    "dtype": "float64"
+  },
+  "potential": {
+    "schemaVersion": "m6.0-v1",
+    "id": "mace-mp-0b3-medium-d3-bj-pbe-si",
+    "name": "MACE-MP-0b3 + PBE-D3(BJ) · Si CPU",
+    "family": "MACE",
+    "checkpoint": "Shared MACE-MP-0b3 checkpoint + analytic D3(BJ) profile (not a newly trained model)",
+    "role": "extension-candidate",
+    "source": {
+      "id": "mace-foundations-README-md",
+      "url": "https://github.com/ACEsuit/mace-foundations/blob/16a9f178706ce053f3ca8531efbab00a305d0854/README.md",
+      "revision": "16a9f178706ce053f3ca8531efbab00a305d0854",
+      "path": "README.md",
+      "sha256": "3981e18e5b2d83bd6223ffc0724a261c638a9a0c812eddad91645821c91a3a12"
+    },
+    "evidence": [
+      {
+        "id": "mace-LICENSE-md",
+        "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/LICENSE.md",
+        "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "path": "LICENSE.md",
+        "sha256": "42137790f854ae2b9d29a0a72a4da3f6fb9a21d820b3f276f23b0575af72e86e"
+      },
+      {
+        "id": "mace-mace-calculators-foundations_models-py",
+        "url": "https://github.com/ACEsuit/mace/blob/726ecec6f3f739786664cf35d6622465fc926170/mace/calculators/foundations_models.py",
+        "revision": "726ecec6f3f739786664cf35d6622465fc926170",
+        "path": "mace/calculators/foundations_models.py",
+        "sha256": "9991e6c6b36ace2a64e7f33f1c788751493b80a9f8ce7111d1d911b1fa291a1d"
+      },
+      {
+        "id": "nep-d3-source",
+        "url": "https://github.com/brucefan1983/NEP_CPU/blob/43b2ee64dd03e7e880cd343582b0de31b715c222/LICENSE",
+        "revision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+        "path": "docs/m6/licenses/nep-cpu-LICENSE.txt",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      }
+    ],
+    "citation": "https://arxiv.org/abs/2401.00096",
+    "weights": {
+      "url": "https://github.com/ACEsuit/mace-foundations/releases/download/mace_mp_0b3/mace-mp-0b3-medium.model",
+      "revision": "release:mace_mp_0b3/asset:213936922",
+      "sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+      "bytes": 79472952,
+      "verification": "download-hashed"
+    },
+    "licenses": {
+      "code": {
+        "expression": "MIT AND GPL-3.0-or-later",
+        "evidenceIds": [
+          "mace-LICENSE-md",
+          "nep-d3-source"
+        ],
+        "status": "documented"
+      },
+      "weights": {
+        "expression": "MIT",
+        "evidenceIds": [
+          "mace-foundations-README-md"
+        ],
+        "status": "documented"
+      },
+      "trainingData": {
+        "expression": "unknown",
+        "evidenceIds": [],
+        "status": "unknown"
+      },
+      "redistribution": "permitted-with-notices"
+    },
+    "declared": {
+      "energy": "yes",
+      "forces": "yes",
+      "stress": "yes",
+      "conservative": "yes",
+      "elements": [
+        "Si"
+      ],
+      "periodicity": [
+        "bulk"
+      ],
+      "domains": [
+        "inorganic-crystals"
+      ],
+      "heads": [],
+      "chargeInput": "unsupported",
+      "spinInput": "unsupported",
+      "nativeUnits": {
+        "energy": "unknown",
+        "forces": "unknown",
+        "stress": "unknown",
+        "stressConvention": "unknown: verify adapter sign and Voigt ordering before execution"
+      },
+      "temperatureRangeK": null,
+      "pressureRangeGPa": null,
+      "evidenceIds": [
+        "mace-foundations-README-md"
+      ],
+      "headPolicy": "single"
+    },
+    "energyReference": {
+      "functional": "PBE baseline + two-body PBE-D3(BJ); pure Si only",
+      "dataset": "MPTrj",
+      "convention": "Total = baseline + correction; same-structure components aligned; no cross-model total-energy ranking"
+    },
+    "environment": {
+      "adapter": "mace-ase",
+      "profileId": "mace-mp0b3-d3bj-si-cpu-v1",
+      "codeRevision": "726ecec6f3f739786664cf35d6622465fc926170",
+      "diskEstimateMiB": 2,
+      "memoryEstimateMiB": 1200,
+      "matrix": [
+        {
+          "platform": "macos-arm64",
+          "device": "cpu",
+          "status": "verified",
+          "evidenceId": "m615-composed-cpu"
+        },
+        {
+          "platform": "windows-x64",
+          "device": "cpu",
+          "status": "not-tested",
+          "evidenceId": null
+        }
+      ]
+    },
+    "state": "audited",
+    "installation": "absent",
+    "runtimeEvidenceIds": [
+      "m615-composed-cpu"
+    ],
+    "taskEvidenceIds": [],
+    "description": {
+      "zh": "复用 MACE-MP-0b3 基线，加固定 PBE-D3(BJ) 两体色散。仅纯硅周期 CPU 单点/固定 FIRE；分项报告，不含 ATM 或长程静电。组合配置，不是新训练模型。",
+      "en": "Shared MACE-MP-0b3 baseline plus fixed two-body PBE-D3(BJ). Pure-Si periodic CPU single points/fixed FIRE with component reports; no ATM/electrostatics. Composition profile, not a new trained model."
+    },
+    "examples": [
+      {
+        "zh": "对 si-diamond 使用 MACE+D3(BJ) 探索单点，分开报告基线、色散修正和总能量/力/应力，并显示3D。",
+        "en": "Run MACE+D3(BJ) on si-diamond; separate baseline, correction and total energy/forces/stress, with 3D."
+      },
+      {
+        "zh": "对扰动纯硅周期结构进行 MACE+D3 固定晶胞 FIRE，100步、fmax 0.05 eV/Å；输出真实收敛及分项报告，不加第二个D3。",
+        "en": "Relax perturbed pure Si using fixed-cell MACE+D3 FIRE, 100 steps at 0.05 eV/Å; show actual convergence and components without adding a second D3."
+      }
+    ],
+    "limitations": [
+      {
+        "zh": "最多128原子，晶胞最小奇异值≥4 Å、体积/原子≥5 Å³、周期最小原子间距≥2.3 Å；仅探索。截断10/5 Å、未含ATM；不代表完整无限长程或DFT精度。",
+        "en": "At most 128 atoms; minimum cell singular value >=4 Å, volume/atom >=5 Å³, periodic distance >=2.3 Å. Exploratory; cutoffs 10/5 Å, no ATM. Not infinite-range or validated DFT accuracy."
+      },
+      {
+        "zh": "仅审核固定未附加色散的MACE基线；拒绝任意基线、重复色散、变胞、MD、长程静电、电场、自旋及Δ-learning。",
+        "en": "Only the fixed baseline without added dispersion is reviewed; arbitrary baselines, duplicate dispersion, variable cell, MD, electrostatics, fields, spin and delta learning are blocked."
+      }
+    ],
+    "relatedCatalogIds": [
+      "mace-mp-0b3-medium",
+      "hub-nep"
+    ]
+  },
+  "profile": {
+    "version": "m6.15-v1",
+    "id": "mace-mp-0b3-medium-d3-bj-pbe-si",
+    "operator": "sum",
+    "baseline": {
+      "id": "mace-mp-0b3-medium",
+      "weightSha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+      "reference": "PBE+U; pure Si has no Hubbard U",
+      "dispersion": "not-added"
+    },
+    "correction": {
+      "kind": "d3-bj-two-body",
+      "functional": "pbe",
+      "s6": 1,
+      "s8": 0.7875,
+      "a1": 0.4289,
+      "a2Bohr": 4.4407,
+      "potentialCutoffAngstrom": 10,
+      "coordinationCutoffAngstrom": 5,
+      "atm": false,
+      "electrostatics": false
+    },
+    "scope": {
+      "elements": [
+        "Si"
+      ],
+      "maxAtoms": 128,
+      "minimumCellSingularValueAngstrom": 4,
+      "minimumVolumePerAtomAngstrom3": 5,
+      "minimumDistanceAngstrom": 2.3,
+      "tasks": [
+        "singlepoint",
+        "relaxation"
+      ],
+      "cell": "fixed",
+      "mode": "exploratory"
+    }
+  },
+  "profileSha256": "5ecdb5c367e9bc1e81254238b2a62c0d33754fb350bac5722b69b76a25ffb45f",
+  "engine": {
+    "name": "NEP_CPU-D3-only",
+    "revision": "43b2ee64dd03e7e880cd343582b0de31b715c222",
+    "sources": [
+      {
+        "path": "vendor/nep-cpu/LICENSE",
+        "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+      },
+      {
+        "path": "vendor/nep-cpu/dftd3para.h",
+        "sha256": "490d4ef0a012b716f0811fbb4ce9782c2b6dd6190b4a349f5422aa7b8fdac10a"
+      },
+      {
+        "path": "vendor/nep-cpu/ewald_nep.cpp",
+        "sha256": "d8d2f3fb07d46c4f4a5c646d779c090463249cc2dc93c8a2a5de6a5eee043519"
+      },
+      {
+        "path": "vendor/nep-cpu/ewald_nep.h",
+        "sha256": "96b4bcdd5306c2cdb0c01a913ef47cf0485af50383a0a49c33b89bab5b906f76"
+      },
+      {
+        "path": "vendor/nep-cpu/neighbor_nep.cpp",
+        "sha256": "423db8587719b9f22cb8dbb57d67ee44994551b391872eba813c3d1d0e3a3c58"
+      },
+      {
+        "path": "vendor/nep-cpu/neighbor_nep.h",
+        "sha256": "0e9881ddff221ef2ad7b1a6f70beb38bece48e3a1de0895d88cb07f0ed72462c"
+      },
+      {
+        "path": "vendor/nep-cpu/nep.cpp",
+        "sha256": "3d43b9db0bce3fd4f9de63637bde3d3682a00f950d3070879655a6ead75d60df"
+      },
+      {
+        "path": "vendor/nep-cpu/nep.h",
+        "sha256": "b33c0d666b0532bcfc423ab8d101574b0d85cd1d65c1f1a303292a9d276b4e26"
+      },
+      {
+        "path": "vendor/nep-cpu/nep_utilities.h",
+        "sha256": "1e3abeca42f41d7f9873eb7f47859c58fe225a432cbd7e7842654563230c25a4"
+      },
+      {
+        "path": "atomistic/d3_runner.cpp",
+        "sha256": "7b956eaf6561496ecca75e442c1a8ff186d2fab84b8e6c2ff22f7fd1fb9b1186"
+      },
+      {
+        "path": "atomistic/composed.py",
+        "sha256": "61a95ff93022877d7c32d606f5d44984a82f135671a5f271637877d2cac33615"
+      }
+    ]
+  }
+}

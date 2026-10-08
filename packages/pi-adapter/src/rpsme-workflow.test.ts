@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import { describe, it } from "node:test";
-import { assembleRpsmeDraft, extractPageWithRetry, parseModelJson, runRpsmeWorkflow, restoreSourceQuote, splitSourcePage, validatePageExtraction, type AtomicFact, type SourcePage } from "./rpsme-workflow.js";
+import { WorkflowInterruptedError,assembleRpsmeDraft, extractPageWithRetry, parseModelJson, runRpsmeWorkflow, restoreSourceQuote, splitSourcePage, validatePageExtraction, type AtomicFact, type SourcePage } from "./rpsme-workflow.js";
 
 const page: SourcePage = { number: 2, documentId: "DOC-MAIN", path: "/paper/page-0002.txt", text: "We prepared FEP film. The FEP film is 250 μm thick. Silver was deposited on the film." };
 const fact: AtomicFact = { sample: "FEP film", category: "property", name: "thickness", descriptionZh: "FEP 薄膜厚度", quote: "The FEP film is 250 μm thick.", value: 250, unit: "μm", conditions: "", recipe: "" };
@@ -61,6 +61,7 @@ describe("managed RPSME extraction", () => {
     assert.equal(calls, 1);
   });
 
+  it("does not retry budget exhaustion or an uncertain cloud outcome",async()=>{let calls=0;await assert.rejects(extractPageWithRetry(page,[],async()=>{calls++;throw new WorkflowInterruptedError("USAGE_PENDING");}),/USAGE_PENDING/);assert.equal(calls,1)});
   it("splits long pages without dropping text or mislabelling page numbers", () => {
     const largePage = { ...page, text: ("Continuous evidence from source.\n").repeat(100) };
     const parts = splitSourcePage(largePage, 600);

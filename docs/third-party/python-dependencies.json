@@ -1,6 +1,6 @@
 {
   "scope": "local installed snapshots; not a cross-platform wheel certification",
-  "lockSha256": "8f56bfc7cb56105dd853039d657242f74e904bb62a1320714590277ec5600e5f",
+  "lockSha256": "189b5965a0618d506cf46dfeff90e026adb156fd61200d4bb009fc4d96ebbdea",
   "environments": {
     "development": {
       "available": true,
@@ -481,6 +481,21 @@
           "review": "review-required"
         },
         {
+          "name": "python-calamine",
+          "version": "0.8.2",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "python/.venv/lib/python3.12/site-packages/python_calamine-0.8.2.dist-info/licenses/LICENSE",
+              "sha256": "6ced4640162333a7c880d45d346ae88409746709fafece61303768bc87d80bf0"
+            }
+          ],
+          "metadataSha256": "dc97fbbd7028f325cf382592ddc26810051a29d2ff8ba6dc00b64cd7bab34ace",
+          "review": "review-required"
+        },
+        {
           "name": "python-dateutil",
           "version": "2.9.0.post0",
           "declaredLicense": "Dual License",
@@ -592,6 +607,18 @@
             }
           ],
           "metadataSha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "review": "review-required"
+        },
+        {
+          "name": "xlwt",
+          "version": "1.3.0",
+          "declaredLicense": "BSD",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: BSD License"
+          ],
+          "licenseFiles": [],
+          "metadataSha256": "7fdd11a8ef6c0fb3c5c275a37ad3d0f864f7e94d665f39b4c58ca75739308516",
           "review": "review-required"
         }
       ]
@@ -774,6 +801,21 @@
           "review": "review-required"
         },
         {
+          "name": "python-calamine",
+          "version": "0.8.2",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/python_calamine-0.8.2.dist-info/licenses/LICENSE",
+              "sha256": "6ced4640162333a7c880d45d346ae88409746709fafece61303768bc87d80bf0"
+            }
+          ],
+          "metadataSha256": "dc97fbbd7028f325cf382592ddc26810051a29d2ff8ba6dc00b64cd7bab34ace",
+          "review": "review-required"
+        },
+        {
           "name": "referencing",
           "version": "0.37.0",
           "declaredLicense": "MIT",
@@ -790,17 +832,17 @@
         },
         {
           "name": "rpds-py",
-          "version": "2026.6.3",
+          "version": "2026.9.1",
           "declaredLicense": "MIT",
           "licenseExpression": "MIT",
           "classifiers": [],
           "licenseFiles": [
             {
-              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+              "path": "runtime/skill-python/macos-arm64/lib/python3.12/site-packages/rpds_py-2026.9.1.dist-info/licenses/LICENSE",
               "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
             }
           ],
-          "metadataSha256": "f8be7b17da3980b2c48596941411a43c70ac41b1e2d530aa531f2c15eab2eb1c",
+          "metadataSha256": "5d72dca2e387c8d2b4180b68ee87c15b64751e059100a6db58891ec9995445c3",
           "review": "review-required"
         },
         {
@@ -899,6 +941,21 @@
           "review": "review-required"
         },
         {
+          "name": "python-calamine",
+          "version": "0.8.2",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/python_calamine-0.8.2.dist-info/licenses/LICENSE",
+              "sha256": "7185115e04a78c24ce4f68d0fcc7131a7f80843c9c46acc96b5d50cd1dfc4a7e"
+            }
+          ],
+          "metadataSha256": "537fd1268e43647e9c808866f3d8fa974260d035fbd7d9a3b2a78e6440f8a0f3",
+          "review": "review-required"
+        },
+        {
           "name": "referencing",
           "version": "0.37.0",
           "declaredLicense": "MIT",
@@ -915,17 +972,17 @@
         },
         {
           "name": "rpds-py",
-          "version": "2026.6.3",
+          "version": "2026.9.1",
           "declaredLicense": "MIT",
           "licenseExpression": "MIT",
           "classifiers": [],
           "licenseFiles": [
             {
-              "path": "runtime/skill-python/windows-x64/Lib/site-packages/rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+              "path": "runtime/skill-python/windows-x64/Lib/site-packages/rpds_py-2026.9.1.dist-info/licenses/LICENSE",
               "sha256": "8bcb72c82ea8ae74802293c41d93ad7d51434001b0ae45a603a5af0f507aee0a"
             }
           ],
-          "metadataSha256": "e9deba3569d39352c663fd09d01d53a649c8ab2c28de1c37e80b3e2beaf84926",
+          "metadataSha256": "778fb36890d26c5657d256db3e61a05a637468aa4cf607f8d1059c5079fcefd8",
           "review": "review-required"
         },
         {
@@ -937,6 +994,163 @@
           "licenseFiles": [
             {
               "path": "runtime/skill-python/windows-x64/Lib/site-packages/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
+              "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+            }
+          ],
+          "metadataSha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "review": "review-required"
+        }
+      ]
+    },
+    "linux-x64": {
+      "available": true,
+      "packages": [
+        {
+          "name": "attrs",
+          "version": "26.1.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/attrs-26.1.0.dist-info/licenses/LICENSE",
+              "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+            }
+          ],
+          "metadataSha256": "4cd40e690f23bf37cbcad34efd6758e062df1df07c86833f7e3ce95bf1fa38cc",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema",
+          "version": "4.26.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/jsonschema-4.26.0.dist-info/licenses/COPYING",
+              "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+            }
+          ],
+          "metadataSha256": "05b189866ca98a96da3934bf6b83687ced3ff85325273b77e16b705f6d8b26d2",
+          "review": "review-required"
+        },
+        {
+          "name": "jsonschema-specifications",
+          "version": "2025.9.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "35abd41757f32b4ea24756920ded47b70173d77cbc052a5a6d3ab583b2e8d89d",
+          "review": "review-required"
+        },
+        {
+          "name": "pillow",
+          "version": "12.3.0",
+          "declaredLicense": "MIT-CMU",
+          "licenseExpression": "MIT-CMU",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/pillow-12.3.0.dist-info/licenses/LICENSE",
+              "sha256": "dda12a98c1979cf3d94df1cff45d27a4cb3f04a60c76f76902ac54cac03ec0ce"
+            }
+          ],
+          "metadataSha256": "8fc07146cab33ef7582361dab6eac596d340b03ec648f18217da7894f73838c8",
+          "review": "review-required"
+        },
+        {
+          "name": "pip",
+          "version": "24.3.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": null,
+          "classifiers": [
+            "License :: OSI Approved :: MIT License"
+          ],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/pip-24.3.1.dist-info/LICENSE.txt",
+              "sha256": "634300a669d49aeae65b12c6c48c924c51a4cdf3d1ff086dc3456dc8bcaa2104"
+            }
+          ],
+          "metadataSha256": "57c88234ad4661b0bcd8f5ac2ccb0048387d00ee2f7a871194ce0f9fdab62852",
+          "review": "review-required"
+        },
+        {
+          "name": "pymupdf",
+          "version": "1.28.2",
+          "declaredLicense": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+          "licenseExpression": null,
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/pymupdf-1.28.2.dist-info/COPYING",
+              "sha256": "40e60697600535eabfb5ae05f72829d88cfe8d02dd4792f5a754f6f51dabe55b"
+            }
+          ],
+          "metadataSha256": "5c1fc460889bd3ff8d213e6c0f29154a8cd3576505f4844d7c3e089fa45eed40",
+          "review": "review-required"
+        },
+        {
+          "name": "python-calamine",
+          "version": "0.8.2",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/python_calamine-0.8.2.dist-info/licenses/LICENSE",
+              "sha256": "6ced4640162333a7c880d45d346ae88409746709fafece61303768bc87d80bf0"
+            }
+          ],
+          "metadataSha256": "dc97fbbd7028f325cf382592ddc26810051a29d2ff8ba6dc00b64cd7bab34ace",
+          "review": "review-required"
+        },
+        {
+          "name": "referencing",
+          "version": "0.37.0",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/referencing-0.37.0.dist-info/licenses/COPYING",
+              "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+            }
+          ],
+          "metadataSha256": "c93b00e6ab1524fd60848376604c189a114374776475c25a31d57be47b29de6a",
+          "review": "review-required"
+        },
+        {
+          "name": "rpds-py",
+          "version": "2026.9.1",
+          "declaredLicense": "MIT",
+          "licenseExpression": "MIT",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/rpds_py-2026.9.1.dist-info/licenses/LICENSE",
+              "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
+            }
+          ],
+          "metadataSha256": "5d72dca2e387c8d2b4180b68ee87c15b64751e059100a6db58891ec9995445c3",
+          "review": "review-required"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0",
+          "declaredLicense": "PSF-2.0",
+          "licenseExpression": "PSF-2.0",
+          "classifiers": [],
+          "licenseFiles": [
+            {
+              "path": "runtime/skill-python/linux-x64/lib/python3.12/site-packages/typing_extensions-4.16.0.dist-info/licenses/LICENSE",
               "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
             }
           ],

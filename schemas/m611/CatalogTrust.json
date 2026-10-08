@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.11-v1"
+    },
+    "updateUrl": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "keys": {
+      "minItems": 1,
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_.-]{0,127}$"
+          },
+          "publicKey": {
+            "type": "string",
+            "minLength": 40,
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "id",
+          "publicKey"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "updateUrl",
+    "keys"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m611/CatalogTrust.json",
+  "x-runtime-refinements": "Ed25519 signature, canonical payload digest, sequence, lifetime, pinned execution identities, sticky withdrawals, key rotation and immutable execution boundaries are checked by the client."
+}

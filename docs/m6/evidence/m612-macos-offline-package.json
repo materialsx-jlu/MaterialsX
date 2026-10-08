@@ -1,0 +1,76 @@
+{
+  "stage": "M6.12",
+  "passed": true,
+  "platform": "macos-arm64",
+  "resourcesVerified": {
+    "version": "m6.12-v1",
+    "passed": true,
+    "platform": "macos-arm64",
+    "filesVerified": 91763,
+    "expandedRuntimeBytes": 2489762443,
+    "coreWeightsBytes": 84336173,
+    "scientificQuality": "needs_review",
+    "signedRelease": false
+  },
+  "actualPackagedBinaryLaunched": true,
+  "isolatedUserData": true,
+  "packagedDefaultSkills": 93,
+  "allSixPortableCheckpointInterfaces": true,
+  "actualPackagedResourceCalculations": [
+    {
+      "potentialId": "mace-mp-0b3-medium",
+      "energyEv": -43.04722037793425,
+      "weightSha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012"
+    },
+    {
+      "potentialId": "chgnet-0.3.0",
+      "energyEv": -42.4974365234375,
+      "weightSha256": "d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1"
+    }
+  ],
+  "actualPackagedMainPreloadIpcCalculations": [
+    {
+      "potentialId": "mace-mp-0b3-medium",
+      "energyEv": -43.04722037793425,
+      "quality": "needs_review"
+    },
+    {
+      "potentialId": "chgnet-0.3.0",
+      "energyEv": -42.4974365234375,
+      "quality": "needs_review"
+    },
+    {
+      "potentialId": "chgnet-r2scan",
+      "energyEv": -69.86658477783203,
+      "quality": "needs_review"
+    },
+    {
+      "potentialId": "mace-mp-0b2-small",
+      "energyEv": -43.23861945037482,
+      "quality": "needs_review"
+    },
+    {
+      "potentialId": "mace-mpa-0-medium",
+      "energyEv": -43.299058508501645,
+      "quality": "needs_review"
+    },
+    {
+      "potentialId": "sevennet-0-11jul2024",
+      "energyEv": -43.20663871558327,
+      "quality": "needs_review"
+    }
+  ],
+  "noGlobalPythonRequired": true,
+  "pythonWorkerNetworkDisabled": true,
+  "osNetworkDeniedForBothCores": true,
+  "rendererHttpBlocked": true,
+  "scope": "Packaged app launch/default resources plus actual bundled portable Python CPU calculations; macOS core workers also run under sandbox-exec network denial. Unsigned unpacked app, not DMG installation/notarization.",
+  "signedRelease": false,
+  "fullInstallerTested": false,
+  "windowsInstallationTested": false,
+  "scientificQuality": "needs_review",
+  "realProviderCalls": 0,
+  "paymentCalls": 0,
+  "appAsarSha256": "7dc8c494250b05f9a5e9d4075374e7ab7a183b0634ac22fad3cba9f7c5e8bdaf",
+  "offlineManifestSha256": "639d280976271b38017eb4fd03b1aa70f44db703fc186ae35a59ec83d1889692"
+}

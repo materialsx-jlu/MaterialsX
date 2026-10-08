@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import ComposerReferencePreview from './components/ComposerReferencePreview.vue';
+import {useComposerReferences} from './utils/use-composer-references';
+import ExecutionIdentity from "./components/ExecutionIdentity.vue";
+import ResearchMessageArtifacts from "./components/ResearchMessageArtifacts.vue";
+import ResearchWorkspace from "./components/ResearchWorkspace.vue";
+import WorkspaceCatalog from "./components/WorkspaceCatalog.vue";
+import WorkspaceOperations from "./components/WorkspaceOperations.vue";
+import PlatformCenter from "./components/PlatformCenter.vue";
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import type { CatalogFilters } from "./utils/catalog-filters";
 import {
-  ArrowRight,
   Atom,
   Bot,
   Box,
   ChevronDown,
   CircleDot,
   Database,
-  Download,
   FileChartColumn,
   FilePlus2,
   FlaskConical,
@@ -18,10 +25,7 @@ import {
   Gauge,
   MessageSquare,
   Paperclip,
-  Play,
   Plus,
-  RefreshCw,
-  Search,
   Send,
   Settings,
   ShieldCheck,
@@ -33,12 +37,21 @@ import {
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
 import MarkdownContent from "./components/MarkdownContent.vue";
+import MessageCopyButton from "./components/MessageCopyButton.vue";
+import CloudRunPanel from "./components/CloudRunPanel.vue";
+import ResearchTaskStarter from "./components/ResearchTaskStarter.vue";
 import SettingsDrawer from "./components/SettingsDrawer.vue";
+import { openAtomicView } from "./utils/atomic-viewer";
 import SkillDetailsDrawer from "./components/SkillDetailsDrawer.vue";
 import ModelDetailsDrawer from "./components/ModelDetailsDrawer.vue";
+import AtomicTrajectoryDrawer from "./components/AtomicTrajectoryDrawer.vue";
+import AtomicComparisonDrawer from "./components/AtomicComparisonDrawer.vue";
+import AtomicViewerDrawer from "./components/AtomicViewerDrawer.vue";
+import AtomisticMessageArtifacts from "./components/AtomisticMessageArtifacts.vue";
 import { useWorkspaceStore } from "./stores/workspace";
 import { applySkillMention, findSkillMention, type SkillMentionRange } from "./utils/skill-mention";
-import type { ModelCategory, ModelSettings, ResearchModelSummary, SkillSummary, WorkspaceView } from "../../../../packages/contracts/src/desktop.js";
+import type { ModelSettings, ResearchModelSummary, SkillSummary, WorkspaceView } from "../../../../packages/contracts/src/desktop.js";
+import brandLogo from '../../../../assets/brand/materialsx-atom-depth-512.png';
 
 const workspace = useWorkspaceStore();
 const {
@@ -51,13 +64,9 @@ const {
   messages,
   skills,
   models,
+  potentialCatalog,
   connections,
-  runs,
   settings,
-  subscription,
-  subscriptionLoading,
-  releaseReadiness,
-  releaseLoading,
   activeProjectId,
   activeConversationId,
   activeView,
@@ -68,106 +77,75 @@ const {
 } = storeToRefs(workspace);
 
 const draft = ref("");
-const search = ref("");
-const skillCategory = ref("all");
-const modelSearch = ref("");
-const modelCategory = ref<ModelCategory | "all">("all");
+const scientificScope=ref<import("../../../../packages/contracts/src/atomistic-dynamics.js").ScientificScope|null>(null);
+async function refreshScientificScope(){const id=activeConversationId.value;scientificScope.value=id?await window.materialsx.getScientificScope(id):null;}
+async function clearScientificScope(){if(activeConversationId.value){await window.materialsx.clearScientificScope(activeConversationId.value);scientificScope.value=null;}}
+watch([activeConversationId,activeView],()=>void refreshScientificScope());
+const removeAtomicViewListener=window.materialsx.onAtomicViewRequest(request=>{if(request.projectId===activeProjectId.value)openAtomicView(request);});
+onUnmounted(removeAtomicViewListener);
+const userSkillDraft=ref<Parameters<typeof window.materialsx.saveUserSkill>[0]|null>(null);
+const removeUserSkillListener=window.materialsx.onUserSkillDraft(draft=>{userSkillDraft.value=draft;activeView.value="skills";});
+onUnmounted(removeUserSkillListener);
+const removeSkillsChangedListener=window.materialsx.onSkillsChanged(()=>{void workspace.refreshSkills().catch(()=>{});});
+onUnmounted(removeSkillsChangedListener);
+const removeCatalogListener=window.materialsx.onPotentialCatalogChanged(()=>{void window.materialsx.getPotentialCatalog().then(c=>{potentialCatalog.value=c;window.dispatchEvent(new Event("materialsx:packages-changed"));}).catch(()=>{});});
+onUnmounted(removeCatalogListener);
+const cloudAttachments=ref<Array<{id:string;name:string;sha256:string;bytes:number;totalLines:number;format:string;pageCount:number|null;ocrUnverifiedPages:number[]}>>([]);
+const attachmentsBusy=ref(false);
+watch(activeConversationId,async id=>{cloudAttachments.value=[];if(id){const files=await window.materialsx.listCloudFiles(id);if(activeConversationId.value===id)cloudAttachments.value=files}});
+async function chooseCloudFiles(){
+ if(!activeProjectId.value||attachmentsBusy.value)return;
+ if(!activeConversationId.value)await workspace.createConversation();
+ if(!activeConversationId.value)return;
+ attachmentsBusy.value=true;
+ try{cloudAttachments.value=await window.materialsx.chooseCloudFiles(activeProjectId.value,activeConversationId.value)}catch(e){ElMessage.error(e instanceof Error?e.message:String(e))}
+ finally{attachmentsBusy.value=false}
+}
+async function clearCloudFiles(){if(activeConversationId.value){await window.materialsx.clearCloudFiles(activeConversationId.value);cloudAttachments.value=[]}}
+
+const modelDirectoryMode = ref<"research" | "potentials">("research");
+const catalogFilters = reactive<CatalogFilters>({ search: "", skillCategory: "all", modelSearch: "", modelCategory: "all" });
 const settingsVisible = ref(false);
 const messageList = ref<HTMLElement | null>(null);
 const composerInput = ref<HTMLTextAreaElement | null>(null);
 const skillMention = ref<SkillMentionRange | null>(null);
 const skillSelectionIndex = ref(0);
+function openPlatformSkill(skill:SkillSummary,locale:"zh"|"en"){selectedSkill.value=skill;skillLocale.value=locale}
+function openPlatformModel(model:ResearchModelSummary,locale:"zh"|"en"){selectedModel.value=model;modelLocale.value=locale}
 const selectedSkill = ref<SkillSummary | null>(null);
 const selectedModel = ref<ResearchModelSummary | null>(null);
 const skillLocale = ref<"zh" | "en">("zh");
 const modelLocale = ref<"zh" | "en">("zh");
 
-const skillCategories = computed(() => {
-  const entries = new Map<string, { labelZh: string; labelEn: string; count: number }>();
-  for (const skill of skills.value) {
-    const current = entries.get(skill.category) ?? { labelZh: skill.categoryLabelZh, labelEn: skill.categoryLabelEn, count: 0 };
-    current.count += 1;
-    entries.set(skill.category, current);
-  }
-  const order = ["materials-extraction", "structure-simulation", "chemistry-molecules", "experiment-statistics", "laboratory", "machine-learning", "quantum-physics", "scientific-data", "literature-writing", "visualization", "geospatial", "resources"];
-  return [...entries]
-    .map(([id, value]) => ({ id, ...value }))
-    .sort((left, right) => order.indexOf(left.id) - order.indexOf(right.id));
-});
-
-const modelCategories: Array<{ id: ModelCategory; zh: string; en: string }> = [
-  { id: "atomistic", zh: "原子尺度与势函数", en: "Atomistic potentials" },
-  { id: "materials-property", zh: "材料性质预测", en: "Property prediction" },
-  { id: "materials-chat", zh: "材料对话模型", en: "Materials chat" },
-  { id: "materials-cif-generation", zh: "晶体结构生成", en: "Crystal generation" },
-  { id: "materials-language-base", zh: "材料语言基座", en: "Materials language base" },
-  { id: "materials-text", zh: "文献文本编码", en: "Literature encoders" },
-];
-const modelCategoryLabel = (category: ModelCategory): string => {
-  const item = modelCategories.find((value) => value.id === category);
-  return modelLocale.value === "zh" ? (item?.zh ?? category) : (item?.en ?? category);
-};
-
-const filteredSkills = computed(() => {
-  const query = search.value.trim().toLowerCase();
-  const matches = query
-    ? skills.value.filter((item) =>
-        `${item.name} ${item.descriptionZh} ${item.descriptionEn}`.toLowerCase().includes(query),
-      )
-    : skills.value;
-  return matches.filter((item) => skillCategory.value === "all" || item.category === skillCategory.value);
-});
-const filteredModels = computed(() => {
-  const query = modelSearch.value.trim().toLowerCase();
-  return models.value.filter((item) =>
-    (modelCategory.value === "all" || item.category === modelCategory.value) &&
-    (!query || `${item.name} ${item.benchmark} ${item.descriptionZh} ${item.descriptionEn}`.toLowerCase().includes(query)),
-  );
-});
 const readySkillsCount = computed(() => skills.value.filter((item) => item.enabled).length);
-const skillSuggestions = computed(() => {
-  const query = skillMention.value?.query.trim().toLowerCase() ?? "";
-  return skills.value
-    .filter((item) => item.enabled)
-    .filter((item) => !query || `${item.name} ${item.description}`.toLowerCase().includes(query))
-    .sort((left, right) => {
-      const leftStarts = left.name.toLowerCase().startsWith(query) ? 0 : 1;
-      const rightStarts = right.name.toLowerCase().startsWith(query) ? 0 : 1;
-      return leftStarts - rightStarts || left.name.localeCompare(right.name);
-    })
-    .slice(0, 8);
-});
+const {skillSuggestions,boundReferences,refreshReferences}=useComposerReferences(skills,activeProjectId,activeConversationId,cloudAttachments,draft,skillMention);
 const skillMenuOpen = computed(() => skillMention.value !== null);
-const skillDescription = (skill: SkillSummary): string =>
-  skillLocale.value === "zh" ? skill.descriptionZh : skill.descriptionEn;
-const modelLabel = computed(() => (settings.value.mode === "platform" ? "平台订阅" : "本地模型"));
-const statusTone = (status: string) => ({ ready: "ready", attention: "attention", offline: "offline" })[status] ?? "offline";
+const modelLabel = computed(() => settings.value.mode === "platform" ? `平台模型 · ${settings.value.modelId}` : "本地模型");
 
 const nav: Array<{ id: WorkspaceView; label: string; icon: typeof MessageSquare }> = [
   { id: "chat", label: "研究任务", icon: MessageSquare },
   { id: "skills", label: "Skills", icon: Library },
   { id: "models", label: "模型目录", icon: Bot },
   { id: "connections", label: "数据与 MCP", icon: Database },
+  { id: "research", label: "研究数据与交付", icon: Database },
   { id: "runs", label: "运行记录", icon: History },
+  { id: "platform", label: "云服务中心", icon: Gauge },
   { id: "subscription", label: "订阅与额度", icon: WalletCards },
   { id: "release", label: "发布中心", icon: ShieldCheck },
 ];
 
-const quickTasks = [
-  { icon: FileChartColumn, title: "分析实验数据", text: "导入 CSV，检查单位、重复样并生成图表" },
-  { icon: FlaskConical, title: "提取论文数据", text: "从材料论文整理配方、工艺与性能证据" },
-  { icon: Atom, title: "准备计算任务", text: "校验结构并准备 QE 或 LAMMPS 微型算例" },
-];
-
 async function submit(): Promise<void> {
+  if(attachmentsBusy.value){ElMessage.info('附件正在本机解析，请稍候');return;}
   const content = draft.value.trim();
-  if (!content || sending.value) return;
+  if(!content)return;
+  if(sending.value){try{await window.materialsx.steerRun(activeConversationId.value!,content);draft.value="";ElMessage.success("补充内容已发送到当前任务")}catch(cause){ElMessage.error(cause instanceof Error?cause.message:"当前任务不支持持续输入")}return;}
   skillMention.value = null;
   draft.value = "";
   const response = workspace.sendMessage(content);
   await nextTick();
   if (messageList.value) messageList.value.scrollTop = messageList.value.scrollHeight;
-  await response;
+  const accepted = await response;
+  if(!accepted && !draft.value){draft.value=content;await nextTick();composerInput.value?.focus();}
 }
 
 function useQuickTask(text: string): void {
@@ -188,6 +166,7 @@ async function useSkillFromCatalog(skillName: string): Promise<void> {
 
 async function useSkillExample(skillName: string, prompt: string): Promise<void> {
   selectedSkill.value = null;
+  if(activeProjectId.value&&!activeConversationId.value)await workspace.createConversation();
   workspace.showView("chat");
   skillMention.value = null;
   draft.value = `@${skillName} ${prompt}`;
@@ -195,6 +174,21 @@ async function useSkillExample(skillName: string, prompt: string): Promise<void>
   composerInput.value?.focus();
   composerInput.value?.setSelectionRange(draft.value.length, draft.value.length);
   ElMessage.success("示例已填入输入框，可继续编辑后发送");
+}
+
+const preparingSilicon=ref(false);
+async function trySiliconAnalysis():Promise<void>{
+ if(preparingSilicon.value)return;const projectId=activeProjectId.value;if(!projectId){ElMessage.info('请先打开或创建项目');return;}preparingSilicon.value=true;
+ try{
+  if(!activeConversationId.value)await workspace.createConversation();const conversationId=activeConversationId.value;if(!conversationId)throw Error('没有可用对话');
+  const structure=await window.materialsx.importAtomicSample({projectId,sampleId:'si-diamond'});
+  const options={optimizer:'FIRE' as const,cellMode:'fixed' as const,cellConstraint:'none' as const,externalPressureGPa:null,maxSteps:3,fmaxEvPerAngstrom:.05};
+  await window.materialsx.setScientificScope({projectId,conversationId,structureId:structure.id,domain:'inorganic-crystals',mode:'exploratory',interaction:'short-range',permission:'relaxation',options});
+  await window.materialsx.setPotentialAnalysisScope({projectId,conversationId,structureId:structure.id,maxDownloadBytes:200*1048576,maxSteps:3,permission:'relaxation'});
+  const zh=`请分析已导入的 8 原子硅晶体（结构 ID：${structure.id}）。根据元素、周期性、任务和本机资源选择合适的机器学习势，优先使用已安装的模型。执行最多 3 步固定晶胞弛豫，说明选势理由，输出能量、原子受力、是否收敛、中文报告和 3D 结构。通过 materials_science 的 auto_plan、auto_run、auto_get 完成任务，只引用实际计算结果；这是探索性计算。`;
+  const en=`Analyze the imported 8-atom silicon crystal (structure ID: ${structure.id}). Choose a potential using elements, periodicity, the task and local resources; prefer an installed model. Relax at fixed cell for up to 3 steps. Explain the selection and report energy, forces, convergence, an English report and a 3D structure. Complete materials_science auto_plan, auto_run and auto_get, citing only actual results. This is an exploratory calculation.`;
+  await useModelExample(modelLocale.value==='zh'?zh:en);await refreshScientificScope();
+ }catch(e){ElMessage.error(e instanceof Error?e.message:String(e));}finally{preparingSilicon.value=false;}
 }
 
 async function useModelExample(prompt: string): Promise<void> {
@@ -205,7 +199,7 @@ async function useModelExample(prompt: string): Promise<void> {
   await nextTick();
   composerInput.value?.focus();
   composerInput.value?.setSelectionRange(draft.value.length, draft.value.length);
-  ElMessage.info("示例已填入；目录中的模型权重尚未安装，请先确认当前推理模型可用");
+  ElMessage.info("示例已填入；请检查当前模型连接及该任务的运行前置条件");
 }
 
 async function openModelSource(modelId: string): Promise<void> {
@@ -217,8 +211,10 @@ async function openModelSource(modelId: string): Promise<void> {
 }
 
 function refreshSkillMention(value = draft.value, caret = composerInput.value?.selectionStart ?? value.length): void {
+  const opening=!skillMention.value;
   skillMention.value = findSkillMention(value, caret);
   skillSelectionIndex.value = 0;
+  if(opening&&skillMention.value)void refreshReferences();
 }
 
 function handleComposerInput(event: Event): void {
@@ -275,25 +271,6 @@ function handleComposerKeydown(event: KeyboardEvent): void {
   }
 }
 
-const creditPercent = computed(() => {
-  const overview = subscription.value?.overview;
-  if (!overview || overview.grantedCredits <= 0) return 0;
-  return Math.max(0, Math.min(100, (overview.remainingCredits / overview.grantedCredits) * 100));
-});
-
-function formatCredits(value: number): string {
-  return new Intl.NumberFormat("zh-CN").format(value);
-}
-
-async function activateDevelopmentPlan(planId: "pro" | "research"): Promise<void> {
-  try {
-    await workspace.activateDevelopmentPlan(planId);
-    ElMessage.success("测试权益已启用；没有发生支付或自动续费");
-  } catch (cause) {
-    ElMessage.error(cause instanceof Error ? cause.message : String(cause));
-  }
-}
-
 async function saveSettings(value: ModelSettings): Promise<void> {
   try {
     await workspace.saveSettings(value);
@@ -303,21 +280,6 @@ async function saveSettings(value: ModelSettings): Promise<void> {
     ElMessage.error(cause instanceof Error ? cause.message : String(cause));
   }
 }
-
-async function exportSupportBundle(): Promise<void> {
-  try {
-    const path = await workspace.exportSupportBundle();
-    if (path) ElMessage.success(`脱敏诊断包已保存：${path}`);
-  } catch (cause) {
-    ElMessage.error(cause instanceof Error ? cause.message : String(cause));
-  }
-}
-
-const releaseProgress = computed(() => {
-  if (!releaseReadiness.value) return 0;
-  const total = releaseReadiness.value.checks.length;
-  return total ? Math.round((releaseReadiness.value.passed / total) * 100) : 0;
-});
 
 watch(error, (value) => {
   if (value) ElMessage.error(value);
@@ -344,7 +306,7 @@ onMounted(() => workspace.initialize());
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand drag-region">
-        <div class="brand-mark"><Atom :size="20" /></div>
+        <div class="brand-mark"><img :src="brandLogo" alt="" /></div>
         <div><strong>MaterialsX</strong><span>RESEARCH OS</span></div>
       </div>
 
@@ -410,7 +372,7 @@ onMounted(() => workspace.initialize());
         </div>
         <div class="topbar-actions no-drag">
           <button class="model-pill" @click="settingsVisible = true">
-            <Sparkles :size="14" /><span>{{ modelLabel }}</span><ChevronDown :size="13" />
+            <Sparkles :size="14" /><span>{{ modelLabel }} · {{ (settings.agentEngine ?? 'codex') === 'codex' ? 'Codex' : 'Pi' }}</span><ChevronDown :size="13" />
           </button>
           <div class="health-pill"><span class="status-dot" />{{ readyConnectionCount }}/{{ connections.length }} 就绪</div>
         </div>
@@ -422,7 +384,7 @@ onMounted(() => workspace.initialize());
         <section v-if="activeView === 'chat'" class="workspace-layout">
           <div class="conversation-pane">
             <div v-if="!activeProject" class="welcome-state">
-              <div class="welcome-symbol"><Atom :size="30" /></div>
+              <div class="welcome-symbol"><img :src="brandLogo" alt="" /></div>
               <span class="eyebrow">LOCAL MATERIALS INTELLIGENCE</span>
               <h1>把材料问题变成<br />可复现的研究结果</h1>
               <p>选择一个本地项目文件夹，MaterialsX 会在其中管理会话、输入文件、计算记录和研究产物。</p>
@@ -436,15 +398,9 @@ onMounted(() => workspace.initialize());
                   <div class="starter-heading">
                     <span class="eyebrow">{{ activeProject.name }}</span>
                     <h2>今天要推进什么研究任务？</h2>
-                    <p>描述目标，或从一个常用材料工作流开始。</p>
+                    <p>从一个问题开始，按研究阶段选择任务；所需资料可以在发送前补充。</p>
                   </div>
-                  <div class="quick-grid">
-                    <button v-for="item in quickTasks" :key="item.title" @click="useQuickTask(item.text)">
-                      <component :is="item.icon" :size="19" />
-                      <strong>{{ item.title }}</strong>
-                      <span>{{ item.text }}</span>
-                    </button>
-                  </div>
+                  <ResearchTaskStarter :skills="skills" @select="useQuickTask" />
                 </div>
 
                 <article v-for="item in messages" :key="item.id" :class="['message', item.role]">
@@ -456,7 +412,9 @@ onMounted(() => workspace.initialize());
                     <div class="message-meta">
                       <strong>{{ item.role === 'user' ? '你' : item.role === 'system' ? 'MaterialsX 状态' : 'MaterialsX' }}</strong>
                       <span>{{ new Date(item.createdAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}</span>
+                      <MessageCopyButton v-if="item.content && (item.role === 'user' || item.role === 'assistant')" :content="item.content" :kind="item.role" />
                     </div>
+                    <ExecutionIdentity v-if="item.role==='assistant'" :task-id="item.taskId" :project-id="activeProjectId" :locale="modelLocale" />
                     <p v-if="item.role === 'user'" class="user-content">{{ item.content }}</p>
                     <MarkdownContent
                       v-else-if="item.content"
@@ -468,16 +426,23 @@ onMounted(() => workspace.initialize());
                     <span v-else-if="item.status === 'waiting_model'" class="waiting-badge">等待模型连接</span>
                     <span v-else-if="item.status === 'cancelled'" class="cancelled-badge">已停止</span>
                     <span v-else-if="item.status === 'failed'" class="failed-badge">调用失败</span>
+                    <ResearchMessageArtifacts v-if="item.role==='assistant' && item.status!=='streaming'" :project-id="activeProjectId" :content="item.content" :locale="modelLocale" />
+                    <AtomisticMessageArtifacts v-if="item.role==='assistant' && item.status!=='streaming'" :project-id="activeProjectId" :content="item.content" :locale="modelLocale" />
                   </div>
                 </article>
               </div>
 
-              <div class="composer-wrap">
+              <div class="composer-wrap"><div class="composer-inner">
+                <CloudRunPanel v-if="settings.mode === 'platform'" :conversation-id="activeConversationId" :sending="sending" />
+                <div v-if="cloudAttachments.length" class="field-help composer-attachments">已选附件：{{ cloudAttachments.map(a=>a.name+(a.pageCount?' · '+a.pageCount+' 页':'')+(a.ocrUnverifiedPages.length?' · '+a.ocrUnverifiedPages.length+' 页需核对':'')).join('、') }} <button class="secondary-button" :disabled="sending" @click="clearCloudFiles">清空</button></div>
+                <div v-if="attachmentsBusy" class="field-help composer-attachments" role="status">正在本机解析附件；大 PDF 可能需要几分钟…</div>
+                <p v-if="scientificScope" class="composer-hint" data-testid="science-scope">本机科学范围 / Local science scope：{{scientificScope.structureId}} · {{scientificScope.permission}} · {{scientificScope.domain}} · {{scientificScope.mode}}<span v-if="settings.mode==='platform'">；发送时再次确认摘要外发。</span><button class="secondary-button" :disabled="sending" @click="clearScientificScope">清除科学及下载授权 / Clear authorization</button></p>
+                <ComposerReferencePreview :references="boundReferences" />
                 <div class="composer">
                   <div v-if="skillMenuOpen" id="skill-mention-menu" class="skill-mention-menu" role="listbox">
                     <div class="skill-mention-header">
-                      <span><Library :size="14" />选择 Skill</span>
-                      <small>{{ readySkillsCount }} 项已启用</small>
+                      <span><Library :size="14" />选择引用 / Reference</span>
+                      <small>@Skill · @file · @recipe · @paper · @structure</small>
                     </div>
                     <div v-if="skillSuggestions.length" class="skill-mention-options">
                       <button
@@ -493,13 +458,13 @@ onMounted(() => workspace.initialize());
                       >
                         <span class="skill-mention-icon"><FlaskConical :size="15" /></span>
                         <span class="skill-mention-copy">
-                          <strong>{{ skill.name }}</strong>
-                          <small>{{ skill.descriptionZh }}</small>
+                          <strong>{{ skill.label }}</strong>
+                          <small>{{ skill.descriptionZh }} · {{ skill.status }}</small>
                         </span>
                         <kbd v-if="index === skillSelectionIndex">Enter</kbd>
                       </button>
                     </div>
-                    <div v-else class="skill-mention-empty">没有匹配的已启用 Skill</div>
+                    <div v-else class="skill-mention-empty">没有匹配的资源。文件需先用附件入口选择；其他资源来自当前项目。 / No scoped match.</div>
                   </div>
                   <textarea
                     ref="composerInput"
@@ -517,12 +482,13 @@ onMounted(() => workspace.initialize());
                   />
                   <div class="composer-toolbar">
                     <div>
-                      <button class="tool-button" title="添加文件"><Paperclip :size="17" /></button>
-                      <button class="context-chip"><Wrench :size="14" />自动选择工具</button>
+                      <button class="tool-button" title="添加研究附件：PDF、Word、Excel、文本 / Add research files" :disabled="sending || attachmentsBusy" @click="chooseCloudFiles"><Paperclip :size="17" /></button>
+                      <button v-if="sending && draft.trim()" class="context-chip" @click="submit">补充到当前任务</button>
+                      <button v-else class="context-chip"><Wrench :size="14" />自动选择工具</button>
                     </div>
                     <button
                       :class="['send-button', { stopping: sending }]"
-                      :disabled="!draft.trim() && !sending"
+                      :disabled="(!draft.trim() && !sending) || attachmentsBusy"
                       :title="sending ? '停止生成' : '发送'"
                       @click="sending ? workspace.cancelActiveRun() : submit()"
                     >
@@ -531,9 +497,10 @@ onMounted(() => workspace.initialize());
                   </div>
                 </div>
                 <p class="composer-hint">
-                  Enter 发送 · Shift+Enter 换行 ·
-                  {{ settings.mode === 'local' ? `经 Pi 发送到本机 ${settings.localEndpoint}` : '平台模型尚未接通' }}
+                  Enter {{sending ? "补充当前任务" : "发送"}} · Shift+Enter 换行 ·
+                  {{ settings.mode === 'local' ? `经 ${(settings.agentEngine ?? 'codex') === 'codex' ? 'Codex App Server' : 'Pi'} 发送到本机 ${settings.localEndpoint}` : `${settings.modelId} · 每轮确认外发范围与计费` }}
                 </p>
+              </div>
               </div>
             </template>
           </div>
@@ -564,226 +531,31 @@ onMounted(() => workspace.initialize());
           </aside>
         </section>
 
-        <section v-else-if="activeView === 'skills'" class="catalog-view">
-          <div class="page-heading">
-            <div>
-              <span class="eyebrow">CAPABILITY REGISTRY</span>
-              <h1>科研 Skills</h1>
-              <p>
-                {{ skills.length }} 项已固定版本；{{ readySkillsCount === skills.length
-                  ? '全部已内置并默认启用；部分工作流需要额外的计算库或服务。'
-                  : `${readySkillsCount} 项已启用，其余需完成验收。` }}
-              </p>
-            </div>
-            <div class="skill-page-tools">
-              <div class="language-toggle compact" aria-label="目录介绍语言">
-                <button :class="{ active: skillLocale === 'zh' }" @click="skillLocale = 'zh'">中文</button>
-                <button :class="{ active: skillLocale === 'en' }" @click="skillLocale = 'en'">English</button>
-              </div>
-              <div class="search-box"><Search :size="16" /><input v-model="search" placeholder="搜索名称或中英文介绍" /></div>
-            </div>
-          </div>
-          <div class="catalog-filters" aria-label="Skill 分类">
-            <button :class="{ active: skillCategory === 'all' }" @click="skillCategory = 'all'">{{ skillLocale === 'zh' ? '全部' : 'All' }} <span>{{ skills.length }}</span></button>
-            <button v-for="category in skillCategories" :key="category.id" :class="{ active: skillCategory === category.id }" @click="skillCategory = category.id">
-              {{ skillLocale === 'zh' ? category.labelZh : category.labelEn }} <span>{{ category.count }}</span>
-            </button>
-          </div>
-          <div class="catalog-grid">
-            <button v-for="skill in filteredSkills" :key="skill.name" type="button" class="catalog-card" @click="selectedSkill = skill">
-              <div class="catalog-icon"><FlaskConical :size="18" /></div>
-              <div class="catalog-content"><strong>{{ skill.name }}</strong><p :lang="skillLocale === 'zh' ? 'zh-CN' : 'en'">{{ skillDescription(skill) }}</p><span>{{ skill.license }}</span></div>
-              <ArrowRight class="catalog-open-icon" :size="15" />
-              <div :class="['enabled-indicator', { reviewing: !skill.enabled }]"><span />{{ skill.enabled ? '已启用' : '验收中' }}</div>
-            </button>
-          </div>
-        </section>
-
-        <section v-else-if="activeView === 'models'" class="catalog-view">
-          <div class="page-heading">
-            <div>
-              <span class="eyebrow">MATERIALS MODEL DIRECTORY</span>
-              <h1>{{ modelLocale === 'zh' ? '材料模型目录' : 'Materials model directory' }}</h1>
-              <p>{{ modelLocale === 'zh' ? `${models.length} 个来源可核查的目录条目；不是全网使用量排名。` : `${models.length} source-backed entries; not a worldwide usage ranking.` }}</p>
-            </div>
-            <div class="skill-page-tools">
-              <div class="language-toggle compact" aria-label="模型介绍语言">
-                <button :class="{ active: modelLocale === 'zh' }" @click="modelLocale = 'zh'">中文</button>
-                <button :class="{ active: modelLocale === 'en' }" @click="modelLocale = 'en'">English</button>
-              </div>
-              <div class="search-box"><Search :size="16" /><input v-model="modelSearch" :placeholder="modelLocale === 'zh' ? '搜索模型与来源' : 'Search models and sources'" /></div>
-            </div>
-          </div>
-          <div class="model-catalog-notice">{{ modelLocale === 'zh' ? '这些模型的介绍随程序内置。权重未预装，且部分评测条目没有公开权重或需要额外许可；只有已接入本地推理服务的对话模型才能在研究任务中运行。' : 'Descriptions are bundled with MaterialsX. Weights are not preinstalled; some benchmark entries have no public checkpoint or require separate access. Chat runs only with a model connected to the local inference service.' }}</div>
-          <div class="catalog-filters" aria-label="模型分类">
-            <button :class="{ active: modelCategory === 'all' }" @click="modelCategory = 'all'">{{ modelLocale === 'zh' ? '全部' : 'All' }} <span>{{ models.length }}</span></button>
-            <button v-for="category in modelCategories" :key="category.id" :class="{ active: modelCategory === category.id }" @click="modelCategory = category.id">
-              {{ modelLocale === 'zh' ? category.zh : category.en }} <span>{{ models.filter((item) => item.category === category.id).length }}</span>
-            </button>
-          </div>
-          <div class="catalog-grid">
-            <button v-for="model in filteredModels" :key="model.id" type="button" class="catalog-card" @click="selectedModel = model">
-              <div class="catalog-icon"><Atom :size="18" /></div>
-              <div class="catalog-content"><strong>{{ model.name }}</strong><p :lang="modelLocale === 'zh' ? 'zh-CN' : 'en'">{{ modelLocale === 'zh' ? model.descriptionZh : model.descriptionEn }}</p><span>{{ model.benchmark }}</span></div>
-              <ArrowRight class="catalog-open-icon" :size="15" />
-              <div class="model-catalog-status">{{ modelCategoryLabel(model.category) }} · {{ modelLocale === 'zh' ? '目录收录' : 'Catalog only' }}</div>
-            </button>
-          </div>
-          <div v-if="filteredModels.length === 0" class="empty-list">{{ modelLocale === 'zh' ? '没有匹配的模型' : 'No matching models' }}</div>
-        </section>
-
-        <section v-else-if="activeView === 'connections'" class="catalog-view">
-          <div class="page-heading">
-            <div><span class="eyebrow">LOCAL RUNTIME</span><h1>数据与 MCP</h1><p>检查本地运行时、求解器和工具连接状态。</p></div>
-            <button class="secondary-button" @click="workspace.refreshDiagnostics"><RefreshCw :size="15" />重新检测</button>
-          </div>
-          <div class="connection-list">
-            <article v-for="item in connections" :key="item.id" class="connection-row">
-              <div class="connection-icon"><Database v-if="item.kind === 'mcp'" :size="18" /><Play v-else-if="item.kind === 'solver'" :size="18" /><Wrench v-else :size="18" /></div>
-              <div><strong>{{ item.name }}</strong><span>{{ item.detail }}</span></div>
-              <span :class="['connection-status', statusTone(item.status)]"><i />{{ item.status === 'ready' ? '就绪' : item.status === 'attention' ? '需处理' : '离线' }}</span>
-            </article>
-          </div>
-        </section>
-
-        <section v-else-if="activeView === 'runs'" class="catalog-view">
-          <div class="page-heading"><div><span class="eyebrow">RUN LEDGER</span><h1>运行记录</h1><p>本地任务状态会持久化，重启后仍可追踪。</p></div></div>
-          <div v-if="runs.length" class="run-list">
-            <article v-for="item in runs" :key="item.id" class="run-row">
-              <div class="run-icon"><History :size="16" /></div>
-              <div><strong>{{ item.label }}</strong><span>{{ new Date(item.createdAt).toLocaleString('zh-CN') }}</span></div>
-              <span :class="item.status === 'failed' ? 'failed-badge' : 'waiting-badge'">
-                {{ ({ waiting_model: '等待模型', running: '运行中', completed: '已完成', failed: '失败', cancelled: '已停止', interrupted: '已中断' } as const)[item.status] }}
-              </span>
-            </article>
-          </div>
-          <div v-else class="empty-list"><History :size="26" /><strong>还没有运行记录</strong><span>发送第一个研究任务后会显示在这里。</span></div>
-        </section>
-
-        <section v-else-if="activeView === 'subscription'" class="catalog-view subscription-view">
-          <div class="page-heading">
-            <div><span class="eyebrow">SUBSCRIPTION & CREDITS</span><h1>订阅与额度</h1><p>查看套餐、账期、预留和实际消耗；本地模型不消耗平台额度。</p></div>
-            <button class="secondary-button" :disabled="subscriptionLoading" @click="workspace.loadSubscription">
-              <RefreshCw :size="15" />刷新
-            </button>
-          </div>
-
-          <div v-if="subscription?.serviceStatus === 'offline'" class="control-plane-offline">
-            <Database :size="20" />
-            <div><strong>订阅控制面未启动</strong><span>开发环境运行 npm run control-plane:dev 后刷新。</span></div>
-          </div>
-
-          <template v-else-if="subscription?.overview">
-            <div class="entitlement-grid">
-              <article class="entitlement-card primary">
-                <div class="entitlement-card-heading"><span>当前套餐</span><strong>{{ subscription.overview.plan.name }}</strong></div>
-                <div class="plan-price">
-                  <template v-if="subscription.overview.plan.priceFen > 0"><strong>¥{{ subscription.overview.plan.priceFen / 100 }}</strong><span>/ 测试月</span></template>
-                  <strong v-else>免费</strong>
-                </div>
-                <p>{{ subscription.overview.subscription.renewalMode === 'manual' ? '按月手动续期 · 当前未接入真实支付' : '本地功能长期可用' }}</p>
-                <span class="subscription-state">{{ subscription.overview.subscription.status }}</span>
-              </article>
-              <article class="entitlement-card usage">
-                <div class="entitlement-card-heading"><span>平台额度</span><Gauge :size="18" /></div>
-                <strong class="credit-number">{{ formatCredits(subscription.overview.remainingCredits) }}</strong>
-                <span>剩余 credits</span>
-                <div class="credit-track"><i :style="{ width: `${creditPercent}%` }" /></div>
-                <div class="credit-breakdown">
-                  <span>已用 {{ formatCredits(subscription.overview.usedCredits) }}</span>
-                  <span>预留 {{ formatCredits(subscription.overview.reservedCredits) }}</span>
-                </div>
-              </article>
-              <article class="entitlement-card period">
-                <div class="entitlement-card-heading"><span>当前账期</span><WalletCards :size="18" /></div>
-                <strong>{{ new Date(subscription.overview.subscription.periodEnd).toLocaleDateString('zh-CN') }}</strong>
-                <p>到期日期</p>
-                <small>取消或到期不会影响本地项目文件和基础导出。</small>
-              </article>
-            </div>
-
-            <div class="plans-grid">
-              <article v-for="plan in subscription.plans" :key="plan.id" :class="['plan-card', { current: plan.id === subscription.overview.plan.id }]">
-                <span class="plan-tag">{{ plan.id === subscription.overview.plan.id ? '当前套餐' : plan.testPrice ? '测试价格' : '本地基础版' }}</span>
-                <h3>{{ plan.name }}</h3>
-                <strong>{{ plan.priceFen ? `¥${plan.priceFen / 100}/月` : '免费' }}</strong>
-                <p>{{ plan.includedCredits ? `${formatCredits(plan.includedCredits)} 平台 credits` : '不含平台模型额度' }}</p>
-                <button
-                  v-if="plan.id === 'pro' || plan.id === 'research'"
-                  class="secondary-button"
-                  :disabled="subscriptionLoading || plan.id === subscription.overview.plan.id"
-                  @click="activateDevelopmentPlan(plan.id)"
-                >
-                  {{ plan.id === subscription.overview.plan.id ? '已启用' : '启用开发权益' }}
-                </button>
-              </article>
-            </div>
-
-            <div class="ledger-panel">
-              <div class="ledger-heading"><div><strong>额度账本</strong><span>追加记录，不直接修改历史</span></div><small>{{ subscription.accountId }}</small></div>
-              <div v-if="subscription.ledger.length" class="ledger-rows">
-                <div v-for="entry in subscription.ledger.slice().reverse().slice(0, 12)" :key="entry.id" class="ledger-row">
-                  <div><strong>{{ entry.kind }}</strong><span>{{ new Date(entry.createdAt).toLocaleString('zh-CN') }}</span></div>
-                  <b :class="{ debit: entry.units < 0 }">{{ entry.units > 0 ? '+' : '' }}{{ formatCredits(entry.units) }}</b>
-                </div>
-              </div>
-              <div v-else class="empty-ledger">Community 本地模式没有平台额度记录。</div>
-            </div>
-          </template>
-        </section>
-
-        <section v-else class="catalog-view release-view">
-          <div class="page-heading">
-            <div><span class="eyebrow">M4 RELEASE READINESS</span><h1>发布中心</h1><p>把科学质量、安全、安装交付和运维证据集中到一个发布门槛。</p></div>
-            <div class="release-actions">
-              <button class="secondary-button" :disabled="releaseLoading" @click="workspace.loadReleaseReadiness">
-                <RefreshCw :size="15" />重新检查
-              </button>
-              <button class="primary-button" @click="exportSupportBundle"><Download :size="15" />导出脱敏诊断包</button>
-            </div>
-          </div>
-
-          <div v-if="releaseLoading && !releaseReadiness" class="release-loading"><div class="small-loader" />正在核对发布门槛…</div>
-          <template v-else-if="releaseReadiness">
-            <div class="release-summary">
-              <article class="release-score">
-                <span>v1 发布就绪度</span>
-                <strong>{{ releaseProgress }}%</strong>
-                <div class="release-track"><i :style="{ width: `${releaseProgress}%` }" /></div>
-                <small>v{{ releaseReadiness.version }} · {{ releaseReadiness.platform }}</small>
-              </article>
-              <article class="release-stat pass"><span>通过</span><strong>{{ releaseReadiness.passed }}</strong></article>
-              <article class="release-stat warning"><span>提醒</span><strong>{{ releaseReadiness.warnings }}</strong></article>
-              <article class="release-stat blocked"><span>阻断</span><strong>{{ releaseReadiness.blocked }}</strong></article>
-            </div>
-
-            <div class="release-notice">
-              <ShieldCheck :size="19" />
-              <div><strong>{{ releaseReadiness.blocked ? '当前构建不可标记为 v1 正式版' : '当前发布门槛已满足' }}</strong><span>阻断项必须有可复核证据；日期到达不会自动放行。</span></div>
-            </div>
-
-            <div class="release-checks">
-              <article v-for="item in releaseReadiness.checks" :key="item.id" class="release-check">
-                <span :class="['release-check-status', item.status]"><i />{{ item.status === 'pass' ? '通过' : item.status === 'warning' ? '提醒' : '阻断' }}</span>
-                <div>
-                  <small>{{ ({ science: '科学质量', security: '安全与隐私', delivery: '安装交付', operations: '运维恢复' } as const)[item.category] }}</small>
-                  <strong>{{ item.title }}</strong>
-                  <p>{{ item.detail }}</p>
-                  <em v-if="item.remediation">{{ item.remediation }}</em>
-                </div>
-              </article>
-            </div>
-          </template>
-        </section>
+        <PlatformCenter v-else-if="activeView==='platform'" :settings="settings" :skills="skills" :models="models" @chat="workspace.showView('chat')" @settings="settingsVisible=true" @skill="openPlatformSkill" @model="openPlatformModel" @example="useQuickTask($event);workspace.showView('chat')" />
+        <WorkspaceCatalog
+          v-else-if="activeView === 'skills' || activeView === 'models'"
+          :view="activeView" v-model:skill-locale="skillLocale" v-model:model-locale="modelLocale"
+          :filters="catalogFilters"
+          v-model:directory-mode="modelDirectoryMode" :incoming-draft="userSkillDraft" :preparing-silicon="preparingSilicon"
+          @skill="selectedSkill = $event" @model="selectedModel = $event"
+          @skills-changed="userSkillDraft = null; workspace.refreshSkills()"
+          @example="useModelExample" @try-silicon="trySiliconAnalysis"
+        />
+        <ResearchWorkspace v-else-if="activeView==='research'" @example="useQuickTask" />
+        <WorkspaceOperations v-else :view="activeView" />
       </template>
     </main>
 
     <SettingsDrawer v-model="settingsVisible" :settings="settings" @save="saveSettings" />
+    <AtomicTrajectoryDrawer :locale="modelLocale" :project-id="activeProjectId" />
+    <AtomicComparisonDrawer :locale="modelLocale" :project-id="activeProjectId" />
+  <AtomicViewerDrawer :locale="modelLocale" :project-id="activeProjectId" />
     <SkillDetailsDrawer
       :skill="selectedSkill"
       :locale="skillLocale"
       @close="selectedSkill = null"
       @update:locale="skillLocale = $event"
+      @open-models="selectedSkill=null;activeView='models';modelDirectoryMode='potentials'"
       @use="useSkillFromCatalog"
       @use-example="useSkillExample"
     />

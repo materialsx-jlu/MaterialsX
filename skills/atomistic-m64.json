@@ -1,0 +1,78 @@
+{
+  "version": "m6.4-v1",
+  "frozenSpecification": "models/potentials/task-skills.json",
+  "skills": [
+    {
+      "name": "materials-atomic-structure-inspect",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-mlip-selection",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-mlip-singlepoint",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-mlip-relaxation",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-mlip-md",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-mlip-comparison",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    },
+    {
+      "name": "materials-atomic-3d-view",
+      "enabled": true,
+      "execution": "ready",
+      "applicablePotentialIds": [
+        "chgnet-0.3.0",
+        "mace-mp-0b3-medium",
+        "chgnet-r2scan"
+      ]
+    }
+  ],
+  "activationStage": "M6.5",
+  "extensionActivationStage": "M6.6"
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "potentialId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]{0,95}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "dependencyLockSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "elements": {
+      "minItems": 1,
+      "maxItems": 118,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z][a-z]?$"
+      }
+    },
+    "loadedMemoryMiB": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "device": {
+      "type": "string",
+      "const": "cpu"
+    },
+    "adapter": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    }
+  },
+  "required": [
+    "potentialId",
+    "sha256",
+    "dependencyLockSha256",
+    "elements",
+    "loadedMemoryMiB",
+    "device",
+    "adapter"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m68/CapabilityReceipt.json",
+  "x-runtime-refinements": "Application-reviewed identity, dependencies, scoped authorization, actual Phase B compatibility, frozen plan hash and real result files are checked by the local runtime. Metadata never grants scientific accuracy."
+}

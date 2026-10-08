@@ -43,6 +43,33 @@ describe("release readiness", () => {
     assert.equal(report.checks.find((item) => item.id === "skills-target")?.status, "pass");
   });
 
+  it("qualifies a 0.2 preview without claiming missing v1 evidence has passed", () => {
+    const input = {
+      version: "0.2.0-preview.1",
+      target: "v0.2-preview" as const,
+      platform: "darwin-arm64",
+      packaged: false,
+      signed: false,
+      skillCount: 111,
+      licenseBlocked: 0,
+      databaseIntegrity: "ok",
+      runtimeReady: 5,
+      runtimeTotal: 7,
+      macOSInstallEvidence: false,
+      windowsInstallEvidence: false,
+      scienceEvaluationEvidence: false,
+      updateRollbackEvidence: false,
+    };
+    const report = createReleaseReadiness(input);
+    assert.equal(report.target, "v0.2-preview");
+    assert.equal(report.blocked, 0);
+    assert.equal(report.checks.find((item) => item.id === "code-signing")?.status, "warning");
+    assert.equal(report.checks.find((item) => item.id === "science-holdout")?.status, "warning");
+    assert.equal(report.checks.find((item) => item.id === "packaged-install")?.status, "warning");
+    const missingLicense = createReleaseReadiness({ ...input, licenseBlocked: 1 });
+    assert.equal(missingLicense.checks.find((item) => item.id === "skills-license")?.status, "blocked");
+  });
+
   it("redacts secrets, paths, endpoints and research content recursively", () => {
     const redacted = redactSupportData({
       apiKey: "secret",

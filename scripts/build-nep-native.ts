@@ -1,0 +1,9 @@
+import {execFile} from 'node:child_process';import {promisify} from 'node:util';import {mkdir,readFile,writeFile,rename} from 'node:fs/promises';import {join} from 'node:path';import {createHash} from 'node:crypto';import {nativeExpansion} from '../packages/atomistic/src/native-expansion.js';
+const root=process.cwd(),platform=process.platform==='darwin'&&process.arch==='arm64'?'macos-arm64':null;if(!platform){await mkdir(join(root,'runtime/native-engines',process.platform==='win32'?'windows-x64':'unsupported'),{recursive:true});console.log('NEP native engine not bundled: platform not tested; execution remains blocked.');process.exit(0);}
+const m=nativeExpansion(root)!,dir=join(root,'runtime/native-engines',platform,'nep-cpu');await mkdir(dir,{recursive:true});const exec=promisify(execFile),binary=join(dir,'nep-runner'),stage=binary+'.staging';
+const sourceSha256=createHash('sha256').update(JSON.stringify(m.engine.sources)).digest('hex');
+const {stdout:compiler}=await exec('clang++',['--version']);
+await exec('clang++',['-std=c++17','-O2','-arch','arm64','-I',join(root,'vendor/nep-cpu'),join(root,'atomistic/nep_runner.cpp'),...['nep.cpp','ewald_nep.cpp','neighbor_nep.cpp'].map(f=>join(root,'vendor/nep-cpu',f)),'-o',stage],{timeout:120000,maxBuffer:1048576});
+await rename(stage,binary);const binarySha256=createHash('sha256').update(await readFile(binary)).digest('hex');
+await writeFile(join(dir,'RUNTIME.json'),JSON.stringify({version:'m6.14-v1',platform,sourceRevision:m.engine.revision,sourceSha256,binary:'nep-runner',binarySha256,dependencyLockSha256:m.entry.dependencyLockSha256,compiler:compiler.split('\n')[0],createdAt:new Date().toISOString(),scientificQuality:'needs_review'},null,2)+'\n');
+console.log(JSON.stringify({nativeEngine:'NEP_CPU 1.4',platform,binarySha256,bytes:(await readFile(binary)).length,sharedPython:'locked CHGNet environment',weightsDownloaded:0}));

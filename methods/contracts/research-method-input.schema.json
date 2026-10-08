@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "question": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "task": {
+      "type": "string",
+      "enum": [
+        "summarize",
+        "fit",
+        "validate",
+        "atomistic"
+      ]
+    },
+    "samples": {
+      "default": [],
+      "maxItems": 300,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "y": {
+            "type": "object",
+            "properties": {
+              "snapshotId": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "observationId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "snapshotId",
+              "observationId"
+            ],
+            "additionalProperties": false
+          },
+          "x": {
+            "type": "object",
+            "properties": {
+              "snapshotId": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "observationId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "snapshotId",
+              "observationId"
+            ],
+            "additionalProperties": false
+          },
+          "split": {
+            "type": "string",
+            "enum": [
+              "train",
+              "validation",
+              "test"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "y"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "atomic": {
+      "type": "object",
+      "properties": {
+        "structureId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "inorganic-crystals",
+            "molecules",
+            "polymers",
+            "surfaces",
+            "interfaces",
+            "unknown"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "enum": [
+            "singlepoint",
+            "relaxation",
+            "md"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "exploratory",
+            "production"
+          ]
+        },
+        "interaction": {
+          "type": "string",
+          "enum": [
+            "short-range",
+            "long-range-required",
+            "dispersion-required",
+            "spin-required",
+            "field-required",
+            "delta-required",
+            "multi-head-required"
+          ]
+        }
+      },
+      "required": [
+        "structureId",
+        "domain",
+        "task",
+        "mode"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "question",
+    "task"
+  ],
+  "additionalProperties": false
+}

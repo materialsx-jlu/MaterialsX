@@ -1,0 +1,885 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "m6.5-v1"
+    },
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "potentialId": {
+      "type": "string",
+      "enum": [
+        "mace-mp-0b3-medium",
+        "chgnet-0.3.0",
+        "chgnet-r2scan"
+      ]
+    },
+    "history": {
+      "anyOf": [
+        {
+          "minItems": 2,
+          "maxItems": 2001,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2000
+              },
+              "timeFs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "potentialEnergyEv": {
+                "type": "number"
+              },
+              "kineticEnergyEv": {
+                "type": "number",
+                "minimum": 0
+              },
+              "totalEnergyEv": {
+                "type": "number"
+              },
+              "temperatureK": {
+                "type": "number",
+                "minimum": 0
+              },
+              "maxForceEvPerAngstrom": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minimumDistanceAngstrom": {
+                "type": "number",
+                "minimum": 0.4
+              },
+              "maxSpeedAngstromPerFs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "elapsedSeconds": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "step",
+              "timeFs",
+              "potentialEnergyEv",
+              "kineticEnergyEv",
+              "totalEnergyEv",
+              "temperatureK",
+              "maxForceEvPerAngstrom",
+              "minimumDistanceAngstrom",
+              "maxSpeedAngstromPerFs",
+              "elapsedSeconds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "structure": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "const": "m6.0-v1"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "coordinateUnit": {
+          "type": "string",
+          "const": "angstrom"
+        },
+        "atoms": {
+          "minItems": 1,
+          "maxItems": 2000,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "element": {
+                "type": "string"
+              },
+              "position": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "items": false,
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "occupancy": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "id",
+              "element",
+              "position",
+              "occupancy"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "cell": {
+          "anyOf": [
+            {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pbc": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "charge": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spinMultiplicity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "artifactId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "cif",
+                "xyz",
+                "extxyz",
+                "poscar"
+              ]
+            },
+            "provenance": {
+              "type": "string",
+              "enum": [
+                "user-file",
+                "team-synthetic",
+                "literature-reconstructed",
+                "hypothesis"
+              ]
+            },
+            "license": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "transformations": {
+              "maxItems": 100,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            }
+          },
+          "required": [
+            "artifactId",
+            "sha256",
+            "format",
+            "provenance",
+            "license",
+            "transformations"
+          ],
+          "additionalProperties": false
+        },
+        "issues": {
+          "maxItems": 100,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "warning",
+                  "blocking"
+                ]
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "code",
+              "severity",
+              "detail"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "id",
+        "coordinateUnit",
+        "atoms",
+        "cell",
+        "pbc",
+        "charge",
+        "spinMultiplicity",
+        "source",
+        "issues"
+      ],
+      "additionalProperties": false
+    },
+    "index": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "const": "m6.5-v1"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "planId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "structureId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "ensemble": {
+              "type": "string",
+              "enum": [
+                "nve",
+                "nvt"
+              ]
+            },
+            "steps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "timestepFs": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 1
+            },
+            "temperatureK": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "sampleEvery": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "seed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "frictionInverseFs": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0.001,
+                  "maximum": 0.1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "ensemble",
+            "steps",
+            "timestepFs",
+            "temperatureK",
+            "sampleEvery",
+            "seed",
+            "frictionInverseFs"
+          ],
+          "additionalProperties": false
+        },
+        "atomCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        },
+        "entries": {
+          "minItems": 1,
+          "maxItems": 2001,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2000
+              },
+              "step": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2000
+              },
+              "timeFs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "frame": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 2097152
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "bytes",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              },
+              "extxyz": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 2097152
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "offset",
+                  "bytes",
+                  "sha256"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "index",
+              "step",
+              "timeFs",
+              "frame",
+              "extxyz"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "version",
+        "runId",
+        "planId",
+        "structureId",
+        "options",
+        "atomCount",
+        "entries"
+      ],
+      "additionalProperties": false
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "const": "m6.5-v1"
+            },
+            "runId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "planId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "structureId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "options": {
+              "type": "object",
+              "properties": {
+                "ensemble": {
+                  "type": "string",
+                  "enum": [
+                    "nve",
+                    "nvt"
+                  ]
+                },
+                "steps": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "timestepFs": {
+                  "type": "number",
+                  "minimum": 0.01,
+                  "maximum": 1
+                },
+                "temperatureK": {
+                  "type": "number",
+                  "minimum": 1,
+                  "maximum": 1000
+                },
+                "sampleEvery": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                },
+                "seed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                "frictionInverseFs": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0.001,
+                      "maximum": 0.1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "ensemble",
+                "steps",
+                "timestepFs",
+                "temperatureK",
+                "sampleEvery",
+                "seed",
+                "frictionInverseFs"
+              ],
+              "additionalProperties": false
+            },
+            "completedSteps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000
+            },
+            "frameCount": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 2001
+            },
+            "stopReason": {
+              "type": "string",
+              "const": "requested_steps_completed"
+            },
+            "initial": {
+              "type": "object",
+              "properties": {
+                "step": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2000
+                },
+                "timeFs": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "potentialEnergyEv": {
+                  "type": "number"
+                },
+                "kineticEnergyEv": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "totalEnergyEv": {
+                  "type": "number"
+                },
+                "temperatureK": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "maxForceEvPerAngstrom": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "minimumDistanceAngstrom": {
+                  "type": "number",
+                  "minimum": 0.4
+                },
+                "maxSpeedAngstromPerFs": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "elapsedSeconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "step",
+                "timeFs",
+                "potentialEnergyEv",
+                "kineticEnergyEv",
+                "totalEnergyEv",
+                "temperatureK",
+                "maxForceEvPerAngstrom",
+                "minimumDistanceAngstrom",
+                "maxSpeedAngstromPerFs",
+                "elapsedSeconds"
+              ],
+              "additionalProperties": false
+            },
+            "final": {
+              "type": "object",
+              "properties": {
+                "step": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 2000
+                },
+                "timeFs": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "potentialEnergyEv": {
+                  "type": "number"
+                },
+                "kineticEnergyEv": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "totalEnergyEv": {
+                  "type": "number"
+                },
+                "temperatureK": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "maxForceEvPerAngstrom": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "minimumDistanceAngstrom": {
+                  "type": "number",
+                  "minimum": 0.4
+                },
+                "maxSpeedAngstromPerFs": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "elapsedSeconds": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "step",
+                "timeFs",
+                "potentialEnergyEv",
+                "kineticEnergyEv",
+                "totalEnergyEv",
+                "temperatureK",
+                "maxForceEvPerAngstrom",
+                "minimumDistanceAngstrom",
+                "maxSpeedAngstromPerFs",
+                "elapsedSeconds"
+              ],
+              "additionalProperties": false
+            },
+            "initialVelocitySha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "initialization": {
+              "type": "string",
+              "const": "Maxwell-Boltzmann-PCG64-exact-3N-temperature-COM-retained"
+            },
+            "degreesOfFreedom": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 6000
+            },
+            "integrator": {
+              "type": "string",
+              "enum": [
+                "VelocityVerlet",
+                "Langevin"
+              ]
+            },
+            "fixCenterOfMass": {
+              "type": "boolean",
+              "const": false
+            },
+            "nveDriftMevPerAtomPerPs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "nveVerdict": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "failed",
+                "insufficient_duration",
+                "not_applicable"
+              ]
+            },
+            "nvtMeanTemperatureK": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "nvtRelativeTemperatureError": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "nvtVerdict": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "failed",
+                "insufficient_duration",
+                "not_applicable"
+              ]
+            },
+            "elapsedSeconds": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "stepsPerSecond": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "peakMemoryMiB": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "outputMiB": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "quality": {
+              "type": "string",
+              "const": "needs_review"
+            }
+          },
+          "required": [
+            "version",
+            "runId",
+            "planId",
+            "structureId",
+            "options",
+            "completedSteps",
+            "frameCount",
+            "stopReason",
+            "initial",
+            "final",
+            "initialVelocitySha256",
+            "initialization",
+            "degreesOfFreedom",
+            "integrator",
+            "fixCenterOfMass",
+            "nveDriftMevPerAtomPerPs",
+            "nveVerdict",
+            "nvtMeanTemperatureK",
+            "nvtRelativeTemperatureError",
+            "nvtVerdict",
+            "elapsedSeconds",
+            "stepsPerSecond",
+            "peakMemoryMiB",
+            "outputMiB",
+            "quality"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "version",
+    "projectId",
+    "runId",
+    "potentialId",
+    "history",
+    "structure",
+    "index",
+    "summary",
+    "partial"
+  ],
+  "additionalProperties": false,
+  "$id": "https://materialsx.local/schemas/m6.5-v1/TrajectoryPayload.json",
+  "x-runtime-refinements": "Owned immutable input, verified frame ranges/digests, actual step/time and numerical diagnostics must be checked by runtime."
+}

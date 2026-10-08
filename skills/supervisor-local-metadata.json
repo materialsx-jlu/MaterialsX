@@ -1,0 +1,14 @@
+{
+  "idea-evaluator": { "zh": "从新颖性、可行性和研究条件评估课题构想。", "en": "Assess a research idea for novelty, feasibility, and available resources.", "example": "评估水性辐射制冷涂料的研究想法，指出关键对照实验。" },
+  "deep-research": { "zh": "围绕研究问题开展有来源核验的深度文献调研。", "en": "Research a question across verified literature sources.", "example": "调研水性辐射制冷涂料的配方路线、测试方法和研究空白。" },
+  "vibe-research-workflow": { "zh": "把研究目标组织为可执行、可复核的工作步骤。", "en": "Turn a research objective into executable, reviewable steps.", "example": "把耐高温树脂复合材料的研究目标拆成文献、实验和分析任务。" },
+  "tech-paper-template": { "zh": "梳理技术论文的问题、方法、实验和贡献结构。", "en": "Structure the problem, method, experiments, and contribution of a technical paper.", "example": "为一篇碳纤维增强热塑性复合材料论文梳理章节逻辑。" },
+  "intro-drafter": { "zh": "基于已核实证据起草论文引言。", "en": "Draft a paper introduction from verified evidence.", "example": "根据已有文献和实验记录起草水性制冷涂料论文引言。" },
+  "paper-writer": { "zh": "基于提供的研究资料起草可追溯的论文正文。", "en": "Draft evidence-linked paper sections from supplied research materials.", "example": "根据我的实验数据起草结果与讨论，不要补造参考文献。" },
+  "benchmark-paper-template": { "zh": "规划基准或评价论文的任务、数据和对照设计。", "en": "Plan the tasks, data, and comparisons in a benchmark paper.", "example": "设计材料机器学习势比较研究的基准实验与论文结构。" },
+  "paper-polish": { "zh": "润色学术语言，保留原有技术含义。", "en": "Polish academic writing while preserving its technical meaning.", "example": "润色这段材料论文摘要，并标出可能改变含义的修改。" },
+  "pre-submission-reviewer": { "zh": "投稿前检查论证、图表、引用与可复现性。", "en": "Review argumentation, figures, citations, and reproducibility before submission.", "example": "审查我的投稿草稿，按优先级列出证据和实验设计问题。" },
+  "figure-designer": { "zh": "规划论文图表的信息结构和表现方式。", "en": "Plan the information structure and presentation of research figures.", "example": "为复合材料工艺、微观结构和性能关系设计三张论文图。" },
+  "rebuttal-guidance": { "zh": "整理审稿意见并准备有证据支撑的逐条回复。", "en": "Prepare point-by-point reviewer responses supported by evidence.", "example": "针对审稿人关于样本量和对照组的意见制定回复方案。" },
+  "drawio-reconstruction": { "zh": "将参考图重建为可编辑的 Draw.io 图。", "en": "Reconstruct a reference figure as an editable Draw.io diagram.", "example": "把这张材料制备流程图重建为可编辑的 Draw.io 文件。" }
+}

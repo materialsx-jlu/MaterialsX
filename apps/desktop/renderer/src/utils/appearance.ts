@@ -2,12 +2,12 @@ import { ref } from "vue";
 
 export type AppearanceTheme = "materials-dark" | "codex-light";
 export const appearanceThemes: Array<{ id: AppearanceTheme; name: string; description: string }> = [
-  { id: "materials-dark", name: "Materials 深色", description: "深色工作区 · 薄荷绿强调色" },
-  { id: "codex-light", name: "Codex 浅色", description: "白色工作区 · 浅灰侧栏 · 黑色按钮" },
+  { id: "codex-light", name: "MaterialsX 浅色", description: "冷白工作区 · 深蓝灰导航 · 青蓝操作" },
+  { id: "materials-dark", name: "MaterialsX 深色", description: "深蓝灰工作区 · 青蓝操作 · 柔和对比" },
 ];
 
 const storageKey = "materialsx.appearance.theme";
-export const appearanceTheme = ref<AppearanceTheme>("materials-dark");
+export const appearanceTheme = ref<AppearanceTheme>("codex-light");
 
 export function selectAppearanceTheme(theme: AppearanceTheme): void {
   appearanceTheme.value = theme;
@@ -18,5 +18,5 @@ export function selectAppearanceTheme(theme: AppearanceTheme): void {
 export function initializeAppearance(): void {
   let saved: string | null = null;
   try { saved = localStorage.getItem(storageKey); } catch { /* Use the default theme. */ }
-  selectAppearanceTheme(saved === "codex-light" ? "codex-light" : "materials-dark");
+  selectAppearanceTheme(saved === "materials-dark" ? "materials-dark" : "codex-light");
 }

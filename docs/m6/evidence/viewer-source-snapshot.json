@@ -1,0 +1,165 @@
+{
+  "version": "m6.2-v1",
+  "date": "2026-10-02",
+  "status": "macos-static-viewer-verified-windows-installer-pending",
+  "scientificQuality": "needs_review",
+  "historicalM61SnapshotPreserved": true,
+  "files": [
+    {
+      "path": ".github/workflows/m61.yml",
+      "sha256": "0712075a3996dd58e92bcae3ea91105d3ad7d30770e7722b3221522df1870137"
+    },
+    {
+      "path": "apps/desktop/m62-ui-smoke.cjs",
+      "sha256": "9cf881a3e3212fed1787c65502d2c2949d93b025945a5d7aea44b5888b9731e2"
+    },
+    {
+      "path": "apps/desktop/main/atomic-export.ts",
+      "sha256": "e268235d3a3c968af90239549f2aba7a060e1230120ce3f2147bae5ded85af1f"
+    },
+    {
+      "path": "apps/desktop/main/index.ts",
+      "sha256": "7e5013d3f7ef2ae52595cddfbb6383d8976343b02ac68fb82f986410b7a2cf95"
+    },
+    {
+      "path": "apps/desktop/preload/index.ts",
+      "sha256": "b663a256c87b881b78817afe8ffb9e0baf2a27d671e85a9ba16293a84e1a8ffe"
+    },
+    {
+      "path": "apps/desktop/renderer/atomic-viewer.html",
+      "sha256": "86fbed685b000e69fe1225cc75f615382d656634e40a8987f8f7dab7bc3ac5be"
+    },
+    {
+      "path": "apps/desktop/renderer/src/App.vue",
+      "sha256": "5de6ad8946a712b836692aea62bd3c8ef4a61caa1831d9858c346d8ea04d7ebe"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.css",
+      "sha256": "9c9af19cd7aaf7f4b9ac83777a62c7b71a36da4e803df15e1986cbea0b531fee"
+    },
+    {
+      "path": "apps/desktop/renderer/src/atomic-frame.ts",
+      "sha256": "004e0e310a8c6cccb51dc823b48b2e3cdb6d64145ebc1e9db42975f2bf4ad991"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicArtifactCard.vue",
+      "sha256": "257d092f5d53524b1569c36456b5cc0640edfd82078378eb6fe4d0c70528d407"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomicViewerDrawer.vue",
+      "sha256": "a75348778c81a4be430b8196e0b0f639cd42c693eadb30e0759f7e9810fbcab7"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticMessageArtifacts.vue",
+      "sha256": "f8d0c90da959569514d6e7b419afa13bf5b38b54ae96a298811abba139f6b182"
+    },
+    {
+      "path": "apps/desktop/renderer/src/components/AtomisticRunPanel.vue",
+      "sha256": "10de4df58eab12306cf826f52feadff560232d3e166eda44965d01b97b5b5552"
+    },
+    {
+      "path": "apps/desktop/renderer/src/utils/atomic-viewer.ts",
+      "sha256": "2170fc044ec8a3b3cb43cfc877e5e11a1124b3afe347aee3183d1f189289d4f7"
+    },
+    {
+      "path": "apps/desktop/vite.config.ts",
+      "sha256": "c36d7d851b5061b425a157054c514a1c07344a8d09304ad84027782a5bd93acc"
+    },
+    {
+      "path": "docs/m6/images/viewer-artifacts.png",
+      "sha256": "29c303e2ea4cc2f17d9ae5a144e231e8f383a9eab18f95a9d8d2febb1be1ab86"
+    },
+    {
+      "path": "docs/m6/images/viewer-chat-artifact.png",
+      "sha256": "391db24e222525a35707a0a273cd37588734839d920f9c203b053fb8f7f93a2a"
+    },
+    {
+      "path": "docs/m6/images/viewer-dark.png",
+      "sha256": "2442bf9a08b2ba02bd9911fc38d3dd77a921c89348a88c609b6bcd7789e41e2d"
+    },
+    {
+      "path": "docs/m6/images/viewer-forces.png",
+      "sha256": "9e8082a9115f34461d21c71a613c62e824996b605890d60ad945af25baff8d80"
+    },
+    {
+      "path": "docs/m6/images/viewer-light.png",
+      "sha256": "318b18a4ee5d12cf6bdeda26da64e00946c6ffbebe4516c3ef8430303310998b"
+    },
+    {
+      "path": "docs/m6/images/viewer-molecule.png",
+      "sha256": "708168e9442c3d1fbb271fedd697146ec24eacb3b006b33b0c9f2c745005db26"
+    },
+    {
+      "path": "docs/m6/viewer-acceptance.md",
+      "sha256": "dce89def271bcdbbcc795bfe26b1d65d39fdf66e02e9ed403c70dce72a3919c3"
+    },
+    {
+      "path": "docs/m6/viewer.md",
+      "sha256": "e8dabebcc7bb4e78e0c4ecf38914a6b4a3d996e1aa8c1877ebe34c83f6919cda"
+    },
+    {
+      "path": "docs/third-party/3DMOL_LICENSE.txt",
+      "sha256": "4c6eaaed856f3f28a3b1a98e74f4a8a71618de7d51ea4155c29f6f793bcef861"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "076ab2f331f33269f8340f45df8e29ee65bcead874cdd92eeb2f1282fcd102a9"
+    },
+    {
+      "path": "package.json",
+      "sha256": "ed02f8eeb88e8501c3e8aa26168f18205612df5a7652fe51d32cb57411f3c826"
+    },
+    {
+      "path": "packages/atomistic/src/artifact-io.ts",
+      "sha256": "f2a2437d24c92006bbbd9ab97abf8cacd7589e9573c872a573932ef685825a5b"
+    },
+    {
+      "path": "packages/atomistic/src/runtime.ts",
+      "sha256": "8668af2f5a6ff06c61aa8324a550ce8246dbcd766ba951d41e2638a847de3481"
+    },
+    {
+      "path": "packages/atomistic/src/viewer-geometry.ts",
+      "sha256": "34fd8731bea8636809e2b9a8a53203b8eb353fade65d9aae23161779aa012018"
+    },
+    {
+      "path": "packages/atomistic/src/viewer.test.ts",
+      "sha256": "ecbc937c2acd8eaa00f74c3e278998259cfcff7681da6457aacf2eeffb6f42ca"
+    },
+    {
+      "path": "packages/contracts/src/atomic-viewer.ts",
+      "sha256": "51eb22f8f9e97f0d13ecc7c0ec38f337d958d1479bdfe33e3e401e625d22bce6"
+    },
+    {
+      "path": "packages/contracts/src/desktop.ts",
+      "sha256": "79007881f772430d84d156ee25af3592f67d87ed967681966272edd0ea841039"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameCommand.json",
+      "sha256": "237e0247d07dca870b29e31ef274c3adb1848d93646a6cd042785d64efa48ead"
+    },
+    {
+      "path": "schemas/m62/AtomicFrameEvent.json",
+      "sha256": "177e472cd9a8027f5f1cec8858c46fb667921c1646c31a49832dfc45afd77b58"
+    },
+    {
+      "path": "schemas/m62/AtomicPngExport.json",
+      "sha256": "e1a01b55700f07d30bf3d22f955828cf1dfd8806a2c1dc38150dc31a43ea5301"
+    },
+    {
+      "path": "schemas/m62/AtomicViewPayload.json",
+      "sha256": "2f4b24b269a7d01f98c6afe14204d9efadb3112b34059992d50f4a485008fdb3"
+    },
+    {
+      "path": "schemas/m62/AtomicViewRequest.json",
+      "sha256": "87625fc2b210283f493487b0458faf0165d35761dc0a7a2379e1fed7505f3630"
+    },
+    {
+      "path": "schemas/m62/StaticAtomicScene.json",
+      "sha256": "4a54fddc20ac5404329c6f80daa3de2bf5827ee5cb06eec5ed72e12d31399636"
+    },
+    {
+      "path": "scripts/m62-contracts.ts",
+      "sha256": "1d0e1aeba2a5ec6d911b9bd691ff248b6a391978ea1602bfed6cafb3e59d3299"
+    }
+  ]
+}

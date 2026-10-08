@@ -1,5 +1,7 @@
-import { computed, ref } from "vue";
+import { computed, ref, shallowRef } from "vue";
 import { defineStore } from "pinia";
+import { DEFAULT_MODEL_SETTINGS } from '../../../../../packages/contracts/src/model-defaults.js';
+import type { PotentialRegistry } from "../../../../../packages/contracts/src/atomistic.js";
 import type {
   ConnectionSummary,
   ConversationRecord,
@@ -27,13 +29,12 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const messages = ref<MessageRecord[]>([]);
   const skills = ref<SkillSummary[]>([]);
   const models = ref<ResearchModelSummary[]>([]);
+  // Catalog snapshots are replaced atomically, never edited in the renderer.
+  const potentialCatalog = shallowRef<import("../../../../../packages/contracts/src/potential-hub.js").PotentialCatalog | null>(null);
+  const potentialRegistry = ref<PotentialRegistry | null>(null);
   const connections = ref<ConnectionSummary[]>([]);
   const runs = ref<RunRecord[]>([]);
-  const settings = ref<ModelSettings>({
-    mode: "platform",
-    modelId: "materials-research",
-    localEndpoint: "http://127.0.0.1:11434",
-  });
+  const settings = ref<ModelSettings>({ ...DEFAULT_MODEL_SETTINGS });
   const subscription = ref<SubscriptionSnapshot | null>(null);
   const subscriptionLoading = ref(false);
   const releaseReadiness = ref<ReleaseReadiness | null>(null);
@@ -43,6 +44,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const activeView = ref<WorkspaceView>("chat");
   const pendingDeltas = new Map<string, string>();
   const streamSequences = new Map<string, number>();
+  const settledStreams = new Set<string>();
   let streamFrame: number | null = null;
   let streamSubscribed = false;
 
@@ -63,6 +65,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     settings.value = data.settings;
     skills.value = data.skills;
     models.value = data.models;
+    potentialCatalog.value = data.potentialCatalog ?? null;
+    potentialRegistry.value = data.potentialRegistry ?? null;
     connections.value = data.connections;
     runs.value = data.runs;
     if (!activeProjectId.value && projects.value[0]) activeProjectId.value = projects.value[0].id;
@@ -103,17 +107,22 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     ];
   }
 
+  const activeStreams = new Map<string,string>();
   function handleMessageStream(event: MessageStreamEvent): void {
+    if(settledStreams.has(event.streamId))return;
     if (event.type === "start") {
+      activeStreams.set(event.conversationId,event.streamId);
       streamSequences.set(event.streamId, event.sequence);
       pendingDeltas.delete(event.streamId);
       if (event.conversationId === activeConversationId.value) ensureStreamMessage(event);
       return;
     }
+    if(activeStreams.get(event.conversationId)!==event.streamId)return;
     const lastSequence = streamSequences.get(event.streamId) ?? -1;
     if (event.sequence <= lastSequence) return;
     streamSequences.set(event.streamId, event.sequence);
     if (event.conversationId !== activeConversationId.value) return;
+    if (event.type === "phase") return;
     ensureStreamMessage(event);
     if (event.type === "delta" && event.delta) {
       pendingDeltas.set(event.streamId, (pendingDeltas.get(event.streamId) ?? "") + event.delta);
@@ -133,6 +142,10 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     }
   }
 
+  async function refreshSkills(): Promise<void> {
+    skills.value = (await window.materialsx.bootstrap()).skills;
+  }
+
   async function initialize(): Promise<void> {
     loading.value = true;
     error.value = "";
@@ -142,11 +155,13 @@ export const useWorkspaceStore = defineStore("workspace", () => {
         streamSubscribed = true;
       }
       applyBootstrap(await window.materialsx.bootstrap());
-      await loadSubscription();
       const first = projectConversations.value[0];
       if (first) await selectConversation(first.id);
+      // Restore local context before optional network work can delay and overwrite user navigation.
+      await loadSubscription();
     } catch (cause) {
-      error.value = cause instanceof Error ? cause.message : String(cause);
+      error.value = (cause instanceof Error ? cause.message : String(cause))
+        .replace(/^Error invoking remote method '[^']+': Error: /, '');
     } finally {
       loading.value = false;
     }
@@ -205,36 +220,53 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     messages.value = await window.materialsx.listMessages(conversationId);
   }
 
-  async function sendMessage(content: string): Promise<void> {
-    if (!activeProjectId.value) return;
+  async function sendMessage(content: string): Promise<boolean> {
+    if (!activeProjectId.value) return false;
     if (!activeConversationId.value) await createConversation();
-    if (!activeConversationId.value) return;
+    if (!activeConversationId.value) return false;
     sending.value = true;
     error.value = "";
     const conversationId = activeConversationId.value;
-    const streamId = `stream:${conversationId}`;
+    const streamToken = crypto.randomUUID();
+    const streamId = `stream:${conversationId}:${streamToken}`;
     const optimisticUserId = `client:${crypto.randomUUID()}`;
     const createdAt = new Date().toISOString();
+    const previousMessages = messages.value;
+    const previousIds = new Set(previousMessages.map(item => item.id));
     messages.value = [
       ...messages.value.filter((item) => item.id !== streamId),
       { id: optimisticUserId, conversationId, role: "user", content, status: "complete", createdAt },
       { id: streamId, conversationId, role: "assistant", content: "", status: "streaming", createdAt },
     ];
     try {
-      messages.value = await window.materialsx.sendMessage({
+      const persisted = await window.materialsx.sendMessage({
         projectId: activeProjectId.value,
         conversationId,
         content,
+        streamToken,
       });
+      // Fast host actions may return before queued stream events. The database reply is authoritative.
+      settledStreams.add(streamId);
+      if(settledStreams.size>256)settledStreams.delete(settledStreams.values().next().value!);
+      pendingDeltas.delete(streamId);streamSequences.delete(streamId);
+      if(activeStreams.get(conversationId)===streamId)activeStreams.delete(conversationId);
+      // The host may return only the newly persisted assistant message. A new
+      // durable message is enough to accept the reply; do not discard it just
+      // because the corresponding user message was omitted from this payload.
+      const accepted = persisted.some(item => !previousIds.has(item.id));
+      messages.value = accepted ? persisted : previousMessages;
       sending.value = false;
       const currentProject = activeProjectId.value;
       const currentConversation = conversationId;
       applyBootstrap(await window.materialsx.bootstrap());
       activeProjectId.value = currentProject;
       activeConversationId.value = currentConversation;
+      return accepted;
     } catch (cause) {
       messages.value = messages.value.filter((item) => item.id !== optimisticUserId && item.id !== streamId);
-      error.value = cause instanceof Error ? cause.message : String(cause);
+      error.value = (cause instanceof Error ? cause.message : String(cause))
+        .replace(/^Error invoking remote method '[^']+': Error: /, '');
+      return false;
     } finally {
       sending.value = false;
     }
@@ -284,6 +316,8 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     messages,
     skills,
     models,
+    potentialRegistry,
+    potentialCatalog,
     connections,
     runs,
     settings,
@@ -299,6 +333,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     activeConversation,
     readyConnectionCount,
     initialize,
+    refreshSkills,
     loadSubscription,
     activateDevelopmentPlan,
     chooseProject,

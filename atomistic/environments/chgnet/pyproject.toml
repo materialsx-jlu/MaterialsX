@@ -1,0 +1,20 @@
+[project]
+name = "materialsx-atomistic-chgnet"
+version = "0.1.0"
+requires-python = "==3.12.10"
+dependencies = [
+  "chgnet @ https://github.com/CederGroupHub/chgnet/archive/b9a6c15860237297a5a5169660e83b2e61a78e76.tar.gz",
+  "torch==2.8.0", "numpy==2.2.6", "ase==3.26.0",
+  "pymatgen==2026.5.4", "pymatgen-core==2026.7.16",
+  "jsonschema==4.25.1", "psutil==7.0.0", "pytest==8.4.2",
+]
+[tool.uv]
+build-constraint-dependencies = ["setuptools==80.9.0", "wheel==0.45.1", "cython==3.1.4", "numpy==2.2.6"]
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'", "sys_platform == 'win32' and platform_machine == 'AMD64'"]
+required-environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'", "sys_platform == 'win32' and platform_machine == 'AMD64'"]
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'win32'" }]
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

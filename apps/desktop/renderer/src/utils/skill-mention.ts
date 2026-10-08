@@ -1,10 +1,12 @@
+import {parseReferences} from '../../../../../packages/contracts/src/task-references.js';
 export interface SkillMentionRange {
   start: number;
   end: number;
   query: string;
 }
 
-const QUERY_PATTERN = /^[\p{L}\p{N}._-]*$/u;
+const QUERY_PATTERN = /^(?:(?:skill|file|recipe|paper|structure):)?[\p{L}\p{N}._:/-]*$/u;
+const QUOTED_QUERY_PATTERN = /^(?:file|recipe|paper|structure):"[^"\n@`]*$/u;
 const EMAIL_PREFIX_PATTERN = /[A-Za-z0-9._-]/;
 
 export function findSkillMention(value: string, caret: number): SkillMentionRange | null {
@@ -18,7 +20,8 @@ export function findSkillMention(value: string, caret: number): SkillMentionRang
   if (previous && EMAIL_PREFIX_PATTERN.test(previous)) return null;
 
   const query = prefix.slice(start + 1);
-  if (!QUERY_PATTERN.test(query)) return null;
+  if (!QUERY_PATTERN.test(query)&&!QUOTED_QUERY_PATTERN.test(query)) return null;
+  if(!parseReferences(value.slice(0,start)+'@probe').some(r=>r.start===start))return null;
 
   return { start, end: caret, query };
 }

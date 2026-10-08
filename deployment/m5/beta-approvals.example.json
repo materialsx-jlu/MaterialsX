@@ -1,0 +1,6 @@
+{
+  "version": "m5-beta-approval-v1",
+  "routeVersionId": "rootflow-sol-responses-2026-10-01-v1",
+  "refundRule": "unused-full-v1",
+  "gates": []
+}
