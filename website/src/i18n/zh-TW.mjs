@@ -62,12 +62,13 @@ export default {
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: '選擇適合你的預覽版本。',
     description: '0.3.0-preview.1 的 macOS Apple Silicon 與 Windows x64 安裝檔已發佈至 GitHub Releases。此版本仍需完成簽署、公證及跨裝置驗收。',
-    link: '查看公開版本', guide: '查看使用指南',
+    link: '查看 0.3.0-preview.1 發行說明', guide: '查看使用指南',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：可下載', detail: '已完成本機校驗；Apple 公證及全新裝置安裝驗收尚未完成。' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：可下載', detail: '預覽安裝檔已發佈；Windows 實機驗收尚未完成。' },
-      { platform: 'Linux', arch: 'x64', status: '目前無公開安裝檔', detail: '請以發行頁明確標示的版本與架構為準。' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：可下載', detail: '已完成本機校驗；Apple 公證及全新裝置安裝驗收尚未完成。', asset: 'macos', action: '下載 DMG' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：可下載', detail: '預覽安裝檔已發佈；Windows 實機驗收尚未完成。', asset: 'windows', action: '下載 EXE' },
+      { platform: 'Linux', arch: 'x64', status: '目前無公開安裝檔', detail: '請以發行頁明確標示的版本與架構為準。', asset: '', action: '' },
     ],
+    verify: '下載後可對照 SHA-256 清單驗證檔案：', checksums: '查看 SHA256SUMS.txt',
     note: '軟體不包含聊天模型權重；本機模型需自行在 LM Studio 等工具中載入。科研輸出需人工複核。',
   },
   start: {

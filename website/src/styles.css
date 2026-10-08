@@ -118,13 +118,18 @@ button{cursor:pointer}
 .download-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
 .download-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .platform-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:54px}
-.platform-card{background:#fff;border:1px solid #d2e0dd;border-radius:14px;padding:25px;min-height:222px}
+.platform-card{background:#fff;border:1px solid #d2e0dd;border-radius:14px;padding:25px;min-height:292px;display:flex;flex-direction:column}
 .platform-heading{display:flex;align-items:center;gap:15px}
 .platform-icon{display:grid;place-items:center;width:42px;height:42px;background:#e9f6f5;border-radius:10px;color:var(--cyan-dark);font-size:23px}
 .platform-heading h3{font-size:20px;line-height:1.2}.platform-heading div>span{font:500 11px 'IBM Plex Mono',monospace;color:#84979a}
 .platform-status{display:flex;gap:9px;align-items:flex-start;font-weight:700;font-size:13px;line-height:1.5;margin-top:32px}
 .status-dot{width:7px;height:7px;background:var(--coral);border-radius:50%;margin-top:6px;flex:none}
 .platform-detail{font-size:13px;color:var(--muted);margin-top:11px;line-height:1.7}
+.platform-file{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:16px;margin-top:auto;font-size:11px;color:var(--muted)}
+.platform-file code{font:500 11px 'IBM Plex Mono',monospace;overflow-wrap:anywhere;min-width:0}.platform-file span{white-space:nowrap}
+.platform-download{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:8px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;padding:12px 15px;margin-top:14px;min-height:44px;transition:background .18s ease,transform .18s ease}
+.platform-download:hover{background:var(--cyan-dark);transform:translateY(-1px)}.platform-download:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.download-verify{font-size:13px;color:#50696c;margin-top:22px;line-height:1.7}.download-verify a{color:var(--cyan-dark);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .download-note{font-size:12px;color:#60787b;margin-top:22px;line-height:1.7}.download-note span{color:var(--cyan-dark);margin-right:5px}
 .start{background:var(--paper)}
 .start-grid{display:grid;grid-template-columns:1fr .83fr;gap:100px;align-items:center}

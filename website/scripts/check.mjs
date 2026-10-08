@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { locales, renderPage, releaseUrl } from '../src/render.mjs';
+import { locales, renderPage, releaseTag, releaseUrl, releaseAssets, releaseAssetUrl } from '../src/render.mjs';
 import { researchContent } from '../src/research-content.mjs';
 import { architectureContent } from '../src/architecture-content.mjs';
 
@@ -28,6 +28,13 @@ for (const locale of locales) {
   assert.ok(!html.includes('undefined'), `${locale.code}: missing translation`);
   assert.ok(!/\/Users\//.test(html), `${locale.code}: local path leaked`);
   assert.ok(html.includes(releaseUrl), `${locale.code}: public release link missing`);
+  assert.deepEqual(locale.download.cards.map((card) => card.asset), ['macos', 'windows', ''], `${locale.code}: installer cards differ`);
+  for (const asset of Object.values(releaseAssets)) {
+    assert.ok(asset.name.includes(releaseTag.slice(1)), `${locale.code}: installer version differs from release tag`);
+    assert.ok(html.includes(`href="${releaseAssetUrl(asset.name)}"`), `${locale.code}: ${asset.name} download missing`);
+  }
+  assert.equal((html.match(/class="platform-download"/g) || []).length, 2, `${locale.code}: expected two direct installer buttons`);
+  assert.ok(html.includes(`href="${releaseAssetUrl('SHA256SUMS.txt')}"`), `${locale.code}: checksum link missing`);
   for (const id of ['research-tasks', 'features', 'process', 'architecture', 'potentials', 'moos', 'local', 'gallery', 'download', 'start', 'faq']) {
     assert.ok(html.includes(`id="${id}"`), `${locale.code}: section ${id} missing`);
   }

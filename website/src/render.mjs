@@ -6,7 +6,15 @@ import { researchContent } from './research-content.mjs';
 import { architectureContent } from './architecture-content.mjs';
 
 export const locales = [zhCN, zhTW, en, ja];
-export const releaseUrl = 'https://github.com/materialsx-jlu/MaterialsX/releases';
+const releaseBaseUrl = 'https://github.com/materialsx-jlu/MaterialsX/releases';
+export const releaseTag = 'v0.3.0-preview.1';
+export const releaseUrl = `${releaseBaseUrl}/tag/${releaseTag}`;
+const assetBaseUrl = `${releaseBaseUrl}/download/${releaseTag}`;
+export const releaseAssets = Object.freeze({
+  macos: {name: 'MaterialsX-0.3.0-preview.1-mac-arm64.dmg', size: '1.54 GB'},
+  windows: {name: 'MaterialsX-0.3.0-preview.1-win-x64.exe', size: '309 MB'},
+});
+export const releaseAssetUrl = (name) => `${assetBaseUrl}/${name}`;
 const repositoryUrl = 'https://github.com/materialsx-jlu/MaterialsX';
 const securityUrl = 'mailto:huzhangyou@jlu.edu.cn?subject=MaterialsX%20security%20report';
 
@@ -169,7 +177,11 @@ function download(t) {
     <div class="download-head">${sectionHead(t.download.eyebrow, t.download.title, t.download.description)}
       <div class="download-actions"><a class="button button-primary" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">${esc(t.download.link)} ${arrow}</a><a class="button button-outline" href="#start">${esc(t.download.guide)} <span aria-hidden="true">↓</span></a></div>
     </div>
-    <div class="platform-grid">${t.download.cards.map((card) => `<article class="platform-card"><div class="platform-heading"><span class="platform-icon" aria-hidden="true">${card.platform === 'macOS' ? '⌘' : card.platform === 'Windows' ? '⊞' : '⌁'}</span><div><h3>${esc(card.platform)}</h3><span>${esc(card.arch)}</span></div></div><p class="platform-status"><span class="status-dot" aria-hidden="true"></span>${esc(card.status)}</p><p class="platform-detail">${esc(card.detail)}</p></article>`).join('')}</div>
+    <div class="platform-grid">${t.download.cards.map((card) => {
+      const asset = releaseAssets[card.asset];
+      return `<article class="platform-card"><div class="platform-heading"><span class="platform-icon" aria-hidden="true">${card.platform === 'macOS' ? '⌘' : card.platform === 'Windows' ? '⊞' : '⌁'}</span><div><h3>${esc(card.platform)}</h3><span>${esc(card.arch)}</span></div></div><p class="platform-status"><span class="status-dot" aria-hidden="true"></span>${esc(card.status)}</p><p class="platform-detail">${esc(card.detail)}</p>${asset ? `<div class="platform-file"><code>${esc(asset.name)}</code><span>${esc(asset.size)}</span></div><a class="platform-download" href="${releaseAssetUrl(asset.name)}" rel="noopener noreferrer" aria-label="${esc(card.action)} · ${esc(card.platform)} ${esc(card.arch)}">${esc(card.action)} <span aria-hidden="true">↓</span></a>` : ''}</article>`;
+    }).join('')}</div>
+    <p class="download-verify">${esc(t.download.verify)} <a href="${releaseAssetUrl('SHA256SUMS.txt')}" target="_blank" rel="noopener noreferrer">${esc(t.download.checksums)} ${arrow}</a></p>
     <p class="download-note"><span aria-hidden="true">ⓘ</span> ${esc(t.download.note)}</p>
   </div></section>`;
 }

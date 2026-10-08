@@ -62,12 +62,13 @@ export default {
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: '利用できるプレビュー版を確認。',
     description: '0.3.0-preview.1 の macOS Apple Silicon 版と Windows x64 版を GitHub Releases で公開しています。署名、公証、複数端末での受け入れ確認は未完了です。',
-    link: '公開版を見る', guide: '導入ガイドを見る',
+    link: '0.3.0-preview.1 のリリース情報', guide: '導入ガイドを見る',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：ダウンロード可能', detail: 'ローカルで確認済み。Apple 公証と新規端末でのインストール検証は未完了です。' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：ダウンロード可能', detail: 'プレビュー版を公開済み。Windows 実機での検証は未完了です。' },
-      { platform: 'Linux', arch: 'x64', status: '公開中のインストーラーなし', detail: '公開ページで版とアーキテクチャを確認してください。' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：ダウンロード可能', detail: 'ローカルで確認済み。Apple 公証と新規端末でのインストール検証は未完了です。', asset: 'macos', action: 'DMG をダウンロード' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：ダウンロード可能', detail: 'プレビュー版を公開済み。Windows 実機での検証は未完了です。', asset: 'windows', action: 'EXE をダウンロード' },
+      { platform: 'Linux', arch: 'x64', status: '公開中のインストーラーなし', detail: '公開ページで版とアーキテクチャを確認してください。', asset: '', action: '' },
     ],
+    verify: 'ダウンロード後、SHA-256 一覧と照合できます：', checksums: 'SHA256SUMS.txt を見る',
     note: '会話モデルの重みは同梱されません。ローカルモデルは LM Studio などで別途読み込んでください。科学的な成果には人による確認が必要です。',
   },
   start: {

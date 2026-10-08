@@ -62,12 +62,13 @@ export default {
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: 'Find the preview build that fits.',
     description: 'The 0.3.0-preview.1 installers for macOS Apple Silicon and Windows x64 are available on GitHub Releases. Signing, notarization, and cross-device acceptance remain open.',
-    link: 'View public releases', guide: 'Read the setup guide',
+    link: 'View 0.3.0-preview.1 release notes', guide: 'Read the setup guide',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1: available', detail: 'Locally checked; Apple notarization and clean-machine installation remain unverified.' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1: available', detail: 'Preview installer published; Windows device testing remains open.' },
-      { platform: 'Linux', arch: 'x64', status: 'No public installer yet', detail: 'Check the release page for the exact version and architecture.' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1: available', detail: 'Locally checked; Apple notarization and clean-machine installation remain unverified.', asset: 'macos', action: 'Download DMG' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1: available', detail: 'Preview installer published; Windows device testing remains open.', asset: 'windows', action: 'Download EXE' },
+      { platform: 'Linux', arch: 'x64', status: 'No public installer yet', detail: 'Check the release page for the exact version and architecture.', asset: '', action: '' },
     ],
+    verify: 'Check the downloaded file against the SHA-256 list:', checksums: 'View SHA256SUMS.txt',
     note: 'No chat-model weights are bundled. Load a local model in LM Studio or another compatible tool. Scientific outputs require human review.',
   },
   start: {

@@ -22,7 +22,7 @@ SITE_BASE_PATH=/MaterialsX/ SITE_ORIGIN=https://materialsx-jlu.github.io npm run
 - 文案在 `src/i18n/`；四份文案保持相同字段结构，`npm run check` 会核对。
 - 页面结构在 `src/render.mjs`，新增研究任务与专题文案在 `src/research-content.mjs`，样式在 `src/styles.css` 和 `src/showcase.css`，交互在 `src/site.js`。
 - `public/images/` 是项目自有 Logo 和开发演示截图。原有素材来自本仓库的 `assets/brand/`、`docs/images/`、`docs/m6/screenshots/`；研究任务、势目录、MOOS 连接及本地模型四张新截图取自隔离的 MaterialsX 开发版演示环境。截图仅展示开发环境，不承诺每个安装版本的界面一致。
-- 下载按钮指向公开的 [GitHub Releases](https://github.com/materialsx-jlu/MaterialsX/releases)。0.3.0-preview.1 的 macOS Apple Silicon 和 Windows x64 预览安装包已公开；新版本发布时应同步更新四种语言的版本状态。
+- macOS 与 Windows 下载按钮分别直连 [0.3.0-preview.1 发行页](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1)中的 DMG、EXE，并提供 `SHA256SUMS.txt` 校验入口。下载文件名和发行版本统一维护在 `src/render.mjs`；新版本发布时应同步更新文件名、大小、四种语言的版本状态，并运行 `npm run check`。
 - 目录中的 100 项材料模型并非全部安装或可运行；页面须继续保留这一说明。MOOS 也须独立配置后才能查询。
 
 官网内容、设计和资源在 `website/` 内独立构建；此目录的构建不会修改桌面应用或其发布流程。
