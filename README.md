@@ -2,7 +2,7 @@
 
 **面向材料研究的本地 AI 工作台。** 将文献、实验数据和原子结构放进同一个研究项目，结合模型、Skills 与科学工具，完成分析、计算和可追溯的研究交付。
 
-[下载 0.3.0-preview.1](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
+[官方网站](https://materialsx-jlu.github.io/MaterialsX/zh-CN/) · [下载 0.3.0-preview.1](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
 
 > **0.3.0-preview.1** 提供 macOS Apple Silicon 与 Windows x64 预览安装包。尚未完成正式签名、公证及 Windows 实机验收；不作为正式收费发行。
 

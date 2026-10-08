@@ -31,7 +31,7 @@ for (const locale of locales) {
   for (const id of ['research-tasks', 'features', 'process', 'architecture', 'potentials', 'moos', 'local', 'gallery', 'download', 'start', 'faq']) {
     assert.ok(html.includes(`id="${id}"`), `${locale.code}: section ${id} missing`);
   }
-  assert.match(html, /0\.3[^<]{0,80}(unpublished|not public|未公開|未公开)/i, `${locale.code}: 0.3 release status is unclear`);
+  assert.ok(html.includes('0.3.0-preview.1'), `${locale.code}: public preview version missing`);
   assert.ok(html.includes('/assets/architecture.css'), `${locale.code}: architecture styles missing`);
   assert.ok(!/sk-[A-Za-z0-9]{12,}/.test(html), `${locale.code}: upstream key leaked`);
 }

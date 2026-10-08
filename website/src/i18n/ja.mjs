@@ -5,14 +5,14 @@ export default {
     description: 'MaterialsX は材料研究向けのローカル優先ワークスペースです。論文、実験記録、科学 Skill、MOOS データを結び、根拠を確認できる成果を残します。',
   },
   nav: { product: '主な機能', process: '研究の流れ', gallery: '画面を見る', download: '配布状況', faq: 'よくある質問', menu: 'メニューを開く', language: '言語を選択' },
-  topbar: '0.3 開発プレビュー · MXポイント課金を限定テスト中',
+  topbar: '0.3.0-preview.1 公開中 · MX ポイント課金は試験運用中',
   a11y: { skip: '本文へ移動', backToTop: 'ページ先頭へ', metrics: 'MaterialsX の概要' },
   hero: {
     eyebrow: 'LOCAL-FIRST RESEARCH WORKSPACE',
     title: '材料の問いを、', highlight: '根拠をたどれる研究成果へ。',
     description: '論文、配合、実験記録から始め、Agent が適切な Skills とツールを使います。出典、実行過程、成果物を一つの研究プロジェクトに残せます。',
     primary: '機能を見る', secondary: '配布状況を見る',
-    note: 'デスクトップアプリは無料です。MX ポイント購入はローカルの限定テスト環境のみ。0.3 は未公開です。',
+    note: 'デスクトップアプリは無料です。0.3.0-preview.1 のインストーラーは公開中です。MX ポイント購入とクラウドモデルは試験運用中で、正式な有料版ではありません。',
   },
   metrics: [
     { value: '98', label: '同梱の科学 Skills' },
@@ -61,12 +61,12 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: '利用できるプレビュー版を確認。',
-    description: 'macOS Apple Silicon 向け 0.3 プレビュー版はローカルでビルド・検証済みですが、一般公開はしていません。公開中のインストーラーは GitHub Releases でご確認ください。',
+    description: '0.3.0-preview.1 の macOS Apple Silicon 版と Windows x64 版を GitHub Releases で公開しています。署名、公証、複数端末での受け入れ確認は未完了です。',
     link: '公開版を見る', guide: '導入ガイドを見る',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3 プレビュー版：ローカル検証済み、未公開', detail: 'Apple 公証と新規端末でのインストール検証は未完了です。' },
-      { platform: 'Windows', arch: 'x64', status: '0.3 プレビュー版：実機検証待ち', detail: '公開ページで版とアーキテクチャを確認してください。' },
-      { platform: 'Linux', arch: 'x64', status: '0.3 プレビュー版：未ビルド', detail: '公開ページで版とアーキテクチャを確認してください。' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：ダウンロード可能', detail: 'ローカルで確認済み。Apple 公証と新規端末でのインストール検証は未完了です。' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：ダウンロード可能', detail: 'プレビュー版を公開済み。Windows 実機での検証は未完了です。' },
+      { platform: 'Linux', arch: 'x64', status: '公開中のインストーラーなし', detail: '公開ページで版とアーキテクチャを確認してください。' },
     ],
     note: '会話モデルの重みは同梱されません。ローカルモデルは LM Studio などで別途読み込んでください。科学的な成果には人による確認が必要です。',
   },

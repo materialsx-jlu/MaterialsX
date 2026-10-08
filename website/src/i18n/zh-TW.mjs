@@ -5,14 +5,14 @@ export default {
     description: 'MaterialsX 是面向材料研究的本機優先工作臺。整理論文與實驗資料、使用科研 Skills、連接 MOOS，交付可追溯的研究結果。',
   },
   nav: { product: '產品能力', process: '工作方式', gallery: '介面預覽', download: '取得版本', faq: '常見問題', menu: '開啟導覽', language: '選擇語言' },
-  topbar: '0.3 開發預覽 · MX 點與模型計費聯調中',
+  topbar: '0.3.0-preview.1 已開放下載 · MX 點與模型計費仍在試點',
   a11y: { skip: '跳至內容', backToTop: '返回頂部', metrics: 'MaterialsX 產品概況' },
   hero: {
     eyebrow: 'LOCAL-FIRST RESEARCH WORKSPACE',
     title: '讓材料問題，走向', highlight: '可核對的研究結果。',
     description: '從論文、配方與實驗紀錄出發，讓 Agent 使用合適的 Skills 與工具，把過程、來源和產物留在同一個研究專案中。',
     primary: '了解產品能力', secondary: '查看版本狀態',
-    note: '桌面應用程式免費使用；MX 點儲值僅限本機測試環境，0.3 尚未公開發行。',
+    note: '桌面應用程式免費使用；0.3.0-preview.1 安裝檔已公開。MX 點儲值和雲端模型服務仍處試點，並非正式收費發行。',
   },
   metrics: [
     { value: '98', label: '內建科研 Skills' },
@@ -61,12 +61,12 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: '選擇適合你的預覽版本。',
-    description: '0.3 的 macOS Apple Silicon 預覽包已完成本機打包與校驗，尚未公開發行。公開可取得的安裝檔以 GitHub Releases 頁面為準。',
+    description: '0.3.0-preview.1 的 macOS Apple Silicon 與 Windows x64 安裝檔已發佈至 GitHub Releases。此版本仍需完成簽署、公證及跨裝置驗收。',
     link: '查看公開版本', guide: '查看使用指南',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3 預覽包：本機已驗證，未公開', detail: '目前尚未完成 Apple 公證或全新裝置安裝驗收。' },
-      { platform: 'Windows', arch: 'x64', status: '0.3 預覽包：待實機驗收', detail: '請以發行頁明確標示的版本與架構為準。' },
-      { platform: 'Linux', arch: 'x64', status: '0.3 預覽包：尚未建置', detail: '請以發行頁明確標示的版本與架構為準。' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1：可下載', detail: '已完成本機校驗；Apple 公證及全新裝置安裝驗收尚未完成。' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1：可下載', detail: '預覽安裝檔已發佈；Windows 實機驗收尚未完成。' },
+      { platform: 'Linux', arch: 'x64', status: '目前無公開安裝檔', detail: '請以發行頁明確標示的版本與架構為準。' },
     ],
     note: '軟體不包含聊天模型權重；本機模型需自行在 LM Studio 等工具中載入。科研輸出需人工複核。',
   },

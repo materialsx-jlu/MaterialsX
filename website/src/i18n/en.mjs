@@ -5,14 +5,14 @@ export default {
     description: 'MaterialsX is a local-first workspace for materials research. Work with papers and experiments, scientific Skills, MOOS data, and evidence-linked results.',
   },
   nav: { product: 'Capabilities', process: 'How it works', gallery: 'Inside the app', download: 'Get a build', faq: 'FAQ', menu: 'Open navigation', language: 'Choose language' },
-  topbar: '0.3 development preview · MX Points billing in closed testing',
+  topbar: '0.3.0-preview.1 available · MX Points billing remains in testing',
   a11y: { skip: 'Skip to content', backToTop: 'Back to top', metrics: 'MaterialsX at a glance' },
   hero: {
     eyebrow: 'LOCAL-FIRST RESEARCH WORKSPACE',
     title: 'Turn materials questions into', highlight: 'research you can trace.',
     description: 'Start with papers, formulations, and lab records. Let an agent use the right Skills and tools while keeping each source, action, and result in one research project.',
     primary: 'Explore capabilities', secondary: 'Check release status',
-    note: 'The desktop app is free. MX Points purchases are limited to the local test environment; 0.3 is not publicly released.',
+    note: 'The desktop app is free, and 0.3.0-preview.1 installers are public. MX Points purchases and cloud models remain a pilot, not a general paid release.',
   },
   metrics: [
     { value: '98', label: 'bundled scientific Skills' },
@@ -61,12 +61,12 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: 'Find the preview build that fits.',
-    description: 'A macOS Apple Silicon 0.3 preview has been built and checked locally, but is not publicly released. GitHub Releases is the source of currently public installers.',
+    description: 'The 0.3.0-preview.1 installers for macOS Apple Silicon and Windows x64 are available on GitHub Releases. Signing, notarization, and cross-device acceptance remain open.',
     link: 'View public releases', guide: 'Read the setup guide',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3 preview: locally checked, not public', detail: 'Apple notarization and clean-machine installation remain unverified.' },
-      { platform: 'Windows', arch: 'x64', status: '0.3 preview: device testing pending', detail: 'Check the release page for the exact version and architecture.' },
-      { platform: 'Linux', arch: 'x64', status: '0.3 preview: not built', detail: 'Check the release page for the exact version and architecture.' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0-preview.1: available', detail: 'Locally checked; Apple notarization and clean-machine installation remain unverified.' },
+      { platform: 'Windows', arch: 'x64', status: '0.3.0-preview.1: available', detail: 'Preview installer published; Windows device testing remains open.' },
+      { platform: 'Linux', arch: 'x64', status: 'No public installer yet', detail: 'Check the release page for the exact version and architecture.' },
     ],
     note: 'No chat-model weights are bundled. Load a local model in LM Studio or another compatible tool. Scientific outputs require human review.',
   },
