@@ -20,8 +20,10 @@ RootFlowAI 账户消费日志已核对三路标准输入/输出的实际扣费�
 
 | 安装文件 | SHA-256 |
 | --- | --- |
-| `release/dist/0.3.0-preview.1/MaterialsX-0.3.0-preview.1-mac-arm64.dmg` | `b2c0f0ae8a9e0173c7a841e82fa2baa034fb09cb9350fa3cd32fe2f956608c06` |
-| `release/dist/0.3.0-preview.1/MaterialsX-0.3.0-preview.1-win-x64.exe` | `746650838e5d8289d05d20f5fbdf1879d414a14b0dcbd7320719389746713daa` |
+| `release/dist/0.3.0-preview.1/MaterialsX-0.3.0-preview.1-mac-arm64.dmg` | `96e9ef7506da2363998a84c14f680276f8539ec4af1f9a247afc4bef65a20e3d` |
+| `release/dist/0.3.0-preview.1/MaterialsX-0.3.0-preview.1-win-x64.exe` | `dd6cc5c0e5e3d634ccfadfc58b5adf9e49345b07fe512c5933e36034bad02984` |
+
+2026-10-08 从公开源码提交 `a0d358e` 重新构建，并将这两个安装包作为 [GitHub 预览发行版](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) 发布；发行页附对应公开源码 ZIP 与 `SHA256SUMS.txt`。这次公开预览不改变上文的正式签名、公证、Windows 实机和生产付费验收限制。
 
 常规验收执行 `npm run check`、`npm test`、`npm run control-plane:test`、`npm run mx03:verify`、`npm run mx03:release:audit` 和公开文本密钥扫描。专项测试覆盖三路活跃探针解析、发行门槛、指定账户/¥10 商品限制、桌面 MX 请求白名单及计费 Web 权限和隔离。真实收退款只执行一次新订单；复验命令为只读，不重新收款或退款。2026-10-07 的只读复验再次确认 ¥10 已退、100 点已返回。Web 四语言页面已更新为 0.3 受限预览并通过静态检查；桌面 macOS 0.3 安装版的订阅与额度 UI 已视觉检查，未登录状态如实提示钱包和价格不可读取。
 

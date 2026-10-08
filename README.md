@@ -2,9 +2,9 @@
 
 **面向材料研究的本地 AI 工作台。** 将文献、实验数据和原子结构放进同一个研究项目，结合模型、Skills 与科学工具，完成分析、计算和可追溯的研究交付。
 
-[下载安装包](https://github.com/materialsx-jlu/MaterialsX/releases) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
+[下载 0.3.0-preview.1](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
 
-> 当前仓库是 **0.3.0-preview.1 源码预览**。可下载的安装包以 Releases 页面为准；0.3 版尚未完成跨平台正式发行。
+> **0.3.0-preview.1** 提供 macOS Apple Silicon 与 Windows x64 预览安装包。尚未完成正式签名、公证及 Windows 实机验收；不作为正式收费发行。
 
 ## 主要功能
 
@@ -22,7 +22,7 @@
 
 ## 快速开始
 
-安装包请从 [Releases](https://github.com/materialsx-jlu/MaterialsX/releases) 获取。希望从源码运行，可使用 Node.js 24 和 npm：
+安装包请从 [0.3.0-preview.1 发行页](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) 获取。希望从源码运行，可使用 Node.js 24 和 npm：
 
 ```bash
 git clone https://github.com/materialsx-jlu/MaterialsX.git
