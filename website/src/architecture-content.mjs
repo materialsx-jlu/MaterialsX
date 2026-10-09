@@ -2,7 +2,7 @@ const priceRows = [
   ['gpt-5.6-sol', '175 / 1050 / 17.5 / 218.75', 'standard'],
   ['gpt-5.6-sol ≥272k', '350 / 1575 / 35 / 437.5', 'standard'],
   ['claude-opus-5-5', '140 / 700 / 7 / 175', 'pilot'],
-  ['claude-fable-5-1', '350 / 1750 / 8.75 / 437.5', 'paused'],
+  ['claude-fable-5-1', '350 / 1750 / 8.75 / 437.5', 'pilot'],
 ];
 
 export const architectureContent = {
@@ -32,7 +32,7 @@ export const architectureContent = {
     },
     boundaryTitle: '部署与数据边界',
     boundaries: ['官网静态发布；桌面项目和本地模型留在用户设备。', '账户网关、计费 Web、LiteLLM 分别部署、检查健康和回滚。', 'MX 余额与订单只在 MaterialsX 业务库；LiteLLM 使用独立数据库。', '供应商密钥只在 LiteLLM 私有环境；密钥、采购价和管理入口不进入客户端或公开页面。'],
-    status: '0.3.0-preview.1 安装包已公开，计费服务仍在试点：本机四档可真实下单，已验证一笔 ¥10 实付到账及 GPT 5.6 钱包扣点/供应商账单核对；Opus 尚待同等级实付核对，Fable 暂停新收费调用，GPT-6 已移出。正式收费发行仍取决于生产部署与跨平台验收。',
+    status: '0.3.0 安装包连接正式平台。试点账户已验证一笔 ¥10 微信实付、一次发点及 GPT 5.6 完成后的 MX 扣点；三模型按核定价格受限开放。供应商实际账单、退款和跨平台安装仍需继续核验。',
   },
   'zh-TW': {
     nav: '0.3 架構', eyebrow: 'MATERIALSX 0.3 / SYSTEM FLOW', title: '從研究問題到 MX 點結算，看清整條鏈路。',
@@ -54,7 +54,7 @@ export const architectureContent = {
     ],
     price: {title: '統一購買 MX 點，按模型用量扣點', lead: '固定兌換 ¥1 = 10 MX 點。以下為 2026-10-07 審核快照的零售價，單位是每百萬對應類別 Token 的 MX 點；順序為普通輸入 / 輸出 / 快取讀取 / 快取建立。可用模型以登入後目錄為準。', model: '模型與檔位', rate: '輸入 / 輸出 / 快取讀 / 快取寫', state: '目前狀態', rows: priceRows, states: {standard: '受限開放', pilot: '受限開放', paused: '暫停新收費呼叫'}, foot: '相對官方美元參考價約五折僅供歷史比較；供應商額度按已核定口徑 1 額度 = ¥1 估算採購成本。充值、消費收入與採購成本分別入帳；毛利不等於淨利。'},
     boundaryTitle: '部署與資料邊界', boundaries: ['官網靜態發布；桌面專案與本地模型留在使用者設備。', '帳戶閘道、計費 Web、LiteLLM 分別部署、健康檢查與回滾。', 'MX 餘額和訂單只在 MaterialsX 業務資料庫；LiteLLM 使用獨立資料庫。', '供應商密鑰只在 LiteLLM 私有環境；密鑰與採購價不進入客戶端或公開頁面。'],
-    status: '0.3.0-preview.1 安裝檔已公開，計費服務仍在試點：本機四檔可真實下單，已驗證一筆 ¥10 付款入帳及 GPT 5.6 扣點與供應商帳單；Opus 尚待同級驗證，Fable 暫停新收費呼叫，GPT-6 已移除。正式收費發行仍需生產部署及跨平台驗收。',
+    status: '0.3.0 安裝檔連接正式平臺。試點帳戶已驗證一筆 ¥10 微信付款、一次發點，以及 GPT 5.6 完成後的 MX 扣點；三個模型按核定價格有限提供。供應商實際帳單、退款與跨平臺安裝仍待核驗。',
   },
   en: {
     nav: '0.3 architecture', eyebrow: 'MATERIALSX 0.3 / SYSTEM FLOW', title: 'From research question to MX Points settlement.',
@@ -75,7 +75,7 @@ export const architectureContent = {
     ],
     price: {title: 'Buy MX Points once; pay for each model’s usage', lead: 'Fixed conversion: ¥1 = 10 MX Points. These are retail snapshot rates as of 2026-10-07, in MX Points per million tokens of each category: input / output / cache read / cache create. Actual eligibility is shown after sign-in.', model: 'Model and tier', rate: 'Input / output / cache read / cache create', state: 'Current status', rows: priceRows, states: {standard: 'Limited access', pilot: 'Limited access', paused: 'New paid calls paused'}, foot: 'The approximate 50% of official USD reference prices is a historical comparison. Supplier quota uses the confirmed 1 quota = ¥1 assumption for cost estimates. Top-ups, earned revenue, and supplier costs are recorded separately; gross profit is not net profit.'},
     boundaryTitle: 'Deployment and data boundaries', boundaries: ['Static public site; local projects and models stay on user devices.', 'Account gateway, billing Web, and LiteLLM deploy, health-check, and roll back separately.', 'MX balances and orders live only in the MaterialsX business database; LiteLLM uses its own database.', 'Supplier keys remain in LiteLLM private configuration; keys and procurement costs never reach public or client pages.'],
-    status: 'The 0.3.0-preview.1 installers are public, while billing remains a pilot. All four tiers can create real orders locally; one ¥10 payment and one GPT 5.6 wallet charge reconciled to a supplier bill have been verified. Opus needs equivalent verification; new Fable paid calls are paused; GPT-6 was removed. A general paid release still requires production and cross-platform acceptance.',
+    status: 'The 0.3.0 installers connect to the production platform. A pilot account completed a ¥10 WeChat payment, received one MX Points grant, and settled a GPT 5.6 charge. Three models are available to pilot accounts at the approved rates. Actual supplier invoices, refunds, and cross-platform installation remain to be verified.',
   },
   ja: {
     nav: '0.3 構成', eyebrow: 'MATERIALSX 0.3 / SYSTEM FLOW', title: '研究課題から MX ポイント精算までの全体像。',
@@ -96,6 +96,6 @@ export const architectureContent = {
     ],
     price: {title: 'MX ポイントを購入し、モデルの使用量に応じて支払う', lead: '固定換算は ¥1 = 10 MX ポイント。以下は 2026-10-07 時点の販売価格で、各区分 100 万 Token あたりの MX ポイントです。順序は通常入力 / 出力 / キャッシュ読取 / 作成。実際の利用可否はログイン後の一覧をご確認ください。', model: 'モデル・区分', rate: '入力 / 出力 / キャッシュ読取 / 作成', state: '現状', rows: priceRows, states: {standard: '限定提供', pilot: '限定提供', paused: '新規有料呼出を停止'}, foot: '公式 USD 参考価格のおよそ 50% は過去時点の比較です。調達費の概算は確認済みの 1 枠 = ¥1 を使用。チャージ、消費収益、調達費は別々に記帳し、粗利は純利益ではありません。'},
     boundaryTitle: '配置とデータの境界', boundaries: ['公式サイトは静的公開。ローカルのプロジェクトとモデルは利用者の端末に保持。', 'ゲートウェイ、課金 Web、LiteLLM は個別に配置・監視・ロールバック。', 'MX 残高と注文は MaterialsX の業務 DB のみ。LiteLLM は独立 DB を使用。', '供給元キーは LiteLLM の非公開設定のみ。キーと調達価格を公開ページやクライアントへ渡しません。'],
-    status: '0.3.0-preview.1 のインストーラーは公開中で、課金サービスは試験運用中です。ローカルでは四つの枠で実決済注文を作成でき、¥10 の一件の入金と供給元請求に照合した GPT 5.6 のポイント消費を確認済みです。Opus は同等の確認待ち、Fable の新規有料呼出は停止中、GPT-6 は除外済みです。正式な有料版には本番環境と複数 OS の検証が必要です。',
+    status: '0.3.0 のインストーラーは正式なプラットフォームに接続します。試験アカウントで ¥10 の WeChat 決済、一度だけの MX ポイント付与、GPT 5.6 の利用料精算を確認しました。三つのモデルを限定提供中です。供給元の実請求、返金、複数 OS での導入確認は継続します。',
   },
 };
