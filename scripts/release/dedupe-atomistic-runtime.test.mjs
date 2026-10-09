@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { dedupeAtomisticRuntime, pruneAtomisticBytecode } from './dedupe-atomistic-runtime.mjs';
+import { dedupeAtomisticRuntime } from './dedupe-atomistic-runtime.mjs';
 
 test('links only byte-identical large runtime files and preserves imports by path', async t => {
   const root = await mkdtemp(join(tmpdir(), 'mx-runtime-dedupe-'));
@@ -23,9 +23,4 @@ test('links only byte-identical large runtime files and preserves imports by pat
   assert.notEqual((await stat(paths[0])).ino, (await stat(paths[2])).ino);
   assert.deepEqual(await readFile(paths[1]), original);
   assert.equal((await dedupeAtomisticRuntime(root)).linked, 0);
-  const bytecode = join(root, 'mace/lib/python3.12/site-packages/torch/__pycache__/sample.pyc');
-  await mkdir(join(bytecode, '..'), { recursive: true });
-  await writeFile(bytecode, 'unused cache');
-  assert.equal((await pruneAtomisticBytecode(root)).savedBytes, 12);
-  await assert.rejects(readFile(bytecode), { code: 'ENOENT' });
 });

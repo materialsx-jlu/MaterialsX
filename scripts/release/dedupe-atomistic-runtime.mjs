@@ -64,28 +64,6 @@ export async function dedupeAtomisticRuntime(root, { dryRun = false } = {}) {
   return { scanned: files.length, linked, savedBytes, dryRun };
 }
 
-/** Python workers use -B, so precompiled caches only increase installer size. */
-export async function pruneAtomisticBytecode(root) {
-  let removed = 0;
-  let savedBytes = 0;
-  async function walk(dir) {
-    for (const entry of await readdir(dir, { withFileTypes: true })) {
-      const path = join(dir, entry.name);
-      if (entry.isDirectory()) await walk(path);
-      else if (entry.isFile() && entry.name.endsWith('.pyc')) {
-        savedBytes += (await lstat(path)).size;
-        await rm(path);
-        removed++;
-      }
-    }
-  }
-  for (const name of ['ani', 'chgnet', 'mace', 'sevennet']) {
-    try { await walk(join(root, name)); }
-    catch (error) { if (error.code !== 'ENOENT') throw error; }
-  }
-  return { removed, savedBytes };
-}
-
 if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
   const root = process.argv[2];
   if (!root) throw Error('Usage: node dedupe-atomistic-runtime.mjs <runtime-directory> [--dry-run]');
