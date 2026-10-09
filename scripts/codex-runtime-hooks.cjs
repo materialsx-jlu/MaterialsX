@@ -12,6 +12,13 @@ exports.beforePack = async (context) => {
 exports.afterPack = async (context) => {
   const { bundleCodex } = await load();
   const resources = context.packager.getResourcesDir(context.appOutDir);
+  if (context.electronPlatformName === 'darwin') {
+    const { dedupeAtomisticRuntime, pruneAtomisticBytecode } = await import('./release/dedupe-atomistic-runtime.mjs');
+    const pruned = await pruneAtomisticBytecode(path.join(resources, 'atomistic-runtime'));
+    const result = await dedupeAtomisticRuntime(path.join(resources, 'atomistic-runtime'));
+    console.log(`MaterialsX unused Python bytecode removed: ${pruned.removed}, ${pruned.savedBytes} bytes`);
+    console.log(`MaterialsX identical atomistic files linked: ${result.linked}, ${result.savedBytes} bytes`);
+  }
   const report = await bundleCodex(
     context.packager.projectDir,
     resources,

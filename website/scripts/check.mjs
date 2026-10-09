@@ -35,7 +35,8 @@ for (const locale of locales) {
     assert.ok(html.includes(`href="${releaseAssetUrl(asset.name)}"`), `${locale.code}: ${asset.name} download missing`);
   }
   assert.equal((html.match(/class="platform-download"/g) || []).length, Object.keys(releaseAssets).length, `${locale.code}: installer buttons differ from manifest`);
-  assert.ok(html.includes(`href="${releaseAssetUrl('SHA256SUMS.txt')}"`), `${locale.code}: checksum link missing`);
+  if (release.assets.length) assert.ok(html.includes(`href="${releaseAssetUrl('SHA256SUMS.txt')}"`), `${locale.code}: checksum link missing`);
+  else assert.ok(html.includes(locale.download.withdrawn), `${locale.code}: withdrawal notice missing`);
   for (const id of ['research-tasks', 'features', 'process', 'architecture', 'potentials', 'moos', 'local', 'gallery', 'download', 'start', 'faq']) {
     assert.ok(html.includes(`id="${id}"`), `${locale.code}: section ${id} missing`);
   }

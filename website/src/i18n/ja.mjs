@@ -61,14 +61,15 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: 'インストーラーを選択。',
-    description: '0.3.0 の macOS Apple Silicon 版と Windows x64 版は正式なプラットフォームに接続し、GitHub Releases で公開しています。署名、公証、複数端末での受け入れ確認は未完了です。',
-    link: '0.3.0 のリリース情報', guide: '導入ガイドを見る',
+    description: '0.3.0 のインストーラーを公開停止しました。容量を削減し、macOS のダウンロード後の検証問題を修正しています。署名、公証、インストール確認後に新しい版を公開します。',
+    link: '公開状況を見る', guide: '導入ガイドを見る',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0：ダウンロード可能', detail: 'ローカルで確認済み。Apple 公証と新規端末でのインストール検証は未完了です。', asset: 'macos', action: 'DMG をダウンロード' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0：ダウンロード可能', detail: 'インストーラーを公開済み。Windows 実機での検証は未完了です。', asset: 'windows', action: 'EXE をダウンロード' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '一時停止中', detail: 'Developer ID 署名、Apple 公証、ダウンロード後のインストール検証を待っています。', asset: 'macos', action: 'DMG をダウンロード' },
+      { platform: 'Windows', arch: 'x64', status: '一時停止中', detail: '0.3.0 とともに撤回しました。新しい版は実機で検証後に公開します。', asset: 'windows', action: 'EXE をダウンロード' },
       { platform: 'Linux', arch: 'x64', status: '公開中のインストーラーなし', detail: '公開ページで版とアーキテクチャを確認してください。', asset: 'linux', action: 'AppImage をダウンロード' },
     ],
     verify: 'ダウンロード後、SHA-256 一覧と照合できます：', checksums: 'SHA256SUMS.txt を見る',
+    withdrawn: '現在、公開基準を満たしたインストーラーはありません。古いリンクからダウンロードしないでください。',
     note: '会話モデルの重みは同梱されません。ローカルモデルは LM Studio などで別途読み込んでください。科学的な成果には人による確認が必要です。',
   },
   start: {

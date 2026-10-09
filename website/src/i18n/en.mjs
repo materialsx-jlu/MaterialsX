@@ -61,14 +61,15 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: 'Choose your installer.',
-    description: 'The 0.3.0 installers for macOS Apple Silicon and Windows x64 connect to the production platform and are available on GitHub Releases. Signing, notarization, and cross-device acceptance remain open.',
-    link: 'View 0.3.0 release notes', guide: 'Read the setup guide',
+    description: 'The 0.3.0 installers have been withdrawn. We are reducing their size and fixing macOS download verification. A new build will appear after signing, notarization, and installation checks.',
+    link: 'View release status', guide: 'Read the setup guide',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0: available', detail: 'Locally checked; Apple notarization and clean-machine installation remain unverified.', asset: 'macos', action: 'Download DMG' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0: available', detail: 'Installer published; Windows device testing remains open.', asset: 'windows', action: 'Download EXE' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: 'Temporarily unavailable', detail: 'Awaiting Developer ID signing, Apple notarization, and download-to-install testing.', asset: 'macos', action: 'Download DMG' },
+      { platform: 'Windows', arch: 'x64', status: 'Temporarily unavailable', detail: 'Withdrawn with 0.3.0; the next build requires device installation testing.', asset: 'windows', action: 'Download EXE' },
       { platform: 'Linux', arch: 'x64', status: 'No public installer yet', detail: 'Check the release page for the exact version and architecture.', asset: 'linux', action: 'Download AppImage' },
     ],
     verify: 'Check the downloaded file against the SHA-256 list:', checksums: 'View SHA256SUMS.txt',
+    withdrawn: 'No installer has passed release acceptance yet. Please do not use old download links.',
     note: 'No chat-model weights are bundled. Load a local model in LM Studio or another compatible tool. Scientific outputs require human review.',
   },
   start: {

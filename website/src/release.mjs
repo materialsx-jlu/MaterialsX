@@ -12,7 +12,9 @@ try { source = readFileSync(path, 'utf8'); }
 catch { throw Error(`RELEASE_CHANNEL_MANIFEST_MISSING:${channel}`); }
 export const release = validateRelease(JSON.parse(source), channel);
 export const releaseTag = `v${release.version}`;
-export const releaseUrl = `https://github.com/materialsx-jlu/MaterialsX/releases/tag/${releaseTag}`;
+export const releaseUrl = release.status === 'withdrawn'
+  ? 'https://github.com/materialsx-jlu/MaterialsX/releases'
+  : `https://github.com/materialsx-jlu/MaterialsX/releases/tag/${releaseTag}`;
 const assetBase = `https://github.com/materialsx-jlu/MaterialsX/releases/download/${releaseTag}`;
 export const releaseAssetUrl = name => `${assetBase}/${encodeURIComponent(name)}`;
 export const releaseAssets = Object.freeze(Object.fromEntries([

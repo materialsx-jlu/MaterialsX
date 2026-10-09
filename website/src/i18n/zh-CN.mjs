@@ -61,14 +61,15 @@ export default {
   },
   download: {
     eyebrow: 'DOWNLOAD STATUS', title: '选择适合你的安装包。',
-    description: '0.3.0 的 macOS Apple Silicon 与 Windows x64 安装包连接正式平台，已发布到 GitHub Releases。签名、公证和跨设备验收仍在进行。',
-    link: '查看 0.3.0 发布说明', guide: '查看使用指南',
+    description: '0.3.0 安装包已撤回。我们正在缩减体积并修复 macOS 下载后的安装校验；新版本通过签名、公证和安装验收后会在此提供。',
+    link: '查看发布状态', guide: '查看使用指南',
     cards: [
-      { platform: 'macOS', arch: 'Apple Silicon', status: '0.3.0：可下载', detail: '已完成本机校验；Apple 公证与全新设备安装验收尚未完成。', asset: 'macos', action: '下载 DMG' },
-      { platform: 'Windows', arch: 'x64', status: '0.3.0：可下载', detail: '安装包已发布；Windows 实机验收尚未完成。', asset: 'windows', action: '下载 EXE' },
+      { platform: 'macOS', arch: 'Apple Silicon', status: '暂不可下载', detail: '等待 Developer ID 签名、Apple 公证和下载后安装验收。', asset: 'macos', action: '下载 DMG' },
+      { platform: 'Windows', arch: 'x64', status: '暂不可下载', detail: '随 0.3.0 撤回；新包完成实机安装验收后再发布。', asset: 'windows', action: '下载 EXE' },
       { platform: 'Linux', arch: 'x64', status: '当前无公开安装包', detail: '请以发布页中明确标注的版本与架构为准。', asset: 'linux', action: '下载 AppImage' },
     ],
     verify: '下载后可对照 SHA-256 清单核验文件：', checksums: '查看 SHA256SUMS.txt',
+    withdrawn: '当前没有通过验收的安装包；请勿从旧链接下载安装。',
     note: '软件不包含聊天模型权重；本地模型需自行在 LM Studio 等工具中加载。科研输出需人工复核。',
   },
   start: {

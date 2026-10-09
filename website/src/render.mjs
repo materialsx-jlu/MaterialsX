@@ -176,7 +176,7 @@ function download(t) {
       const asset = releaseAssets[card.asset];
       return `<article class="platform-card"><div class="platform-heading"><span class="platform-icon" aria-hidden="true">${card.platform === 'macOS' ? '⌘' : card.platform === 'Windows' ? '⊞' : '⌁'}</span><div><h3>${esc(card.platform)}</h3><span>${esc(card.arch)}</span></div></div><p class="platform-status"><span class="status-dot" aria-hidden="true"></span>${esc(asset ? `${release.version} · ${available}` : card.status)}</p><p class="platform-detail">${esc(release.channel === 'stable' && asset ? stableDetail : card.detail)}</p>${asset ? `<div class="platform-file"><code>${esc(asset.name)}</code><span>${esc(asset.size)}</span></div><a class="platform-download" href="${releaseAssetUrl(asset.name)}" rel="noopener noreferrer" aria-label="${esc(card.action)} · ${esc(card.platform)} ${esc(card.arch)}">${esc(card.action)} <span aria-hidden="true">↓</span></a>` : ''}</article>`;
     }).join('')}</div>
-    <p class="download-verify">${esc(t.download.verify)} <a href="${releaseAssetUrl('SHA256SUMS.txt')}" target="_blank" rel="noopener noreferrer">${esc(t.download.checksums)} ${arrow}</a></p>
+    ${release.assets.length ? `<p class="download-verify">${esc(t.download.verify)} <a href="${releaseAssetUrl('SHA256SUMS.txt')}" target="_blank" rel="noopener noreferrer">${esc(t.download.checksums)} ${arrow}</a></p>` : `<p class="download-verify">${esc(t.download.withdrawn)}</p>`}
     <p class="download-note"><span aria-hidden="true">ⓘ</span> ${esc(t.download.note)}</p>
   </div></section>`;
 }
