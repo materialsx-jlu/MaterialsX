@@ -20,6 +20,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      MATERIALSX_SITE_RELEASE_CHANNEL: stable
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
