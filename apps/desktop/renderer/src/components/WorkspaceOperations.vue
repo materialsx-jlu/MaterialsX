@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
 import { Database, Play, Wrench, RefreshCw, History, Search, Download, ShieldCheck } from "@lucide/vue";
@@ -12,6 +12,9 @@ import ManagedEnvironmentPanel from "./ManagedEnvironmentPanel.vue";
 import AgentConnectionsPanel from "./AgentConnectionsPanel.vue";
 import ExecutionIdentity from "./ExecutionIdentity.vue";
 import MxPointsPanel from './MxPointsPanel.vue';
+import RunHistoryDrawer from './RunHistoryDrawer.vue';
+import UsageHistoryPanel from './UsageHistoryPanel.vue';
+import {runStatusLabel} from '../utils/run-labels.js';
 defineProps<{ view: WorkspaceView }>();
 const workspace = useWorkspaceStore();
 const { connections, runs, releaseReadiness, releaseLoading } = storeToRefs(workspace);
@@ -20,22 +23,27 @@ const engineSession=ref<EngineSessionRef|null>(null);
 async function showPlan(id:string){try{[researchPlan.value,engineSession.value]=await Promise.all([window.materialsx.getResearchPlan(id),window.materialsx.getEngineSession(id)]);if(!researchPlan.value){ElMessage.info('这条旧任务没有研究计划记录');return}planVisible.value=true}catch{ElMessage.error('无法读取研究计划')}}
 const runQuery = ref("");
 const runFilter = ref("all");
-const activeStatuses = new Set(["waiting", "waiting_model", "running", "blocked"]);
+const runSection = ref<'tasks' | 'usage'>('tasks');
+const selectedRunId = ref<string | null>(null);
+const visibleRunCount = ref(50);
+watch([runQuery, runFilter], () => { visibleRunCount.value = 50; });
+const runGroups = [
+  {id: 'all', label: '全部', statuses: null},
+  {id: 'active', label: '进行中 / 等待', statuses: new Set(['waiting', 'waiting_model', 'running', 'blocked'])},
+  {id: 'completed', label: '已结束', statuses: new Set(['completed', 'completed_with_limitations'])},
+  {id: 'stopped', label: '失败 / 已停止', statuses: new Set(['failed', 'cancelled', 'interrupted'])},
+];
 const filteredRuns = computed(() => runs.value.filter(item => {
   const matchesQuery = item.label.toLocaleLowerCase().includes(runQuery.value.trim().toLocaleLowerCase());
-  const matchesStatus = runFilter.value === "all"
-    || (runFilter.value === "active" && activeStatuses.has(item.status))
-    || (runFilter.value === "completed" && ["completed", "completed_with_limitations"].includes(item.status))
-    || (runFilter.value === "stopped" && ["failed", "cancelled", "interrupted"].includes(item.status));
-  return matchesQuery && matchesStatus;
+  const group = runGroups.find(item => item.id === runFilter.value);
+  return matchesQuery && (!group?.statuses || group.statuses.has(item.status));
 }));
-const runFilters = computed(() => [
-  { id: "all", label: "全部", count: runs.value.length },
-  { id: "active", label: "进行中 / 等待", count: runs.value.filter(r => activeStatuses.has(r.status)).length },
-  { id: "completed", label: "已结束", count: runs.value.filter(r => ["completed", "completed_with_limitations"].includes(r.status)).length },
-  { id: "stopped", label: "失败 / 已停止", count: runs.value.filter(r => ["failed", "cancelled", "interrupted"].includes(r.status)).length },
-]);
-const runStatusLabel = (status: string) => ({ waiting: '等待计算', waiting_model: '等待模型', running: '运行中', completed: '已完成', failed: '失败', cancelled: '已停止', interrupted: '已中断', blocked: '等待条件', completed_with_limitations: '待复核' })[status] ?? status;
+const visibleRuns = computed(() => filteredRuns.value.slice(0, visibleRunCount.value));
+const runFilters = computed(() => runGroups.map(group => ({
+  id: group.id,
+  label: group.label,
+  count: group.statuses ? runs.value.filter(run => group.statuses?.has(run.status)).length : runs.value.length,
+})));
 const mxPanelVersion = ref(0);
 const statusTone = (status: string) => ({ ready: "ready", attention: "attention", offline: "offline" })[status] ?? "offline";
 const connectionGroups = computed((): Array<{id:string;title:string;detail:string;items:ConnectionSummary[]}> => [
@@ -89,21 +97,29 @@ const previewRelease = computed(() => releaseReadiness.value?.target === "v0.2-p
 
         <section v-else-if="view === 'runs'" class="catalog-view operations-view runs-view">
           <div class="page-heading">
-            <div><span class="eyebrow">RUN HISTORY</span><h1>运行记录</h1><p>查看任务状态、执行模型和研究计划。</p></div>
-            <label class="search-box"><Search :size="16" /><input v-model="runQuery" aria-label="搜索运行记录" placeholder="搜索任务名称" /></label>
+            <div><span class="eyebrow">RUN HISTORY</span><h1>运行记录</h1><p>查看任务过程、失败原因与 MX 点用量。</p></div>
+            <label v-if="runSection === 'tasks'" class="search-box"><Search :size="16" /><input v-model="runQuery" aria-label="搜索运行记录" placeholder="搜索任务名称" /></label>
           </div>
-          <div class="catalog-filters" aria-label="任务状态筛选">
-            <button v-for="filter in runFilters" :key="filter.id" :class="{ active: runFilter === filter.id }" :aria-pressed="runFilter === filter.id" @click="runFilter = filter.id">{{ filter.label }}<span>{{ filter.count }}</span></button>
+          <div class="run-sections" role="tablist" aria-label="运行记录视图">
+            <button type="button" role="tab" :aria-selected="runSection === 'tasks'" :class="{active: runSection === 'tasks'}" @click="runSection = 'tasks'">任务记录 <span>{{ runs.length }}</span></button>
+            <button type="button" role="tab" :aria-selected="runSection === 'usage'" :class="{active: runSection === 'usage'}" @click="runSection = 'usage'">MX 点用量</button>
           </div>
-          <div v-if="filteredRuns.length" class="run-list">
-            <article v-for="item in filteredRuns" :key="item.id" class="run-row">
-              <div class="run-icon"><History :size="18" /></div>
-              <div class="run-content"><strong>{{ item.label }}</strong><ExecutionIdentity :task-id="item.id" :project-id="item.projectId" locale="zh"/><time :datetime="item.createdAt">{{ new Date(item.createdAt).toLocaleString('zh-CN') }}</time></div>
-              <span :class="['run-status', item.status]">{{ runStatusLabel(item.status) }}</span>
-              <button class="secondary-button run-action" @click="showPlan(item.id)">研究计划</button>
-            </article>
-          </div>
-          <div v-else class="empty-list"><History :size="26" /><strong>{{ runs.length ? '没有匹配的任务' : '还没有运行记录' }}</strong><span>{{ runs.length ? '试试其他关键词或状态。' : '发送研究任务后，可在这里查看进度。' }}</span></div>
+          <UsageHistoryPanel v-if="runSection === 'usage'" />
+          <template v-else>
+            <div class="catalog-filters" aria-label="任务状态筛选">
+              <button v-for="filter in runFilters" :key="filter.id" :class="{ active: runFilter === filter.id }" :aria-pressed="runFilter === filter.id" @click="runFilter = filter.id">{{ filter.label }}<span>{{ filter.count }}</span></button>
+            </div>
+            <div v-if="filteredRuns.length" class="run-list">
+              <article v-for="item in visibleRuns" :key="item.id" class="run-row">
+                <div class="run-icon"><History :size="18" /></div>
+                <div class="run-content"><strong>{{ item.label }}</strong><ExecutionIdentity :task-id="item.id" :project-id="item.projectId" locale="zh"/><time :datetime="item.createdAt">{{ new Date(item.createdAt).toLocaleString('zh-CN') }}</time></div>
+                <span :class="['run-status', item.status]">{{ runStatusLabel(item.status) }}</span>
+                <div class="run-actions"><button class="primary-button" @click="selectedRunId = item.id">完整记录</button><button class="secondary-button" @click="showPlan(item.id)">研究计划</button></div>
+              </article>
+            </div>
+            <button v-if="filteredRuns.length > visibleRunCount" class="secondary-button run-more" @click="visibleRunCount += 50">加载更多（剩余 {{ filteredRuns.length - visibleRunCount }} 条）</button>
+            <div v-if="!filteredRuns.length" class="empty-list"><History :size="26" /><strong>{{ runs.length ? '没有匹配的任务' : '还没有运行记录' }}</strong><span>{{ runs.length ? '试试其他关键词或状态。' : '发送研究任务后，可在这里查看进度。' }}</span></div>
+          </template>
         </section>
 
         <section v-else-if="view === 'subscription'" class="catalog-view subscription-view">
@@ -114,7 +130,7 @@ const previewRelease = computed(() => releaseReadiness.value?.target === "v0.2-p
           <div class="catalog-page-body"><MxPointsPanel :key="mxPanelVersion" /></div>
         </section>
 
-        <section v-else class="catalog-view release-view">
+        <section v-else-if="view === 'release'" class="catalog-view release-view">
           <div class="page-heading">
             <div><span class="eyebrow">M4 RELEASE READINESS</span><h1>发布中心</h1><p>把科学质量、安全、安装交付和运维证据集中到一个发布门槛。</p></div>
             <div class="release-actions">
@@ -161,4 +177,5 @@ const previewRelease = computed(() => releaseReadiness.value?.target === "v0.2-p
           </template>
         </section>
   <ResearchPlanDrawer v-model="planVisible" :plan="researchPlan" :engine-session="engineSession" />
+  <RunHistoryDrawer :run-id="selectedRunId" @close="selectedRunId = null" @conversation="id => { selectedRunId = null; void workspace.selectConversation(id); }" />
 </template>

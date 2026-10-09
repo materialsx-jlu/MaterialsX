@@ -29,8 +29,8 @@ export function createSkillChatInstaller(context: { service: SkillInstallationSe
       const token = input.streamToken ? z.uuid().parse(input.streamToken) : null;
       active.add(conversationId); const controller = new AbortController(); running.set(conversationId, controller);
       const signal = AbortSignal.any([controller.signal, AbortSignal.timeout(120000)]);
-      store.appendMessage(conversationId, 'user', content, 'complete'); store.renameConversationFromFirstMessage(conversationId, content);
-      const run = store.addRun(projectId, content.slice(0, 80), 'running');
+      const run = store.addRun(projectId, content.slice(0, 80), 'running', conversationId);
+      store.appendMessage(conversationId, 'user', content, 'complete', run.id); store.renameConversationFromFirstMessage(conversationId, content);
       const streamId = `stream:${conversationId}:${token ?? run.id}`; let sequence = 0;
       const emit = (event: Omit<MessageStreamEvent, 'conversationId' | 'streamId' | 'sequence'>) => context.emit({ conversationId, streamId, sequence: sequence++, ...event });
       const buffer = new TextStreamBuffer(delta => emit({ type: 'delta', delta }), 32); emit({ type: 'start' });

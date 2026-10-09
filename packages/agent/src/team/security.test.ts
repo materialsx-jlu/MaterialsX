@@ -259,6 +259,21 @@ test("asset lease invalidates on ACL revision or revocation during resource read
   }
 });
 
+test("team resource rejects an upstream PDF presented under a preview handle", async () => {
+  const f = teamFixture();
+  try {
+    const assets = await f.projection.call(f.project.id, "reader", "moos_search_assets",
+      { ref: f.upstream.ref() }, AbortSignal.timeout(5000));
+    const linked = await f.projection.call(f.project.id, "reader", "moos_read_asset",
+      { handle: assets.data.items[0].handle, representation: "preview" }, AbortSignal.timeout(5000));
+    (f.upstream as any).readResource = async (uri: string) => ({
+      contents: [{ uri, mimeType: "application/pdf", blob: Buffer.from("%PDF-test").toString("base64") }],
+    });
+    await assert.rejects(f.projection.resource(f.project.id, "reader", linked.data.resource,
+      AbortSignal.timeout(5000)), /TEAM_PREVIEW_ONLY/);
+  } finally { await f.close(); }
+});
+
 test("removing a source scope invalidates shared metadata, masks old proposals and expires existing leases", async () => {
   const f = teamFixture();
   try {

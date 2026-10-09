@@ -15,13 +15,13 @@
 
 ## 环境与目录
 
-建议 Node.js 24、Python 3.12/uv；控制面需 Go 1.25。使用 `npm ci`、`uv sync --project python --frozen` 并保留锁文件。开发启动 `npm run dev`；可选控制面 `npm run control-plane:dev`。
+建议 Node.js 24、Python 3.12/uv；控制面需 Go 1.25。使用 `npm ci`、`uv sync --project python --frozen` 并保留锁文件。桌面开发启动 `npm run dev`；需要本机账户与钱包时另运行 `npm run identity:local`。
 
 | 目录 | 内容 |
 | --- | --- |
 | `apps/desktop` | Electron main/preload 与 Vue 界面 |
 | `packages` | 合同、Pi 适配、存储、模型策略与共享逻辑 |
-| `services/control-plane` | Go 开发订阅/额度控制面、独立 PostgreSQL 身份服务 |
+| `services/control-plane` | Go 身份、用户 API、钱包、运营接口和后台 Worker |
 | `python` | 科学运行时和文档探针 |
 | `skills` / `vendor` | 固定 Skills、双语资料、上游快照与哈希 |
 | `models` | 模型目录元数据，非预装权重 |
@@ -63,11 +63,11 @@
 
 二进制分发前提供该版本对应源码、构建说明、依赖许可和必要源码获取方式；根 LICENSE 不能代替完整第三方复核。
 
-M5.4 的 PG/签名/退款测试已纳入 `m5:identity:test`；桌面集成使用 `npm run build` 后运行 `npm run m5:payments:live`，只创建自身临时数据库和合成渠道，不使用商户密钥或真实资金。更多限制见 [M5.4](docs/m5/payments.md)。
+M5.4 的 PG/签名/退款测试已纳入 `m5:identity:test` 和 `npm run control-plane:test`。原订阅组件的桌面验收脚本已退役；当前购买与退款界面使用 MX 点数面板。更多限制见 [M5.4](docs/m5/payments.md)。
 
-M5.5 后台额外命令：`npm run check:admin` / `npm run build:admin`（包含在根 check/build）；`npm run m5:workspace:live` 要求隔离 PostgreSQL 测试 DSN，运行真实桌面/后台 UI 与合成模型/支付闭环，不产生真实费用。流程与迁移见 [指南](docs/m5/workspace.md)。不要在截图、测试 evidence、Issue 或审计原因中放真实凭据/科研内容。
+M5.5 后台额外命令：`npm run check:admin` / `npm run build:admin`（包含在根 check/build）。原 M5.5 桌面 UI fixture 已退役；隔离数据库的身份与账本回归使用 `npm run m5:identity:test`。流程与迁移见 [指南](docs/m5/workspace.md)。不要在截图、测试 evidence、Issue 或审计原因中放真实凭据/科研内容。
 
-M5 生命周期回归：专用本机 PostgreSQL 可运行 `npm run m5:beta:race`；CI 使用隔离 `MATERIALSX_IDENTITY_TEST_DATABASE_URL` 运行 `npm run m5:identity:test`。工程测试不应接入真实供应商、真实商户或邮件；前后台合成 UI 验收运行 `npm run m5:workspace:live`。上线资料与限制见 [M5 生命周期](docs/m5/lifecycle-delivery.md)。
+M5 生命周期回归：专用本机 PostgreSQL 可运行 `npm run m5:beta:race`；CI 使用隔离 `MATERIALSX_IDENTITY_TEST_DATABASE_URL` 运行 `npm run m5:identity:test`。工程测试不应接入真实供应商、真实商户或邮件。上线资料与限制见 [M5 生命周期](docs/m5/lifecycle-delivery.md)。
 
 M6 相关修改另运行 `npm run m6:verify`。合同以 `packages/contracts/src/atomistic.ts` 为准，导出及检查用 `m6:contracts` / `m6:contracts:check`；跨字段规则不能只依赖 JSON Schema。冻结输入修改需审查并按 `docs/m6/README.md` 提升相应版本后明确 refreeze；不得自动放宽科学门槛。实际桌面验收 `npm run m6:ui` 使用隔离 userData，不需要真实账户、API 密钥或支付。
 

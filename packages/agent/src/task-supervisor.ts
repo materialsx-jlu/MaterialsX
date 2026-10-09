@@ -569,7 +569,8 @@ export class TaskSupervisor implements ExecutionControl {
     const missing = this.state.steps.filter(s => s.state !== "completed");
     this.state.state = state === "completed_with_limitations" && (missing.length || unresolved || deliveryIssue || uncovered.length) ? "blocked" : state;
     this.state.reason = deliveryIssue || (uncovered.length?'验收产物未由已完成步骤核实 / Unverified acceptance artifacts: '+uncovered.join(', '):null) || (outdatedResponse ? "模型响应属于旧计划版本；保留回执，继续当前计划前先恢复" : missing.length&&state==='completed_with_limitations'?missing.map(s=>s.reason??`步骤 ${s.id} 尚未按真实回执验收`).join('；'):reason||"Scientific and artifact acceptance is separate");
-    this.state.deliveryAssessment=assessDelivery(this.current,this.state,deliveryIssue??(state!=="completed_with_limitations"?reason:null),artifactIssues);
+    const assessmentIssue=this.state.answerAssessment?.status==='blocked'||deliveryIssue===artifactIssues.join('; ')?null:deliveryIssue;
+    this.state.deliveryAssessment=assessDelivery(this.current,this.state,assessmentIssue??(state!=="completed_with_limitations"?reason:null),artifactIssues);
     this.save("terminal", this.state.task.taskId, this.state.state, this.state.reason);
   }
 }

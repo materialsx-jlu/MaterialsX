@@ -6,6 +6,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jamip/materialsx/control-plane/internal/lifecycle"
+	"github.com/jamip/materialsx/control-plane/internal/mxrelease"
 )
 
 func paidAdmission(ctx context.Context, tx pgx.Tx, owner, designated string) (bool, error) {
@@ -23,7 +24,11 @@ func paidAdmission(ctx context.Context, tx pgx.Tx, owner, designated string) (bo
 	return ok, e
 }
 
-func (s *Store) betaCurrent() bool {
+func (s *Store) betaCurrent(ctx context.Context) bool {
+	if s.Config.MXReleaseID != "" {
+		a, err := mxrelease.Read(s.Config.MXReleasePath, time.Now().UTC())
+		return err == nil && a.ReleaseID == s.Config.MXReleaseID && a.APIOrigin == s.Config.MXAPIOrigin && s.MXPoints != nil && s.MXPoints.ProductionReady(ctx)
+	}
 	if s.Config.PaidAccount != "*" {
 		return true
 	}

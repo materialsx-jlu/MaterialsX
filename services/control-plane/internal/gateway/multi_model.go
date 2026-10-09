@@ -2,10 +2,12 @@ package gateway
 
 import (
 	"errors"
+	"github.com/jamip/materialsx/control-plane/internal/mxrelease"
 	"github.com/jamip/materialsx/control-plane/internal/providers/litellm"
 	"github.com/jamip/materialsx/control-plane/internal/providers/rootflow"
 	"os"
 	"strings"
+	"time"
 )
 
 // Route is an immutable process-local deployment snapshot. It is never built
@@ -30,15 +32,15 @@ type Route struct {
 }
 
 var mx03Routes = []Route{
-	{ModelID: "gpt-5.6-sol", SupplierModel: "gpt-5.6-sol", UpstreamAlias: "mx-gpt-5-6-sol", Version: "mx03-gpt56-litellm-responses-20261007-v1", Protocol: "responses", ProviderID: "rootflowai-via-litellm", NoCacheWriteUsage: true},
-	{ModelID: "claude-opus-5-5", SupplierModel: "claude-opus-5-5", UpstreamAlias: "mx-claude-opus-5-5", Version: "mx03-opus55-litellm-chat-adapter-20261007-v1", Protocol: "chat-completions", ProviderID: "rootflowai-via-litellm"},
-	{ModelID: "claude-fable-5-1", SupplierModel: "claude-fable-5-1", UpstreamAlias: "mx-claude-fable-5-1", Version: "mx03-fable51-litellm-chat-adapter-20261007-v1", Protocol: "chat-completions", ProviderID: "rootflowai-via-litellm"},
+	{ModelID: "gpt-5.6-sol", SupplierModel: "gpt-5.6-sol", UpstreamAlias: "mx-gpt-5-6-sol", Version: mxrelease.StaticRouteVersions["gpt-5.6-sol"], Protocol: "responses", ProviderID: "rootflowai-via-litellm", NoCacheWriteUsage: true},
+	{ModelID: "claude-opus-5-5", SupplierModel: "claude-opus-5-5", UpstreamAlias: "mx-claude-opus-5-5", Version: mxrelease.StaticRouteVersions["claude-opus-5-5"], Protocol: "chat-completions", ProviderID: "rootflowai-via-litellm"},
+	{ModelID: "claude-fable-5-1", SupplierModel: "claude-fable-5-1", UpstreamAlias: "mx-claude-fable-5-1", Version: mxrelease.StaticRouteVersions["claude-fable-5-1"], Protocol: "chat-completions", ProviderID: "rootflowai-via-litellm"},
 }
 
 func (c Config) route(model string) (Route, bool) {
 	if model == ModelAlias {
 		return Route{ModelID: ModelAlias, SupplierModel: rootflow.Model, UpstreamAlias: rootflow.Model,
-			Version: RouteVersion, Protocol: "responses", ProviderID: "rootflowai", Provider: c.Provider, Enabled: c.Enabled}, true
+			Version: RouteVersion, Protocol: "responses", ProviderID: "rootflowai", Provider: c.Provider, Enabled: c.Enabled && c.MXReleaseID == ""}, true
 	}
 	r, ok := c.Routes[model]
 	return r, ok
@@ -49,15 +51,33 @@ func configureMX03(c *Config, cloudMode string) error {
 	if mode == "" {
 		return nil
 	}
-	if (mode != "diagnostic" && mode != "wallet") || cloudMode != "alpha" || c.SalesPriceVersion != "" || c.PurchasePriceVersion != "" || c.PaidAccount != "" {
+	production := mode == "wallet-production" && cloudMode == "mx-production"
+	var approval mxrelease.Approval
+	if !production && ((mode != "diagnostic" && mode != "wallet") || cloudMode != "alpha") || c.SalesPriceVersion != "" || c.PurchasePriceVersion != "" || c.PaidAccount != "" {
 		return errors.New("mx03_requires_unbilled_alpha_diagnostic_mode")
 	}
-	if mode == "wallet" {
+	if mode == "wallet" || production {
 		c.MX03PriceVersion = os.Getenv("MATERIALSX_MX03_PRICE_VERSION")
 		if c.MX03PriceVersion == "" || !identifier.MatchString(c.MX03PriceVersion) {
 			return errors.New("mx03_wallet_requires_pinned_price")
 		}
 		c.MX03Wallet = true
+	}
+	if production {
+		path := os.Getenv("MATERIALSX_MX_PRODUCTION_APPROVAL_FILE")
+		a, err := mxrelease.Read(path, time.Now().UTC())
+		if c.MX03PriceVersion != mxrelease.PriceVersion || os.Getenv("MATERIALSX_PAYMENT_MODE") != "wechat-native" ||
+			os.Getenv("MATERIALSX_MX03_PAYMENT_MODE") != "wechat-production" || os.Getenv("MATERIALSX_IDENTITY_PUBLIC_URL") == "" || path == "" {
+			return errors.New("mx_production_release_not_approved")
+		}
+		c.MXReleaseID, c.MXReleasePath, c.MXAPIOrigin = c.MX03PriceVersion, path, os.Getenv("MATERIALSX_IDENTITY_PUBLIC_URL")
+		if err == nil && a.APIOrigin == c.MXAPIOrigin {
+			approval = a
+		}
+		c.Enabled = true
+		if os.Getenv("MATERIALSX_MX03_DIAGNOSTIC_MODELS") != "" {
+			return errors.New("mx_production_models_must_use_release_approval")
+		}
 	}
 	client, err := litellm.NewClient(os.Getenv("MATERIALSX_LITELLM_URL"), os.Getenv("MATERIALSX_LITELLM_GATEWAY_KEY"))
 	if err != nil {
@@ -89,6 +109,9 @@ func configureMX03(c *Config, cloudMode string) error {
 			route.Provider = client
 		}
 		route.Enabled = allowed[route.ModelID]
+		if production {
+			route.Enabled = approval.Allows(route.ModelID, route.Version)
+		}
 		c.Routes[route.ModelID] = route
 	}
 	return nil

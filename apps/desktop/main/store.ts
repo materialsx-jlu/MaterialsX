@@ -131,6 +131,9 @@ export class WorkspaceStore {
       );
       UPDATE runs SET status = 'interrupted' WHERE status = 'running';
     `);
+    if (!(this.#db.prepare("PRAGMA table_info(runs)").all() as Row[]).some(column => column.name === 'conversation_id')) {
+      this.#db.exec("ALTER TABLE runs ADD COLUMN conversation_id TEXT REFERENCES conversations(id) ON DELETE SET NULL");
+    }
     this.#db.prepare('INSERT OR IGNORE INTO settings(id,model_mode,model_id,local_endpoint) VALUES(1,?,?,?)')
       .run(DEFAULT_MODEL_SETTINGS.mode, DEFAULT_MODEL_SETTINGS.modelId, DEFAULT_MODEL_SETTINGS.localEndpoint);
     migrateStartupModel(this.#db);
@@ -174,9 +177,9 @@ export class WorkspaceStore {
   saveAgentThread(key:string,id:string):void {this.#db.prepare("INSERT INTO app_meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value").run(`agent_thread:${key}`,id)}
   saveEngineSession(value: EngineSessionRef): void {
     const record = engineSessionRefSchema.parse(value);
-    const run = this.listRuns().find((r) => r.id === record.task.taskId);
-    const conversation = this.listConversations().find((c) => c.id === record.task.conversationId);
-    if (run?.projectId !== record.task.projectId || conversation?.projectId !== record.task.projectId) throw Error("ENGINE_SESSION_SCOPE_MISMATCH");
+    const run = this.#db.prepare("SELECT project_id FROM runs WHERE id=?").get(record.task.taskId);
+    const conversation = this.#db.prepare("SELECT project_id FROM conversations WHERE id=?").get(record.task.conversationId);
+    if (run?.project_id !== record.task.projectId || conversation?.project_id !== record.task.projectId) throw Error("ENGINE_SESSION_SCOPE_MISMATCH");
     const previous = this.engineSession(record.task.taskId);
     if (previous && (JSON.stringify({ ...previous, nativeSessionId: null }) !== JSON.stringify({ ...record, nativeSessionId: null }) ||
         (previous.nativeSessionId !== null && previous.nativeSessionId !== record.nativeSessionId)))
@@ -261,15 +264,18 @@ export class WorkspaceStore {
     status: MessageRecord["status"],
     taskId?: string,
   ): MessageRecord {
-    const session = taskId ? this.engineSession(taskId) : null;
-    if (session && (role !== "assistant" || session.task.conversationId !== conversationId)) throw Error("MESSAGE_ENGINE_SCOPE_MISMATCH");
+    if (taskId) {
+      const scope = this.#db.prepare("SELECT r.project_id AS run_project, r.conversation_id AS run_conversation, c.project_id AS message_project FROM runs r JOIN conversations c ON c.id=? WHERE r.id=?").get(conversationId, taskId) as Row | undefined;
+      const boundConversation = scope?.run_conversation ?? this.engineSession(taskId)?.task.conversationId;
+      if (!scope || scope.run_project !== scope.message_project || (boundConversation && boundConversation !== conversationId)) throw Error("MESSAGE_RUN_SCOPE_MISMATCH");
+    }
     const record: MessageRecord = {
       id: randomUUID(),
       conversationId,
       role,
       content,
       status,
-      ...(session ? { taskId: session.task.taskId } : {}),
+      ...(taskId ? { taskId } : {}),
       createdAt: now(),
     };
     this.#db
@@ -288,11 +294,12 @@ export class WorkspaceStore {
     }
   }
 
-  addRun(projectId: string, label: string, status: RunRecord["status"]): RunRecord {
+  addRun(projectId: string, label: string, status: RunRecord["status"], conversationId?: string): RunRecord {
+    if (conversationId && !this.#db.prepare("SELECT 1 FROM conversations WHERE id=? AND project_id=?").get(conversationId, projectId)) throw Error("RUN_CONVERSATION_SCOPE_MISMATCH");
     const record: RunRecord = { id: randomUUID(), projectId, label, status, createdAt: now() };
     this.#db
-      .prepare("INSERT INTO runs(id, project_id, label, status, created_at) VALUES (?, ?, ?, ?, ?)")
-      .run(record.id, record.projectId, record.label, record.status, record.createdAt);
+      .prepare("INSERT INTO runs(id, project_id, label, status, created_at, conversation_id) VALUES (?, ?, ?, ?, ?, ?)")
+      .run(record.id, record.projectId, record.label, record.status, record.createdAt, conversationId ?? null);
     return record;
   }
 
@@ -301,7 +308,28 @@ export class WorkspaceStore {
   }
 
   listRuns(): RunRecord[] {
-    return (this.#db.prepare("SELECT * FROM runs ORDER BY created_at DESC LIMIT 50").all() as Row[]).map(run);
+    return (this.#db.prepare("SELECT * FROM runs ORDER BY created_at DESC, rowid DESC").all() as Row[]).map(run);
+  }
+
+  runHistoryLocal(runId: string): {run: RunRecord; conversationId: string | null; messages: MessageRecord[]; cloudTaskIds: string[]} {
+    const row = this.#db.prepare("SELECT * FROM runs WHERE id=?").get(runId) as Row | undefined;
+    if (!row) throw Error("RUN_NOT_FOUND");
+    const record = run(row);
+    const linked = this.#db.prepare("SELECT m.*, a.value AS task_id FROM messages m JOIN app_meta a ON a.key='message_task:' || m.id WHERE a.value=? ORDER BY m.created_at, m.rowid").all(runId) as Row[];
+    let conversationId = row.conversation_id ? String(row.conversation_id) : linked[0] ? String(linked[0].conversation_id) : null;
+    const candidate = this.#db.prepare("SELECT m.conversation_id,m.created_at FROM messages m JOIN conversations c ON c.id=m.conversation_id WHERE c.project_id=? AND (? IS NULL OR m.conversation_id=?) AND m.role='user' AND substr(m.content,1,80)=? AND m.created_at<=? AND (? IS NOT NULL OR julianday(m.created_at)>=julianday(?)-60.0/86400) ORDER BY m.created_at DESC,m.rowid DESC LIMIT 1")
+      .get(record.projectId, conversationId, conversationId, record.label, record.createdAt, conversationId, record.createdAt) as Row | undefined;
+    conversationId ??= candidate ? String(candidate.conversation_id) : null;
+    let messages = linked.map(message);
+    if (conversationId && candidate && !messages.some(item => item.role === 'user')) {
+      const started = String(candidate.created_at);
+      const end = this.#db.prepare("SELECT created_at FROM messages WHERE conversation_id=? AND role='user' AND created_at>? ORDER BY created_at LIMIT 1").get(conversationId, started) as Row | undefined;
+      messages = (this.#db.prepare("SELECT m.*, a.value AS task_id FROM messages m LEFT JOIN app_meta a ON a.key='message_task:' || m.id WHERE m.conversation_id=? AND m.created_at>=? AND (? IS NULL OR m.created_at<?) ORDER BY m.created_at, m.rowid").all(conversationId, started, end?.created_at ?? null, end?.created_at ?? null) as Row[]).map(message);
+    }
+    if (!conversationId) return {run: record, conversationId: null, messages, cloudTaskIds: []};
+    const next = this.#db.prepare("SELECT created_at FROM messages WHERE conversation_id=? AND role='user' AND created_at>? ORDER BY created_at LIMIT 1").get(conversationId, record.createdAt) as Row | undefined;
+    const tasks = this.#db.prepare("SELECT task_id FROM cloud_tasks WHERE conversation_id=? AND created_at>=? AND (? IS NULL OR created_at<?) ORDER BY created_at, task_id").all(conversationId, record.createdAt, next?.created_at ?? null, next?.created_at ?? null) as Row[];
+    return {run: record, conversationId, messages, cloudTaskIds: tasks.map(item => String(item.task_id))};
   }
 
   getSupportSummary(): {

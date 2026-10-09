@@ -1,9 +1,12 @@
 package gateway
 
 import (
+	"context"
 	"github.com/jamip/materialsx/control-plane/internal/lifecycle"
 	"net/http"
+	"net/url"
 	"os"
+	"time"
 )
 
 func (h *HTTP) ConfigureLifecycle(key []byte, approvals string) {
@@ -177,13 +180,50 @@ func (h *HTTP) ConfigureLifecycle(key []byte, approvals string) {
 			EXISTS(SELECT 1 FROM worker_heartbeats WHERE name='billing' AND touched_at>clock_timestamp()-interval '60 seconds'),
 			EXISTS(SELECT 1 FROM payment_jobs WHERE state='pending'),
 			EXISTS(SELECT 1 FROM mx_point_jobs WHERE state='pending')`).Scan(&worker, &pendingPayments, &pendingMX)
-		workerRequired := os.Getenv("MATERIALSX_ENV") == "production" || h.S.Config.Enabled ||
+		workerRequired := os.Getenv("MATERIALSX_ENV") == "production" || h.Identity.ClientFeatures.Payments || h.S.Config.Enabled ||
 			(h.Payments != nil && h.Payments.Mode != "disabled") ||
 			(h.MXPoints != nil && h.MXPoints.Mode != "disabled") || pendingPayments || pendingMX
+		modelProxyRequired := h.Identity.ClientFeatures.Models && h.S.Config.MX03Diagnostic
+		modelProxy := "not_required"
+		if modelProxyRequired {
+			modelProxy = "unavailable"
+			if modelProxyHealthy(r.Context(), os.Getenv("MATERIALSX_LITELLM_URL")) {
+				modelProxy = "healthy"
+			}
+		}
 		status := 200
-		if e != nil || (workerRequired && !worker) {
+		if e != nil || (workerRequired && !worker) || (modelProxyRequired && modelProxy != "healthy") {
 			status = 503
 		}
-		writeJSON(w, status, map[string]bool{"ready": status == 200})
+		writeJSON(w, status, map[string]any{
+			"ready": status == 200,
+			"components": map[string]any{
+				"accountDatabase": e == nil,
+				"billingWorker":   map[string]any{"required": workerRequired, "healthy": e == nil && worker},
+				"modelProxy":      map[string]any{"required": modelProxyRequired, "status": modelProxy},
+			},
+			"features": h.Identity.ClientFeatures,
+		})
 	})
+}
+
+func modelProxyHealthy(ctx context.Context, raw string) bool {
+	u, e := url.Parse(raw)
+	if e != nil || u.Scheme != "http" || u.Host == "" || u.User != nil || u.Path != "" || u.RawQuery != "" || u.Fragment != "" ||
+		(u.Hostname() != "127.0.0.1" && u.Hostname() != "::1") {
+		return false
+	}
+	probeCtx, cancel := context.WithTimeout(ctx, 1500*time.Millisecond)
+	defer cancel()
+	req, e := http.NewRequestWithContext(probeCtx, http.MethodGet, u.String()+"/health/liveliness", nil)
+	if e != nil {
+		return false
+	}
+	client := &http.Client{Timeout: 1500 * time.Millisecond, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
+	resp, e := client.Do(req)
+	if e != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	return resp.StatusCode == http.StatusOK
 }

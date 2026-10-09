@@ -21,6 +21,62 @@ type OnboardingPrice struct {
 	Tiers      []Tier `json:"tiers"`
 }
 
+type OnboardingValidationError struct {
+	Field  string
+	Reason string
+}
+
+func (e *OnboardingValidationError) Error() string { return ErrSnapshot.Error() }
+func (e *OnboardingValidationError) Unwrap() error { return ErrSnapshot }
+
+func invalidPrice(field, reason string) error {
+	return &OnboardingValidationError{Field: field, Reason: reason}
+}
+
+func ValidateOnboardingPrice(modelID string, revision int64, price OnboardingPrice) error {
+	if !onboardingID.MatchString(modelID) || revision < 1 {
+		return invalidPrice("modelId", "INVALID_ID")
+	}
+	if len(price.Tiers) == 0 || len(price.Tiers) > 8 {
+		return invalidPrice("tiers", "TIER_COUNT")
+	}
+	if len(price.SourceRef) > 512 {
+		return invalidPrice("sourceRef", "SOURCE_TOO_LONG")
+	}
+	if len(price.Currency) < 3 || len(price.Currency) > 24 {
+		return invalidPrice("currency", "CURRENCY_INVALID")
+	}
+	if v, e := parseDecimal(price.CNYPerUnit, 8); e != nil || v <= 0 {
+		return invalidPrice("cnyPerUnit", "POSITIVE_DECIMAL_8")
+	}
+	seen := map[string]bool{}
+	for i, tier := range price.Tiers {
+		field := fmt.Sprintf("tiers[%d]", i)
+		if !onboardingID.MatchString(tier.ID) || strings.Contains(tier.ID, "--") {
+			return invalidPrice(field+".id", "INVALID_ID")
+		}
+		if seen[tier.ID] {
+			return invalidPrice(field+".id", "DUPLICATE_ID")
+		}
+		seen[tier.ID] = true
+		if i == 0 && tier.MinInput != 0 {
+			return invalidPrice(field+".minInputTokens", "FIRST_TIER_ZERO")
+		}
+		if i > 0 && tier.MinInput <= price.Tiers[i-1].MinInput {
+			return invalidPrice(field+".minInputTokens", "ASCENDING")
+		}
+		for c := range tier.Purchase {
+			if v, e := parseDecimal(tier.Purchase[c], 4); e != nil || v <= 0 {
+				return invalidPrice(fmt.Sprintf("%s.purchaseQuotaPer1m[%d]", field, c), "POSITIVE_DECIMAL_4")
+			}
+			if v, e := parseDecimal(tier.Retail[c], 4); e != nil || v <= 0 {
+				return invalidPrice(fmt.Sprintf("%s.retailMxPointsPer1m[%d]", field, c), "POSITIVE_DECIMAL_4")
+			}
+		}
+	}
+	return nil
+}
+
 var onboardingID = regexp.MustCompile(`^[a-z][a-z0-9-]{2,63}$`)
 
 func validDynamicBundle(bundle Bundle) bool {
@@ -48,11 +104,8 @@ func validDynamicBundle(bundle Bundle) bool {
 }
 
 func NewOnboardingBundle(modelID string, revision int64, price OnboardingPrice) (Bundle, error) {
-	if !onboardingID.MatchString(modelID) || revision < 1 || len(price.Tiers) == 0 || len(price.Tiers) > 8 || len(price.SourceRef) < 8 || len(price.SourceRef) > 512 || len(price.Currency) < 3 || len(price.Currency) > 24 {
-		return Bundle{}, ErrSnapshot
-	}
-	if v, e := parseDecimal(price.CNYPerUnit, 8); e != nil || v <= 0 {
-		return Bundle{}, ErrSnapshot
+	if err := ValidateOnboardingPrice(modelID, revision, price); err != nil {
+		return Bundle{}, err
 	}
 	raw, _ := json.Marshal(price)
 	digest := sha256.Sum256(raw)
@@ -72,9 +125,6 @@ func NewOnboardingBundle(modelID string, revision int64, price OnboardingPrice) 
 	purchase := Model{ID: modelID}
 	retail := Model{ID: modelID}
 	for _, tier := range price.Tiers {
-		if !onboardingID.MatchString(tier.ID) || strings.Contains(tier.ID, "--") {
-			return Bundle{}, ErrSnapshot
-		}
 		purchase.Tiers = append(purchase.Tiers, Tier{ID: tier.ID, MinInput: tier.MinInput, Purchase: tier.Purchase})
 		retail.Tiers = append(retail.Tiers, Tier{ID: tier.ID, MinInput: tier.MinInput, Retail: tier.Retail})
 	}

@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/jamip/materialsx/control-plane/internal/observability"
 	"github.com/jamip/materialsx/control-plane/internal/providers/rootflow"
 	"io"
 	"net/http"
@@ -106,6 +107,14 @@ func routeUsage(route Route, usage *rootflow.Usage) *rootflow.Usage {
 		usage.CacheCreate = &zero
 	}
 	return usage
+}
+func textDelta(data []byte) bool {
+	var v struct {
+		Type  string `json:"type"`
+		Delta string `json:"delta"`
+		Text  string `json:"text"`
+	}
+	return json.Unmarshal(data, &v) == nil && (v.Type == "response.output_text.delta" && v.Delta != "" || v.Type == "response.output_text.done" && v.Text != "")
 }
 func (h *HTTP) stream(w http.ResponseWriter, r *http.Request) {
 	p, ok := h.auth(w, r)
@@ -218,7 +227,7 @@ func (h *HTTP) stream(w http.ResponseWriter, r *http.Request) {
 	}
 	// Override the ordinary HTTP write timeout for this bounded stream only.
 	rc := http.NewResponseController(w)
-	if e = rc.SetWriteDeadline(time.Now().Add(10 * time.Second)); e != nil {
+	if e = rc.SetWriteDeadline(time.Now().Add(30 * time.Second)); e != nil {
 		fail(w, errors.New("stream_writer_unavailable"))
 		return
 	}
@@ -227,7 +236,7 @@ func (h *HTTP) stream(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-Materialsx-Request-Id", id)
 	w.WriteHeader(200)
 	emit := func(b []byte) error {
-		_ = rc.SetWriteDeadline(time.Now().Add(10 * time.Second))
+		_ = rc.SetWriteDeadline(time.Now().Add(30 * time.Second))
 		if _, e := w.Write(b); e != nil {
 			return e
 		}
@@ -272,6 +281,9 @@ func (h *HTTP) stream(w http.ResponseWriter, r *http.Request) {
 			}
 			if emit(append(append([]byte("data: "), f.Data...), []byte("\n\n")...)) != nil {
 				return
+			}
+			if textDelta(f.Data) {
+				observability.RecordFirstToken(r.Context())
 			}
 			if done {
 				return

@@ -16,7 +16,12 @@ export function creditDisplay(value:bigint):string {
 export const creditDecimal=z.string().regex(/^(0|[1-9]\d{0,14})(\.\d{1,4})?$/)
  .refine(v=>/^(0|[1-9]\d{0,14})(\.\d{1,4})?$/.test(v)&&creditSubunits(v)<=9223372036854775807n,"invalid credit precision/range");
 export const mxPointDecimal=z.string().regex(/^(0|[1-9]\d{0,12})(\.\d{1,6})?$/);
-const mxPointSubunits=(v:string):bigint=>{const [whole,fraction=""]=v.split(".");return BigInt(whole!)*1000000n+BigInt(fraction.padEnd(6,"0"));};
+export const mxPointSubunits=(v:string):bigint=>{const [whole,fraction=""]=v.split(".");return BigInt(whole!)*1000000n+BigInt(fraction.padEnd(6,"0"));};
+export const mxPointDisplay=(value:bigint):string=>{
+ const sign=value<0n?'-':'',absolute=value<0n?-value:value;
+ const whole=absolute/1000000n,fraction=absolute%1000000n;
+ return sign+whole.toString()+(fraction?'.'+fraction.toString().padStart(6,'0').replace(/0+$/,''):'');
+};
 const creditAmount=z.union([unsignedInteger,creditDecimal]);
 const signedCreditDecimal=z.string().refine(v=>creditDecimal.safeParse(v.startsWith("-")?v.slice(1):v).success || /^-?(0|[1-9]\d{0,18})$/.test(v)&&BigInt(v)>=-9223372036854775808n&&BigInt(v)<=9223372036854775807n);
 const id = z.string().min(1).max(128).regex(/^[A-Za-z0-9_.:-]+$/);

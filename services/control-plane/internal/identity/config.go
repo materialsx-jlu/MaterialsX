@@ -61,6 +61,9 @@ func ConfigFromEnv() (Config, error) {
 		if u.Scheme != "https" || os.Getenv("MATERIALSX_DEV_MODE") == "1" {
 			return c, errors.New("production_requires_https_and_no_dev_routes")
 		}
+		if ip := net.ParseIP(host); ip == nil || !ip.IsLoopback() {
+			return c, errors.New("production_identity_must_be_loopback")
+		}
 	} else if u.Scheme != "http" || u.Hostname() != "127.0.0.1" || net.ParseIP(host) == nil || !net.ParseIP(host).IsLoopback() {
 		return c, errors.New("development_identity_must_be_loopback")
 	}
@@ -78,6 +81,10 @@ func ConfigFromEnv() (Config, error) {
 		ones, _ := prefix.Mask.Size()
 		if ones == 0 {
 			return c, errors.New("trusted_proxy_cidr_too_broad")
+		}
+		if c.Environment == "production" && (!prefix.IP.IsLoopback() ||
+			(prefix.IP.To4() != nil && ones != 32) || (prefix.IP.To4() == nil && ones != 128)) {
+			return c, errors.New("production_trusted_proxy_must_be_loopback_host")
 		}
 		c.TrustedProxies = append(c.TrustedProxies, prefix)
 	}

@@ -1,6 +1,11 @@
 import type {ResearchGoalPlan} from '../../contracts/src/research-goal.js';
 import type {TaskExecution} from '../../contracts/src/task-execution.js';
 import type {DeliveryAssessment} from '../../contracts/src/working-context.js';
+const ISSUE_LIMIT=1200;
+const OMITTED='…（完整原因见运行记录 / Full detail in task log）';
+function deliveryIssue(value:string):string{
+ return value.length<=ISSUE_LIMIT?value:value.slice(0,ISSUE_LIMIT-OMITTED.length)+OMITTED;
+}
 /** Technical receipts/files and scientific validity have independent states. */
 export function assessDelivery(plan:ResearchGoalPlan|null,state:TaskExecution,issue:string|null=null,invalidFiles:readonly string[]=[]):DeliveryAssessment{
  const required=plan?.acceptance.requiredArtifacts??[];
@@ -14,5 +19,5 @@ export function assessDelivery(plan:ResearchGoalPlan|null,state:TaskExecution,is
  const complete=!missing.length&&!issues.length;
  return {schemaVersion:'delivery-assessment-v1',planRevision:state.planRevision,
   technical:complete?'complete':verified.length||state.steps.some(s=>s.state==='completed')?'partial':'incomplete',scientific:'needs_review',
-  verified:[...new Set(verified)].slice(0,128),missing:missing.slice(0,128),issues:issues.slice(0,64)};
+  verified:[...new Set(verified)].slice(0,128),missing:missing.slice(0,128),issues:issues.slice(0,64).map(deliveryIssue)};
 }

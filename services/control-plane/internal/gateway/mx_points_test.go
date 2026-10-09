@@ -74,3 +74,90 @@ func TestMXPointRoutesSeparateFromLegacyWallet(t *testing.T) {
 		t.Fatalf("MX wallet unavailable: %d", w.Code)
 	}
 }
+
+func TestMXRetailCatalogIncludesPublishedOnboardedModels(t *testing.T) {
+	f := workspaceTest(t)
+	mx := &mxpoints.Store{Pool: f.h.S.Pool, Mode: "wechat-live"}
+	MountMXPoints(f.h, mx)
+	raw, err := os.ReadFile("../../../../docs/V0_3_ROOTFLOWAI_PRICING.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = mxpricing.ImportSnapshot(context.Background(), mx.Pool, raw); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = mxpricing.ApproveSnapshot(context.Background(), mx.Pool, raw); err != nil {
+		t.Fatal(err)
+	}
+	ctx := context.Background()
+	for _, candidate := range []struct{ id, status string }{{"published-new-model", "active"}, {"unpublished-new-model", "canary"}} {
+		price := mxpricing.OnboardingPrice{Currency: "CNY", CNYPerUnit: "1", Tiers: []mxpricing.Tier{{
+			ID: "standard", MinInput: 0,
+			Purchase: [4]string{"1", "2", "0.1", "0.2"},
+			Retail:   [4]string{"10", "20", "1", "2"},
+		}}}
+		bundle, err := mxpricing.NewOnboardingBundle(candidate.id, 1, price)
+		if err != nil {
+			t.Fatal(err)
+		}
+		tx, err := mx.Pool.Begin(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err = mxpricing.InsertOnboardingBundle(ctx, tx, bundle); err != nil {
+			_ = tx.Rollback(ctx)
+			t.Fatal(err)
+		}
+		_, err = tx.Exec(ctx, `INSERT INTO mx_cloud_models
+		 (id,display_name,provider,supplier_model,proxy_alias,api_base,protocol,credential_env,status,purchase_version_id,fx_version_id,retail_version_id,route_version,canary_account,created_by)
+		 VALUES($1,$1,'test',$1,$2,'https://example.invalid/v1','responses','TEST_KEY',$3,$4,$5,$6,$7,$8,$9)`,
+			candidate.id, "mx-"+candidate.id, candidate.status, bundle.Purchase.ID, bundle.FX.ID, bundle.Retail.ID, "route-"+candidate.id, f.p.ID, f.p.ID)
+		if err != nil {
+			_ = tx.Rollback(ctx)
+			t.Fatal(err)
+		}
+		if err = tx.Commit(ctx); err != nil {
+			t.Fatal(err)
+		}
+	}
+	response := f.user("/v1/mx-points/prices")
+	if response.Code != 200 {
+		t.Fatalf("retail catalog HTTP %d: %s", response.Code, response.Body.String())
+	}
+	var catalog mxpoints.RetailCatalog
+	if err = json.Unmarshal(response.Body.Bytes(), &catalog); err != nil {
+		t.Fatal(err)
+	}
+	if len(catalog.Models) != 4 {
+		t.Fatalf("expected 3 base models and 1 published model, got %d", len(catalog.Models))
+	}
+	for _, model := range catalog.Models {
+		if model.ID == "unpublished-new-model" {
+			t.Fatal("canary price leaked into public catalog")
+		}
+		if model.ID == "published-new-model" {
+			if model.PriceVersionID == "" || model.RetailVsOfficialPercentApprox != nil || len(model.Tiers) != 1 || model.Tiers[0].MXPointsPer1M[0] != "10" {
+				t.Fatalf("published model price is incomplete: %+v", model)
+			}
+			t.Setenv("MATERIALSX_ENV", "production")
+			before := f.user("/v1/mx-points/prices")
+			if before.Code != 200 {
+				t.Fatalf("production catalog: %s", before.Body.String())
+			}
+			var pending mxpoints.RetailCatalog
+			if e := json.Unmarshal(before.Body.Bytes(), &pending); e != nil || len(pending.Models) != 3 {
+				t.Fatalf("undeployed production model visible: %v %+v", e, pending)
+			}
+			if _, e := mx.Pool.Exec(ctx, `UPDATE mx_cloud_models SET deployed_version=version WHERE id='published-new-model'`); e != nil {
+				t.Fatal(e)
+			}
+			after := f.user("/v1/mx-points/prices")
+			var published mxpoints.RetailCatalog
+			if e := json.Unmarshal(after.Body.Bytes(), &published); e != nil || len(published.Models) != 4 {
+				t.Fatalf("deployed production model missing: %v %+v", e, published)
+			}
+			return
+		}
+	}
+	t.Fatal("published model missing from retail catalog")
+}

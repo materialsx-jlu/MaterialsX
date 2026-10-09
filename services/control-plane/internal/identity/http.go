@@ -16,6 +16,7 @@ import (
 )
 
 type HTTP struct {
+	ClientFeatures    ClientFeatures
 	EmailEnabled      bool
 	SignupEnabled     bool
 	S                 *Service
@@ -30,6 +31,8 @@ type HTTP struct {
 func NewHTTP(s *Service, publicURL string, production bool, trusted ...*net.IPNet) *HTTP {
 	h := &HTTP{S: s, PublicURL: publicURL, Production: production, mux: http.NewServeMux(), TrustedProxies: trusted}
 	h.mux.HandleFunc("GET /health", h.health)
+	h.mux.HandleFunc("GET /health/live", h.live)
+	h.mux.HandleFunc("GET /v1/client-config", h.clientConfig)
 	h.mux.HandleFunc("POST /v1/auth/desktop/start", h.start)
 	h.mux.HandleFunc("GET /auth/desktop/{id}", h.loginPage)
 	h.mux.HandleFunc("POST /auth/desktop/{id}", h.approve)
@@ -55,6 +58,9 @@ func (h *HTTP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// The billing console is a distinct host and requires the private web
 	// service credential before its routes can be reached.
 	publicURL := h.PublicURL
+	if h.Production && (r.URL.Path == "/ops" || strings.HasPrefix(r.URL.Path, "/ops/")) && h.BillingPublicURL != "" {
+		publicURL = h.BillingPublicURL
+	}
 	if strings.HasPrefix(r.URL.Path, "/v1/admin/billing-console/") && h.BillingPublicURL != "" {
 		publicURL = h.BillingPublicURL
 		if len(h.BillingProxyToken) < 32 || subtle.ConstantTimeCompare([]byte(r.Header.Get("X-MX-Billing-Proxy-Key")), []byte(h.BillingProxyToken)) != 1 {
@@ -68,7 +74,21 @@ func (h *HTTP) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		h.fail(w, ErrValidation)
 		return
 	}
+	if origin := r.Header.Get("Origin"); origin != "" && origin != publicURL {
+		h.fail(w, ErrForbidden)
+		return
+	}
+	// The model handler resets a short per-write deadline after the supplier
+	// responds. Its initial supplier wait must not inherit the 30s API deadline.
+	writeWindow := 30 * time.Second
+	if r.URL.Path == "/v1/model-gateway/responses" && r.Method == http.MethodPost {
+		writeWindow = 25 * time.Hour // bounded task deadline is at most 24h
+	}
+	_ = http.NewResponseController(w).SetWriteDeadline(time.Now().Add(writeWindow))
 	h.mux.ServeHTTP(w, r)
+}
+func (h *HTTP) live(w http.ResponseWriter, r *http.Request) {
+	h.json(w, 200, map[string]any{"live": true, "service": "materialsx-identity"})
 }
 func (h *HTTP) health(w http.ResponseWriter, r *http.Request) {
 	if h.S.Pool.Ping(r.Context()) != nil {
@@ -449,7 +469,7 @@ func (h *HTTP) audit(w http.ResponseWriter, r *http.Request) {
 
 // Quiet server timeouts: body or header errors never include credential payloads.
 func NewServer(address string, handler http.Handler) *http.Server {
-	return &http.Server{Addr: address, Handler: handler, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 30 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 * 1024}
+	return &http.Server{Addr: address, Handler: handler, ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, IdleTimeout: 60 * time.Second, MaxHeaderBytes: 16 * 1024}
 }
 
 // Mount routes inside the same configured Host and security middleware.

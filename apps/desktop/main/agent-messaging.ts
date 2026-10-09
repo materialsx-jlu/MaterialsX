@@ -132,6 +132,13 @@ export function registerAgentMessaging(context: MessagingContext) {
       if(skillCapabilityQuestion(content))return skillInstaller.handle({...input,projectId,conversationId,content},null);
       const installSource=parseSkillInstallCommand(content);
       if(installSource!==null)return skillInstaller.handle({...input,projectId,conversationId,content},installSource);
+      const recordUnstarted = (status: 'failed' | 'cancelled', reason: string) => {
+        const run = store.addRun(projectId, content.slice(0, 80), status, conversationId);
+        store.appendMessage(conversationId, 'user', content, 'complete', run.id);
+        store.appendMessage(conversationId, 'system', `${reason}\n未发起云模型调用，未扣费。`, status, run.id);
+        store.renameConversationFromFirstMessage(conversationId, content);
+        return store.listMessages(conversationId);
+      };
       activeConversations.add(conversationId);
       let cloud:
         | {
@@ -256,7 +263,7 @@ export function registerAgentMessaging(context: MessagingContext) {
           });
           if (review.response !== 1) {
             activeConversations.delete(conversationId);
-            return store.listMessages(conversationId);
+            return recordUnstarted('cancelled', '已取消本轮云端数据外发。');
           }
           if (science) {
             const directory = join(
@@ -296,15 +303,15 @@ export function registerAgentMessaging(context: MessagingContext) {
         }
       } catch (e) {
         activeConversations.delete(conversationId);
-        throw e;
+        return recordUnstarted('failed', `任务准备失败：${e instanceof Error ? e.message : String(e)}`);
       }
       if (isShuttingDown()) {
         activeConversations.delete(conversationId);
         return [];
       }
-      store.appendMessage(conversationId, "user", content, "complete");
+      const run = store.addRun(projectId, content.slice(0, 80), "running", conversationId);
+      store.appendMessage(conversationId, "user", content, "complete", run.id);
       store.renameConversationFromFirstMessage(conversationId, content);
-      const run = store.addRun(projectId, content.slice(0, 80), "running");
       if (cloud?.pdf) {
         const task = taskRefSchema.parse({
           taskId: run.id,
@@ -458,6 +465,7 @@ export function registerAgentMessaging(context: MessagingContext) {
             "system",
             `${cloud ? "平台" : "本地"}任务${cancelled ? "已停止" : "失败"}：${message}`,
             cancelled ? "cancelled" : "failed",
+            run.id,
           );
         }
         store.updateRun(run.id, cancelled ? "cancelled" : agentRuntime.execution(run.id)?.state === "blocked" ? "blocked" : "failed");

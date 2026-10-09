@@ -17,7 +17,7 @@ export type AccountSnapshot = { status: "unconfigured" | "signed_out" | "connect
   nextCursor: string | null; error?: string };
 
 export type ModelMode = "platform" | "local";
-export type WorkspaceView = "platform" | "chat" | "skills" | "models" | "connections" | "runs" | "research" | "subscription" | "release";
+export type WorkspaceView = "project" | "chat" | "skills" | "models" | "connections" | "runs" | "subscription" | "release";
 
 export interface ProjectRecord {
   id: string;
@@ -60,52 +60,6 @@ export interface ModelSettings {
 export interface LocalModelSummary {
   id: string;
   ownedBy: string;
-}
-
-export interface SubscriptionPlan {
-  id: "community" | "pro" | "research";
-  name: string;
-  priceFen: number;
-  includedCredits: number;
-  testPrice: boolean;
-}
-
-export interface SubscriptionOverview {
-  subscription: {
-    accountId: string;
-    planId: SubscriptionPlan["id"];
-    status: "pending" | "trialing" | "active" | "past_due" | "suspended" | "canceled" | "expired";
-    periodStart: string;
-    periodEnd: string;
-    renews: boolean;
-    renewalMode: "none" | "manual" | "automatic";
-  };
-  plan: SubscriptionPlan;
-  grantedCredits: number;
-  usedCredits: number;
-  reservedCredits: number;
-  remainingCredits: number;
-}
-
-export interface CreditLedgerEntry {
-  id: string;
-  accountId: string;
-  periodId: string;
-  eventId: string;
-  reservationId?: string;
-  kind: "period_credit" | "model_usage" | "reservation_release" | "reconciliation_pending" | string;
-  units: number;
-  createdAt: string;
-  note?: string;
-}
-
-export interface SubscriptionSnapshot {
-  serviceStatus: "online" | "offline";
-  accountId: string;
-  plans: SubscriptionPlan[];
-  overview: SubscriptionOverview | null;
-  ledger: CreditLedgerEntry[];
-  error?: string;
 }
 
 export type ReleaseCheckStatus = "pass" | "warning" | "blocked";
@@ -185,6 +139,15 @@ export interface RunRecord {
   label: string;
   status: "waiting_model" | "running" | "completed" | "failed" | "cancelled" | "interrupted" | "blocked" | "completed_with_limitations" | "waiting";
   createdAt: string;
+}
+
+export interface RunHistory {
+  run: RunRecord;
+  conversationId: string | null;
+  messages: MessageRecord[];
+  billing: import("../../pi-adapter/src/platform-session.js").PlatformRunSnapshot[];
+  billingState: "not-billed" | "loaded" | "login-required" | "unavailable";
+  billingError?: string;
 }
 
 export interface DesktopBootstrap {
@@ -328,15 +291,6 @@ export interface DesktopAPI extends TeamResearchAPI, importResearchAPI, AgentCon
  openReleaseDownload(url:string):Promise<void>;
   listCloudFiles(conversationId:string): Promise<Array<{id:string;name:string;sha256:string;bytes:number;totalLines:number;format:string;pageCount:number|null;ocrUnverifiedPages:number[]}>>;
   clearCloudFiles(conversationId:string): Promise<void>;
-  getPaymentPlans(): Promise<import("./platform.js").PaymentPlans>;
-  getPaymentOrders(cursor?:string): Promise<{items:import("./platform.js").PaymentOrder[];nextCursor:string|null}>;
-  createPaymentOrder(productVersionId:string,key:string): Promise<import("./platform.js").PaymentOrder>;
-  queryPaymentOrder(id:string,key:string): Promise<import("./platform.js").PaymentOrder>;
-  closePaymentOrder(id:string,key:string): Promise<import("./platform.js").PaymentOrder>;
-  getPaymentRefunds(id:string): Promise<{items:import("./platform.js").PaymentRefund[]}>;
-  requestPaymentRefund(id:string,input:{amountFen:string;reason:string},key:string): Promise<import("./platform.js").PaymentRefund>;
-  getSubscriptionPeriods(): Promise<{items:import("./platform.js").SubscriptionPeriod[]}>;
-  exportPaymentOrders(cursor?:string): Promise<{saved:boolean;nextCursor:string|null}>;
   getCreditWallet(): Promise<import("./platform.js").CreditWallet>;
   getMxProducts():Promise<import('zod').infer<typeof import('./mx-v03.js').mx03ProductsResponseSchema>>;
   getMxPrices():Promise<import('zod').infer<typeof import('./mx-v03.js').mx03RetailCatalogSchema>>;
@@ -352,6 +306,7 @@ export interface DesktopAPI extends TeamResearchAPI, importResearchAPI, AgentCon
   getCreditLedger(cursor?:string): Promise<{items:import("./platform.js").PlatformCreditEntry[];nextCursor:string|null}>;
   getCloudCatalog(): Promise<import("./platform.js").CloudCatalog>;
   getCloudRun(conversationId: string): Promise<import("../../pi-adapter/src/platform-session.js").PlatformRunSnapshot | null>;
+  getRunHistory(runId: string): Promise<RunHistory>;
   chooseCloudFiles(projectId: string, conversationId: string): Promise<Array<{id:string;name:string;sha256:string;bytes:number;totalLines:number;format:string;pageCount:number|null;ocrUnverifiedPages:number[]}>>;
   getAccount(): Promise<AccountSnapshot>;
   getAccountDevices(cursor: string): Promise<{ items: AccountDevice[]; nextCursor: string | null }>;
@@ -380,8 +335,11 @@ export interface DesktopAPI extends TeamResearchAPI, importResearchAPI, AgentCon
   probeEngineCompatibility(settings: ModelSettings): Promise<CompatibilityProfile>;
   getEngineSession(taskId: string): Promise<EngineSessionRef | null>;
   openResearchModelSource(modelId: string): Promise<void>;
-  getSubscription(): Promise<SubscriptionSnapshot>;
-  activateDevelopmentPlan(planId: "pro" | "research"): Promise<SubscriptionSnapshot>;
+  getPlatformConfiguration(): Promise<import('../../../apps/desktop/main/platform-configuration.js').PlatformConfiguration>;
+  refreshPlatformConfiguration(): Promise<import('../../../apps/desktop/main/platform-configuration.js').PlatformConfiguration>;
+  checkReleaseUpdate(): Promise<import('../../../apps/desktop/main/platform-release.js').ReleaseCheck>;
+  openReleaseUpdate(): Promise<void>;
+  onPlatformConfigurationChanged(callback: () => void): () => void;
   refreshDiagnostics(): Promise<ConnectionSummary[]>;
   getReleaseReadiness(): Promise<ReleaseReadiness>;
   exportSupportBundle(): Promise<SupportBundleResult>;

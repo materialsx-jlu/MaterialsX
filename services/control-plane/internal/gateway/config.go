@@ -28,6 +28,8 @@ type Config struct {
 	MX03Diagnostic                                                  bool
 	MX03Wallet                                                      bool
 	MX03PriceVersion                                                string
+	MXReleaseID, MXReleasePath                                      string
+	MXAPIOrigin                                                     string
 	Routes                                                          map[string]Route
 }
 type Provider interface {
@@ -43,7 +45,7 @@ func ConfigFromEnv() (Config, error) {
 		}
 		return c, nil
 	}
-	if mode != "alpha" && mode != "paid-pilot" && mode != "paid-beta" {
+	if mode != "alpha" && mode != "paid-pilot" && mode != "paid-beta" && mode != "mx-production" {
 		return c, errors.New("invalid_cloud_mode")
 	}
 	for _, entry := range []struct {
@@ -67,7 +69,10 @@ func ConfigFromEnv() (Config, error) {
 		return c, errors.New("invalid_cloud_rate_setting")
 	}
 	c.DisableRequestRateLimit = os.Getenv("MATERIALSX_CLOUD_DISABLE_RATE_LIMIT") == "1"
-	mxWallet := os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") == "wallet"
+	mxWallet := os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") == "wallet" || os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") == "wallet-production"
+	if mode == "mx-production" && os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") != "wallet-production" {
+		return c, errors.New("mx_production_requires_wallet_route")
+	}
 	var provider Provider
 	if !mxWallet {
 		if os.Getenv("ROOTFLOWAI_MODEL") != "" && os.Getenv("ROOTFLOWAI_MODEL") != rootflow.Model {
@@ -107,7 +112,7 @@ func ConfigFromEnv() (Config, error) {
 		c.Counter = CommandCounter{Program: program, SHA256: hash}
 	}
 	c.Provider = provider
-	c.Enabled = true
+	c.Enabled = mode != "mx-production"
 	if e := configureMX03(&c, mode); e != nil {
 		return c, e
 	}

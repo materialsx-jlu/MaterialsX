@@ -61,7 +61,7 @@ func (h *HTTP) mxProducts(w http.ResponseWriter, r *http.Request) {
 			items[index].Enabled = false
 		}
 	}
-	writeJSON(w, 200, map[string]any{"items": items, "unit": "mx-point", "salesEnabled": (h.MXPoints.Mode == "wechat" && pilotAllowed) || h.MXPoints.Mode == "wechat-live", "testMode": h.MXPoints.Mode == "test"})
+	writeJSON(w, 200, map[string]any{"items": items, "unit": "mx-point", "salesEnabled": (h.MXPoints.Mode == "wechat" && pilotAllowed) || h.MXPoints.Mode == "wechat-live" || h.MXPoints.Mode == "wechat-production" && h.MXPoints.ProductionReady(r.Context()), "testMode": h.MXPoints.Mode == "test"})
 }
 func (h *HTTP) mxWallet(w http.ResponseWriter, r *http.Request) {
 	p, ok := h.auth(w, r)

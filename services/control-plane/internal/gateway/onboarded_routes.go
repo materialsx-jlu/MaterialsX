@@ -5,7 +5,9 @@ import (
 	"os"
 
 	"github.com/jamip/materialsx/control-plane/internal/mxpricing"
+	"github.com/jamip/materialsx/control-plane/internal/mxrelease"
 	"github.com/jamip/materialsx/control-plane/internal/providers/litellm"
+	"time"
 )
 
 // resolveRoute checks the published registry at admission and dispatch time.
@@ -19,9 +21,15 @@ func (s *Store) resolveRoute(ctx context.Context, model, account string) (Route,
 	}
 	var route Route
 	var status, canary string
-	err := s.Pool.QueryRow(ctx, `SELECT id,supplier_model,proxy_alias,route_version,protocol,purchase_version_id,fx_version_id,retail_version_id,status,COALESCE(canary_account,'') FROM mx_cloud_models WHERE id=$1 AND status IN ('canary','active')`, model).Scan(&route.ModelID, &route.SupplierModel, &route.UpstreamAlias, &route.Version, &route.Protocol, &route.PurchaseVersionID, &route.FXVersionID, &route.RetailVersionID, &status, &canary)
+	err := s.Pool.QueryRow(ctx, `SELECT id,supplier_model,proxy_alias,route_version,protocol,purchase_version_id,fx_version_id,retail_version_id,status,COALESCE(canary_account,'') FROM mx_cloud_models WHERE id=$1 AND status IN ('canary','active') AND ($2::boolean=false OR deployed_version=version)`, model, os.Getenv("MATERIALSX_ENV") == "production").Scan(&route.ModelID, &route.SupplierModel, &route.UpstreamAlias, &route.Version, &route.Protocol, &route.PurchaseVersionID, &route.FXVersionID, &route.RetailVersionID, &status, &canary)
 	if err != nil || status == "canary" && account != canary {
 		return Route{}, false
+	}
+	if s.Config.MXReleaseID != "" {
+		a, err := mxrelease.Read(s.Config.MXReleasePath, time.Now().UTC())
+		if err != nil || a.ReleaseID != s.Config.MXReleaseID || !a.Allows(route.ModelID, route.Version) {
+			return Route{}, false
+		}
 	}
 	tx, err := s.Pool.Begin(ctx)
 	if err != nil {

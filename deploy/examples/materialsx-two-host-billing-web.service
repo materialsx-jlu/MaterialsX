@@ -1,0 +1,25 @@
+[Unit]
+Description=MaterialsX preview independent billing Web
+After=materialsx-api.service
+Requires=materialsx-api.service
+
+[Service]
+Type=simple
+User=mxweb
+Group=mxweb
+EnvironmentFile=/etc/materialsx/secrets/billing-web.env
+WorkingDirectory=/opt/materialsx/billing-web/current
+ExecStart=/opt/materialsx-node/v24.7.0/bin/node /opt/materialsx/billing-web/current/server.mjs
+Restart=on-failure
+RestartSec=5
+MemoryMax=192M
+TasksMax=64
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

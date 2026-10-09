@@ -420,7 +420,18 @@ func TestPostgresRestrictedRuntimeRole(t *testing.T) {
 	if _, e = service.Refresh(ctx, tok.RefreshToken); e != nil {
 		t.Fatal(e)
 	}
-	for _, sql := range []string{`UPDATE accounts SET role='admin'`, `DELETE FROM audit_events`, `CREATE TABLE forbidden(id text)`, `UPDATE sales_price_versions SET body='{}'`, `UPDATE mx_retail_price_versions SET status='approved'`, `DELETE FROM mx_point_ledger`, `UPDATE credit_grants SET credits=1`, `UPDATE research_tasks SET max_credits=1`, `UPDATE credit_reservations SET reserved=1`, `UPDATE reservation_allocations SET credits=1`, `DELETE FROM credit_ledger`, `INSERT INTO credit_limits(account_id,daily_limit,monthly_limit) SELECT id,1,1 FROM accounts LIMIT 1`} {
+	var deployJob string
+	if e = runtime.QueryRow(ctx, `INSERT INTO mx_model_deploy_jobs(actor_id,idempotency_key,expected_revision,snapshot)
+	 VALUES($1,'runtime-grant-probe',repeat('a',64),'{}'::jsonb) RETURNING id::text`, u.ID).Scan(&deployJob); e != nil {
+		t.Fatalf("runtime cannot enqueue deployment: %v", e)
+	}
+	if _, e = runtime.Exec(ctx, `UPDATE mx_model_deploy_jobs SET state='running',started_at=clock_timestamp() WHERE id=$1`, deployJob); e != nil {
+		t.Fatalf("runtime cannot claim deployment: %v", e)
+	}
+	if _, e = runtime.Exec(ctx, `UPDATE mx_model_deploy_jobs SET state='failed',receipt='{"reason":"test"}'::jsonb,finished_at=clock_timestamp() WHERE id=$1`, deployJob); e != nil {
+		t.Fatalf("runtime cannot write deployment receipt: %v", e)
+	}
+	for _, sql := range []string{`UPDATE accounts SET role='admin'`, `DELETE FROM audit_events`, `CREATE TABLE forbidden(id text)`, `UPDATE sales_price_versions SET body='{}'`, `UPDATE mx_retail_price_versions SET status='approved'`, `UPDATE mx_model_deploy_jobs SET snapshot='{}'::jsonb`, `DELETE FROM mx_point_ledger`, `UPDATE credit_grants SET credits=1`, `UPDATE research_tasks SET max_credits=1`, `UPDATE credit_reservations SET reserved=1`, `UPDATE reservation_allocations SET credits=1`, `DELETE FROM credit_ledger`, `INSERT INTO credit_limits(account_id,daily_limit,monthly_limit) SELECT id,1,1 FROM accounts LIMIT 1`} {
 		if _, e = runtime.Exec(ctx, sql); e == nil {
 			t.Fatal("runtime can mutate restricted object")
 		}

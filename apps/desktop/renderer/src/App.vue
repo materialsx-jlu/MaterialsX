@@ -3,10 +3,9 @@ import ComposerReferencePreview from './components/ComposerReferencePreview.vue'
 import {useComposerReferences} from './utils/use-composer-references';
 import ExecutionIdentity from "./components/ExecutionIdentity.vue";
 import ResearchMessageArtifacts from "./components/ResearchMessageArtifacts.vue";
-import ResearchWorkspace from "./components/ResearchWorkspace.vue";
 import WorkspaceCatalog from "./components/WorkspaceCatalog.vue";
 import WorkspaceOperations from "./components/WorkspaceOperations.vue";
-import PlatformCenter from "./components/PlatformCenter.vue";
+import ProjectConversations from "./components/ProjectConversations.vue";
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import type { CatalogFilters } from "./utils/catalog-filters";
 import {
@@ -22,13 +21,11 @@ import {
   FolderOpen,
   History,
   Library,
-  Gauge,
   MessageSquare,
   Paperclip,
   Plus,
   Send,
   Settings,
-  ShieldCheck,
   Sparkles,
   Square,
   Wrench,
@@ -110,8 +107,6 @@ const messageList = ref<HTMLElement | null>(null);
 const composerInput = ref<HTMLTextAreaElement | null>(null);
 const skillMention = ref<SkillMentionRange | null>(null);
 const skillSelectionIndex = ref(0);
-function openPlatformSkill(skill:SkillSummary,locale:"zh"|"en"){selectedSkill.value=skill;skillLocale.value=locale}
-function openPlatformModel(model:ResearchModelSummary,locale:"zh"|"en"){selectedModel.value=model;modelLocale.value=locale}
 const selectedSkill = ref<SkillSummary | null>(null);
 const selectedModel = ref<ResearchModelSummary | null>(null);
 const skillLocale = ref<"zh" | "en">("zh");
@@ -127,11 +122,8 @@ const nav: Array<{ id: WorkspaceView; label: string; icon: typeof MessageSquare 
   { id: "skills", label: "Skills", icon: Library },
   { id: "models", label: "模型目录", icon: Bot },
   { id: "connections", label: "数据与 MCP", icon: Database },
-  { id: "research", label: "研究数据与交付", icon: Database },
   { id: "runs", label: "运行记录", icon: History },
-  { id: "platform", label: "云服务中心", icon: Gauge },
   { id: "subscription", label: "订阅与额度", icon: WalletCards },
-  { id: "release", label: "发布中心", icon: ShieldCheck },
 ];
 
 async function submit(): Promise<void> {
@@ -347,7 +339,7 @@ onMounted(() => workspace.initialize());
       <div v-if="activeProject && projectConversations.length" class="sidebar-section conversation-section">
         <div class="sidebar-label"><span>最近会话</span></div>
         <button
-          v-for="conversation in projectConversations.slice(0, 7)"
+          v-for="conversation in projectConversations.slice(0, 6)"
           :key="conversation.id"
           :class="['conversation-item', { active: activeConversationId === conversation.id && activeView === 'chat' }]"
           @click="workspace.selectConversation(conversation.id)"
@@ -531,7 +523,7 @@ onMounted(() => workspace.initialize());
           </aside>
         </section>
 
-        <PlatformCenter v-else-if="activeView==='platform'" :settings="settings" :skills="skills" :models="models" @chat="workspace.showView('chat')" @settings="settingsVisible=true" @skill="openPlatformSkill" @model="openPlatformModel" @example="useQuickTask($event);workspace.showView('chat')" />
+        <ProjectConversations v-else-if="activeView==='project' && activeProject" :project="activeProject" :conversations="projectConversations" @select="workspace.selectConversation" @create="workspace.createConversation" />
         <WorkspaceCatalog
           v-else-if="activeView === 'skills' || activeView === 'models'"
           :view="activeView" v-model:skill-locale="skillLocale" v-model:model-locale="modelLocale"
@@ -541,7 +533,6 @@ onMounted(() => workspace.initialize());
           @skills-changed="userSkillDraft = null; workspace.refreshSkills()"
           @example="useModelExample" @try-silicon="trySiliconAnalysis"
         />
-        <ResearchWorkspace v-else-if="activeView==='research'" @example="useQuickTask" />
         <WorkspaceOperations v-else :view="activeView" />
       </template>
     </main>

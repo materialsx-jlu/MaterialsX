@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from "vue";
+import PlatformConnectionNotice from './PlatformConnectionNotice.vue';
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { ChevronDown, Cpu, Palette, ShieldCheck, WalletCards, X } from "@lucide/vue";
 import { ElDrawer, ElInput, ElMessage } from "element-plus";
 import type { LocalModelSummary, ModelSettings } from "../../../../../packages/contracts/src/desktop.js";
@@ -24,9 +25,16 @@ const advancedOpen = ref(false);
 const modelValidationVisible = ref(false);
 const rememberedLocalModel = ref(props.settings.mode === "local" ? props.settings.modelId : "");
 const cloudInfo=ref("");
+const releaseCheck=ref<import('../../../main/platform-release.js').ReleaseCheck|null>(null);
+const checkingRelease=ref(false);
+async function checkUpdate(){checkingRelease.value=true;try{releaseCheck.value=await window.materialsx.checkReleaseUpdate()}finally{checkingRelease.value=false}}
+async function openUpdate(){try{await window.materialsx.openReleaseUpdate()}catch{ElMessage.error('下载地址暂不可用，请稍后重试')}}
 const cloudCatalog=ref<CloudCatalog|null>(null);
 const selectableCloudModels=computed(()=>cloudCatalog.value?.items.filter(item=>admittedPlatformModel(cloudCatalog.value!,item.id))??[]);
 async function refreshCloud(){try{const c=await window.materialsx.getCloudCatalog();cloudCatalog.value=c;if(form.mode==='platform'&&!admittedPlatformModel(c,form.modelId))form.modelId=c.items.find(item=>admittedPlatformModel(c,item.id))?.id??form.modelId;cloudInfo.value=c.items.some(item=>item.enabled&&item.accessMode==='mx-points')?"已连接 · MX 点按实际用量结算":c.alpha.available ? c.paidPricing ? "已连接 · 按实际用量扣除积分" : `已连接 · 剩余 ${c.alpha.remainingRequests} 次测试请求` : c.alpha.configured ? "需要有效订阅或测试授权" : "平台模型暂不可用";}catch{cloudCatalog.value=null;cloudInfo.value="无法读取平台状态，请检查账户和网络";}}
+let stopPlatformUpdates:()=>void=()=>{};
+onMounted(()=>{stopPlatformUpdates=window.materialsx.onPlatformConfigurationChanged(()=>{if(props.modelValue&&form.mode==='platform')void refreshCloud()})});
+onUnmounted(()=>stopPlatformUpdates());
 watch(()=>[props.modelValue,form.mode],()=>{if(props.modelValue&&form.mode==="platform")void refreshCloud()});
 watch(() => props.modelValue, (open) => {
   if (open) { Object.assign(form, props.settings); compatibility.value = null; modelValidationVisible.value = false; }
@@ -119,8 +127,10 @@ async function probeLocalModels(): Promise<void> {
             <p class="settings-hint">引擎与模型可以独立选择；新任务会使用保存后的设置。</p>
           </div>
           <div v-if="form.mode === 'platform'" class="settings-connection">
+            <PlatformConnectionNotice />
             <div class="settings-connection-top"><div><span class="settings-label">当前模型</span><strong>{{form.modelId}}</strong></div><button class="settings-link-button" type="button" @click="refreshCloud">刷新状态</button></div>
-            <div class="settings-model-list" aria-label="平台模型"><button v-for="model in cloudCatalog?.items??[]" :key="model.id" type="button" :class="{selected:form.modelId===model.id}" :disabled="!cloudCatalog||!admittedPlatformModel(cloudCatalog,model.id)" @click="form.modelId=model.id"><span>{{model.id}}</span><small>{{model.enabled?(model.accessMode==='mx-points'?'MX 点计费':model.accessMode==='alpha-diagnostic'?'诊断测试 · 不扣 MX 点':'平台模型'):'未开放'}}</small></button></div>
+            <p v-if="cloudCatalog" class="settings-hint">平台目录 {{cloudCatalog.items.length}} 个模型 · 当前可选 {{selectableCloudModels.length}} 个</p>
+            <div class="settings-model-list" aria-label="平台模型"><button v-for="model in cloudCatalog?.items??[]" :key="model.id" type="button" :class="{selected:form.modelId===model.id}" :disabled="!cloudCatalog||!admittedPlatformModel(cloudCatalog,model.id)" @click="form.modelId=model.id"><span>{{model.id}}</span><small>{{model.enabled?(model.accessMode==='mx-points'?'MX 点计费':model.accessMode==='alpha-diagnostic'?'诊断测试 · 不扣 MX 点':'平台模型'):'当前不可调用'}}</small></button></div>
             <p class="settings-status">{{ cloudInfo || '正在读取平台状态…' }}</p>
             <p class="settings-hint">仅可选择服务端目录中已开放的模型。MX 点价格和购买状态以“订阅与额度”页面的实时目录为准。</p>
             <label class="settings-check"><input v-model="form.cloudWorkspaceTools" type="checkbox" /><span><strong>允许使用项目工具</strong><small>每次任务仍需单独确认外发内容与工具权限。</small></span></label>
@@ -137,7 +147,8 @@ async function probeLocalModels(): Promise<void> {
         </section>
         <section class="settings-group" aria-labelledby="appearance-settings-title"><div class="settings-group-heading"><span class="settings-group-icon"><Palette :size="19" /></span><div><h3 id="appearance-settings-title">外观</h3><p>选择适合当前工作环境的配色。</p></div></div><div class="theme-options settings-theme-grid" aria-label="配色方案"><button v-for="theme in appearanceThemes" :key="theme.id" type="button" :class="['theme-option', { active: appearanceTheme === theme.id }]" :aria-pressed="appearanceTheme === theme.id" @click="selectAppearanceTheme(theme.id)"><span :class="['theme-preview', theme.id]" aria-hidden="true"><span class="theme-preview-sidebar" /><span class="theme-preview-main"><span /><span /><i /></span></span><strong>{{ theme.name }}</strong><small>{{ theme.description }}</small></button></div><p class="settings-hint">配色立即生效，并保存在这台电脑上。</p></section>
         <AccountPanel />
-        <section class="settings-notes" aria-label="使用说明"><div><ShieldCheck :size="18" /><span><strong>数据边界</strong><small>本地模型在设备上运行；平台调用前可查看待发送内容。</small></span></div><div><WalletCards :size="18" /><span><strong>订阅与额度</strong><small>MX 点余额、充值订单、模型价格和实际消耗请在“订阅与额度”页面查看。</small></span></div></section>
+        <section class="settings-group" aria-label="版本更新"><div class="settings-group-heading"><div><h3>版本更新</h3><p>从当前发行渠道检查安装包；下载后可对照 SHA-256 校验。</p></div></div><button class="secondary-button" type="button" :disabled="checkingRelease" @click="checkUpdate">{{checkingRelease?'正在检查…':'检查更新'}}</button><p v-if="releaseCheck" class="settings-hint" role="status">{{releaseCheck.state==='available'?`发现 ${releaseCheck.version} 版本`:releaseCheck.state==='current'?'当前已是最新版本':releaseCheck.state==='unconfigured'?'当前版本未配置在线更新':'暂时无法检查更新'}}</p><div v-if="releaseCheck?.state==='available'"><p class="settings-hint">SHA-256：{{releaseCheck.sha256}}</p><button class="settings-link-button" type="button" @click="openUpdate">打开安装包下载页</button></div></section>
+        <section class="settings-notes" aria-label="使用说明"><div><ShieldCheck :size="18" /><span><strong>数据边界</strong><small>本地模型在设备上运行；平台调用前可查看待发送内容。</small></span></div><div><WalletCards :size="18" /><span><strong>订阅与额度</strong><small>MX 点余额、充值订单与模型价格请在“订阅与额度”查看；实际用量请在“运行记录”查看。</small></span></div></section>
       </div>
       <footer class="settings-footer"><span>模型与引擎更改在保存后生效</span><div><button class="secondary-button" type="button" @click="visible = false">取消</button><button class="primary-button" type="button" @click="save">保存设置</button></div></footer>
     </div>

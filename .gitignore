@@ -52,6 +52,9 @@ artifacts/m4/**
 !artifacts/m4/.gitkeep
 release/dist/
 release/local-ui-fix/
+*.mxbackup
+*.mxbackup.partial-*
+*deployment-audit*.jsonl
 
 # M6.11 maintainer signing keys: public trust files remain tracked.
 **/signing-key.pem

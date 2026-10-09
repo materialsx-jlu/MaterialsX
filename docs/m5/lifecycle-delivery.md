@@ -24,7 +24,7 @@ npm run build
 npm run m5:contracts:check
 npm run m5:beta:test          # 需要当前专用本机 PostgreSQL；不触发供应商调用或收款
 npm run m5:beta:race
-npm run m5:workspace:live     # 设置隔离 MATERIALSX_IDENTITY_TEST_DATABASE_URL；合成桌面/后台闭环
+npm run control-plane:test     # 后端与账本回归；数据库集成测试使用隔离测试库
 npm run identity:local -- --paid-cloud
 ```
 

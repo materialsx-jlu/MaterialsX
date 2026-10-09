@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {creditSubunits,creditDisplay} from "../../../../../packages/contracts/src/platform.js";
+import {summarizeCloudBilling} from '../utils/cloud-billing.js';
+import {runStatusLabel, settlementLabel} from '../utils/run-labels.js';
 import { computed, onUnmounted, ref, watch } from "vue";
 import type { PlatformRunSnapshot } from "../../../../../packages/pi-adapter/src/platform-session.js";
 const props=defineProps<{conversationId:string|null;sending:boolean}>();
@@ -14,17 +15,19 @@ const usage=computed(()=>{
  if(records.some(r=>r.usage?.inputTokens==null||r.usage?.outputTokens==null))return "部分用量未知，待核对";
  return `输入 ${records.reduce((n,r)=>n+r.usage!.inputTokens!,0)} / 输出 ${records.reduce((n,r)=>n+r.usage!.outputTokens!,0)} tokens`;
 });
-const pointSubunits=(value:string)=>{const [whole,fraction='']=value.split('.');return BigInt(whole!)*1000000n+BigInt(fraction.padEnd(6,'0'))};
-const pointDisplay=(value:bigint)=>`${value/1000000n}${value%1000000n?'.'+(value%1000000n).toString().padStart(6,'0').replace(/0+$/,''):''}`;
-const billing=computed(()=>{const records=run.value?.requests??[];if(!run.value||run.value.task.billingMode==="alpha-test")return "技术测试不向用户收费";const mx=run.value.task.billingMode==='mx-points',toUnits=mx?pointSubunits:creditSubunits,display=mx?pointDisplay:creditDisplay;const charge=records.filter(r=>r.chargedCredits!==null).reduce((n,r)=>n+toUnits(r.chargedCredits!),0n);const held=records.filter(r=>r.settlement==="reserved"||r.settlement==="reconciliation_pending").reduce((n,r)=>n+toUnits(r.reservedCredits),0n);return `已结算 ${display(charge)} / 当前预留 ${display(held)} ${mx?'MX 点':run.value.task.billingMode==="paid-credits"?"积分":"test-credit"}${('maxCredits' in run.value.task.budget ? run.value.task.budget.maxCredits : undefined)?`；旧任务上限 ${('maxCredits' in run.value.task.budget ? run.value.task.budget.maxCredits : undefined)}`:""}`});
-const settlement:Record<string,string>={reconciliation_pending:"保留预留，待核对",reserved:"预留中",settled:"已结算",released:"已释放",not_billed:"已记录用量，不收费"};
-const label:Record<string,string>={created:"已创建",running:"执行中",completed:"已完成",cancelled:"已请求停止",interrupted:"已中断",failed:"失败"};
+const billing=computed(()=>{
+ if(!run.value)return '';
+ const {billable,charged,held,unit}=summarizeCloudBilling(run.value.task.billingMode,run.value.requests);
+ if(!billable)return '技术测试不向用户收费';
+ const maxCredits='maxCredits' in run.value.task.budget ? run.value.task.budget.maxCredits : undefined;
+ return `已结算 ${charged} / 当前预留 ${held} ${unit}${maxCredits?`；旧任务上限 ${maxCredits}`:''}`;
+});
 </script>
 <template>
   <details v-if="run" class="cloud-run-panel">
     <summary>
       <span class="run-heading">最近云端调用</span>
-      <span class="run-state" :class="run.task.state">{{ label[run.task.state] }}</span>
+      <span class="run-state" :class="run.task.state">{{ runStatusLabel(run.task.state) }}</span>
       <span class="run-usage">{{ usage }}</span>
     </summary>
     <div class="run-content">
@@ -36,7 +39,7 @@ const label:Record<string,string>={created:"已创建",running:"执行中",compl
       <div class="run-id"><span>任务编号</span><code>{{ run.task.id }}</code></div>
       <p class="run-note">采购成本未确认 · 科学质量尚未验收</p>
       <div v-for="request in run.requests" :key="request.id" class="request-card">
-        <div class="request-heading"><code>{{ request.id }}</code><span>{{ request.execution }} · {{ settlement[request.settlement] }}</span></div>
+        <div class="request-heading"><code>{{ request.id }}</code><span>{{ request.execution }} · {{ settlementLabel(request.settlement) }}</span></div>
         <div class="request-facts">
           <span>预留 {{ request.reservedCredits }}</span><span>扣减 {{ request.chargedCredits ?? '待确认' }}</span>
           <span>价格 {{ request.salesPriceVersionId ?? '未启用' }}</span>

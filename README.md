@@ -2,9 +2,9 @@
 
 **面向材料研究的本地 AI 工作台。** 将文献、实验数据和原子结构放进同一个研究项目，结合模型、Skills 与科学工具，完成分析、计算和可追溯的研究交付。
 
-[官方网站](https://materialsx-jlu.github.io/MaterialsX/zh-CN/) · [下载 0.3.0-preview.1](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
+[官方网站](https://mx.jouhu.com/zh-CN/) · [下载 0.3.0](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0) · [快速开始](#快速开始) · [开发文档](CONTRIBUTING.md)
 
-> **0.3.0-preview.1** 提供 macOS Apple Silicon 与 Windows x64 预览安装包。尚未完成正式签名、公证及 Windows 实机验收；不作为正式收费发行。
+> **0.3.0** 提供绑定 `api.mx.jouhu.com` 的 macOS Apple Silicon 与 Windows x64 安装包。MX 充值和云模型目前限试点账户；macOS 签名、公证及 Windows 实机验收尚未完成。
 
 ## 主要功能
 
@@ -22,9 +22,7 @@
 | --- | --- |
 | [![研究任务与研究上下文](docs/images/readme/workbench-030.png)](docs/images/readme/workbench-030.png) | [![材料研究 Skills](docs/images/readme/skills-030.png)](docs/images/readme/skills-030.png) |
 
-| 材料模型目录：来源与适用范围 | 研究数据与交付：项目输入、MOOS 数据和产物 |
-| --- | --- |
-| [![材料模型目录](docs/images/readme/model-catalog-030.png)](docs/images/readme/model-catalog-030.png) | [![研究数据与交付](docs/images/readme/research-delivery-030.png)](docs/images/readme/research-delivery-030.png) |
+[![材料模型目录：来源与适用范围](docs/images/readme/model-catalog-030.png)](docs/images/readme/model-catalog-030.png)
 
 | 原子计算：结果与分项能量 | 3D 结构查看器：晶胞、键连与测量 |
 | --- | --- |
@@ -32,7 +30,7 @@
 
 ## 快速开始
 
-安装包请从 [0.3.0-preview.1 发行页](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0-preview.1) 获取。希望从源码运行，可使用 Node.js 24 和 npm：
+安装包请从 [0.3.0 发行页](https://github.com/materialsx-jlu/MaterialsX/releases/tag/v0.3.0) 获取。希望从源码运行，可使用 Node.js 24 和 npm：
 
 ```bash
 git clone https://github.com/materialsx-jlu/MaterialsX.git

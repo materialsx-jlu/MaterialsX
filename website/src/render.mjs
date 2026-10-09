@@ -4,17 +4,10 @@ import en from './i18n/en.mjs';
 import ja from './i18n/ja.mjs';
 import { researchContent } from './research-content.mjs';
 import { architectureContent } from './architecture-content.mjs';
+import { release, releaseTag, releaseUrl, releaseAssets, releaseAssetUrl } from './release.mjs';
 
 export const locales = [zhCN, zhTW, en, ja];
-const releaseBaseUrl = 'https://github.com/materialsx-jlu/MaterialsX/releases';
-export const releaseTag = 'v0.3.0-preview.1';
-export const releaseUrl = `${releaseBaseUrl}/tag/${releaseTag}`;
-const assetBaseUrl = `${releaseBaseUrl}/download/${releaseTag}`;
-export const releaseAssets = Object.freeze({
-  macos: {name: 'MaterialsX-0.3.0-preview.1-mac-arm64.dmg', size: '1.54 GB'},
-  windows: {name: 'MaterialsX-0.3.0-preview.1-win-x64.exe', size: '309 MB'},
-});
-export const releaseAssetUrl = (name) => `${assetBaseUrl}/${name}`;
+export { releaseTag, releaseUrl, releaseAssets, releaseAssetUrl };
 const repositoryUrl = 'https://github.com/materialsx-jlu/MaterialsX';
 const securityUrl = 'mailto:huzhangyou@jlu.edu.cn?subject=MaterialsX%20security%20report';
 
@@ -173,13 +166,15 @@ function gallery(t, base) {
 }
 
 function download(t) {
+  const available = { 'zh-CN': '可下载', 'zh-TW': '可下載', en: 'available', ja: 'ダウンロード可能' }[t.code];
+  const stableDetail = { 'zh-CN': '请核对安装包架构和 SHA-256，安装前查看发布说明。', 'zh-TW': '請核對安裝檔架構與 SHA-256，安裝前查看發行說明。', en: 'Check the installer architecture, SHA-256 and release notes before installing.', ja: 'インストール前に構成、SHA-256 とリリースノートを確認してください。' }[t.code];
   return `<section class="download section" id="download"><div class="container">
     <div class="download-head">${sectionHead(t.download.eyebrow, t.download.title, t.download.description)}
       <div class="download-actions"><a class="button button-primary" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">${esc(t.download.link)} ${arrow}</a><a class="button button-outline" href="#start">${esc(t.download.guide)} <span aria-hidden="true">↓</span></a></div>
     </div>
     <div class="platform-grid">${t.download.cards.map((card) => {
       const asset = releaseAssets[card.asset];
-      return `<article class="platform-card"><div class="platform-heading"><span class="platform-icon" aria-hidden="true">${card.platform === 'macOS' ? '⌘' : card.platform === 'Windows' ? '⊞' : '⌁'}</span><div><h3>${esc(card.platform)}</h3><span>${esc(card.arch)}</span></div></div><p class="platform-status"><span class="status-dot" aria-hidden="true"></span>${esc(card.status)}</p><p class="platform-detail">${esc(card.detail)}</p>${asset ? `<div class="platform-file"><code>${esc(asset.name)}</code><span>${esc(asset.size)}</span></div><a class="platform-download" href="${releaseAssetUrl(asset.name)}" rel="noopener noreferrer" aria-label="${esc(card.action)} · ${esc(card.platform)} ${esc(card.arch)}">${esc(card.action)} <span aria-hidden="true">↓</span></a>` : ''}</article>`;
+      return `<article class="platform-card"><div class="platform-heading"><span class="platform-icon" aria-hidden="true">${card.platform === 'macOS' ? '⌘' : card.platform === 'Windows' ? '⊞' : '⌁'}</span><div><h3>${esc(card.platform)}</h3><span>${esc(card.arch)}</span></div></div><p class="platform-status"><span class="status-dot" aria-hidden="true"></span>${esc(asset ? `${release.version} · ${available}` : card.status)}</p><p class="platform-detail">${esc(release.channel === 'stable' && asset ? stableDetail : card.detail)}</p>${asset ? `<div class="platform-file"><code>${esc(asset.name)}</code><span>${esc(asset.size)}</span></div><a class="platform-download" href="${releaseAssetUrl(asset.name)}" rel="noopener noreferrer" aria-label="${esc(card.action)} · ${esc(card.platform)} ${esc(card.arch)}">${esc(card.action)} <span aria-hidden="true">↓</span></a>` : ''}</article>`;
     }).join('')}</div>
     <p class="download-verify">${esc(t.download.verify)} <a href="${releaseAssetUrl('SHA256SUMS.txt')}" target="_blank" rel="noopener noreferrer">${esc(t.download.checksums)} ${arrow}</a></p>
     <p class="download-note"><span aria-hidden="true">ⓘ</span> ${esc(t.download.note)}</p>

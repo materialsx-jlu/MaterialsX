@@ -281,6 +281,17 @@ export class TeamProjection {
     this.check(project, actor, l.grant);
     if (Buffer.byteLength(JSON.stringify(r)) > 12 * 1024 * 1024)
       throw Error("TEAM_RESOURCE_SIZE_LIMIT");
+    for (const content of r.contents) {
+      if (!("blob" in content)) continue;
+      if (
+        !l.refs.length ||
+        content.mimeType !== "image/jpeg" ||
+        typeof content.blob !== "string" ||
+        !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(content.blob) ||
+        content.blob.length > Math.ceil((2 * 1024 * 1024) / 3) * 4
+      )
+        throw Error("TEAM_PREVIEW_ONLY");
+    }
     this.store.audit(project, actor, "moos.resource", project, {
       sha256: digest(r),
     });

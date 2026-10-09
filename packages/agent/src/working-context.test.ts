@@ -5,7 +5,8 @@ import {mkdtempSync,writeFileSync,rmSync,symlinkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {sealContext,projectContext,attachReadings} from './working-context.js';
-import {workingContextSchema} from '../../contracts/src/working-context.js';
+import {workingContextSchema,deliveryAssessmentSchema} from '../../contracts/src/working-context.js';
+import {taskExecutionSchema} from '../../contracts/src/task-execution.js';
 import {fitRequest} from './execution-context.js';
 import {assessAnswer} from './answer-assessment.js';
 import {harness} from './task-supervisor.fixture.js';
@@ -52,6 +53,27 @@ test('scientific needs_review never hides missing artifacts, while actual comple
  assert.equal(assessDelivery(h.plan,h.control.snapshot()).technical,'incomplete');
  h.control.finish('completed_with_limitations');assert.equal(h.control.snapshot().deliveryAssessment!.technical,'complete');assert.equal(h.control.snapshot().deliveryAssessment!.scientific,'needs_review');
  assert.equal(assessDelivery(h.plan,h.control.snapshot()).technical,'partial');assert.deepEqual(assessDelivery(h.plan,h.control.snapshot()).missing,['result.json']);
+});
+test('multiple answer issues stay individually bounded while the full failure reason remains in the task journal',()=>{
+ const h=harness();h.control.acceptPlan(h.plan);
+ const claims=Array.from({length:5},(_,index)=>({kind:'capability' as const,id:`absent-${index}-`+'x'.repeat(240),dimension:'installed' as const,value:true,revision:1}));
+ const answer=h.control.checkAnswer('我是当前选择的模型。',claims);
+ assert.equal(answer.status,'blocked');assert(answer.issues.join('; ').length>1200);
+ h.control.finish('completed_with_limitations');
+ const state=taskExecutionSchema.parse(h.control.snapshot());
+ assert.equal(state.state,'blocked');assert.equal(state.deliveryAssessment?.issues.length,6);
+ assert.deepEqual(state.deliveryAssessment?.issues.slice(-5),answer.issues);
+ assert.equal(state.reason,answer.issues.join('; '));
+});
+test('a long upstream failure remains in the task reason without violating delivery schema',()=>{
+ const h=harness();h.control.acceptPlan(h.plan);
+ const reason='upstream failure: '+'x'.repeat(3000);
+ h.control.finish('failed',reason);
+ const state=taskExecutionSchema.parse(h.control.snapshot());
+ assert.equal(state.reason,reason);
+ assert.equal(state.deliveryAssessment?.issues[0]?.length,1200);
+ assert.match(state.deliveryAssessment?.issues[0]??'',/完整原因见运行记录/);
+ assert.deepEqual(deliveryAssessmentSchema.parse(state.deliveryAssessment),state.deliveryAssessment);
 });
 test('file links must exist in current project; changes after file acceptance cannot pass final delivery',async()=>{
  const root=mkdtempSync(join(tmpdir(),'mx-ap5-artifacts-')),outside=join(tmpdir(),'mx-ap5-outside-'+randomUUID()+'.txt');

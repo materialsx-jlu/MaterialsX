@@ -118,6 +118,22 @@ try {
   const expected = await read(upstream, direct),
     actual = await read(client, remote);
   assert.equal(digest(expected.data), digest(actual.data));
+  const sections: Record<string, number> = {};
+  for (const section of ["recipes", "ingredients", "processes", "evidence"] as const) {
+    const request = { ref, section, limit: 2 };
+    const source = await read(upstream, decode(await upstream.call("moos_get_experiment", request)));
+    const scoped = await read(client, decode(await client.call("moos_get_experiment", request)));
+    assert.equal(digest(source.data), digest(scoped.data));
+    assert(Array.isArray(scoped.data?.[section]) && scoped.data[section].length > 0,
+      `Real MOOS ${section} sample unavailable`);
+    sections[section] = scoped.data[section].length;
+  }
+  const evidencePage = await read(client, decode(await client.call("moos_get_experiment",
+    { ref, section: "evidence", limit: 1 })));
+  const evidenceId = evidencePage.data.evidence[0].id;
+  const evidence = decode(await client.call("moos_get_evidence", { ref, evidenceId }));
+  const pdfPage = evidence.data.evidence?.locator?.pdf_page;
+  assert(Number.isInteger(pdfPage) && pdfPage > 0, "MOOS evidence page unavailable");
   const refused = await client.call("moos_get_experiment", {
     ...args,
     ref: { ...ref, sourceId: ref.sourceId + 999999 },
@@ -133,6 +149,8 @@ try {
     tools: client.discover().length,
     sourceRefSha256: digest(ref),
     observationsSha256: digest(actual.data),
+    recipeSectionCounts: sections,
+    evidencePdfPage: pdfPage,
     reviewStatus: ref.reviewStatus,
     scopedCandidates: scoped.data.items.length,
     crossScopeDenied: true,

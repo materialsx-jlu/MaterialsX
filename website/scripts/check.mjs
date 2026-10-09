@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { locales, renderPage, releaseTag, releaseUrl, releaseAssets, releaseAssetUrl } from '../src/render.mjs';
 import { researchContent } from '../src/research-content.mjs';
 import { architectureContent } from '../src/architecture-content.mjs';
+import { release } from '../src/release.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const shape = (value) => Array.isArray(value)
@@ -28,17 +29,17 @@ for (const locale of locales) {
   assert.ok(!html.includes('undefined'), `${locale.code}: missing translation`);
   assert.ok(!/\/Users\//.test(html), `${locale.code}: local path leaked`);
   assert.ok(html.includes(releaseUrl), `${locale.code}: public release link missing`);
-  assert.deepEqual(locale.download.cards.map((card) => card.asset), ['macos', 'windows', ''], `${locale.code}: installer cards differ`);
+  assert.deepEqual(locale.download.cards.map((card) => card.asset), ['macos', 'windows', 'linux'], `${locale.code}: installer cards differ`);
   for (const asset of Object.values(releaseAssets)) {
     assert.ok(asset.name.includes(releaseTag.slice(1)), `${locale.code}: installer version differs from release tag`);
     assert.ok(html.includes(`href="${releaseAssetUrl(asset.name)}"`), `${locale.code}: ${asset.name} download missing`);
   }
-  assert.equal((html.match(/class="platform-download"/g) || []).length, 2, `${locale.code}: expected two direct installer buttons`);
+  assert.equal((html.match(/class="platform-download"/g) || []).length, Object.keys(releaseAssets).length, `${locale.code}: installer buttons differ from manifest`);
   assert.ok(html.includes(`href="${releaseAssetUrl('SHA256SUMS.txt')}"`), `${locale.code}: checksum link missing`);
   for (const id of ['research-tasks', 'features', 'process', 'architecture', 'potentials', 'moos', 'local', 'gallery', 'download', 'start', 'faq']) {
     assert.ok(html.includes(`id="${id}"`), `${locale.code}: section ${id} missing`);
   }
-  assert.ok(html.includes('0.3.0-preview.1'), `${locale.code}: public preview version missing`);
+  assert.ok(html.includes(release.version), `${locale.code}: public release version missing`);
   assert.ok(html.includes('/assets/architecture.css'), `${locale.code}: architecture styles missing`);
   assert.ok(!/sk-[A-Za-z0-9]{12,}/.test(html), `${locale.code}: upstream key leaked`);
 }
@@ -48,6 +49,7 @@ for (const image of ['materialsx-icon.png', 'workbench.png', 'skills.png', 'atom
 }
 
 execFileSync(process.execPath, [path.join(root, 'scripts', 'build.mjs')], { cwd: root, stdio: 'inherit' });
+assert.deepEqual(JSON.parse(await readFile(path.join(root,'dist','releases',`${release.channel}.json`),'utf8')),release);
 for (const { code } of locales) {
   const html = await readFile(path.join(root, 'dist', code, 'index.html'), 'utf8');
   assert.ok(html.includes(`lang="${code === 'zh-TW' ? 'zh-Hant' : code}"`));

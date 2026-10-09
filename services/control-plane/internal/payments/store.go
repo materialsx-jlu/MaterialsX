@@ -20,6 +20,10 @@ type Store struct {
 	AppID         string
 	FormalEnabled bool
 	ApprovalsPath string
+	MXOnly        bool
+	MXReleaseID   string
+	MXReleasePath string
+	MXAPIOrigin   string
 }
 
 func PutProduct(ctx context.Context, tx pgx.Tx, p Product) error {
@@ -41,6 +45,9 @@ func PutProduct(ctx context.Context, tx pgx.Tx, p Product) error {
 	return nil
 }
 func (s *Store) Products(ctx context.Context) ([]Product, error) {
+	if s.MXOnly {
+		return []Product{}, nil
+	}
 	rows, e := s.Pool.Query(ctx, `SELECT body FROM payment_products ORDER BY created_at,id LIMIT 100`)
 	if e != nil {
 		return nil, e

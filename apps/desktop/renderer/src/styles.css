@@ -319,10 +319,8 @@ button { color: inherit; }
 .empty-list strong { margin: 13px 0 6px; color: var(--muted); font-size: 13px; }.empty-list span { font-size: 10px; }
 
 .subscription-view { padding-bottom: 80px; }
-.platform-center .page-heading p, .subscription-view .page-heading p { font-size: 14px; line-height: 1.65; }
-.platform-center .catalog-filters button { min-height: 36px; padding: 0 14px; font-size: 12px; }
-.platform-center .secondary-button, .platform-center .primary-button, .subscription-view .secondary-button, .subscription-view .primary-button { font-size: 12px; }
-.platform-center .catalog-panel { padding: 22px; border-radius: 12px; }
+.subscription-view .page-heading p { font-size: 14px; line-height: 1.65; }
+.subscription-view .secondary-button, .subscription-view .primary-button { font-size: 12px; }
 .subscription-view .catalog-page-body { display: grid; gap: 22px; }
 .subscription-view .catalog-page-body > details { padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--catalog-surface); }
 .subscription-view .catalog-page-body > details > summary { color: var(--muted); font-size: 13px; cursor: pointer; }

@@ -1,0 +1,37 @@
+[Unit]
+Description=MaterialsX isolated LiteLLM preview proxy
+After=network-online.target materialsx-postgresql.service
+Wants=network-online.target
+Requires=materialsx-postgresql.service
+
+[Service]
+Type=simple
+User=mxllm
+Group=mxllm
+WorkingDirectory=/var/lib/materialsx-litellm
+Environment=MX_LITELLM_RUNTIME=/var/lib/materialsx-litellm
+Environment=MX_LITELLM_PORT=4001
+Environment=LD_LIBRARY_PATH=/opt/materialsx-musl-libs/1.2.2/lib
+Environment=PATH=/opt/materialsx-node16/16.20.2/bin:/var/lib/materialsx-litellm/.venv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PRISMA_BINARY_CACHE_DIR=/var/lib/materialsx-litellm/prisma-binaries
+Environment=PRISMA_QUERY_ENGINE_BINARY=/var/lib/materialsx-litellm/prisma-binaries/prisma-query-engine-debian-openssl-1.1.x
+Environment=LITELLM_LOCAL_MODEL_COST_MAP=true
+Environment=NO_PROXY=localhost,127.0.0.1,::1
+Environment=no_proxy=localhost,127.0.0.1,::1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/var/lib/materialsx-litellm/.venv/bin/python /opt/materialsx-litellm/current/services/litellm/launcher.py
+Restart=on-failure
+RestartSec=5
+MemoryMax=1536M
+TasksMax=128
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/materialsx-litellm
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

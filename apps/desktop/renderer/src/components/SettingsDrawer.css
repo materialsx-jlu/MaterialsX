@@ -21,7 +21,7 @@
 .settings-choice.selected:after{content:'✓';position:absolute;top:13px;right:13px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:12px;font-weight:700}
 .settings-choice strong{font-size:14px;line-height:1.35}
 .settings-choice small{font-size:12px;line-height:1.45;color:var(--muted)}
-.settings-hint{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+.settings-hint{margin:9px 0 0;color:var(--muted);font-size:12px;line-height:1.55;overflow-wrap:anywhere}
 .settings-error{margin:7px 0 0;color:var(--danger);font-size:12px;line-height:1.5}
 .settings-connection{margin-top:24px;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2)}
 .settings-connection-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
@@ -37,7 +37,7 @@
 .settings-connection .settings-field:last-of-type{margin-bottom:0}
 .settings-inline-action{display:flex;align-items:center;gap:12px;margin-top:11px;color:var(--muted);font-size:12px}
 .settings-inline-action .secondary-button,.settings-compatibility .secondary-button{min-height:34px;font-size:12px}
-.settings-model-list{display:grid;gap:6px;max-height:165px;overflow:auto;margin-top:10px}
+.settings-model-list{display:grid;gap:6px;max-height:min(380px,48vh);overflow:auto;margin-top:10px;scrollbar-gutter:stable}
 .settings-model-list button{display:flex;justify-content:space-between;align-items:center;gap:10px;min-width:0;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);text-align:left;cursor:pointer}
 .settings-model-list button.selected{border-color:var(--accent);background:var(--accent-bg)}
 .settings-model-list button:disabled{opacity:.5;cursor:default}

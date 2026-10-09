@@ -88,8 +88,8 @@ export const mx03RefundsResponseSchema=z.strictObject({items:z.array(mx03PointRe
 export const mx03RetailCatalogSchema=z.strictObject({
   versionId:id,status:z.enum(["draft","approved","withdrawn"]),salesEnabled:z.boolean(),mxPointsPerCny:decimal,
   fieldOrder:z.tuple([z.literal("input"),z.literal("output"),z.literal("cacheRead"),z.literal("cacheCreate")]),
-  models:z.array(z.strictObject({id:mx03SlotIdSchema,retailVsOfficialPercentApprox:decimal,
-    tiers:z.array(z.strictObject({id,minInputTokens:z.number().int().nonnegative(),mxPointsPer1m:z.tuple([decimal,decimal,decimal,decimal])})).min(1)})).max(3),
+  models:z.array(z.strictObject({id,priceVersionId:id,retailVsOfficialPercentApprox:decimal.nullable(),
+    tiers:z.array(z.strictObject({id,minInputTokens:z.number().int().nonnegative(),mxPointsPer1m:z.tuple([decimal,decimal,decimal,decimal])})).min(1)})).max(200),
 });
 
 export const mx03UsageSchema = z.strictObject({
@@ -113,7 +113,7 @@ export const mx03ChargeSchema = z.strictObject({
   c.usage.outputTokens !== null && c.chargedPoints !== null && c.usageEvidenceRef),
 "settlement requires terminal usage evidence");
 export const mx03UsageRowsSchema=z.strictObject({items:z.array(z.strictObject({
-  requestId:id,taskId:id.nullable(),modelId:mx03SlotIdSchema,routeVersionId:id,
+  requestId:id,taskId:id.nullable(),modelId:id,routeVersionId:id,
   retailPriceVersionId:id,reservedPoints:decimal,chargedPoints:decimal.nullable(),
   state:z.enum(["reserved","settled","released","reconciliation_pending"]),usage:z.record(z.string(),z.unknown()).nullable(),
   usageEvidenceRef:id.nullable(),createdAt:dateTime,

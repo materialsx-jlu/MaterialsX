@@ -92,10 +92,10 @@ npm run build
 npm run m5:contracts:check
 # 使用隔离测试 PostgreSQL，不能使用生产数据库
 npm run m5:identity:test
-npm run m5:workspace:live
+npm run control-plane:test
 ```
 
-最后两个脚本要求 `MATERIALSX_IDENTITY_TEST_DATABASE_URL`。Go 测试自动创建/清理自己的唯一数据库；UI fixture 创建独立数据库、临时凭据、测试套餐与本地 SSE 合成模型，结束撤销会话、清理临时数据；没有真实支付、供应商生成调用或公开发布。截图包含合成元数据。
+`m5:identity:test` 要求 `MATERIALSX_IDENTITY_TEST_DATABASE_URL`。Go 测试使用隔离测试数据库。原 M5.5 桌面 UI fixture 依赖已退役的订阅组件，现已移除；以下截图仅记录当时的合成验收，不代表当前 UI。
 
 ![M5.5 云服务用量](../images/cloud-workspace.png)
 

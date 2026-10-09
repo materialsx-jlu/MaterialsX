@@ -1,0 +1,12 @@
+[Unit]
+Description=Renew isolated MaterialsX TLS certificates
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/materialsx-certbot/venv/bin/certbot renew --config-dir /etc/materialsx/letsencrypt --work-dir /var/lib/materialsx-certbot --logs-dir /var/log/materialsx-certbot --deploy-hook "/bin/systemctl reload nginx" --quiet
+MemoryMax=256M
+TasksMax=64
+PrivateTmp=true
+NoNewPrivileges=true

@@ -15,6 +15,7 @@ import {
   ErrorCode,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { randomUUID } from "node:crypto";
 import type { TeamIdentity, TeamActor } from "./auth.js";
 import { TeamResearchService } from "./service.js";
 import { MCP_PROTOCOL } from "../mcp-client.js";
@@ -56,6 +57,7 @@ export class TeamServer {
     }
   >();
   private inFlight = 0;
+  private moosFailures = 0;
   constructor(readonly options: TeamServerOptions) {
     const u = new URL(options.publicOrigin);
     if (
@@ -75,6 +77,9 @@ export class TeamServer {
     if (options.service.production !== options.production)
       throw Error("TEAM_PRODUCTION_MODE_CONFLICT");
     const listener = (r: IncomingMessage, w: ServerResponse) => {
+      const id=randomUUID(),start=Date.now(),route=r.url==="/v1/research/health"?"health":r.url?.endsWith("/mcp")?"moos_mcp":"research_api";
+      w.setHeader("X-Request-ID",id);
+      w.once("finish",()=>console.info(JSON.stringify({event:"http_request",service:"team-research",request_id:id,route,method:r.method,status:w.statusCode,duration_ms:Date.now()-start})));
       const task = this.handle(r, w).catch(() => {
         w.destroy();
       });
@@ -153,6 +158,7 @@ export class TeamServer {
         this.json(w, 200, {
           service: "materialsx-team-moos",
           production: this.options.production,
+          moosFailures: this.moosFailures,
         });
         return;
       }
@@ -266,6 +272,7 @@ export class TeamServer {
       await recheck();
       this.json(w, 200, result);
     } catch (e) {
+      if ((r.url ?? "").endsWith("/mcp") && status(e) >= 500) this.moosFailures++;
       if (auditedActor && auditedProject)
         this.options.service.store.audit(
           auditedProject,
@@ -357,6 +364,7 @@ export class TeamServer {
           content: [{ type: "text" as const, text: JSON.stringify(e) }],
         };
       } catch (e) {
+        if (status(e) >= 500) this.moosFailures++;
         this.options.service.store.audit(
           project,
           actor.id,

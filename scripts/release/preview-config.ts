@@ -32,7 +32,7 @@ const config = {
 const support = {
  schemaVersion:'materialsx-preview-v1', version:pkg.version, channel:'preview', platform,
  formalReleaseReady:false, signed:false,
- core:['bilingual-skills','model-catalog','Pi','bundled-Codex-App-Server','PDF-Python','research-workspace'],
+ core:['bilingual-skills','model-catalog','Pi','bundled-Codex-App-Server','PDF-Python'],
  atomicRuntimeBundled:fullMac, atomicRuntimeScope:fullMac?'macOS arm64 reviewed M6 profiles':'not bundled; directory entries are not installed models',
  nativeCodexExecution:platform==='mac'?'macOS sandbox; model qualification remains scoped':'disabled pending project isolation qualification',
  platformWorkspaceShell:platform==='mac'?'macOS sandbox':'disabled; file/host tools remain available',

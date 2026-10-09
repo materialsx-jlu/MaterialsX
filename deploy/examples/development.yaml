@@ -1,0 +1,24 @@
+# Local-only example. No credential belongs in this manifest.
+schemaVersion: 1
+environment: development
+releaseChannel: development
+public:
+  apiOrigin: http://127.0.0.1:8788
+  siteOrigin: http://127.0.0.1:4174
+  adminOrigin: http://127.0.0.1:8790
+internal:
+  identity: 127.0.0.1:8788
+  team: 127.0.0.1:8793
+  billingWeb: 127.0.0.1:8790
+  litellmProxy: 127.0.0.1:4001
+  litellmConsole: 127.0.0.1:4000
+  moosApi: 127.0.0.1:8080
+researchData:
+  mode: colocated
+payment:
+  mode: disabled
+  notifyOrigin: http://127.0.0.1:8788
+development:
+  enableDevRoutes: false
+  disableAdminTotp: false
+  enablePaymentPilot: false

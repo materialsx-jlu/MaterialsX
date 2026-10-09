@@ -16,12 +16,13 @@ import (
 )
 
 type Store struct {
-	Pool         *pgxpool.Pool
-	Provider     payments.Provider
-	Merchant     string
-	AppID        string
-	Mode         string // disabled, test, wechat pilot, or explicitly enabled live MX checkout.
-	PilotAccount string // development-only real-payment pilot; only the ¥10 product is admitted.
+	Pool                              *pgxpool.Pool
+	Provider                          payments.Provider
+	Merchant                          string
+	AppID                             string
+	Mode                              string // disabled, test, wechat pilot, or explicitly enabled live MX checkout.
+	PilotAccount                      string // development-only real-payment pilot; only the ¥10 product is admitted.
+	ReleaseID, ReleasePath, APIOrigin string
 }
 
 func FromPayments(pool *pgxpool.Pool, payment *payments.Store, environment string) (*Store, error) {
@@ -68,6 +69,18 @@ func FromPayments(pool *pgxpool.Pool, payment *payments.Store, environment strin
 		}
 		s.Mode = "wechat-live"
 		return s, nil
+	case "wechat-production":
+		if environment != "production" || payment.Mode != "wechat-native" || !payment.MXOnly ||
+			os.Getenv("MATERIALSX_CLOUD_MODE") != "mx-production" || os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") != "wallet-production" ||
+			os.Getenv("MATERIALSX_MX03_PRICE_VERSION") != payment.MXReleaseID || payment.MXReleaseID != mxpricing.ApprovedVersion ||
+			payment.MXReleasePath == "" || payment.MXAPIOrigin == "" || payment.Merchant == "" {
+			return nil, ErrDisabled
+		}
+		if _, ok := payment.Provider.(*payments.Wechat); !ok {
+			return nil, ErrDisabled
+		}
+		s.Mode, s.ReleaseID, s.ReleasePath, s.APIOrigin = "wechat-production", payment.MXReleaseID, payment.MXReleasePath, payment.MXAPIOrigin
+		return s, nil
 	default:
 		// Real MX sales require the 0.3.4 price and 0.3.7 release gates.
 		return nil, ErrDisabled
@@ -75,6 +88,7 @@ func FromPayments(pool *pgxpool.Pool, payment *payments.Store, environment strin
 }
 
 func (s *Store) Products(ctx context.Context) ([]Product, error) {
+	ready := s.Mode != "wechat-production" || s.ProductionReady(ctx)
 	rows, err := s.Pool.Query(ctx, `SELECT id,name,amount_fen,points_subunits,policy_version FROM mx_point_products ORDER BY amount_fen`)
 	if err != nil {
 		return nil, err
@@ -87,7 +101,7 @@ func (s *Store) Products(ctx context.Context) ([]Product, error) {
 		if err := rows.Scan(&p.ID, &p.Name, &amount, &points, &p.PolicyVersion); err != nil {
 			return nil, err
 		}
-		p.AmountFen, p.Points, p.Enabled, p.TestOnly = strconv.FormatInt(amount, 10), Points(points), s.Mode != "disabled", s.Mode == "test"
+		p.AmountFen, p.Points, p.Enabled, p.TestOnly = strconv.FormatInt(amount, 10), Points(points), s.Mode != "disabled" && ready, s.Mode == "test"
 		out = append(out, p)
 	}
 	return out, rows.Err()
@@ -193,7 +207,7 @@ func audit(ctx context.Context, tx pgx.Tx, actor, action, target, reason string)
 	return err
 }
 func (s *Store) Create(ctx context.Context, owner, key, productID string) (Order, error) {
-	if (s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live") || s.Provider == nil {
+	if (s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" && s.Mode != "wechat-production") || s.Provider == nil {
 		return Order{}, ErrDisabled
 	}
 	if s.PilotAccount != "" && (owner != s.PilotAccount || productID != "mx-cny-10-v1") {
@@ -227,6 +241,9 @@ func (s *Store) Create(ctx context.Context, owner, key, productID string) (Order
 		return s.Order(ctx, owner, previousID)
 	}
 	if !errors.Is(err, pgx.ErrNoRows) {
+		return Order{}, err
+	}
+	if err = s.productionReadyTx(ctx, tx); err != nil {
 		return Order{}, err
 	}
 	var paused bool

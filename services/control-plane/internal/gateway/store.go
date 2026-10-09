@@ -71,7 +71,7 @@ func liveAccount(ctx context.Context, tx pgx.Tx, p identity.Principal) error {
 	return nil
 }
 func (s *Store) Create(ctx context.Context, p identity.Principal, in CreateTask, key string) (Task, error) {
-	if !s.betaCurrent() {
+	if !s.betaCurrent(ctx) {
 		return Task{}, ErrUnavailable
 	}
 	t := Task{ID: newID(), ClientID: in.ClientID, Model: in.Model, Mode: in.Mode, Budget: in.Budget, Consent: in.Consent, State: "created", Quality: "not_evaluated", Created: time.Now().UTC()}
@@ -240,7 +240,7 @@ func (s *Store) Task(ctx context.Context, owner, id string) (Task, error) {
 	return t, nil
 }
 func (s *Store) Claim(ctx context.Context, p identity.Principal, taskID, id, key string, payload map[string]any, phases ...string) (Request, time.Time, error) {
-	if !s.betaCurrent() {
+	if !s.betaCurrent(ctx) {
 		return Request{}, time.Time{}, ErrUnavailable
 	}
 	phase := "conversation"

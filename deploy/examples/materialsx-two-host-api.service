@@ -1,0 +1,26 @@
+[Unit]
+Description=MaterialsX preview identity API
+After=network-online.target materialsx-private-tunnel.service
+Wants=network-online.target
+Requires=materialsx-private-tunnel.service
+
+[Service]
+Type=simple
+User=mxapi
+Group=mxapi
+EnvironmentFile=/etc/materialsx/secrets/api-runtime.env
+ExecStart=/opt/materialsx/control-plane/current/bin/identity
+Restart=on-failure
+RestartSec=5
+MemoryMax=256M
+TasksMax=64
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/materialsx-api
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

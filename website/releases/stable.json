@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "channel": "stable",
+  "version": "0.3.0",
+  "assets": [
+    {
+      "name": "MaterialsX-0.3.0-mac-arm64.dmg",
+      "bytes": 1787272212,
+      "sha256": "6010d79604a21f6258c33976d9aa36ae2c575c962bd8231b04932f457c08384b"
+    },
+    {
+      "name": "MaterialsX-0.3.0-mac-arm64.dmg.blockmap",
+      "bytes": 1864434,
+      "sha256": "00159b167804da1aed107a19cb16abe69e02b29fecf0ab0ad67b48904bedb9ca"
+    },
+    {
+      "name": "MaterialsX-0.3.0-win-x64.exe",
+      "bytes": 740596637,
+      "sha256": "6ec8eddfc554a6408363d3285beaba9012dae102f5392a0a1a8aa16f3e88a653"
+    },
+    {
+      "name": "MaterialsX-0.3.0-win-x64.exe.blockmap",
+      "bytes": 769453,
+      "sha256": "021caf157c27bef647e87bfe43c52772aea9c73442e5f12d1c438f22f6cf5534"
+    },
+    {
+      "name": "MaterialsX-0.3.0-source.zip",
+      "bytes": 43905970,
+      "sha256": "25cfcf2ad2e1b618ad80557a8de17884ef2011fa71d1c3be4565302d71659f7e"
+    }
+  ]
+}

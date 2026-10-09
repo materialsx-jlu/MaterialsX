@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"errors"
+	"github.com/jamip/materialsx/control-plane/internal/billingadmin"
 	"github.com/jamip/materialsx/control-plane/internal/delivery"
 	"github.com/jamip/materialsx/control-plane/internal/gateway"
 	"github.com/jamip/materialsx/control-plane/internal/identity"
 	"github.com/jamip/materialsx/control-plane/internal/mxpoints"
+	"github.com/jamip/materialsx/control-plane/internal/observability"
 	"github.com/jamip/materialsx/control-plane/internal/payments"
 	"github.com/jamip/materialsx/control-plane/migrations"
 	"log"
@@ -68,7 +70,15 @@ func main() {
 	if e != nil {
 		log.Fatal("MX payment startup: sales mode unavailable")
 	}
+	if (cloud.MXReleaseID != "" || billing.MXOnly || mx.Mode == "wechat-production") &&
+		(cloud.MXReleaseID == "" || cloud.MXReleaseID != billing.MXReleaseID || cloud.MXReleaseID != mx.ReleaseID || cloud.MXAPIOrigin != billing.MXAPIOrigin || cloud.MXAPIOrigin != mx.APIOrigin) {
+		log.Fatal("MX production startup: release state mismatch")
+	}
 	gateway.MountMXPoints(workspace, mx)
+	handler.ClientFeatures = identity.ClientFeatures{
+		Account: true, Models: cloud.Enabled || cloud.MX03Wallet,
+		Research: false, Payments: mx.Mode != "disabled" || billing.Mode != "disabled",
+	}
 	workspace.ConfigureLifecycle(cfg.MasterKey, os.Getenv("MATERIALSX_BETA_APPROVALS_FILE"))
 	if e = workspace.ConfigureWorkspace(os.Getenv("MATERIALSX_ADMIN_ASSET_DIR"), os.Getenv("MATERIALSX_RELEASE_APPROVALS_FILE")); e != nil {
 		log.Fatal("workspace startup: invalid deployment configuration")
@@ -76,7 +86,32 @@ func main() {
 	if workspace.AdminAssets != nil {
 		defer workspace.AdminAssets.Close()
 	}
-	server := identity.NewServer(cfg.Address, handler)
+	billingOrigin := os.Getenv("MATERIALSX_BILLING_ADMIN_PUBLIC_URL")
+	billingProxyToken := os.Getenv("MATERIALSX_BILLING_PROXY_TOKEN")
+	if billingOrigin != "" || billingProxyToken != "" {
+		billingConsole, err := billingadmin.New(pool, service, billingOrigin, billingProxyToken, cfg.Environment == "production")
+		if err != nil {
+			log.Fatal("billing console startup: invalid host or proxy credential")
+		}
+		billingConsole.CloudEnabled = cloud.Enabled
+		billingConsole.MXWallet = cloud.MX03Wallet
+		billingConsole.MXMode = mx.Mode
+		billingConsole.PaymentMode = billing.Mode
+		billingConsole.LiteLLMOrigin = os.Getenv("MATERIALSX_LITELLM_URL")
+		billingConsole.Mount(handler)
+	}
+	metricsToken := os.Getenv("MATERIALSX_METRICS_TOKEN")
+	monitor := observability.New(metricsToken)
+	monitor.Probe = func(ctx context.Context) (map[string]int64, error) {
+		var pending, bytes, orders, notifications int64
+		err := pool.QueryRow(ctx, `SELECT
+		 (SELECT count(*) FROM gateway_requests WHERE settlement='reconciliation_pending'),
+		 pg_database_size(current_database()),
+		 (SELECT count(*) FROM mx_point_orders WHERE state='pending' AND created_at<clock_timestamp()-interval '15 minutes'),
+		 (SELECT count(*) FROM mx_point_evidence WHERE source='notification' AND created_at>clock_timestamp()-interval '1 hour')`).Scan(&pending, &bytes, &orders, &notifications)
+		return map[string]int64{"reconciliationPending": pending, "databaseBytes": bytes, "agedPendingOrders": orders, "paymentNotificationsLastHour": notifications}, err
+	}
+	server := identity.NewServer(cfg.Address, monitor.Wrap(handler))
 	go func() {
 		<-ctx.Done()
 		shutdown, c := context.WithTimeout(context.Background(), 5*time.Second)

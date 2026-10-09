@@ -38,7 +38,11 @@ func (h *HTTP) opsScript(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(opsJS))
 }
 func (h *HTTP) sameOrigin(w http.ResponseWriter, r *http.Request) bool {
-	if r.Header.Get("Origin") != h.Identity.PublicURL {
+	origin := h.Identity.PublicURL
+	if h.Identity.Production && h.Identity.BillingPublicURL != "" {
+		origin = h.Identity.BillingPublicURL
+	}
+	if r.Header.Get("Origin") != origin {
 		fail(w, ErrForbidden)
 		return false
 	}

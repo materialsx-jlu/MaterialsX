@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { locales, renderPage } from '../src/render.mjs';
+import { release } from '../src/release.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
@@ -22,6 +23,8 @@ await cp(path.join(root, 'src', 'styles.css'), path.join(output, 'assets', 'styl
 await cp(path.join(root, 'src', 'showcase.css'), path.join(output, 'assets', 'showcase.css'));
 await cp(path.join(root, 'src', 'architecture.css'), path.join(output, 'assets', 'architecture.css'));
 await cp(path.join(root, 'src', 'site.js'), path.join(output, 'assets', 'site.js'));
+await mkdir(path.join(output, 'releases'), { recursive: true });
+await writeFile(path.join(output, 'releases', `${release.channel}.json`), `${JSON.stringify(release)}\n`);
 
 for (const locale of locales) {
   const directory = path.join(output, locale.code);

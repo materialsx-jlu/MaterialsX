@@ -88,6 +88,20 @@ func FromEnv(ctx context.Context, s *Store, environment, database, origin string
 	if mode != "wechat-native" || environment != "production" {
 		return ErrDisabled
 	}
+	if os.Getenv("MATERIALSX_CLOUD_MODE") == "mx-production" {
+		path := os.Getenv("MATERIALSX_MX_PRODUCTION_APPROVAL_FILE")
+		if os.Getenv("MATERIALSX_MX03_PAYMENT_MODE") != "wechat-production" ||
+			os.Getenv("MATERIALSX_MX03_GATEWAY_MODE") != "wallet-production" || os.Getenv("MATERIALSX_MX03_PRICE_VERSION") != mxpricing.ApprovedVersion || path == "" {
+			return ErrDisabled
+		}
+		w, err := NewWechat(ctx, origin)
+		if err != nil {
+			return err
+		}
+		s.Mode, s.Provider, s.Merchant, s.AppID = mode, w, w.merchant, w.app
+		s.MXOnly, s.MXReleaseID, s.MXReleasePath, s.MXAPIOrigin = true, mxpricing.ApprovedVersion, path, origin
+		return nil
+	}
 	a, err := lifecycle.ReadApprovals(os.Getenv("MATERIALSX_BETA_APPROVALS_FILE"), "rootflow-sol-responses-2026-10-01-v1")
 	s.ApprovalsPath = os.Getenv("MATERIALSX_BETA_APPROVALS_FILE")
 	s.FormalEnabled = err == nil && len(a.Missing(time.Now().UTC())) == 0 && os.Getenv("MATERIALSX_CLOUD_MODE") == "paid-beta" && os.Getenv("MATERIALSX_INPUT_COUNTER_EXECUTABLE") != ""

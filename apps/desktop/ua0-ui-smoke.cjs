@@ -76,8 +76,7 @@ globalThis.fetch = (input, init) => {
     await until("document.querySelector('.page-heading h1')?.textContent.includes('运行记录')");
     await click("订阅与额度");
     await until("!!document.querySelector('.subscription-view')");
-    await click("发布中心");
-    await until("!!document.querySelector('.release-view')");
+    assert.equal(await js("[...document.querySelectorAll('button')].some(button => button.textContent.includes('发布中心'))"), false);
     if(ua1){
       await click("设置");await until("Array.from(document.querySelectorAll('.el-drawer')).some(d=>d.textContent.includes('执行引擎'))");
       assert(await js("Array.from(document.querySelectorAll('button')).some(b=>b.textContent.trim().startsWith('Codex App Server')&&!b.disabled)"));

@@ -232,9 +232,10 @@ func (h *HTTP) models(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	items := []any{map[string]any{"id": ModelAlias, "providerId": "rootflowai", "upstreamModelId": "gpt-5.6-sol", "protocol": "responses", "enabled": h.S.Config.Enabled && h.S.Config.Provider != nil && available, "contextWindow": nil, "maxOutputTokens": h.S.Config.MaxOutputTokens, "capabilities": map[string]any{"streaming": cap(status, evidence), "tools": cap(status, evidence), "structuredOutput": cap("unknown", nil), "cancellation": cap("unknown", nil)}, "salesPriceVersionId": price, "verifiedAt": nil, "accessMode": mode, "routeVersionId": RouteVersion}}
+	mxSalesReady := h.S.Config.MXReleaseID == "" || h.S.MXPoints != nil && h.S.MXPoints.ProductionReady(r.Context())
 	if h.S.Config.MX03Diagnostic {
 		mxAvailable := false
-		if h.S.Config.MX03Wallet && h.S.MXPoints != nil && h.S.MXPoints.Mode != "disabled" {
+		if h.S.Config.MX03Wallet && h.S.MXPoints != nil && h.S.MXPoints.Mode != "disabled" && mxSalesReady {
 			var subunits int64
 			e = h.S.Pool.QueryRow(r.Context(), `SELECT COALESCE(sum(granted-held-consumed-frozen-returned),0) FROM mx_point_batches WHERE account_id=$1`, p.ID).Scan(&subunits)
 			if e != nil {
@@ -269,7 +270,7 @@ func (h *HTTP) models(w http.ResponseWriter, r *http.Request) {
 	}
 	if h.S.Config.MX03Wallet {
 		dynamicAvailable := false
-		if h.S.MXPoints != nil && h.S.MXPoints.Mode != "disabled" {
+		if h.S.MXPoints != nil && h.S.MXPoints.Mode != "disabled" && mxSalesReady {
 			var balance int64
 			if err := h.S.Pool.QueryRow(r.Context(), `SELECT COALESCE(sum(granted-held-consumed-frozen-returned),0) FROM mx_point_batches WHERE account_id=$1`, p.ID).Scan(&balance); err != nil {
 				fail(w, err)

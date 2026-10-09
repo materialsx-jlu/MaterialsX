@@ -39,7 +39,7 @@ MaterialsX 0.3 让已登录用户在桌面端充值通用 MX 点数，并在研�
 
 当前真实联调仍是单一 `materials-research → RootFlowAI/gpt-5.6-sol` 路由；网关、销售价格校验、支付生产开关与部分桌面文案均固定到这一路由。默认新收款关闭。旧开发实付采用 **¥1 = 1000 paid-credit**，与 0.3 新单位不同。
 
-代码入口：`services/control-plane/internal/gateway/`、`internal/metering/`、`internal/payments/`、`internal/identity/`、`internal/providers/rootflow/`、`apps/desktop/renderer/src/components/PlatformCenter.vue`、`PaymentPanel.vue`、`CreditWalletPanel.vue`、`apps/admin/`。新增 `apps/billing-admin/` 与受限计费管理 API；Go 域服务继续拥有资金、点数和权限规则。M5 旧价格、路由和账本仅作为历史版本保留。
+代码入口：`services/control-plane/internal/gateway/`、`internal/metering/`、`internal/payments/`、`internal/identity/`、`internal/providers/rootflow/`、`apps/desktop/renderer/src/components/PlatformCenter.vue`、`MxPointsPanel.vue`、`CreditWalletPanel.vue`、`apps/admin/`。新增 `apps/billing-admin/` 与受限计费管理 API；Go 域服务继续拥有资金、点数和权限规则。M5 旧价格、路由和账本仅作为历史版本保留。
 
 ## 3. 目标架构与责任
 

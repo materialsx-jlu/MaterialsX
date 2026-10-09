@@ -14,7 +14,6 @@ import type {
   RunRecord,
   ReleaseReadiness,
   SkillSummary,
-  SubscriptionSnapshot,
   WorkspaceView,
 } from "../../../../../packages/contracts/src/desktop.js";
 
@@ -35,8 +34,6 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const connections = ref<ConnectionSummary[]>([]);
   const runs = ref<RunRecord[]>([]);
   const settings = ref<ModelSettings>({ ...DEFAULT_MODEL_SETTINGS });
-  const subscription = ref<SubscriptionSnapshot | null>(null);
-  const subscriptionLoading = ref(false);
   const releaseReadiness = ref<ReleaseReadiness | null>(null);
   const releaseLoading = ref(false);
   const activeProjectId = ref<string | null>(null);
@@ -155,34 +152,12 @@ export const useWorkspaceStore = defineStore("workspace", () => {
         streamSubscribed = true;
       }
       applyBootstrap(await window.materialsx.bootstrap());
-      const first = projectConversations.value[0];
-      if (first) await selectConversation(first.id);
-      // Restore local context before optional network work can delay and overwrite user navigation.
-      await loadSubscription();
+      activeView.value = activeProjectId.value ? "project" : "chat";
     } catch (cause) {
       error.value = (cause instanceof Error ? cause.message : String(cause))
         .replace(/^Error invoking remote method '[^']+': Error: /, '');
     } finally {
       loading.value = false;
-    }
-  }
-
-  async function loadSubscription(): Promise<void> {
-    subscriptionLoading.value = true;
-    try {
-      subscription.value = await window.materialsx.getSubscription();
-    } finally {
-      subscriptionLoading.value = false;
-    }
-  }
-
-  async function activateDevelopmentPlan(planId: "pro" | "research"): Promise<void> {
-    subscriptionLoading.value = true;
-    try {
-      subscription.value = await window.materialsx.activateDevelopmentPlan(planId);
-      connections.value = await window.materialsx.refreshDiagnostics();
-    } finally {
-      subscriptionLoading.value = false;
     }
   }
 
@@ -194,15 +169,14 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     activeProjectId.value = record.id;
     activeConversationId.value = null;
     messages.value = [];
-    activeView.value = "chat";
+    activeView.value = "project";
   }
 
   async function selectProject(projectId: string): Promise<void> {
     activeProjectId.value = projectId;
     activeConversationId.value = null;
     messages.value = [];
-    const first = projectConversations.value[0];
-    if (first) await selectConversation(first.id);
+    activeView.value = "project";
   }
 
   async function createConversation(): Promise<void> {
@@ -321,8 +295,6 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     connections,
     runs,
     settings,
-    subscription,
-    subscriptionLoading,
     releaseReadiness,
     releaseLoading,
     activeProjectId,
@@ -334,8 +306,6 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     readyConnectionCount,
     initialize,
     refreshSkills,
-    loadSubscription,
-    activateDevelopmentPlan,
     chooseProject,
     selectProject,
     createConversation,

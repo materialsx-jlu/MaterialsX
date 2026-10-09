@@ -21,13 +21,13 @@
 | `npm run m5:identity:test` | 真实隔离 PG 的全包 `go test -race` 通过 |
 | 新后台回归 | 账单归属/分页/CSV/未知 usage、暂停准入与保留结算、会话撤销、版本/幂等/门禁、静态目录逃逸保护、暂停销售后既有订单处理通过 |
 | Release 只读核验回归 | 用合成 GitHub 响应验证 tag/commit/channel/immutable/assets/digest；错误、超时和证据不足拒绝。没有实际 GitHub 发布 |
-| `npm run m5:workspace:live` | 真实桌面与后台界面、管理员 MFA、六项导航、语言主题、购买→合成模型调用→账单/CSV→退款→暂停/恢复→审计退出通过 |
-| `npm run m5:payments:live` | M5.4 原订阅界面购买/退款与账本闭环回归通过 |
+| 原 `m5:workspace:live` | 当时的桌面与后台合成验收通过；旧界面已退役，脚本不再适用于当前版本 |
+| 原 `m5:payments:live` | 当时的 M5.4 订阅界面购买/退款验收通过；旧界面已退役，脚本不再适用于当前版本 |
 | 公开文件检查 | 工作树候选文本的凭据扫描及 `git diff --check` 通过；此扫描不覆盖 Git 历史、外部日志或任意类型的秘密，二进制图片另行检查 |
 
 M5.5 界面测试购买 100000 test-credit，合成调用输入 10 / 输出 4 Token，扣减 14 test-credit；50 分合成退款回收 50000 test-credit，最终余额 49986。这些数字验证测试价格和事务账本，不能作为正式套餐售价或人民币兑积分规则。
 
-可重现命令和服务配置见 [workspace.md](workspace.md)。原始本机结果保存在忽略的 `runtime/m55/local-validation.json`，包括环境、是否真实资金、各验收标记与未验收项；截图见 [云服务中心](../images/cloud-workspace.png)、[运营中心](../images/operations-center.png)。测试脚本创建并清理自己的数据库、临时凭据与桌面目录，不使用生产数据库或供应商 Key。
+当前可执行命令和服务配置见 [workspace.md](workspace.md)。历史本机结果曾保存在忽略的 `runtime/m55/local-validation.json`；截图见 [云服务中心](../images/cloud-workspace.png)、[运营中心](../images/operations-center.png)。历史脚本使用隔离测试数据库与临时凭据，不涉及生产数据库或供应商 Key。
 
 ## 尚未验收
 

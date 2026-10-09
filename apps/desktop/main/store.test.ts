@@ -103,6 +103,45 @@ describe("WorkspaceStore", () => {
     assert.doesNotMatch(JSON.stringify(store.getSupportSummary()), /private|unpublished/);
     store.close();
   });
+
+  it("keeps full run history with exact messages and cloud task pointers after restart", () => {
+    const {directory, database} = temporaryDatabase();
+    const store = new WorkspaceStore(database);
+    const project = store.createProject(join(directory, 'project'));
+    const conversation = store.createConversation(project.id);
+    const run = store.addRun(project.id, '为什么失败？', 'failed', conversation.id);
+    store.appendMessage(conversation.id, 'user', '为什么失败？', 'complete', run.id);
+    store.appendMessage(conversation.id, 'system', '平台任务失败：供应商断开，预留待核对。', 'failed', run.id);
+    store.saveCloudTask('account-A', conversation.id, 'cloud-task-A');
+    for (let index = 0; index < 55; index++) store.addRun(project.id, `history ${index}`, 'completed');
+    assert.equal(store.listRuns().length, 56);
+    store.close();
+    const restored = new WorkspaceStore(database);
+    const history = restored.runHistoryLocal(run.id);
+    assert.equal(history.conversationId, conversation.id);
+    assert.deepEqual(history.messages.map(item => [item.role, item.content]), [
+      ['user', '为什么失败？'], ['system', '平台任务失败：供应商断开，预留待核对。'],
+    ]);
+    assert.deepEqual(history.cloudTaskIds, ['cloud-task-A']);
+    const other = restored.createProject(join(directory, 'other'));
+    const foreign = restored.addRun(other.id, 'foreign', 'completed');
+    assert.throws(() => restored.appendMessage(conversation.id, 'assistant', 'wrong', 'complete', foreign.id), /SCOPE_MISMATCH/);
+    restored.close();
+  });
+
+  it("recovers the question and failure reason from an older run without a conversation link", () => {
+    const {directory, database} = temporaryDatabase();
+    const store = new WorkspaceStore(database);
+    const project = store.createProject(join(directory, 'legacy-project'));
+    const conversation = store.createConversation(project.id);
+    store.appendMessage(conversation.id, 'user', '旧任务为什么失败', 'complete');
+    const run = store.addRun(project.id, '旧任务为什么失败', 'failed');
+    store.appendMessage(conversation.id, 'system', '上游连接中断，扣费待核对', 'failed');
+    const history = store.runHistoryLocal(run.id);
+    assert.equal(history.conversationId, conversation.id);
+    assert.deepEqual(history.messages.map(item => item.role), ['user', 'system']);
+    store.close();
+  });
 });
 
 it("restores cloud task pointers by account without copying credentials or scientific content",()=>{

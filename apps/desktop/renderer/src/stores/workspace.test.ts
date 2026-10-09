@@ -17,7 +17,7 @@ test('late stream events from a fast host reply cannot duplicate persisted messa
     Object.defineProperty(globalThis,'requestAnimationFrame',{configurable:true,value:()=>1});
     Object.defineProperty(globalThis,'cancelAnimationFrame',{configurable:true,value:()=>{}});
     Object.defineProperty(globalThis,'window',{configurable:true,value:{materialsx:{
-      onMessageStream:(handler:typeof receive)=>{receive=handler},bootstrap:async()=>bootstrap,listMessages:async()=>[],getSubscription:async()=>null,
+      onMessageStream:(handler:typeof receive)=>{receive=handler},bootstrap:async()=>bootstrap,listMessages:async()=>[],createConversation:async()=>conversation,
       sendMessage:async(input:{streamToken:string})=>{
         const streamId=`stream:${conversation.id}:${input.streamToken}`;turn++;
         if(turn===1)firstStream=streamId;

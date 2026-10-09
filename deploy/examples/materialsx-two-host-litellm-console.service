@@ -1,0 +1,26 @@
+[Unit]
+Description=MaterialsX private LiteLLM management UI
+After=materialsx-private-tunnel.service
+Requires=materialsx-private-tunnel.service
+
+[Service]
+Type=simple
+User=mxconsole
+Group=mxconsole
+WorkingDirectory=/opt/materialsx/litellm-console/current
+Environment=MX_CONSOLE_PORT=4000
+Environment=MX_LITELLM_PORT=4001
+ExecStart=/opt/materialsx-node/v24.7.0/bin/node /opt/materialsx/litellm-console/releases/v0.1.10/services/litellm-console/server.mjs
+Restart=on-failure
+RestartSec=5
+MemoryMax=128M
+TasksMax=32
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

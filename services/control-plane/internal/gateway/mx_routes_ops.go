@@ -88,7 +88,7 @@ func (h *HTTP) opsMXRoutes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	routes := make([]map[string]any, 0, len(mx03Routes))
-	walletSales := h.S.Config.MX03Wallet && h.MXPoints != nil && h.MXPoints.Mode == "wechat-live"
+	walletSales := h.S.Config.MX03Wallet && h.MXPoints != nil && (h.MXPoints.Mode == "wechat-live" || h.MXPoints.Mode == "wechat-production" && h.MXPoints.ProductionReady(r.Context()))
 	releaseID, releaseStatus := mxpricing.SnapshotVersion, "draft"
 	if walletSales {
 		releaseID, releaseStatus = h.S.Config.MX03PriceVersion, "approved"

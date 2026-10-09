@@ -56,14 +56,15 @@ import { app, BrowserWindow, dialog, ipcMain, safeStorage, shell } from "electro
 import {registerMxPointsIpc} from './mx-points-ipc.js';
 import { IdentityClient, IdentityLoginError } from "../../../packages/control-plane-client/src/identity.js";
 import { SystemCredentialVault } from "./credential-vault.js";
+import { loadPlatformBundle, PlatformConfigurationService } from './platform-configuration.js';
+import { checkRelease } from './platform-release.js';
 import type { ConnectionSummary, DesktopBootstrap, MessageStreamEvent, ModelSettings, ReleaseReadiness, SkillSummary } from "../../../packages/contracts/src/desktop.js";
-import {billingActivitySchema,workspaceStatusSchema,taskBillsSchema,taskRequestsSchema,releasesSchema,walletSchema,creditLedgerSchema,unsignedInteger,paymentPlansSchema,paymentOrdersSchema,orderSchema,paymentRefundsSchema,paymentRefundSchema,refundInputSchema,subscriptionPeriodsSchema} from "../../../packages/contracts/src/platform.js";
+import {billingActivitySchema,workspaceStatusSchema,taskBillsSchema,taskRequestsSchema,releasesSchema,walletSchema,creditLedgerSchema,unsignedInteger} from "../../../packages/contracts/src/platform.js";
 import { validateModelSelection } from "../../../packages/pi-adapter/src/capabilities.js";
 import { discoverLocalModels, PiLocalSessionService } from "../../../packages/pi-adapter/src/local-session.js";
 import { PiPlatformSessionService, type CloudAsset } from "../../../packages/pi-adapter/src/platform-session.js";
 
 
-import { ControlPlaneClient } from "../../../packages/control-plane-client/src/index.js";
 import { createReleaseReadiness } from "../../../packages/release-readiness/src/index.js";
 import { WorkspaceStore, loadJson } from "./store.js";
 import { createCatalogTools } from "../../../packages/pi-adapter/src/catalog-tools.js";
@@ -105,11 +106,12 @@ let scientificValidation:ScientificValidationService;
 const scienceScopes=new Map<string,ScientificScope>();
 const requestAtomicView=(projectId:string,structureId:string)=>mainWindow?.webContents.send("atomistic:view-request",{kind:"import",projectId,structureId});
 let identityClient: IdentityClient;
+let platformConfiguration: PlatformConfigurationService;
+let platformConfigurationTimer:ReturnType<typeof setInterval>|null=null;
 let teamResearch: TeamResearchWorkspace;
 let platformSessions: PiPlatformSessionService;
 const cloudFiles = new Map<string, CloudAsset[]>();
 const activeConversations = new Set<string>();
-const controlPlane = new ControlPlaneClient();
 
 const rootPackage = loadJson<{version: string}>(join(projectRoot, "package.json"))
   ?? (packaged ? loadJson<{version: string}>(join(projectRoot, "app.asar", "package.json")) : null);
@@ -125,6 +127,14 @@ function loadPotentialCatalog() {
 }
 
 const diagnostics = () => runtimeDiagnostics(projectRoot, store.getSettings(),()=>mxPointsDiagnostic(identityClient),()=>researchService.diagnostic());
+
+async function refreshPlatformConfiguration() {
+  const previous=platformConfiguration.snapshot();
+  const state=await platformConfiguration.refresh();
+  if(previous.connection!==state.connection||previous.stale!==state.stale||previous.remote?.catalogRevision!==state.remote?.catalogRevision)
+    mainWindow?.webContents.send('platform:configuration-changed');
+  return state;
+}
 
 async function bootstrap(): Promise<DesktopBootstrap> {
   return {
@@ -307,18 +317,27 @@ function registerIpc(): void {
   ipcMain.handle("workspace:list-messages", (_event, conversationId: unknown) =>
     store.listMessages(assertText(conversationId, "conversationId")),
   );
+  ipcMain.handle("workspace:run-history", async (_event, id: unknown) => {
+    const local = store.runHistoryLocal(assertText(id, "runId"));
+    const base = {run: local.run, conversationId: local.conversationId, messages: local.messages};
+    if (!local.cloudTaskIds.length || !local.conversationId) return {...base, billing: [], billingState: 'not-billed' as const};
+    let account: Awaited<ReturnType<IdentityClient['snapshot']>>;
+    try { account = await identityClient.snapshot(); }
+    catch { return {...base, billing: [], billingState: 'unavailable' as const, billingError: '账户服务暂时无法读取；本地提问和回复仍可查看，扣费请稍后重试。'}; }
+    if (account.status !== 'connected' || !account.user) return {...base, billing: [], billingState: 'login-required' as const};
+    const owned = new Set(store.cloudTaskIds(account.user.id, local.conversationId));
+    const taskIds = local.cloudTaskIds.filter(taskId => owned.has(taskId));
+    if (!taskIds.length) return {...base, billing: [], billingState: 'login-required' as const};
+    const results = await Promise.allSettled(taskIds.map(taskId => platformSessions.readSnapshot(taskId)));
+    const billing = results.flatMap(result => result.status === 'fulfilled' ? [result.value] : []);
+    return results.some(result => result.status === 'rejected')
+      ? {...base, billing, billingState: 'unavailable' as const, billingError: '部分云端账单暂时无法读取，请登录并检查服务连接后重试。'}
+      : {...base, billing, billingState: 'loaded' as const};
+  });
   ipcMain.handle("cloud:list-files", (_event,id:unknown) => (cloudFiles.get(assertText(id,"conversationId"))??[]).map(file=>selectedFileMetadata(file)));
   ipcMain.handle("cloud:clear-files", (_event,id:unknown) => { const key=assertText(id,"conversationId"); if(activeConversations.has(key))throw new Error("任务运行中无法修改文件范围"); cloudFiles.delete(key); });
   registerMxPointsIpc(identityClient);
   const paymentId=(v:unknown)=>{const text=assertText(v,"paymentId");if(!/^[A-Za-z0-9_.:-]{1,128}$/.test(text))throw new Error("订单参数无效");return text};
-  ipcMain.handle("payments:plans",async()=>paymentPlansSchema.parse(await(await identityClient.platformRequest("/v1/billing/plans")).json()));
-  ipcMain.handle("payments:orders",async(_event,cursor:unknown)=>paymentOrdersSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`)).json()));
-  ipcMain.handle("payments:create",async(_event,input:{productVersionId:unknown;key:unknown})=>{const plans=paymentPlansSchema.parse(await(await identityClient.platformRequest("/v1/billing/plans")).json());if(plans.mode!=="test"&&plans.mode!=="wechat-pilot"&&!(plans.mode==="wechat-native"&&plans.formalSalesEnabled))throw Error("Payment creation disabled");return orderSchema.parse(await(await identityClient.platformRequest("/v1/billing/orders",{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify({productVersionId:paymentId(input.productVersionId),channel:plans.mode==="test"?"test":"wechat"})})).json())});
-  ipcMain.handle("payments:query",async(_event,input:{id:unknown;key:unknown})=>orderSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/query`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:"{}"})).json()));  ipcMain.handle("payments:close",async(_event,input:{id:unknown;key:unknown})=>orderSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/close`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:"{}"})).json()));
-  ipcMain.handle("payments:refunds",async(_event,id:unknown)=>paymentRefundsSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(id)}/refunds`)).json()));
-  ipcMain.handle("payments:refund",async(_event,input:{id:unknown;input:unknown;key:unknown})=>paymentRefundSchema.parse(await(await identityClient.platformRequest(`/v1/billing/orders/${paymentId(input.id)}/refunds`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(refundInputSchema.parse(input.input))})).json()));
-  ipcMain.handle("payments:periods",async()=>subscriptionPeriodsSchema.parse(await(await identityClient.platformRequest("/v1/billing/subscriptions")).json()));
-  ipcMain.handle("payments:export",async(_event,cursor:unknown)=>{const res=await identityClient.platformRequest(`/v1/billing/export${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`);if(!res.ok||!res.headers.get("Content-Type")?.startsWith("text/csv"))throw new Error("订单导出失败");const text=await res.text();if(Buffer.byteLength(text)>256*1024)throw new Error("导出内容过大");const next=res.headers.get("X-Next-Cursor");if(next)paymentId(next);const file=await dialog.showSaveDialog({defaultPath:"materialsx-orders.csv",filters:[{name:"CSV",extensions:["csv"]}]});if(file.canceled||!file.filePath)return {saved:false,nextCursor:next};await writeFile(file.filePath,text,{encoding:"utf8",mode:0o600});return {saved:true,nextCursor:next}});
  ipcMain.handle("support:list",async(_event,cursor:unknown)=>ticketsSchema.parse(await(await identityClient.platformRequest(`/v1/support/tickets${cursor===undefined?"":`?cursor=${paymentId(cursor)}`}`)).json()));
  ipcMain.handle("support:create",async(_event,input:{body:unknown;key:unknown})=>ticketSchema.parse(await(await identityClient.platformRequest("/v1/support/tickets",{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(newTicketSchema.parse(input.body))})).json()));
  ipcMain.handle("support:reply",async(_event,input:{id:unknown;body:unknown;key:unknown})=>ticketSchema.parse(await(await identityClient.platformRequest(`/v1/support/tickets/${paymentId(input.id)}/reply`,{method:"POST",headers:{"Idempotency-Key":paymentId(input.key)},body:JSON.stringify(ticketReplySchema.parse(input.body))})).json()));
@@ -333,6 +352,16 @@ function registerIpc(): void {
   ipcMain.handle("billing:wallet", async()=>walletSchema.parse(await (await identityClient.platformRequest("/v1/billing/wallet")).json()));
   ipcMain.handle("billing:ledger",async(_event,cursor:unknown)=>{const after=cursor===undefined?undefined:unsignedInteger.parse(cursor);return creditLedgerSchema.parse(await(await identityClient.platformRequest(`/v1/billing/ledger${after?`?cursor=${after}`:""}`)).json())});
   ipcMain.handle("cloud:catalog", () => platformSessions.catalog());
+  ipcMain.handle('platform:configuration', () => platformConfiguration.snapshot());
+  ipcMain.handle('platform:configuration-refresh', async () => {
+    return refreshPlatformConfiguration();
+  });
+  ipcMain.handle('release:check-update', () => checkRelease(platformConfiguration.snapshot(), rootPackage?.version ?? app.getVersion(), process.platform));
+  ipcMain.handle('release:open-update', async () => {
+    const result=await checkRelease(platformConfiguration.snapshot(),rootPackage?.version ?? app.getVersion(),process.platform);
+    if(result.state!=='available'||!result.url)throw Error('RELEASE_NOT_AVAILABLE');
+    await shell.openExternal(result.url);
+  });
   ipcMain.handle("cloud:run", async (_event,id:unknown) => {
     if(shuttingDown)return null;
     const conversation=assertText(id,"conversationId"),account=await identityClient.snapshot();
@@ -412,15 +441,6 @@ function registerIpc(): void {
   ipcMain.handle("account:cancel-login", () => identityClient.cancelLogin());
   ipcMain.handle("account:logout", async () => { platformSessions.dispose(); cloudFiles.clear();scienceScopes.clear();analysisScopes.clear(); return identityClient.logout(); });
   ipcMain.handle("account:revoke-device", (_event, id: unknown) => identityClient.revoke(assertText(id, "deviceId")));
-  ipcMain.handle("subscription:get", () => controlPlane.snapshot(`local-${store.getInstallationId()}`));
-  ipcMain.handle("subscription:activate-development", (_event, planId: unknown) => {
-    if (planId !== "pro" && planId !== "research") throw new Error("测试套餐无效");
-    return controlPlane.activateDevelopmentPlan(
-      `local-${store.getInstallationId()}`,
-      planId,
-      `desktop-dev-${randomUUID()}`,
-    );
-  });
   ipcMain.handle("diagnostics:refresh", () => diagnostics());
   ipcMain.handle("release:readiness", () => releaseReadiness());
   ipcMain.handle("release:export-support-bundle", () => exportSupportBundle());
@@ -495,19 +515,25 @@ app.whenReady().then(async () => {
     return project&&agentWorkspace?agentWorkspace.childTools(conversationId,definitions):definitions;
   },()=>[...userSkills.paths(),...installedSkills.paths()]);
   const vault = new SystemCredentialVault(join(userData, "platform-session.bin"), safeStorage);
+  let bundledPlatform;
   try {
-    identityClient = new IdentityClient(process.env.MATERIALSX_IDENTITY_URL ?? (packaged ? null : "http://127.0.0.1:8788"),
-      vault, (url) => shell.openExternal(url), !packaged);
+    bundledPlatform = await loadPlatformBundle(process.resourcesPath, packaged, process.env.MATERIALSX_IDENTITY_URL);
   } catch {
-    console.warn("MaterialsX identity origin configuration rejected; platform login disabled");
-    identityClient = new IdentityClient(null, vault, (url) => shell.openExternal(url));
+    console.warn('MaterialsX development platform origin rejected; platform login disabled');
+    bundledPlatform = await loadPlatformBundle(process.resourcesPath, false, '');
   }
+  platformConfiguration = new PlatformConfigurationService(bundledPlatform, userData);
+  await platformConfiguration.restore();
+  identityClient = new IdentityClient(bundledPlatform.apiOrigin, vault, (url) => shell.openExternal(url), !packaged);
   teamResearch=new TeamResearchWorkspace(store,researchService,identityClient);
   platformSessions = new PiPlatformSessionService(identityClient,(account,conversation,task)=>store.saveCloudTask(account,conversation,task.id));
   researchService.papers.rpsme=(c,p,pdf,approved,signal)=>piSessions.extractRpsme(c,p,pdf,approved,signal);
   agentRuntime=new DesktopAgentRuntime(store,piSessions,platformSessions,userData,{packaged:packaged,resourcesPath:process.resourcesPath,projectRoot:developmentRoot},async (projectId,ids)=>{const managed=await researchService.campaigns.queryJobs(projectId,ids);return [...managed,...ids.filter(id=>!managed.some(j=>j.id===id)).flatMap<{id:string;state:string;runId?:string}>(id=>{try {const receipt=atomistic.get({projectId,runId:id});return [{id,state:receipt.job.status}];}catch {try {const receipt=potentialAnalysis.get(projectId,id);return [{id,state:receipt.state,...(receipt.runId?{runId:receipt.runId}:{})}];}catch{return [];}}})];},researchService,id=>applicationCapabilities([...loadBuiltinSkillState(projectRoot),...userSkills.summaries(),...installedSkills.summaries()],atomistic.status(),researchService.moosConfigured(id),!!researchService.papers));
   agentWorkspace=new AgentWorkspace(store,agentRuntime,userData);
   registerIpc();
+  void refreshPlatformConfiguration();
+  platformConfigurationTimer=setInterval(()=>void refreshPlatformConfiguration(),60_000);
+  platformConfigurationTimer.unref();
   await createWindow();
   if(process.env.MATERIALSX_DISCOVERY_AUTOSYNC!=="0"){const refresh=()=>{void catalogUpdates.refresh().catch(()=>{});void potentialDiscovery.sync().catch(()=>{});};setTimeout(refresh,1500).unref();discoveryTimer=setInterval(refresh,3600000);discoveryTimer.unref();}
   app.on("activate", () => {
@@ -520,6 +546,7 @@ app.on("window-all-closed", () => {
 });
 
 app.on("before-quit", () => {
+  if(platformConfigurationTimer)clearInterval(platformConfigurationTimer);
   shuttingDown = true;
   if(discoveryTimer)clearInterval(discoveryTimer);catalogUpdates?.dispose();potentialDiscovery?.dispose();
   catalogWeights?.dispose();potentialAnalysis?.dispose();atomistic?.mountedPackages.cancel();scientificValidation?.dispose();atomistic?.packages.cancel();

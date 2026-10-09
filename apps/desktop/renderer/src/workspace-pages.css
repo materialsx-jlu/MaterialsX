@@ -28,9 +28,14 @@
 .operations-body .managed-environment { margin-top: 0; }
 .operations-body details { color: var(--muted); overflow-wrap: anywhere; }
 .operations-body summary { cursor: pointer; }
-.operations-view button, .research-workspace button { flex-shrink: 0; }
+.operations-view button { flex-shrink: 0; }
 .operations-view .search-box { background: var(--panel); }
 .operations-view .search-box:focus-within { border-color: var(--accent); }
+.runs-view .run-sections { display: flex; gap: 22px; width: 100%; max-width: 1120px; margin: 0 auto 22px; border-bottom: 1px solid var(--line); }
+.runs-view .run-sections button { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 2px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; }
+.runs-view .run-sections button.active { border-bottom-color: var(--accent); color: var(--text); font-weight: 600; }
+.runs-view .run-sections button span { color: var(--dim); font-size: 11px; font-weight: 400; }
+.runs-view .run-sections button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .runs-view .run-list { width: 100%; max-width: 1120px; margin: 0 auto; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
 .runs-view .run-row { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto auto; gap: 16px; align-items: center; padding: 18px; }
 .runs-view .run-row + .run-row { border-top: 1px solid var(--line-soft); }
@@ -41,23 +46,8 @@
 .runs-view .run-status.completed, .runs-view .run-status.running { color: var(--accent); }
 .runs-view .run-status.failed { color: var(--danger); }
 .runs-view .run-status.blocked, .runs-view .run-status.completed_with_limitations { color: var(--warn); }
-.research-workspace > :not(.page-heading) { width: 100%; max-width: 1120px; min-width: 0; margin-left: auto; margin-right: auto; }
-.research-workspace .research-tabs { gap: 8px; margin-bottom: 20px; }
-.research-workspace .research-tabs button { min-height: 33px; font-size: 11px; }
-.research-workspace .research-card { background: var(--catalog-surface); }
-.research-workspace .research-card header { flex-wrap: wrap; align-items: center; }
-.research-workspace .research-card header > div { flex: 1; min-width: min(240px, 100%); }
-.research-workspace .research-card h2 { font-size: 15px; line-height: 1.6; }
-.research-workspace .research-card p { font-size: 12px; margin: 6px 0 12px; }
-.research-workspace .source-row { flex-wrap: wrap; }
-.research-workspace .source-row > .actions { justify-content: flex-end; }
-.research-workspace .source-row strong { line-height: 1.65; }
-.research-workspace .field-help { color: var(--muted); line-height: 1.7; }
-.research-workspace .research-card > summary { cursor: pointer; font-size: 12px; }
-.research-workspace .delivery { background: var(--panel); }
-.research-workspace :is(.paper-library, .experiment-card, .study-card, .quality-card, .package-card, .agent-workspace-panel .card) { background: var(--catalog-surface); border-radius: 9px; }
-.research-workspace :is(.campaign-panel, .agent-workspace-panel) { margin-top: 0; }
-.research-workspace :is(input, textarea, select):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.runs-view .run-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.runs-view .run-more { display: flex; margin: 16px auto 24px; }
 .operations-view [role=alert] { color: var(--danger); overflow-wrap: anywhere; }
 @media (max-width: 950px) {
   .operations-body .mcp-editor label:not(:has(input[type=checkbox])) { grid-template-columns: minmax(0, 1fr); }
@@ -66,12 +56,11 @@
   .runs-view .run-icon { grid-row: 1 / 3; align-self: start; }
   .runs-view .run-content { grid-column: 2; grid-row: 1 / 3; }
   .runs-view .run-status { grid-column: 3; justify-self: end; }
-  .runs-view .run-action { grid-column: 3; justify-self: end; }
+  .runs-view .run-actions { grid-column: 3; justify-self: end; }
 }
 @media (max-width: 760px) {
   .runs-view .run-row { padding: 14px; }
   .operations-view .connection-row { grid-template-columns: 36px minmax(0, 1fr); }
   .operations-view .connection-status { grid-column: 2; }
   .operations-body .agent-grid { grid-template-columns: minmax(0, 1fr); }
-  .research-workspace .source-row > .actions { justify-content: flex-start; }
 }

@@ -1,0 +1,25 @@
+# Replace every .invalid domain before config:check. Keep sales paused until OD.7 acceptance.
+schemaVersion: 1
+environment: production
+releaseChannel: stable
+public:
+  apiOrigin: https://api.example.invalid
+  siteOrigin: https://www.example.invalid
+  adminOrigin: https://admin.example.invalid
+internal:
+  identity: 127.0.0.1:8788
+  team: 127.0.0.1:8793
+  billingWeb: 127.0.0.1:8790
+  litellmProxy: 127.0.0.1:4001
+  litellmConsole: 127.0.0.1:4000
+  moosApi: 127.0.0.1:8080
+researchData:
+  mode: colocated
+cloud:
+  mode: disabled
+payment:
+  mode: disabled
+development:
+  enableDevRoutes: false
+  disableAdminTotp: false
+  enablePaymentPilot: false

@@ -1,0 +1,24 @@
+[Unit]
+Description=MaterialsX research data service
+After=network-online.target materialsx-api.service
+Wants=network-online.target materialsx-api.service
+
+[Service]
+Type=simple
+User=materialsx-team
+Group=materialsx-team
+WorkingDirectory=/opt/materialsx-team/current
+EnvironmentFile=/etc/materialsx/team.env
+ExecStart=/usr/bin/node /opt/materialsx-team/current/dist/scripts/agent/ua13-server.js
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/materialsx-team
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

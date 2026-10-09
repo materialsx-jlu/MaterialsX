@@ -77,10 +77,10 @@ npm run m5:contracts:check
 # 配置专用 MATERIALSX_IDENTITY_TEST_DATABASE_URL 后：
 npm run m5:identity:test
 npm run build
-npm run m5:payments:live
+npm run control-plane:test
 ```
 
-`m5:payments:live` 名称中的 live 指实际 PG/主进程/预加载/Vue 集成，并非真实微信扣款。脚本创建独立临时数据库、随机合成账户、localhost 服务和桌面 userData；完成后销毁。不要指向生产数据库。需要本机可用的 Electron 图形环境和系统凭据加密；PG fixture 需要创建/删除自己临时数据库权限。
+原 M5.4 桌面验收脚本依赖已退役的订阅组件，现已移除。当前桌面购买与退款入口是 MX 点数面板；后端支付回归由 Go 测试覆盖。隔离 PostgreSQL 测试库不可指向生产数据库。
 
 实际完成的验证：
 

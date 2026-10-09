@@ -1,0 +1,25 @@
+# Replace every .invalid domain before config:check. No credentials here.
+schemaVersion: 1
+environment: staging
+releaseChannel: preview
+public:
+  apiOrigin: https://api.staging.example.invalid
+  siteOrigin: https://www.staging.example.invalid
+  adminOrigin: https://admin.staging.example.invalid
+internal:
+  identity: 127.0.0.1:8788
+  team: 127.0.0.1:8793
+  billingWeb: 127.0.0.1:8790
+  litellmProxy: 127.0.0.1:4001
+  litellmConsole: 127.0.0.1:4000
+  moosApi: 127.0.0.1:8080
+researchData:
+  mode: colocated
+cloud:
+  mode: alpha
+payment:
+  mode: disabled
+development:
+  enableDevRoutes: false
+  disableAdminTotp: false
+  enablePaymentPilot: false

@@ -234,6 +234,46 @@ func TestAPIReadinessRequiresWorkerOnlyWhenFinancialWorkIsActive(t *testing.T) {
 	}
 }
 
+func TestModelProxyReadinessIsSeparateFromProcessAndDatabase(t *testing.T) {
+	t.Setenv("MATERIALSX_ENV", "development")
+	pool := poolFixture(t)
+	id, err := identity.New(pool, []byte(strings.Repeat("K", 32)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	parent := identity.NewHTTP(id, "http://localhost", false)
+	parent.ClientFeatures.Models = true
+	h := Mount(parent, &Store{Pool: pool, Config: Config{MX03Diagnostic: true}})
+	h.ConfigureLifecycle([]byte(strings.Repeat("K", 32)), "")
+	probe := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/health/liveliness" {
+			t.Errorf("wrong proxy probe path: %s", r.URL.Path)
+		}
+		w.WriteHeader(200)
+	}))
+	t.Setenv("MATERIALSX_LITELLM_URL", probe.URL)
+	status := func() (int, map[string]any) {
+		w := httptest.NewRecorder()
+		parent.ServeHTTP(w, httptest.NewRequest(http.MethodGet, "http://localhost/health/ready", nil))
+		var body map[string]any
+		if e := json.Unmarshal(w.Body.Bytes(), &body); e != nil {
+			t.Fatal(e)
+		}
+		return w.Code, body
+	}
+	if code, body := status(); code != 200 || body["ready"] != true {
+		t.Fatal(code, body)
+	}
+	probe.Close()
+	if code, body := status(); code != 503 || body["ready"] != false {
+		t.Fatal(code, body)
+	}
+	t.Setenv("MATERIALSX_LITELLM_URL", "http://attacker.invalid")
+	if code, _ := status(); code != 503 {
+		t.Fatal("non-loopback probe accepted", code)
+	}
+}
+
 // New runtime permissions cannot change credentials/admin roles or manufacture statement revisions.
 func TestLifecycleRestrictedRole(t *testing.T) {
 	ctx := context.Background()

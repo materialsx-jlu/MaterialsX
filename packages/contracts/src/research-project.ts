@@ -63,11 +63,5 @@ export interface ResearchDesktopAPI {
   listResearchDeliveries(projectId:string):Promise<DeliveryRecord[]>;
   getResearchRevisionInputs(taskId:string):Promise<ResearchBinding>;
   getResearchProject(projectId:string):Promise<ResearchOverview>;
-  saveResearchProject(input:ResearchProject,expectedRevision:number):Promise<ResearchProject>;
-  searchResearchData(projectId:string,query:string,reviewScope:'verified'|'include-unreviewed',cursor?:string):Promise<unknown>;
-  selectResearchData(projectId:string,ref:MoosRef):Promise<ResearchSnapshot>;
-  importResearchData(projectId:string):Promise<ResearchSnapshot|null>;
-  refreshResearchSource(projectId:string,snapshotId:string):Promise<ResearchSnapshot>;
-  readResearchImage(projectId:string,snapshotId:string,mediaId:string):Promise<{dataUrl:string;rightsBasis:string;sha256:string}>;
   previewResearchArtifact(projectId:string,deliveryId:string,kind:'table'|'chart'|'report'):Promise<string>;
 }

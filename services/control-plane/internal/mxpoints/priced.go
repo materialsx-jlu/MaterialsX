@@ -9,6 +9,8 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jamip/materialsx/control-plane/internal/mxpricing"
+	"github.com/jamip/materialsx/control-plane/internal/mxrelease"
+	"time"
 )
 
 type PricedRequest struct {
@@ -39,8 +41,24 @@ func (s *Store) ReservePriced(ctx context.Context, owner string, in PricedReques
 
 // ReservePricedTx lets the gateway commit request admission and the MX hold atomically.
 func (s *Store) ReservePricedTx(ctx context.Context, tx pgx.Tx, owner string, in PricedRequest) (int64, error) {
-	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" {
+	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" && s.Mode != "wechat-production" {
 		return 0, ErrDisabled
+	}
+	if err := s.productionReadyTx(ctx, tx); err != nil {
+		return 0, err
+	}
+	if s.Mode == "wechat-production" {
+		a, err := mxrelease.Read(s.ReleasePath, time.Now().UTC())
+		if err != nil || !a.Allows(in.ModelID, in.RouteVersion) {
+			return 0, ErrDisabled
+		}
+	}
+	if s.Mode == "wechat-production" && (in.PurchaseVersionID != s.ReleaseID+"-purchase" || in.FXVersionID != s.ReleaseID+"-fx" || in.RetailVersionID != s.ReleaseID+"-retail") {
+		var published bool
+		err := tx.QueryRow(ctx, `SELECT EXISTS(SELECT 1 FROM mx_cloud_models WHERE id=$1 AND route_version=$2 AND purchase_version_id=$3 AND fx_version_id=$4 AND retail_version_id=$5 AND status='active' AND deployed_version=version)`, in.ModelID, in.RouteVersion, in.PurchaseVersionID, in.FXVersionID, in.RetailVersionID).Scan(&published)
+		if err != nil || !published {
+			return 0, ErrDisabled
+		}
 	}
 	if !identifier.MatchString(in.RequestID) || !identifier.MatchString(in.RouteVersion) || (in.TaskID != "" && !identifier.MatchString(in.TaskID)) {
 		return 0, ErrValidation
@@ -107,7 +125,7 @@ func (s *Store) SettlePriced(ctx context.Context, owner, requestID string, usage
 // SettlePricedTx returns pending=true after storing an evidence gap; the caller
 // must still commit the transaction so the full hold remains for reconciliation.
 func (s *Store) SettlePricedTx(ctx context.Context, tx pgx.Tx, owner, requestID string, usage mxpricing.Usage, evidenceRef string) (mxpricing.Quote, bool, error) {
-	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" {
+	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" && s.Mode != "wechat-production" {
 		return mxpricing.Quote{}, false, ErrDisabled
 	}
 	if !identifier.MatchString(requestID) {
@@ -203,7 +221,7 @@ func (s *Store) ReleasePriced(ctx context.Context, owner, requestID string) erro
 }
 
 func (s *Store) ReleasePricedTx(ctx context.Context, tx pgx.Tx, owner, requestID string) error {
-	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" {
+	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" && s.Mode != "wechat-production" {
 		return ErrDisabled
 	}
 	var exists bool
@@ -236,7 +254,7 @@ func (s *Store) RecordSupplierBill(ctx context.Context, owner, requestID, billRe
 // RecordSupplierBillTx lets a trusted reconciler commit the supplier bill and
 // wallet settlement together. A different second bill remains a conflict.
 func (s *Store) RecordSupplierBillTx(ctx context.Context, tx pgx.Tx, owner, requestID, billRef string, amountMicrofen int64) error {
-	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" {
+	if s.Mode != "test" && s.Mode != "wechat" && s.Mode != "wechat-live" && s.Mode != "wechat-production" {
 		return ErrDisabled
 	}
 	if !identifier.MatchString(requestID) || !identifier.MatchString(billRef) || amountMicrofen < 0 {

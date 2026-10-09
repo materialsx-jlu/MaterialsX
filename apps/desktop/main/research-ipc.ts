@@ -1,7 +1,6 @@
 import {dialog,ipcMain,type BrowserWindow} from 'electron';
 import {z} from 'zod';
 import {ownedText} from '../../../packages/atomistic/src/discovery-io.js';
-import {researchProjectSchema,moosRefSchema} from '../../../packages/contracts/src/research-project.js';
 import type {ResearchService} from './research-service.js';
 export function registerResearchIpc(service:ResearchService,window:()=>BrowserWindow|null){
   const id=z.uuid();
@@ -51,13 +50,5 @@ export function registerResearchIpc(service:ResearchService,window:()=>BrowserWi
   ipcMain.handle('research:deliveries',(_e,p)=>view(p,id=>service.deliveries(id)));
   ipcMain.handle('research:revision-inputs',(_e,p)=>service.revisionBinding(id.parse(p)));
   ipcMain.handle('research:project',(_e,p)=>view(p,id=>service.overview(id)));
-  ipcMain.handle('research:save',(_e,p,expected)=>service.save(researchProjectSchema.parse(p),z.number().int().positive().parse(expected)));
-  ipcMain.handle('research:search',(_e,input)=>{const q=z.strictObject({projectId:id,query:z.string().max(160),reviewScope:z.enum(['verified','include-unreviewed']),cursor:z.string().max(2048).optional()}).parse(input);return service.router.search(q.projectId,null,{query:q.query,reviewScope:q.reviewScope,...(q.cursor?{cursor:q.cursor}:{})});});
-  ipcMain.handle('research:select',(_e,p,ref)=>service.select(id.parse(p),moosRefSchema.parse(ref)));
-  ipcMain.handle('research:import',async(_e,p)=>{const projectId=id.parse(p);service.overview(projectId);const w=window();if(!w)return null;
-    const selected=await dialog.showOpenDialog(w,{properties:['openFile'],filters:[{name:'Project research input JSON',extensions:['json']}]});
-    return selected.canceled||!selected.filePaths[0]?null:service.import(projectId,selected.filePaths[0]);});
-  ipcMain.handle('research:refresh',(_e,p,s)=>service.refresh(id.parse(p),id.parse(s)));
-  ipcMain.handle('research:image',(_e,p,s,media)=>service.image(id.parse(p),id.parse(s),z.string().min(1).max(220).parse(media)));
   ipcMain.handle('research:preview',(_e,p,d,kind)=>preview(p,pid=>service.preview(pid,id.parse(d),z.enum(['table','chart','report']).parse(kind))));
 }
